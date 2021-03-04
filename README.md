@@ -2,8 +2,7 @@
 
 ## Project Library and Design Choices
 
-#### __Boiler Plate:__
-To provide a majority of the baseline boilerplate code and setup for the project we decided to use the CarbonFive's creat-react-app extension [Spraygun](https://github.com/carbonfive/spraygun-react-ts)
+__Boiler Plate:__ [Spraygun](https://github.com/carbonfive/spraygun-react-ts) will provide a majority of the baseline boilerplate code and setup for the project
 
 __Package Management:__ [Node Package Manager](https://www.npmjs.com) (npm)
 
