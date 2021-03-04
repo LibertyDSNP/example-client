@@ -1,49 +1,36 @@
 # Example Client
 
-## Library Choices
+## Project Library and Design Choices
 
-__Boiler Plate__
-* [Spraygun](https://github.com/carbonfive/spraygun-react-ts)
+#### __Boiler Plate:__
+To provide a majority of the baseline boilerplate code and setup for the project we decided to use the CarbonFive's creat-react-app extension [Spraygun](https://github.com/carbonfive/spraygun-react-ts)
 
-__Frontend Framework__
-* ReactJS (Spraygun Default))
+__Package Management:__ [Node Package Manager](https://www.npmjs.com) (npm)
 
-__State Management Library__
-* ???
-* react hooks vs. react-redux vs. react-context & react-query
+__State Management:__ [React Redux](https://react-redux.js.org) for easier context passing of state
 
-__UI Component Library__
-* Ant Design
+__Network Request:__ [Web3.js](https://web3js.readthedocs.io/en/v1.3.4/) for etherium blockchain interaction
 
-__CSS Preprocessor__
-* SCSS (Spraygun Default)
+__Frontend Framework:__
+* [ReactJS](https://reactjs.org) with [Typescript](https://www.typescriptlang.org)
+* [SCSS](https://sass-lang.com) with [BEM](https://en.bem.info/methodology/css/) methodology
+* Responsive with Desktop first priority
+* Utilize media queries, SCSS mixing
+* [Ant Design](https://ant.design) Library for Prebuilt React Components
 
-__CSS Methodology__
-* BEM (Spraygun Default)
+__Testing:__
+* Tests written in [Jest](https://jestjs.io) and [Enzyme](https://enzymejs.github.io/enzyme/)
+* CI/CD done with [Github Actions](https://github.com/features/actions)
 
-__Network Request Library__
-* ???
-* do we even need this, or can we just use web3 JS
+## Miscellaneous Information
 
-__Testing__
-* Jest + Enzyme
-* CircleCI or Github Actions? 
-  * Github Actions is free for open source but, do you get what you pay for with CircleCI?
+__Contributing Guide:__
+To contribute to this project please read our __CONTRIBUTING.md__.
+This file will provide the details on everything form requesting features to reporting bugs, to making your own PR requests.
 
-__Package Management Tool__
-* npm
+__Style Guide:__
+The layout of this projecty adheres to a specific style guide that you can find in __STYLING.md__
+This file will provide the details on the many different facets of the look and feel of this project. It is required to adhere to this style guide when making contributions to the project.
 
-__Responsive Framework__
-* Desktop first
-* Utilize media queries, scss mixing, scss variables, and responsive css to achieve mobile, tablet, and laptop styling
- * We want to avoid cluttering the typescript with classnames, as seen in most responsive frameworks
-
-__Style Guide__
-* ???
-* __BLOCKER__ => wireframes
-
-__Contributing Guide__
-* [???](http://mozillascience.github.io/working-open-workshop/contributing/)
-
-__Licensing__
-* ???
+__Licensing:__
+Before doing anything beyond reading through the project please take a moment to view our __LICENSE.md__
