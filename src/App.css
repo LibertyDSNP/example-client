@@ -1,42 +1,53 @@
-.App {
-  text-align: center;
-  background-color: yellow;
+.Login__block .ant-btn {
+  border-radius: 25px;
+  margin-left: 16px;
+}
+.Login__block .ant-btn:hover, .Login__block .ant-btn:active, .Login__block .ant-btn:focus {
+  color: #26e990;
+  border-color: #26e990;
 }
 
-.App__logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 40vmin;
-  pointer-events: none;
+.Header__block {
+  background-color: #d3d3d3;
+  padding: 0 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
 }
 
-.App__header {
-  font-family: -apple-system, blinkmacsystemfont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
-  font-size: 24px;
-  line-height: 1.1;
-  background-color: #282c34;
-  min-height: 100vh;
+.Header__title {
+  margin: 0;
+}
+
+.Login__block {
+  display: flex;
+}
+
+.Profile__block {
+  background-color: #d3d3d3;
+  padding: 16px;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  color: #fff;
+  flex-basis: 30%;
 }
 
-.App__code {
-  font-family: source-code-pro, menlo, monaco, consolas, "Courier New", monospace;
+.Feed__block {
+  background-color: #d3d3d3;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  flex-basis: 50%;
 }
 
-.App__link {
-  color: #61dafb;
+.Feed__header {
+  display: flex;
+  justify-content: space-between;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.App__content {
+  display: flex;
+  justify-content: space-around;
 }
 
 /*# sourceMappingURL=App.css.map */
