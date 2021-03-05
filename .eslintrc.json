@@ -1,7 +1,32 @@
 {
+  "globals": {
+    "JSX": true
+  },
+  "plugins": ["jest", "prettier", "react-hooks"],
   "parser": "@typescript-eslint/parser",
-  "plugins": ["@typescript-eslint", "jest", "prettier"],
+  "parserOptions": {
+    "ecmaVersion": 2018,
+    "sourceType": "module"
+  },
   "rules": {
+    "no-var": "error",
+    "no-console": "off",
+    "prettier/prettier": "error",
+    "react-hooks/rules-of-hooks": "error",
+    "react-hooks/exhaustive-deps": "warn",
+    // note you must disable the base rule as it can report incorrect errors
+    "no-use-before-define": "off",
+    "@typescript-eslint/no-use-before-define": "off",
+    "@typescript-eslint/explicit-function-return-type": "off",
+    "@typescript-eslint/no-explicit-any": "off",
+    "@typescript-eslint/no-inferrable-types": [
+      "warn",
+      {
+        "ignoreParameters": true
+      }
+    ],
+    "@typescript-eslint/no-var-requires": "off",
+    "no-unused-vars": "off",
     "@typescript-eslint/no-unused-vars": [
       "error",
       {
@@ -10,17 +35,25 @@
         "varsIgnorePattern": "^_"
       }
     ],
-    "no-var": "error",
-    "prettier/prettier": "error",
-    "@typescript-eslint/explicit-function-return-type": "off",
-    "@typescript-eslint/explicit-member-accessibility": "off"
+    "@typescript-eslint/ban-ts-ignore": "off",
+    // disable the rule for all files, then re-enable for ts files
+    "@typescript-eslint/explicit-module-boundary-types": "off",
+    "@typescript-eslint/indent": "off"
   },
+  "overrides": [
+    {
+      // enable the rule specifically for TypeScript files
+      "files": ["*.ts", "*.tsx"],
+      "rules": {
+        "@typescript-eslint/explicit-module-boundary-types": ["error"]
+      }
+    }
+  ],
   "extends": [
+    "plugin:@typescript-eslint/recommended",
     "react-app",
     "eslint:recommended",
-    "plugin:@typescript-eslint/recommended",
     "plugin:jest/recommended",
-    "prettier/@typescript-eslint",
     "prettier"
   ]
 }
