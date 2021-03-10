@@ -1,9 +1,7 @@
 # Example Client
 
 ## Project Library and Design Choices
-
-#### __Boiler Plate:__
-To provide a majority of the baseline boilerplate code and setup for the project we decided to use the CarbonFive's creat-react-app extension [Spraygun](https://github.com/carbonfive/spraygun-react-ts)
+Below is a list of importan libraries and dependecies for the project and what their prupose is.
 
 __Package Management:__ [Node Package Manager](https://www.npmjs.com) (npm)
 
@@ -25,11 +23,11 @@ __Testing:__
 ## Miscellaneous Information
 
 __Contributing Guide:__
-To contribute to this project please read our __CONTRIBUTING.md__.
-This file will provide the details on everything form requesting features to reporting bugs, to making your own PR requests.
+To contribute to this project please read our __CONTRIBUTING.md__ and our __CODE_OF_CONDUCT.md__
+These files will provide the details on everything from requesting features, to reporting bugs, to making your own PR requests.
 
 __Style Guide:__
-The layout of this projecty adheres to a specific style guide that you can find in __STYLING.md__
+The layout of this project adheres to a specific style guide that you can find in __STYLING.md__
 This file will provide the details on the many different facets of the look and feel of this project. It is required to adhere to this style guide when making contributions to the project.
 
 __Licensing:__
