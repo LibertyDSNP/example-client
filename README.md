@@ -23,12 +23,15 @@ __Testing:__
 ## Miscellaneous Information
 
 __Contributing Guide:__
-To contribute to this project please read our __CONTRIBUTING.md__ and our __CODE_OF_CONDUCT.md__
-These files will provide the details on everything from requesting features, to reporting bugs, to making your own PR requests.
+To contribute to this project please read our __CONTRIBUTING.md__
+This files will provide the details on everything from requesting features, to reporting bugs, to making your own PR requests.
 
 __Style Guide:__
 The layout of this project adheres to a specific style guide that you can find in __STYLING.md__
 This file will provide the details on the many different facets of the look and feel of this project. It is required to adhere to this style guide when making contributions to the project.
+
+__Code of Conduct:__
+In all interactions we request everyone review, understand, and follow our [CODE OF CONDUCT](https://project-liberty-stage.liberti.social/dC9sKMRqhTuy/codeOfConduct.html)
 
 __Licensing:__
 Before doing anything beyond reading through the project please take a moment to view our __LICENSE.md__
