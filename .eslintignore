@@ -1,0 +1,5 @@
+src/serviceWorker.ts
+# data definition files
+**/*.d.ts
+# Mocks
+**/__mocks__/**/*

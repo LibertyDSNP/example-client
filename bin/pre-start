@@ -1,0 +1,11 @@
+#!/usr/bin/env node
+
+const shell = require("shelljs");
+
+shell.config.silent = true;
+if (shell.error()) {
+  console.log(`
+  ERROR: Dependencies are not met. Please run \`npm install\`.
+`);
+  process.exit(1);
+}
