@@ -31,7 +31,7 @@ The layout of this project adheres to a specific style guide that you can find i
 This file will provide the details on the many different facets of the look and feel of this project. It is required to adhere to this style guide when making contributions to the project.
 
 __Code of Conduct:__
-In all interactions we request everyone review, understand, and follow our [CODE OF CONDUCT](https://project-liberty-stage.liberti.social/dC9sKMRqhTuy/codeOfConduct.html)
+In all interactions we request everyone review, understand, and follow our [CODE OF CONDUCT](https://www.projectliberty.io/codeOfConduct.html)
 
 __Licensing:__
 Before doing anything beyond reading through the project please take a moment to view our __LICENSE.md__
