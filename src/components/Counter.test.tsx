@@ -8,7 +8,7 @@ function subject() {
 
 describe("initial state", () => {
   it("renders 0", () => {
-    expect(subject()).toIncludeText("0");
+    expect(subject().text()).toContain("0");
   });
 });
 
@@ -16,9 +16,9 @@ describe("onClick", () => {
   it("increments when clicked", () => {
     const component = subject();
     component.find("button").simulate("click");
-    expect(component).toIncludeText("1");
+    expect(component.text()).toContain("1");
 
     component.find("button").simulate("click");
-    expect(component).toIncludeText("2");
+    expect(component.text()).toContain("2");
   });
 });
