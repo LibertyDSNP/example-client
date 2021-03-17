@@ -1,10 +1,10 @@
 import React from "react";
 import App from "./App";
-import {shallow} from "enzyme";
+import { shallow } from "enzyme";
 
 it("renders without crashing", () => {
   expect(() => {
-    shallow(<App />)
+    shallow(<App />);
   }).not.toThrow();
 });
 
