@@ -9,7 +9,7 @@
 }
 
 .App__header {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+  font-family: -apple-system, blinkmacsystemfont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
   font-size: 24px;
   line-height: 1.1;
   background-color: #282c34;
@@ -22,7 +22,7 @@
 }
 
 .App__code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
+  font-family: source-code-pro, menlo, monaco, consolas, "Courier New", monospace;
 }
 
 .App__link {

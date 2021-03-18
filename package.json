@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "antd": "^4.13.1",
+    "antd": "4.14.0",
     "camelcase": "^6.2.0",
     "css-loader": "5.1.2",
     "file-loader": "6.2.0",
@@ -17,9 +17,9 @@
     "postcss-normalize": "9.0.0",
     "postcss-preset-env": "6.7.0",
     "postcss-safe-parser": "5.0.2",
-    "react": "^16.14.0",
+    "react": "17.0.1",
     "react-app-polyfill": "^2.0.0",
-    "react-dom": "^16.14.0",
+    "react-dom": "17.0.1",
     "react-router-dom": "^5.2.0",
     "resolve": "1.20.0",
     "resolve-url-loader": "3.1.2",
@@ -110,7 +110,10 @@
     "snapshotSerializers": [
       "enzyme-to-json/serializer"
     ],
-    "reporters": [ "default", "jest-junit" ],
+    "reporters": [
+      "default",
+      "jest-junit"
+    ],
     "testResultsProcessor": "jest-junit"
   },
   "jest-junit": {
@@ -134,9 +137,8 @@
   "devDependencies": {
     "@babel/core": "7.13.10",
     "@svgr/webpack": "5.5.0",
-    "@testing-library/react-hooks": "^5.1.0",
+    "@testing-library/react-hooks": "5.1.0",
     "@types/enzyme": "^3.10.8",
-    "@types/enzyme-adapter-react-16": "^1.0.6",
     "@types/jest": "^26.0.20",
     "@types/react": "17.0.3",
     "@types/react-dom": "17.0.2",
@@ -144,6 +146,7 @@
     "@types/react-test-renderer": "17.0.1",
     "@typescript-eslint/eslint-plugin": "^4.17.0",
     "@typescript-eslint/parser": "^4.17.0",
+    "@wojtekmaj/enzyme-adapter-react-17": "^0.4.1",
     "babel-eslint": "10.1.0",
     "babel-jest": "^26.6.3",
     "babel-loader": "8.2.2",
@@ -152,7 +155,6 @@
     "babel-preset-react-app": "^10.0.0",
     "case-sensitive-paths-webpack-plugin": "2.4.0",
     "enzyme": "^3.11.0",
-    "enzyme-adapter-react-16": "^1.15.6",
     "enzyme-to-json": "^3.6.1",
     "eslint": "^7.21.0",
     "eslint-config-prettier": "^8.1.0",
