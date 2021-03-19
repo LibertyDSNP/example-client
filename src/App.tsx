@@ -1,5 +1,5 @@
 import React from "react";
-import logo from "./logo.svg";
+import Logo from "./logo.svg";
 import "./App.scss";
 import Counter from "./components/Counter";
 
@@ -8,7 +8,7 @@ const App: React.FC = () => {
     <div className="App">
       <header className="App__header">
         <Counter />
-        <img src={logo} className="App__logo" alt="logo" />
+        <img src={Logo} className="App__logo" alt="logo" />
         <p>
           Edit <code className="App__code">src/App.js</code> and save to reload.
         </p>

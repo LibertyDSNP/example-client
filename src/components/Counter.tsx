@@ -1,14 +1,17 @@
 import React from "react";
 import "./Counter.scss";
 
-export default class Counter extends React.Component<{}, { count: number }> {
-  constructor(props: {}) {
+export default class Counter extends React.Component<
+  Record<string, unknown>,
+  { count: number }
+> {
+  constructor(props: Record<string, unknown>) {
     super(props);
     this.state = { count: 0 };
   }
 
-  increment = () => {
-    this.setState(state => ({ ...state, count: state.count + 1 }));
+  increment = (): any => {
+    this.setState((state) => ({ ...state, count: state.count + 1 }));
   };
 
   render(): JSX.Element {

@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "antd": "^4.13.1",
+    "antd": "^4.14.0",
     "camelcase": "^6.2.0",
     "css-loader": "5.1.2",
     "file-loader": "6.2.0",
@@ -27,6 +27,7 @@
     "serve": "^11.3.2",
     "shelljs": "^0.8.4",
     "style-loader": "2.0.0",
+    "ts-jest": "^26.5.4",
     "ts-pnp": "1.2.0",
     "typescript": "^4.2.3",
     "url-loader": "4.1.1",
@@ -44,7 +45,7 @@
     "lint:eslint": "eslint 'src/**/*.{js,jsx,ts,tsx}'",
     "lint:stylelint": "stylelint src/**/*.scss",
     "format": "npm run lint:eslint -- --fix && npm run lint:stylelint -- --fix ",
-    "test": "node scripts/test.js",
+    "test": "jest",
     "test:coverage": "node scripts/test.js --env=jsdom --coverage",
     "docker:build": "docker build -t liberty-exp-client . && docker container create -p 3000:3000 --name liberty-exp-client liberty-exp-client:latest",
     "docker:start": "docker container start liberty-exp-client",
@@ -69,7 +70,7 @@
       "<rootDir>/config/jest/setup.js"
     ],
     "setupFilesAfterEnv": [
-      "<rootDir>/src/setupTests.js"
+      "<rootDir>/src/setupTests.ts"
     ],
     "testMatch": [
       "<rootDir>/src/**/__tests__/**/*.{js,jsx,ts,tsx}",
@@ -108,7 +109,17 @@
     ],
     "snapshotSerializers": [
       "enzyme-to-json/serializer"
-    ]
+    ],
+    "reporters": [
+      "default",
+      "jest-junit"
+    ],
+    "testResultsProcessor": "jest-junit"
+  },
+  "jest-junit": {
+    "suiteNameTemplate": "{filepath}",
+    "classNameTemplate": "{classname}",
+    "titleTemplate": "{title}"
   },
   "browserslist": {
     "production": [
@@ -135,6 +146,7 @@
     "@types/react-test-renderer": "17.0.1",
     "@typescript-eslint/eslint-plugin": "^4.17.0",
     "@typescript-eslint/parser": "^4.17.0",
+    "@wojtekmaj/enzyme-adapter-react-17": "^0.4.1",
     "babel-eslint": "10.1.0",
     "babel-jest": "^26.6.3",
     "babel-loader": "8.2.2",
@@ -143,7 +155,6 @@
     "babel-preset-react-app": "^10.0.0",
     "case-sensitive-paths-webpack-plugin": "2.4.0",
     "enzyme": "^3.11.0",
-    "enzyme-adapter-react-16": "^1.15.6",
     "enzyme-to-json": "^3.6.1",
     "eslint": "^7.21.0",
     "eslint-config-prettier": "^8.1.0",
