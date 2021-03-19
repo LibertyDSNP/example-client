@@ -24,3 +24,5 @@ yarn-error.log*
 
 .idea
 junit.xml
+src/App.css
+src/App.css.map
