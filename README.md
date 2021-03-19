@@ -1,4 +1,10 @@
 # Example Client
+### Note:
+Enzyme is not ready for react 17 yet, so using an unofficial version and installing
+packages with `npm i --legacy-peer-deps` if using node v7.
+#### Goal:
+* Change to official version of enzyme when correct version is available.
+* Issue: https://github.com/enzymejs/enzyme/issues/2429
 
 ## Project Library and Design Choices
 Below is a list of importan libraries and dependecies for the project and what their prupose is.
