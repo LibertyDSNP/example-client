@@ -2,7 +2,7 @@ import React from "react";
 import NewPost from "./NewPost";
 import PostList from "./PostList";
 
-const Feed = () => {
+const Feed: React.FC = () => {
   return (
     <div className="Feed__block">
       <div className="Feed__header">

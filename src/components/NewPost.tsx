@@ -1,10 +1,10 @@
 import React from "react";
 
-const Header = () => {
+const NewPost: React.FC = () => {
   return (
     <>
       <button>New Post</button>
     </>
   );
 };
-export default Header;
+export default NewPost;

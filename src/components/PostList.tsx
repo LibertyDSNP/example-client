@@ -1,6 +1,6 @@
 import React from "react";
 
-const PostList = () => {
+const PostList: React.FC = () => {
   return (
     <div className="PostList__block">
       <h1>PostList</h1>
