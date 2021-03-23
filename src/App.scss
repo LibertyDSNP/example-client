@@ -1,43 +1,10 @@
-@import "./theme/colors.scss";
-@import "./theme/typography.scss";
+@import "theme/colors";
+@import "theme/typography";
+@import "./components/Header";
+@import "./components/Profile";
+@import "./components/Feed";
 
-.App {
-  text-align: center;
-  background-color: yellow;
-}
-
-.App__logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 40vmin;
-  pointer-events: none;
-}
-
-.App__header {
-  @include headline-text;
-
-  background-color: $gray-28;
-  min-height: 100vh;
+.App__content {
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  color: $white;
-}
-
-.App__code {
-  font-family: $font-monospace;
-}
-
-.App__link {
-  color: $blue;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-
-  to {
-    transform: rotate(360deg);
-  }
+  justify-content: space-around;
 }

@@ -1,26 +1,18 @@
 import React from "react";
-import Logo from "./logo.svg";
 import "./App.scss";
-import Counter from "./components/Counter";
+import "antd/dist/antd.less";
+import Header from "./components/Header";
+import Feed from "./components/Feed";
+import Profile from "./components/Profile";
 
 const App: React.FC = () => {
   return (
     <div className="App">
-      <header className="App__header">
-        <Counter />
-        <img src={Logo} className="App__logo" alt="logo" />
-        <p>
-          Edit <code className="App__code">src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App__link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Header />
+      <main className="App__content">
+        <Feed />
+        <Profile />
+      </main>
     </div>
   );
 };
