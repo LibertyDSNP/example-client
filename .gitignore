@@ -24,3 +24,5 @@ yarn-error.log*
 
 .idea
 junit.xml
+.gitignore *.css.map
+syleguide/*
