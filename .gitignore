@@ -23,4 +23,5 @@ yarn-debug.log*
 yarn-error.log*
 
 .idea
-junit.xml
+.idea/workspace.xml
+package-lock.json
