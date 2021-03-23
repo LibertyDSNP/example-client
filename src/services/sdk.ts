@@ -1,37 +1,33 @@
 import { Graph, HexString, Profile } from "../utilities/types";
+import * as sdk from "./mocksdk";
 
-export const getDSNPProfile = async (
+export const getSocialIdentity = async (
+  walletAddress: HexString
+): Promise<HexString> => {
+  let socialAddress: HexString = await sdk.getSocialIdentityfromWalletAddress(
+    walletAddress
+  );
+  if (!socialAddress) {
+    socialAddress = await sdk.createSocialIdentityfromWalletAddress(
+      walletAddress
+    );
+  }
+  return socialAddress;
+};
+export const getGraph = async (
+  socialAddress: HexString
+): Promise<Graph | null> => {
+  const graph: Graph | null = await sdk.getGraphFromSocialIdentity(
+    socialAddress
+  );
+  return graph;
+};
+
+export const getProfile = async (
   socialAddress: HexString
 ): Promise<Profile | null> => {
-  const { server: apiServer } = await getNetwork();
-
-  const response = await fetch(`${apiServer}/api/resolve/${socialAddress}`, {
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    signal,
-  }).catch((e) => {
-    if (e.name !== "AbortError") {
-      throw e;
-    }
-  });
-  if ((response as Response).status === 200) {
-    return await (response as Response).json();
-  }
-  return null;
-};
-
-export const getGraph = async (siAddress: HexString): Promise<Graph | null> => {
-  const friendlyProfileRequest = await api.getPersonFromSocialIdentity(
-    siAddress
+  const profile: Profile | null = await sdk.getProfileFromSocialIdentity(
+    socialAddress
   );
-  if ((friendlyProfileRequest as Response).status === 200) {
-    return await (friendlyProfileRequest as Response).json();
-  }
-  return null;
+  return profile;
 };
-
-function getNetwork(): { server: any } | PromiseLike<{ server: any }> {
-  throw new Error("Function not implemented.");
-}

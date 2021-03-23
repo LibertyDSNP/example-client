@@ -2,12 +2,9 @@ import React from "react";
 import { useHistory } from "react-router-dom";
 import { Alert, Button, Form, Layout, Spin } from "antd";
 import logo from "../images/friendly-logo-green.svg";
-import { connect } from "../services/web3";
-import * as api from "../services/api";
-import { createSocialIdentity } from "../services/chain";
-import { getSocialIdentityContract } from "../services/readChain";
+import * as sdk from "../services/sdk";
 import { Graph, HexString, Profile } from "../utilities/types";
-import * as torus from "../services/torus/torus";
+import * as torus from "../services/wallets/torus";
 
 interface LoginProps {
   onAuthenticate: (
@@ -27,70 +24,11 @@ const Login = ({ onAuthenticate }: LoginProps): JSX.Element => {
   const auth = async (
     walletAddress: HexString,
     socialAddress: HexString,
-    profile?: Profile
+    profile: Profile,
+    graph: Graph
   ) => {
-    const contract = await getSocialIdentityContract(socialAddress);
-
-    contract.
-
     await onAuthenticate(walletAddress, socialAddress, profile, graph);
     history.push("/");
-  };
-
-  const getProfile = async (siAddress: HexString): Promise<Profile | null> => {
-    const friendlyProfileRequest = await api.getPersonFromSocialIdentity(
-      siAddress
-    );
-    if ((friendlyProfileRequest as Response).status === 200) {
-      return await (friendlyProfileRequest as Response).json();
-    }
-    return null;
-  };
-
-  const getGraph = async (siAddress: HexString): Promise<Graph | null> => {
-    const friendlyProfileRequest = await api.getPersonFromSocialIdentity(
-      siAddress
-    );
-    if ((friendlyProfileRequest as Response).status === 200) {
-      return await (friendlyProfileRequest as Response).json();
-    }
-    return null;
-  };
-
-  const startMetaMaskLogin = async () => {
-    if (loading) return;
-    startLoading(true);
-    try {
-      const connAddr = await connect();
-      const { address } = await (
-        await api.getSocialIdentityFromOwner(connAddr)
-      ).json();
-
-      if (address) {
-        const profile = await getProfile(address);
-        auth(connAddr, address, profile);
-      } else {
-        const socAddress = await createSocialIdentity(connAddr);
-        if (socAddress) {
-          auth(connAddr, socAddress, null);
-        } else {
-          setAlertError(
-            "Looks like the transaction is taking a while. Please try to login after the transaction is confirmed."
-          );
-          startLoading(false);
-        }
-      }
-    } catch (error) {
-      if (error.code === 4001) {
-        // EIP 1193 userRejectedRequest error
-        setAlertError("Please connect to MetaMask.");
-        startLoading(false);
-      } else {
-        setAlertError("Unknown error with login.");
-        console.error(error);
-        startLoading(false);
-      }
-    }
   };
 
   const startTorusLogin = async () => {
@@ -98,25 +36,12 @@ const Login = ({ onAuthenticate }: LoginProps): JSX.Element => {
     startLoading(true);
     try {
       await torus.enableTorus();
-      const connAddr = await torus.getWalletAddress();
-      console.log("connAddr: ", connAddr);
-      const { address } = await (
-        await api.getSocialIdentityFromOwner(connAddr)
-      ).json();
-      if (address) {
-        const profile = await getProfile(address);
-        auth(connAddr, address, profile);
-      } else {
-        const socAddress = await createSocialIdentity(connAddr);
-        if (socAddress) {
-          auth(connAddr, socAddress, null);
-        } else {
-          setAlertError(
-            "Looks like the transaction is taking a while. Please try to login after the transaction is confirmed."
-          );
-          startLoading(false);
-        }
-      }
+      const walletAddress = await torus.getWalletAddress();
+      console.log("connAddr: ", walletAddress);
+      const socialAddress = await sdk.getSocialIdentity(walletAddress);
+      const profile = await sdk.getProfile(socialAddress);
+      const graph = await sdk.getGraph(socialAddress);
+      auth(walletAddress, socialAddress, profile as Profile, graph as Graph);
     } catch (error) {
       if (error.code === 4001) {
         // EIP 1193 userRejectedRequest error
@@ -152,7 +77,7 @@ const Login = ({ onAuthenticate }: LoginProps): JSX.Element => {
         <Button
           className="Login__loginButton Login__btns"
           aria-label="Login"
-          onClick={startLogin}
+          onClick={startTorusLogin}
         >
           Log In
           {loading && <Spin className="Login__spinner" size="small" />}
@@ -160,7 +85,7 @@ const Login = ({ onAuthenticate }: LoginProps): JSX.Element => {
         <Button
           className="Login__signUpButton Login__btns"
           aria-label="Sign Up"
-          onClick={startLogin}
+          onClick={startTorusLogin}
         >
           Sign Up
         </Button>
