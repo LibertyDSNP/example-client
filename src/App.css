@@ -1,0 +1,32 @@
+.Header__block {
+  background-color: #d3d3d3;
+  padding: 0 16px;
+}
+
+.Profile__block {
+  background-color: #d3d3d3;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  flex-basis: 30%;
+}
+
+.Feed__block {
+  background-color: #d3d3d3;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  flex-basis: 50%;
+}
+
+.Feed__header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.App__content {
+  display: flex;
+  justify-content: space-around;
+}
+
+/*# sourceMappingURL=App.css.map */
