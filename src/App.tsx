@@ -9,7 +9,7 @@ const App: React.FC = () => {
   return (
     <div className="App">
       <Header />
-      <main className="Content__block">
+      <main className="App__content">
         <Feed />
         <Profile />
       </main>
