@@ -1,6 +1,6 @@
 import React from "react";
 import { useHistory } from "react-router-dom";
-import { Alert, Button, Form, Layout, Spin } from "antd";
+import { Alert, Button, Spin } from "antd";
 import logo from "../images/friendly-logo-green.svg";
 import * as sdk from "../services/sdk";
 import { Graph, HexString, Profile } from "../utilities/types";
@@ -57,7 +57,7 @@ const Login = ({ onAuthenticate }: LoginProps): JSX.Element => {
   };
 
   return (
-    <div className="Login">
+    <div className="Login__block">
       {alertError && (
         <Alert
           type="error"
@@ -67,32 +67,14 @@ const Login = ({ onAuthenticate }: LoginProps): JSX.Element => {
           onClose={() => setAlertError("")}
         />
       )}
-      <header className="Login__header">
-        <div className="Login__block">Welcome to</div>
-        <h1 className="Login__h1">
-          <img src={logo} alt="friendly logo" />
-        </h1>
-      </header>
-      <Form className="Login__form">
         <Button
-          className="Login__loginButton Login__btns"
+          className="Login__loginButton"
           aria-label="Login"
           onClick={startTorusLogin}
         >
           Log In
           {loading && <Spin className="Login__spinner" size="small" />}
         </Button>
-        <Button
-          className="Login__signUpButton Login__btns"
-          aria-label="Sign Up"
-          onClick={startTorusLogin}
-        >
-          Sign Up
-        </Button>
-      </Form>
-      <Layout.Footer className="Login__footer">
-        Copyright 2020 Project Liberty
-      </Layout.Footer>
     </div>
   );
 };
