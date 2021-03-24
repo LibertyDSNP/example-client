@@ -1,4 +1,4 @@
-import { HexString } from "types";
+import { HexString } from "../utilities/types";
 import { generateHexString } from "./testhelpers";
 
 /**
