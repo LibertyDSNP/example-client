@@ -55,7 +55,7 @@ The features of the Example Client are subject to change with future versions an
 ## Project Setup
 Follow this quick start guide to get up and running. This guide assumes a working knowledge of npm and git. Make sure to check out the __CONTRIBUTING.md__ as well.
 * Clone the example-client repository: `git clone git@github.com:LibertyDSNP/example-client.git`
-* Install asdf: `asdf install`
+* Install the correct npm and node version. Recommend using asdf: `asdf install`
 * Install modules: `npm install`
 * Copy `.env.example` to `.env` and edit as needed. 
 * Start up site locally: `npm run start`

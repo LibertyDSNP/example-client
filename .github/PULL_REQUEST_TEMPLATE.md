@@ -1,28 +1,30 @@
-# Problem
+Purpose
+---------------
+A description of the purpose for this pull request and weather it is to provide new functionality or fix a bug
 
-problem statement, including
-[link to Pivotal Tracker #12345678](https://www.pivotaltracker.com/story/show/12345678)
 
-# Solution
+Solution
+---------------
+A descrition of what you have done to implement/fix the above mentioned feature or bug
+with @<any other developers who who worked on the PR with you>
 
-What I/we did to solve this problem
 
-with @pairperson1
+Change summary
+---------------
+* A detailed list of bulleted
+* changes that go into detail about
+* the specifics of the changes
+* to the codebase
 
-## Change summary:
 
-- Tidy, well formulated commit message
-- Another great commit message
-- Something else I/we did
+Steps to Verify
+----------------
+1. A numbered list of steps
+2. To verify that this feature/bug
+3. is now working
 
-## Steps to Verify:
 
-1. A setup step / beginning state
-1. What to do next
-1. Any other instructions
-1. Expected behavior
-1. Suggestions for testing
-
-## Screenshots (optional):
-
-Show-n-tell images/animations here
+Additional details / screenshot
+----------------
+- Any suplmenental pictures or material
+- ![Screenshot]()
