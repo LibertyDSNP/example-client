@@ -1,0 +1,60 @@
+@import "./theme/colors.scss";
+@import "./theme/typography.scss";
+@import "./components/Counter";
+
+// Post Title (this will be the title of your component)
+//
+// Large, **in charge**, and centered. (this is the description of your component. you can use markdown in here.)
+//
+// Markup (define the markup to be used in your styleguide):
+// <h1 class="post-title">A Post Title</h1>
+//
+// Styleguide Components.article.post-title 
+// (ꜛ this controls the organization of your style guide. Here, I'm filing this component inside Components / Article / Post Title) 
+
+.post-title { 
+  font-size: 3em; 
+  text-align: center;
+  font-family: fantasy; 
+}
+
+.App {
+  text-align: center;
+  background-color: yellow;
+}
+
+.App__logo {
+  animation: App-logo-spin infinite 20s linear;
+  height: 40vmin;
+  pointer-events: none;
+}
+
+.App__header {
+  @include headline-text;
+
+  background-color: $gray-28;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: $white;
+}
+
+.App__code {
+  font-family: $font-monospace;
+}
+
+.App__link {
+  color: $blue;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
