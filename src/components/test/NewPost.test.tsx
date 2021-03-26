@@ -1,5 +1,5 @@
 import React from "react";
-import NewPost from "./NewPost";
+import NewPost from "../NewPost";
 import { shallow } from "enzyme";
 
 describe("NewPost", () => {

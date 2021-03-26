@@ -19,7 +19,7 @@ const App: React.FC = () => {
   const [profile, setProfile] = useState<Profile | null>(null);
   const [walletAddress, setWalletAddress] = useState<HexString | null>(null);
   const [socialAddress, setSocialAddress] = useState<HexString | null>(null);
-  const [graph, setGraph] = useState<Graph | null>(null);
+  const [_graph, setGraph] = useState<Graph | null>(null);
 
   const logout = () => {
     clearSession();

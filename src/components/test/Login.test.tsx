@@ -1,18 +1,18 @@
 import React from "react";
-import Header from "../Header";
+import Login from "../Login";
 import { shallow } from "enzyme";
 import { getPrefabSocialAddress } from "../../test/testAddresses";
 
 const mockSocialAddress = getPrefabSocialAddress(0);
 
-describe("Header", () => {
+describe("Login", () => {
   it("renders without crashing", () => {
     expect(() => {
       shallow(
-        <Header
-          socialAddress={mockSocialAddress}
-          onAuthenticate={jest.fn}
+        <Login
           logout={jest.fn}
+          onAuthenticate={jest.fn}
+          socialAddress={mockSocialAddress}
         />
       );
     }).not.toThrow();
