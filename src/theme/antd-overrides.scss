@@ -1,0 +1,12 @@
+.Login__block .ant-btn {
+  border-radius: 25px;
+}
+
+.Login__block .ant-btn {
+  border-radius: 25px;
+
+  &:hover, &:active, &:focus {
+    color: $green;
+    border-color: $green;
+  }
+}

@@ -1,4 +1,12 @@
 .Header__block {
   background-color: $gray;
   padding: 0 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+
+.Header__title {
+  margin: 0;
 }

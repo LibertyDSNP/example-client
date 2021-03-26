@@ -11,7 +11,7 @@ import {
 } from "./services/session";
 import Header from "./components/Header";
 import Feed from "./components/Feed";
-import ProfileBlock from "./components/Profile";
+import ProfileBlock from "./components/ProfileBlock";
 import { Graph, HexString, Profile } from "./utilities/types";
 
 const App: React.FC = () => {
@@ -30,6 +30,7 @@ const App: React.FC = () => {
   };
 
   const loadSession = useCallback((session) => {
+    console.log(session);
     setProfile(session.profile);
     setWalletAddress(session.walletAddress);
     setSocialAddress(session.socialAddress);
@@ -71,15 +72,18 @@ const App: React.FC = () => {
   return (
     <Router>
       <div className="App">
-        <Header onAuthenticate={onAuthenticate} />
+        <Header
+          onAuthenticate={onAuthenticate}
+          logout={logout}
+          socialAddress={socialAddress}
+        />
         <main className="App__content">
           <Feed />
-          <ProfileBlock />
-          <div>
-            <div>Wallet Addres: {walletAddress}</div>
-            <div>Social Address{socialAddress}</div>
-            <div>PRofile Name{profile?.name}</div>
-          </div>
+          <ProfileBlock
+            walletAddress={walletAddress}
+            socialAddress={socialAddress}
+            profile={profile}
+          />
         </main>
       </div>
     </Router>

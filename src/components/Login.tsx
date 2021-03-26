@@ -12,9 +12,15 @@ interface LoginProps {
     profile: Profile,
     graph: Graph
   ) => void;
+  logout: () => void;
+  socialAddress: HexString | null;
 }
 
-const Login = ({ onAuthenticate }: LoginProps): JSX.Element => {
+const Login = ({
+  onAuthenticate,
+  logout,
+  socialAddress,
+}: LoginProps): JSX.Element => {
   const [loading, startLoading] = React.useState<boolean>(false);
   const [alertError, setAlertError] = React.useState<string>("");
 
@@ -41,6 +47,7 @@ const Login = ({ onAuthenticate }: LoginProps): JSX.Element => {
       const profile = await sdk.getProfile(socialAddress);
       const graph = await sdk.getGraph(socialAddress);
       auth(walletAddress, socialAddress, profile as Profile, graph as Graph);
+      startLoading(false);
     } catch (error) {
       if (error.code === 4001) {
         // EIP 1193 userRejectedRequest error
@@ -66,14 +73,24 @@ const Login = ({ onAuthenticate }: LoginProps): JSX.Element => {
           onClose={() => setAlertError("")}
         />
       )}
-      <Button
-        className="Login__loginButton"
-        aria-label="Login"
-        onClick={startTorusLogin}
-      >
-        Log In
-        {loading && <Spin className="Login__spinner" size="small" />}
-      </Button>
+      {!socialAddress ? (
+        <Button
+          className="Login__loginButton"
+          aria-label="Login"
+          onClick={startTorusLogin}
+        >
+          Log In
+          {loading && <Spin className="Login__spinner" size="small" />}
+        </Button>
+      ) : (
+        <Button
+          className="Login__logOutButton"
+          aria-label="Login"
+          onClick={logout}
+        >
+          Log Out
+        </Button>
+      )}
     </div>
   );
 };

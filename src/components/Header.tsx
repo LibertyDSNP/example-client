@@ -9,13 +9,23 @@ interface LoginProps {
     profile: Profile,
     graph: Graph
   ) => void;
+  logout: () => void;
+  socialAddress: HexString | null;
 }
 
-const Header = ({ onAuthenticate }: LoginProps): JSX.Element => {
+const Header = ({
+  onAuthenticate,
+  logout,
+  socialAddress,
+}: LoginProps): JSX.Element => {
   return (
     <div className="Header__block">
-      <h1>Example Client</h1>
-      <Login onAuthenticate={onAuthenticate} />
+      <h1 className="Header__title">Example Client</h1>
+      <Login
+        onAuthenticate={onAuthenticate}
+        logout={logout}
+        socialAddress={socialAddress}
+      />
     </div>
   );
 };
