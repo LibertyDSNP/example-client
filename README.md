@@ -1,4 +1,10 @@
 # Example Client
+### Note:
+Enzyme is not ready for react 17 yet, so using an unofficial version and installing
+packages with `npm i --legacy-peer-deps` if using node v7.
+#### Goal:
+* Change to official version of enzyme when correct version is available.
+* Issue: https://github.com/enzymejs/enzyme/issues/2429
 
 ## Project Library and Design Choices
 Below is a list of importan libraries and dependecies for the project and what their prupose is.
@@ -19,6 +25,33 @@ __Frontend Framework:__
 __Testing:__
 * Tests written in [Jest](https://jestjs.io) and [Enzyme](https://enzymejs.github.io/enzyme/)
 * CI/CD done with [Github Actions](https://github.com/features/actions)
+
+***
+
+## Example Client Features
+### Profile
+* Create a new profile
+* Edit your profile
+* See other users' profiles
+  - Publicly follow/unfollow other users
+* Display list of followers/following
+
+### Posts
+* Create a public post
+* View a public post in the feed
+* Comment on a public post
+  - Note: only to one degree of depth
+* React to posts
+* Filter and navigate through the feed
+  - My Posts
+  - My Feed
+  - A specific user's posts
+  - Main Feed
+
+#### Note
+The features of the Example Client are subject to change with future versions and as decisions are made on the DSNP SDK.
+
+***
 
 ## Miscellaneous Information
 

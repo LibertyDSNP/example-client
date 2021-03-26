@@ -5,9 +5,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5c4cfdf4-831e-4fac-a0ce-92bffd70d65b" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Login.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Login.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/utilities/secrets.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/services/web3Instance.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/services/web3Instance.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/UserData.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/UserData.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/testAddresses.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/testAddresses.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/testFeeds.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/testFeeds.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/testPrivacy.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/testPrivacy.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/testUserRelations.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/testUserRelations.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/testhelpers.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/testhelpers.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/utilities/types.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/utilities/types.d.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -35,7 +42,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/services" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/utilities" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.stylelint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
@@ -51,8 +58,8 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/src/services" />
       <recent name="$PROJECT_DIR$/src/utilities" />
+      <recent name="$PROJECT_DIR$/src/services" />
       <recent name="$PROJECT_DIR$/src/components" />
       <recent name="$PROJECT_DIR$/config" />
     </key>

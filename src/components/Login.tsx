@@ -1,7 +1,6 @@
 import React from "react";
 import { useHistory } from "react-router-dom";
 import { Alert, Button, Spin } from "antd";
-import logo from "../images/friendly-logo-green.svg";
 import * as sdk from "../services/sdk";
 import { Graph, HexString, Profile } from "../utilities/types";
 import * as torus from "../services/wallets/torus";
@@ -67,14 +66,14 @@ const Login = ({ onAuthenticate }: LoginProps): JSX.Element => {
           onClose={() => setAlertError("")}
         />
       )}
-        <Button
-          className="Login__loginButton"
-          aria-label="Login"
-          onClick={startTorusLogin}
-        >
-          Log In
-          {loading && <Spin className="Login__spinner" size="small" />}
-        </Button>
+      <Button
+        className="Login__loginButton"
+        aria-label="Login"
+        onClick={startTorusLogin}
+      >
+        Log In
+        {loading && <Spin className="Login__spinner" size="small" />}
+      </Button>
     </div>
   );
 };

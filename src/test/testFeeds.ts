@@ -7,15 +7,15 @@ import {
   HexString,
   NoteActivityPub,
   NoteAttachment,
-  PersonActivityPub
-} from "types";
+  PersonActivityPub,
+} from "../utilities/types";
 import { generateSocialAddress, getPrefabSocialAddress } from "./testAddresses";
 import {
   prefabFirstNames,
   prefabLastNames,
   prefabMessages,
   randInt,
-  randImage
+  randImage,
 } from "./testhelpers";
 
 /**
@@ -26,7 +26,7 @@ export const generateImageAttachment = (url: string): NoteAttachment => {
   return {
     mediaType: url.replace(/(^\w+:|^)\/\//, ""), // Regex to scrub protocol from string
     type: "Image",
-    url: url
+    url: url,
   };
 };
 
@@ -38,7 +38,7 @@ export const generateVideoAttachment = (url: string): NoteAttachment => {
   return {
     mediaType: url.replace(/(^\w+:|^)\/\//, ""), // Regex to scrub protocol from string
     type: "Video",
-    url: url
+    url: url,
   };
 };
 
@@ -56,7 +56,7 @@ export const generateDirectMessage = (
     actor: address,
     "@context": "https://www.w3.org/ns/activitystreams",
     id: "http://localhost:3003/api/announce/" + address,
-    type: "EncryptedMessage"
+    type: "EncryptedMessage",
   };
 };
 
@@ -77,7 +77,7 @@ export const generateNote = (
     content: message,
     attachment: attachment || [],
     id: "http://localhost:3003/api/announce/" + address,
-    type: "Note"
+    type: "Note",
   };
 };
 
@@ -95,13 +95,13 @@ export const generatePerson = (
   return {
     actor: address,
     "@context": "https://www.w3.org/ns/activitystreams",
-    name: name || null,
-    preferredUsername: username || null,
+    name: name || undefined,
+    preferredUsername: username || undefined,
     summary: "",
     url: "",
     discoverable: true,
     id: "http://localhost:3003/api/announce/" + address,
-    type: "Person"
+    type: "Person",
   };
 };
 
@@ -128,7 +128,7 @@ export const generateFeedItem = (
     blockNumber: 50,
     hash: keccak256("this is a hash of the feed item"),
     uri: content.id,
-    rawContent: "" // This can be simulated, but it's annoying to do so.
+    rawContent: "", // This can be simulated, but it's annoying to do so.
   };
 };
 
@@ -152,8 +152,8 @@ export const getPrefabFeed = (): FeedItem[] => {
     generateFeedItem(generateNote(address0, "Hello World"), true, [
       generateFeedItem(generateNote(address1, "Hi Monday!"), true),
       generateFeedItem(generateNote(address2, "Go away"), true, [
-        generateFeedItem(generateNote(address0, "You're mean"), true)
-      ])
+        generateFeedItem(generateNote(address0, "You're mean"), true),
+      ]),
     ]),
     // FeedItem that is a profile update
     generateFeedItem(
@@ -165,10 +165,10 @@ export const getPrefabFeed = (): FeedItem[] => {
       generateNote(address2, "Everyone leave me alone", [
         generateImageAttachment(
           "https://64.media.tumblr.com/bd8d2127a91f57463c2e753cf837ab6e/014df86f4004efef-ec/s1280x1920/adda1023806b71606f83f484a64daa03bce12c8d.jpg"
-        )
+        ),
       ]),
       true
-    )
+    ),
   ];
 };
 

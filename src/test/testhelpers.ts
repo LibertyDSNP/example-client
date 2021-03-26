@@ -1,5 +1,5 @@
 import { act } from "react-dom/test-utils";
-import { HexString } from "types";
+import { HexString } from "../utilities/types";
 
 /**
  * Using this to spy on promise functions in Jest
@@ -7,7 +7,7 @@ import { HexString } from "types";
  * so all pending promises will be executed
  */
 export const flushPromises = (): Promise<any> => {
-  return new Promise(resolve => setImmediate(resolve));
+  return new Promise((resolve) => setImmediate(resolve));
 };
 
 /**
@@ -17,7 +17,7 @@ export const flushPromises = (): Promise<any> => {
 export const forcePromiseResolve = async (): Promise<void> => {
   jest.useFakeTimers();
   await act(async () => {
-    new Promise(resolve => setTimeout(resolve, 0));
+    new Promise((resolve) => setTimeout(resolve, 0));
     jest.runAllTimers();
   });
 };
@@ -40,7 +40,7 @@ export const mockWeb3EnabledBrowser = (): void => {
  */
 export const mockReactRouterParams = (mockParams: unknown): void => {
   jest.mock("react-router", () => ({
-    useParams: jest.fn().mockReturnValue(mockParams)
+    useParams: jest.fn().mockReturnValue(mockParams),
   }));
 };
 
@@ -111,7 +111,7 @@ export const prefabFirstNames = [
   "Katie",
   "Sarah",
   "Elizabeth",
-  "Maria"
+  "Maria",
 ];
 
 /**
@@ -133,7 +133,7 @@ export const prefabLastNames = [
   "Evans",
   "Davis",
   "Turner",
-  "Sanchez"
+  "Sanchez",
 ];
 
 /**
@@ -179,5 +179,5 @@ export const prefabMessages = [
     "losing his power, which eventually, of course, he did. " +
     "Unfortunately, he taught his apprentice everything he knew, " +
     "then his apprentice killed him in his sleep. It's ironic he " +
-    "could save others from death, but not himself."
+    "could save others from death, but not himself.",
 ];

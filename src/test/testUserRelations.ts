@@ -1,5 +1,4 @@
-import { HexString } from "@liberty30/lib-privacy-js";
-import { UserRelation } from "types";
+import { UserRelation, HexString } from "../utilities/types";
 import { getPreFabSocialGraph } from "./testGraphs";
 import { getPrefabProfileByAddress, preFabProfiles } from "./testProfiles";
 

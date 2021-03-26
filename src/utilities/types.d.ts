@@ -30,7 +30,7 @@ export interface FeedItem {
   inbox: boolean;
   timestamp: number;
   topic: HexString;
-  uri: URLString;
+  uri: URLString | undefined;
   rawContent?: string;
   ddid?: HexString;
   inReplyTo?: HexString;
