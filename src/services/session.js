@@ -22,17 +22,11 @@ export const setSession = (newSession) => {
   return newSession;
 };
 
-export const updateSession = (
-  profile,
-  privateGraphKeyList,
-  encryptedKeyList
-) => {
+export const updateSession = (profile) => {
   const oldSession = getSession();
   if (oldSession === null) return;
   const newSession = {
     profile: null,
-    privateGraphKeyList: null,
-    encryptedKeyList: null,
     ...oldSession,
   };
   let saveSession = false;
@@ -40,14 +34,7 @@ export const updateSession = (
     newSession.profile = profile;
     saveSession = true;
   }
-  if (privateGraphKeyList || privateGraphKeyList === []) {
-    newSession.privateGraphKeyList = privateGraphKeyList;
-    saveSession = true;
-  }
-  if (encryptedKeyList || encryptedKeyList === []) {
-    newSession.encryptedKeyList = encryptedKeyList;
-    saveSession = true;
-  }
+
   if (saveSession) {
     sessionStorage.setItem("session", JSON.stringify(newSession));
   }

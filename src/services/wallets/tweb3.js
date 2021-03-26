@@ -4,12 +4,12 @@ import Torus from "@toruslabs/torus-embed";
 const web3Torus = {
   web3: new Web3(),
   torus: {},
-  setweb3: (provider) => {
+  setweb3: function (provider) {
     //const web3Inst = new Web3(provider);
     //web3Torus.web3 = web3Inst;
     this.web3.setProvider(provider);
   },
-  initialize: async (buildEnv) => {
+  initialize: async function (buildEnv) {
     const torus = new Torus();
     await torus.init({
       buildEnv: buildEnv || "production",

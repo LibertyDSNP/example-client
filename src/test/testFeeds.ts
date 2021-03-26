@@ -1,4 +1,4 @@
-import { keccak256 } from "js-sha3";
+import { keccak_256 } from "js-sha3";
 import {
   ActivityPub,
   ActivityPubAttachement,
@@ -121,12 +121,12 @@ export const generateFeedItem = (
   return {
     timestamp: constTime ? 1608580122 : Math.round(Date.now() / 1000),
     inbox: false,
-    topic: "0x" + keccak256("Announce(string,bytes32,bytes32)"),
+    topic: "0x" + keccak_256("Announce(string,bytes32,bytes32)"),
     address: content.actor,
     content: content,
     replies: replies || [],
     blockNumber: 50,
-    hash: keccak256("this is a hash of the feed item"),
+    hash: keccak_256("this is a hash of the feed item"),
     uri: content.id,
     rawContent: "", // This can be simulated, but it's annoying to do so.
   };

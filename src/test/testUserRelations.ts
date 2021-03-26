@@ -22,6 +22,6 @@ export const getPreFabUserRelation = (
   return {
     address: targetAddress,
     following: graph[address].has(targetAddress),
-    profile: getPrefabProfileByAddress(targetAddress)
+    profile: getPrefabProfileByAddress(targetAddress),
   };
 };

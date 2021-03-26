@@ -1,8 +1,8 @@
 @import "theme/colors";
 @import "theme/typography";
-@import "./components/Header";
-@import "./components/Profile";
-@import "./components/Feed";
+@import "./components/scss/Header";
+@import "./components/scss/Profile";
+@import "./components/scss/Feed";
 
 .App__content {
   display: flex;

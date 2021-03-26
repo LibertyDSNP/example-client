@@ -1,8 +1,7 @@
-import React, { useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback } from "react";
+import { BrowserRouter as Router } from "react-router-dom";
 import "./App.scss";
 import "antd/dist/antd.less";
-import ethereum from "./services/ethereum";
-import GraphData from "./services/GraphData";
 import {
   clearSession,
   getSession,
@@ -13,61 +12,28 @@ import {
 import Header from "./components/Header";
 import Feed from "./components/Feed";
 import ProfileBlock from "./components/Profile";
-import { HexString, Profile } from "./utilities/types";
+import { Graph, HexString, Profile } from "./utilities/types";
 
 const App: React.FC = () => {
-  const [sessionLoading, setSessionLoading] = React.useState(true);
-  const [profile, setProfile] = React.useState(null);
-  const [walletAddress, setWalletAddress] = React.useState(null);
-  const [socialAddress, setSocialAddress] = React.useState(null);
-  const [privateGraphKeyCache, setPrivateGraphKeyCache] = React.useState(null);
-  const [encryptionKeyCache, setEncryptionKeyCache] = React.useState(null);
-  const [graph, setGraph] = React.useState(null);
-  // const [loading, setLoading] = React.useState(true);
-  const [walletName, setWalletName] = React.useState<string>(
-    "Login for Wallet"
-  );
-  console.log(walletAddress, graph, walletName);
-  // const [walletAction, setWalletAction] = React.useState(
-  //   WalletAction.LoggedOut
-  // );
-  // const [announcements, _lastBlock] = useAnnouncements();
-  // const feed = useFeed(setLoading, socialAddress, announcements);
+  const [_sessionLoading, setSessionLoading] = useState(true);
+  const [profile, setProfile] = useState<Profile | null>(null);
+  const [walletAddress, setWalletAddress] = useState<HexString | null>(null);
+  const [socialAddress, setSocialAddress] = useState<HexString | null>(null);
+  const [graph, setGraph] = useState<Graph | null>(null);
 
   const logout = () => {
     clearSession();
     setProfile(null);
     setWalletAddress(null);
     setSocialAddress(null);
-    setPrivateGraphKeyCache(null);
-    setEncryptionKeyCache(null);
-    setWalletName("Login for Wallet");
-    // setWalletAction(WalletAction.LoggedOut);
+    setGraph(null);
   };
 
   const loadSession = useCallback((session) => {
     setProfile(session.profile);
     setWalletAddress(session.walletAddress);
     setSocialAddress(session.socialAddress);
-    setPrivateGraphKeyCache(session.privateGraphKeyList);
-    setEncryptionKeyCache(session.encryptedKeyList);
-    setWalletName("Meta Mask");
-    // setWalletAction(WalletAction.Inactive);
-    // Logout if we change accounts
-    ethereum.on("accountsChanged", (addresses: any[]) => {
-      if (
-        !addresses[0] ||
-        addresses[0].toLowerCase() !== session.walletAddress.toLowerCase()
-      ) {
-        logout();
-      }
-    });
-
-    // Logout and reload the page if the chainChanges
-    ethereum.on("chainChanged", () => {
-      logout();
-      window.location.reload();
-    });
+    setGraph(session.graph);
   }, []);
 
   // If we have a session, load it.
@@ -82,48 +48,41 @@ const App: React.FC = () => {
     setSessionLoading(false);
   }, [loadSession]);
 
-  // Load up the graph
-  useEffect(() => {
-    if (sessionLoading) return;
-    const graphInterval = GraphData(
-      setGraph,
-      socialAddress,
-      privateGraphKeyCache
-    );
-    return () => {
-      clearInterval(graphInterval);
-    };
-  }, [socialAddress, privateGraphKeyCache, sessionLoading]);
-
   // Update the session if updateable parts change
   useEffect(() => {
-    updateSession(profile, privateGraphKeyCache, encryptionKeyCache);
-  }, [profile, privateGraphKeyCache, encryptionKeyCache]);
+    updateSession(profile);
+  }, [profile]);
+
   const onAuthenticate = async (
     walletAddress: HexString,
     socialAddress: HexString,
     profile: Profile,
-    privateGraphKeyList: any[],
-    encryptedKeyList: any[]
+    graph: Graph
   ) => {
     const session = setSession({
       walletAddress,
       socialAddress,
       profile,
-      privateGraphKeyList,
-      encryptedKeyList,
+      graph,
     });
     loadSession(session);
   };
 
   return (
-    <div className="App">
-      <Header onAuthenticate={onAuthenticate} />
-      <main className="App__content">
-        <Feed />
-        <ProfileBlock />
-      </main>
-    </div>
+    <Router>
+      <div className="App">
+        <Header onAuthenticate={onAuthenticate} />
+        <main className="App__content">
+          <Feed />
+          <ProfileBlock />
+          <div>
+            <div>Wallet Addres: {walletAddress}</div>
+            <div>Social Address{socialAddress}</div>
+            <div>PRofile Name{profile?.name}</div>
+          </div>
+        </main>
+      </div>
+    </Router>
   );
 };
 
