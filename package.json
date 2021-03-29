@@ -3,24 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-<<<<<<< HEAD
-    "antd": "^4.14.0",
-=======
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
     "@toruslabs/torus-embed": "^1.9.14",
->>>>>>> af770e3... Got Torus login working, not perfect though
     "@types/node-fetch": "^2.5.8",
     "antd": "^4.13.1",
-=======
-    "antd": "^4.14.0",
->>>>>>> 1afb3b9... add linter and tests to github actions (#5)
-=======
-    "antd": "^4.13.1",
->>>>>>> 5a295a2... simplify login button UI elements and classed
->>>>>>> begun wallet login process
     "camelcase": "^6.2.0",
     "css-loader": "5.1.2",
     "file-loader": "6.2.0",
