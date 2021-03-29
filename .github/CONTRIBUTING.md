@@ -1,7 +1,7 @@
 # Contributing Guide
 
 ## Welcome
-Welcome to the example client for demonstrating the use of the DSNP (Distributed Social Networking Protocol) SDK. Thank you for opening this file and considering contributing to the project either by reporting issues or directly contributing code to the project!
+Welcome to the example client for demonstrating the use of the DSNP (Distributed Social Networking Protocol) SDK. Thank you for opening this file and considering contributing to the project either by reporting issues or directly contributing code to the project! First, check out our project wide [Contributing Standards](https://github.com/LibertyDSNP/liberty-web/blob/main/CONTRIBUTING.md) and then read on below for specifics about this project.
 
 ## References
 In creating bug reports, feature requests, or pull requests it's important to be familiar and up to date with both: 
@@ -28,7 +28,7 @@ If you are using the example client and would like to request a non-bug related 
 ## Contributing
 
 ### Conventions
-To increase the coherence of the code and establish best practices the entire codebase follows certain conventions. Luckily, many of the style conventions are enforced by the linters so that you don't have to spend hours going over every line to make sure it matches all conventions. Many IDEs can run these linters automatically but incase they don't you can run them manually with 'npm run format'.
+To increase the coherence of the code and establish best practices the entire codebase follows certain conventions. Luckily, many of the style conventions are enforced by the linters so that you don't have to spend hours going over every line to make sure it matches all conventions. A few more standards come from our project wide [Contributing Standards](https://github.com/LibertyDSNP/liberty-web/blob/main/CONTRIBUTING.md). Many IDEs can run these linters automatically but incase they don't you can run them manually with 'npm run format'.
 
 The main conventions you'll need to be aware of are as follows:
 * All code written in Typescript with as much type specificity as possible.
