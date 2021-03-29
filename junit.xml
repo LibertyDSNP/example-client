@@ -1,31 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuites name="jest tests" tests="8" failures="0" errors="0" time="9.81">
-  <testsuite name="src/components/test/ProfileBlock.test.tsx" errors="0" failures="0" skipped="0" timestamp="2021-03-29T21:28:28" time="3.101" tests="1">
+<testsuites name="jest tests" tests="8" failures="0" errors="0" time="5.774">
+  <testsuite name="src/components/test/NewPost.test.tsx" errors="0" failures="0" skipped="0" timestamp="2021-03-29T21:59:58" time="1.862" tests="1">
+    <testcase classname="NewPost" name="renders without crashing" time="0.005">
+    </testcase>
+  </testsuite>
+  <testsuite name="src/components/test/Feed.test.tsx" errors="0" failures="0" skipped="0" timestamp="2021-03-29T21:59:58" time="1.948" tests="1">
+    <testcase classname="Feed" name="renders without crashing" time="0.02">
+    </testcase>
+  </testsuite>
+  <testsuite name="src/components/test/PostList.test.tsx" errors="0" failures="0" skipped="0" timestamp="2021-03-29T21:59:58" time="1.962" tests="1">
+    <testcase classname="PostList" name="renders without crashing" time="0.006">
+    </testcase>
+  </testsuite>
+  <testsuite name="src/components/test/ProfileBlock.test.tsx" errors="0" failures="0" skipped="0" timestamp="2021-03-29T21:59:58" time="2.011" tests="1">
     <testcase classname="Profile" name="renders without crashing" time="0.006">
     </testcase>
   </testsuite>
-  <testsuite name="src/components/test/NewPost.test.tsx" errors="0" failures="0" skipped="0" timestamp="2021-03-29T21:28:28" time="3.072" tests="1">
-    <testcase classname="NewPost" name="renders without crashing" time="0.006">
+  <testsuite name="src/components/test/Login.test.tsx" errors="0" failures="0" skipped="0" timestamp="2021-03-29T21:59:58" time="4.291" tests="1">
+    <testcase classname="Login" name="renders without crashing" time="0.014">
     </testcase>
   </testsuite>
-  <testsuite name="src/components/test/Feed.test.tsx" errors="0" failures="0" skipped="0" timestamp="2021-03-29T21:28:28" time="3.138" tests="1">
-    <testcase classname="Feed" name="renders without crashing" time="0.007">
+  <testsuite name="src/components/test/Header.test.tsx" errors="0" failures="0" skipped="0" timestamp="2021-03-29T21:59:58" time="4.294" tests="1">
+    <testcase classname="Header" name="renders without crashing" time="0.014">
     </testcase>
   </testsuite>
-  <testsuite name="src/components/test/PostList.test.tsx" errors="0" failures="0" skipped="0" timestamp="2021-03-29T21:28:28" time="3.151" tests="1">
-    <testcase classname="PostList" name="renders without crashing" time="0.007">
-    </testcase>
-  </testsuite>
-  <testsuite name="src/components/test/Login.test.tsx" errors="0" failures="0" skipped="0" timestamp="2021-03-29T21:28:28" time="7.614" tests="1">
-    <testcase classname="Login" name="renders without crashing" time="0.018">
-    </testcase>
-  </testsuite>
-  <testsuite name="src/components/test/Header.test.tsx" errors="0" failures="0" skipped="0" timestamp="2021-03-29T21:28:28" time="7.62" tests="1">
-    <testcase classname="Header" name="renders without crashing" time="0.018">
-    </testcase>
-  </testsuite>
-  <testsuite name="src/App.test.tsx" errors="0" failures="0" skipped="0" timestamp="2021-03-29T21:28:28" time="7.554" tests="2">
-    <testcase classname="" name="renders without crashing" time="0.017">
+  <testsuite name="src/App.test.tsx" errors="0" failures="0" skipped="0" timestamp="2021-03-29T21:59:58" time="4.291" tests="2">
+    <testcase classname="" name="renders without crashing" time="0.016">
     </testcase>
     <testcase classname="testEnabler" name="enables testing" time="0.001">
     </testcase>
