@@ -36,36 +36,35 @@ const Login = ({
     history.push("/");
   };
 
-  const startTorusLogin = async () => {
+  const torusLogin = async () => {
     if (loading) return;
     startLoading(true);
     try {
       await torus.enableTorus();
       const walletAddress = await torus.getWalletAddress();
-      console.log("connAddr: ", walletAddress);
       const socialAddress = await sdk.getSocialIdentity(walletAddress);
       const profile = await sdk.getProfile(socialAddress);
       const graph = await sdk.getGraph(socialAddress);
       auth(walletAddress, socialAddress, profile as Profile, graph as Graph);
       startLoading(false);
+      setAlertError("");
     } catch (error) {
-      if (error.code === 4001) {
-        // EIP 1193 userRejectedRequest error
-        setAlertError("Please connect to MetaMask.");
-        startLoading(false);
-      } else {
-        setAlertError("Unknown error with login.");
-        // eslint-disable-next-line no-console
-        console.error(error);
-        startLoading(false);
-      }
+      setAlertError("Unknown error with login.");
+      console.error(error);
+      startLoading(false);
     }
+  };
+
+  const torusLogout = () => {
+    torus.logout();
+    logout();
   };
 
   return (
     <div className="Login__block">
       {alertError && (
         <Alert
+          className="Loin__alert"
           type="error"
           message={alertError}
           banner
@@ -77,7 +76,7 @@ const Login = ({
         <Button
           className="Login__loginButton"
           aria-label="Login"
-          onClick={startTorusLogin}
+          onClick={torusLogin}
         >
           Log In
           {loading && <Spin className="Login__spinner" size="small" />}
@@ -85,8 +84,8 @@ const Login = ({
       ) : (
         <Button
           className="Login__logOutButton"
-          aria-label="Login"
-          onClick={logout}
+          aria-label="Logout"
+          onClick={torusLogout}
         >
           Log Out
         </Button>

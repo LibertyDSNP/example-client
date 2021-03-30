@@ -4,6 +4,7 @@
 
 .Login__block .ant-btn {
   border-radius: 25px;
+  margin-left: 16px;
 }
 .Login__block .ant-btn:hover, .Login__block .ant-btn:active, .Login__block .ant-btn:focus {
   color: #26e990;

@@ -38,7 +38,6 @@ export const logout = () => {
 };
 
 export const signMessage = (account) => {
-  // hex message
   const message =
     "0x47173285a8d7341e5e972fc677286384f802f8ef42a5ec5f03bbfa254cb01fad";
   web3Torus.torus.web3.currentProvider.send(
