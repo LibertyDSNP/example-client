@@ -4,7 +4,7 @@ import Torus from "@toruslabs/torus-embed";
 const web3Torus = {
   web3: new Web3(),
   torus: {},
-  enabled: false,
+  initialized: false,
   setweb3: function (provider) {
     const web3Inst = new Web3(provider);
     web3Torus.web3 = web3Inst;

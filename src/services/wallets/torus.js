@@ -17,6 +17,10 @@ export const enableTorus = async (buildEnv) => {
   await web3Torus.initialize(buildEnv || "Testing");
 };
 
+export const isInitialized = () => {
+  return web3Torus.initialized;
+};
+
 export const changeProvider = async (provider) => {
   await web3Torus.torus.setProvider({ host: provider });
   console.log("finished changing provider");

@@ -47,16 +47,17 @@ const Login = ({
       const graph = await sdk.getGraph(socialAddress);
       auth(walletAddress, socialAddress, profile as Profile, graph as Graph);
       startLoading(false);
-      setAlertError("");
     } catch (error) {
       setAlertError(error.toString());
-      startLoading(false);
     }
+    startLoading(false);
   };
 
   const torusLogout = () => {
     logout();
-    torus.logout();
+    if (torus.isInitialized()) {
+      torus.logout();
+    }
   };
 
   return (
