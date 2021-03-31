@@ -2,9 +2,6 @@ import web3Torus from "./tweb3";
 
 export const getAccount = async () => {
   return await web3Torus.torus.accounts;
-  //web3Torus.web3.eth.getAccounts().then(accounts => {
-  //  return accounts[accountIndex];
-  //});
 };
 
 export const getBalance = (account) => {
