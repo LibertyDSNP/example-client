@@ -14,11 +14,7 @@ export const getBalance = (account) => {
 };
 
 export const enableTorus = async (buildEnv) => {
-  try {
-    await web3Torus.initialize(buildEnv || "Testing");
-  } catch (error) {
-    console.error(error);
-  }
+  await web3Torus.initialize(buildEnv || "Testing");
 };
 
 export const changeProvider = async (provider) => {
@@ -230,9 +226,5 @@ export const getPublicAddress = async (verifier, verifierId) => {
 
 export const getWalletAddress = async () => {
   const { verifier, verifierId } = await getUserInfo();
-  console.log("user info: ", await getUserInfo());
-  console.log("verifier: ", verifier);
-  console.log("verifierId: ", verifierId);
-  console.log("public address: ", await getPublicAddress(verifier, verifierId));
   return (await getPublicAddress(verifier, verifierId)).address;
 };

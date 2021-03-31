@@ -1,33 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuites name="jest tests" tests="8" failures="0" errors="0" time="8.31">
-  <testsuite name="src/components/test/ProfileBlock.test.tsx" errors="0" failures="0" skipped="0" timestamp="2021-03-26T23:32:40" time="2.626" tests="1">
-    <testcase classname="Profile" name="renders without crashing" time="0.008">
+<testsuites name="jest tests" tests="11" failures="0" errors="0" time="25.112">
+  <testsuite name="src/components/test/NewPost.test.tsx" errors="0" failures="0" skipped="0" timestamp="2021-03-31T15:05:03" time="6.348" tests="1">
+    <testcase classname="NewPost" name="renders without crashing" time="0.028">
     </testcase>
   </testsuite>
-  <testsuite name="src/components/test/Feed.test.tsx" errors="0" failures="0" skipped="0" timestamp="2021-03-26T23:32:40" time="2.626" tests="1">
+  <testsuite name="src/components/test/Feed.test.tsx" errors="0" failures="0" skipped="0" timestamp="2021-03-31T15:05:09" time="1.101" tests="1">
     <testcase classname="Feed" name="renders without crashing" time="0.01">
     </testcase>
   </testsuite>
-  <testsuite name="src/components/test/PostList.test.tsx" errors="0" failures="0" skipped="0" timestamp="2021-03-26T23:32:40" time="2.639" tests="1">
-    <testcase classname="PostList" name="renders without crashing" time="0.007">
+  <testsuite name="src/components/test/PostList.test.tsx" errors="0" failures="0" skipped="0" timestamp="2021-03-31T15:05:10" time="1.054" tests="1">
+    <testcase classname="PostList" name="renders without crashing" time="0.004">
     </testcase>
   </testsuite>
-  <testsuite name="src/components/test/NewPost.test.tsx" errors="0" failures="0" skipped="0" timestamp="2021-03-26T23:32:40" time="3.201" tests="1">
-    <testcase classname="NewPost" name="renders without crashing" time="0.009">
+  <testsuite name="src/components/test/ProfileBlock.test.tsx" errors="0" failures="0" skipped="0" timestamp="2021-03-31T15:05:12" time="1.083" tests="1">
+    <testcase classname="Profile" name="renders without crashing" time="0.075">
     </testcase>
   </testsuite>
-  <testsuite name="src/components/test/Login.test.tsx" errors="0" failures="0" skipped="0" timestamp="2021-03-26T23:32:40" time="6.285" tests="1">
-    <testcase classname="Login" name="renders without crashing" time="0.03">
+  <testsuite name="src/App.test.tsx" errors="0" failures="0" skipped="0" timestamp="2021-03-31T15:05:02" time="18.939" tests="2">
+    <testcase classname="" name="renders without crashing" time="0.045">
+    </testcase>
+    <testcase classname="testEnabler" name="enables testing" time="0.004">
     </testcase>
   </testsuite>
-  <testsuite name="src/components/test/Header.test.tsx" errors="0" failures="0" skipped="0" timestamp="2021-03-26T23:32:40" time="6.255" tests="1">
-    <testcase classname="Header" name="renders without crashing" time="0.028">
+  <testsuite name="src/components/test/Login.test.tsx" errors="0" failures="0" skipped="0" timestamp="2021-03-31T15:05:02" time="19.269" tests="4">
+    <testcase classname="Login Component is logged out" name="renders without crashing" time="0.026">
+    </testcase>
+    <testcase classname="Login Component is logged out" name="button triggers login sequence" time="0.024">
+    </testcase>
+    <testcase classname="Login Component is logged in" name="renders without crashing" time="0.004">
+    </testcase>
+    <testcase classname="Login Component is logged in" name="button triggers logout sequence" time="0.009">
     </testcase>
   </testsuite>
-  <testsuite name="src/App.test.tsx" errors="0" failures="0" skipped="0" timestamp="2021-03-26T23:32:40" time="6.24" tests="2">
-    <testcase classname="" name="renders without crashing" time="0.021">
-    </testcase>
-    <testcase classname="testEnabler" name="enables testing" time="0.001">
+  <testsuite name="src/components/test/Header.test.tsx" errors="0" failures="0" skipped="0" timestamp="2021-03-31T15:05:02" time="19.931" tests="1">
+    <testcase classname="Header" name="renders without crashing" time="0.018">
     </testcase>
   </testsuite>
 </testsuites>

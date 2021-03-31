@@ -49,15 +49,14 @@ const Login = ({
       startLoading(false);
       setAlertError("");
     } catch (error) {
-      setAlertError("Unknown error with login.");
-      console.error(error);
+      setAlertError(error.toString());
       startLoading(false);
     }
   };
 
   const torusLogout = () => {
-    torus.logout();
     logout();
+    torus.logout();
   };
 
   return (
