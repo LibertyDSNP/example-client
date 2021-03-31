@@ -12,6 +12,9 @@ import * as torus from "../../services/wallets/torus";
 const torusLogoutMock = jest.spyOn(torus, "logout");
 torusLogoutMock.mockImplementation(jest.fn);
 
+const torusIsInitiatedMock = jest.spyOn(torus, "isInitialized");
+torusIsInitiatedMock.mockReturnValue(true);
+
 const torusEnableMock = jest.spyOn(torus, "enableTorus");
 torusEnableMock.mockImplementation(
   (_build): Promise<void> => new Promise((resolve) => resolve())
