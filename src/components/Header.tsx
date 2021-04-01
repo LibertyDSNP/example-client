@@ -4,8 +4,8 @@ import { Graph, HexString, Profile } from "../utilities/types";
 
 interface LoginProps {
   onAuthenticate: (
-    walletAddress: HexString,
-    socialAddress: HexString,
+    walletAddress: HexString | null,
+    socialAddress: HexString | null,
     profile: Profile,
     graph: Graph
   ) => void;

@@ -29,14 +29,8 @@ const web3Torus = {
       sessionStorage.setItem("pageUsingTorus", buildEnv);
     } catch (error) {
       torus.clearInit();
+      this.enabled = false;
       throw new Error("Login Cancelled");
-    }
-  },
-  login: async function () {
-    try {
-      await this.torus.login();
-    } catch (error) {
-      console.log(error);
     }
   },
   uninitialize: function () {

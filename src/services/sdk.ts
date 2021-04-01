@@ -1,5 +1,5 @@
 import { Graph, HexString, Profile } from "../utilities/types";
-import * as sdk from "./mocksdk";
+import * as sdk from "./fakesdk";
 
 export const getSocialIdentity = async (
   walletAddress: HexString

@@ -55,9 +55,9 @@ const App: React.FC = () => {
   }, [profile]);
 
   const onAuthenticate = async (
-    walletAddress: HexString,
-    socialAddress: HexString,
-    profile: Profile,
+    walletAddress: HexString | null,
+    socialAddress: HexString | null,
+    profile: Profile | null,
     graph: Graph
   ) => {
     const session = setSession({

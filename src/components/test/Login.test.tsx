@@ -1,29 +1,15 @@
 import React from "react";
 import Login from "../Login";
 import { shallow } from "enzyme";
-import {
-  getPrefabSocialAddress,
-  getPrefabWalletAddress,
-} from "../../test/testAddresses";
+import { getPrefabSocialAddress } from "../../test/testAddresses";
 import * as torus from "../../services/wallets/torus";
 
-// Mock all torus functions as they won't opperate
-// inside tests.
-const torusLogoutMock = jest.spyOn(torus, "logout");
-torusLogoutMock.mockImplementation(jest.fn);
+jest.spyOn(torus, "logout").mockImplementation(jest.fn);
+jest.spyOn(torus, "isInitialized").mockReturnValue(true);
+jest
+  .spyOn(torus, "enableTorus")
+  .mockImplementation(jest.fn((_build) => Promise.resolve()));
 
-const torusIsInitiatedMock = jest.spyOn(torus, "isInitialized");
-torusIsInitiatedMock.mockReturnValue(true);
-
-const torusEnableMock = jest.spyOn(torus, "enableTorus");
-torusEnableMock.mockImplementation(
-  (_build): Promise<void> => new Promise((resolve) => resolve())
-);
-
-const torusGetWalletMock = jest.spyOn(torus, "getWalletAddress");
-torusGetWalletMock.mockReturnValue(
-  new Promise((resolve) => resolve(getPrefabWalletAddress(0)))
-);
 describe("Login Component", () => {
   describe("is logged out", () => {
     it("renders without crashing", () => {
@@ -43,12 +29,11 @@ describe("Login Component", () => {
         <Login logout={jest.fn} onAuthenticate={jest.fn} socialAddress={null} />
       );
       component.find("Button").simulate("click");
-      expect(torusEnableMock).toHaveBeenCalled();
+      expect(torus.enableTorus).toHaveBeenCalled();
     });
   });
 
   describe("is logged in", () => {
-    // Mock a social address to trigger logged in state
     const mockSocialAddress = getPrefabSocialAddress(0);
     it("renders without crashing", () => {
       expect(() => {
@@ -71,7 +56,7 @@ describe("Login Component", () => {
         />
       );
       component.find("Button").simulate("click");
-      expect(torusLogoutMock).toHaveBeenCalled();
+      expect(torus.logout).toHaveBeenCalled();
     });
   });
 });
