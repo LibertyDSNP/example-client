@@ -6,6 +6,7 @@ yarn.lock
 
 # testing
 /coverage
+junit.xml
 
 # production
 /build
@@ -18,9 +19,10 @@ yarn.lock
 .env.test.local
 .env.production.local
 
+.swp
+
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
-.idea
-junit.xml
+/.idea

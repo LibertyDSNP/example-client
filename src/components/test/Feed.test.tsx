@@ -1,11 +1,11 @@
 import React from "react";
-import Header from "./Header";
+import Feed from "../Feed";
 import { shallow } from "enzyme";
 
-describe("Header", () => {
+describe("Feed", () => {
   it("renders without crashing", () => {
     expect(() => {
-      shallow(<Header />);
+      shallow(<Feed />);
     }).not.toThrow();
   });
 });
