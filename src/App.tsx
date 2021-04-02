@@ -30,7 +30,6 @@ const App: React.FC = () => {
   };
 
   const loadSession = useCallback((session) => {
-    console.log(session);
     setProfile(session.profile);
     setWalletAddress(session.walletAddress);
     setSocialAddress(session.socialAddress);

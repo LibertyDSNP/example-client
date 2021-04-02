@@ -64,7 +64,7 @@ const Login = ({
     <div className="Login__block">
       {alertError && (
         <Alert
-          className="Loin__alert"
+          className="Login__alert"
           type="error"
           message={alertError}
           banner
