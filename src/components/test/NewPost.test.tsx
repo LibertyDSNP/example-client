@@ -1,11 +1,11 @@
 import React from "react";
-import PostList from "./PostList";
+import NewPost from "../NewPost";
 import { shallow } from "enzyme";
 
-describe("PostList", () => {
+describe("NewPost", () => {
   it("renders without crashing", () => {
     expect(() => {
-      shallow(<PostList />);
+      shallow(<NewPost />);
     }).not.toThrow();
   });
 });

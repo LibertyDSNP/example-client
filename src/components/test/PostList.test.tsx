@@ -1,11 +1,11 @@
 import React from "react";
-import Profile from "./PostList";
+import PostList from "../PostList";
 import { shallow } from "enzyme";
 
-describe("Profile", () => {
+describe("PostList", () => {
   it("renders without crashing", () => {
     expect(() => {
-      shallow(<Profile />);
+      shallow(<PostList />);
     }).not.toThrow();
   });
 });
