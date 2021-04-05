@@ -1,6 +1,8 @@
 @import "./theme/colors.scss";
 @import "./theme/typography.scss";
-@import "./components/Counter";
+@import "./components/Feed";
+@import "./components/Header";
+@import "./components/Profile";
 
 // Post Title (this will be the title of your component)
 //
@@ -9,18 +11,17 @@
 // Markup (define the markup to be used in your styleguide):
 // <h1 class="post-title">A Post Title</h1>
 //
-// Styleguide Components.article.post-title 
-// (ꜛ this controls the organization of your style guide. Here, I'm filing this component inside Components / Article / Post Title) 
+// Styleguide Components.article.post-title
+// (ꜛ this controls the organization of your style guide. Here, I'm filing this component inside Components / Article / Post Title)
 
-.post-title { 
-  font-size: 3em; 
+.post-title {
+  font-size: 3em;
   text-align: center;
-  font-family: fantasy; 
+  font-family: fantasy;
 }
 
 .App {
   text-align: center;
-  background-color: yellow;
 }
 
 .App__logo {
