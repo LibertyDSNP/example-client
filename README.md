@@ -7,7 +7,7 @@ packages with `npm i --legacy-peer-deps` if using node v7.
 * Issue: https://github.com/enzymejs/enzyme/issues/2429
 
 ## Project Library and Design Choices
-Below is a list of importan libraries and dependecies for the project and what their prupose is.
+Below is a list of important libraries and dependecies for the project and what their purpose is.
 
 __Package Management:__ [Node Package Manager](https://www.npmjs.com) (npm)
 
@@ -52,6 +52,14 @@ __Testing:__
 The features of the Example Client are subject to change with future versions and as decisions are made on the DSNP SDK.
 
 ***
+## Project Setup
+Follow this quick start guide to get up and running. This guide assumes a working knowledge of npm and git. Make sure to check out the __CONTRIBUTING.md__ as well.
+* Clone the example-client repository: `git clone git@github.com:LibertyDSNP/example-client.git`
+* Install the correct npm and node version. Recommend using asdf: `asdf install`
+* Install modules: `npm install`
+* Copy `.env.example` to `.env` and edit as needed. 
+* Start up site locally: `npm run start`
+* Visit http://localhost:3000 (or you configured port)
 
 ## Miscellaneous Information
 
