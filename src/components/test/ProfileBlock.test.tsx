@@ -4,8 +4,8 @@ import { shallow } from "enzyme";
 import { getPrefabProfile } from "../../test/testProfiles";
 
 const mockProfile = getPrefabProfile(0);
-const mockSocialAddress = mockProfile.address;
-const mockWalletAddress = mockProfile.address;
+const mockSocialAddress = mockProfile.socialAddress;
+const mockWalletAddress = mockProfile.socialAddress;
 
 describe("Profile", () => {
   it("renders without crashing", () => {
