@@ -13,8 +13,6 @@ import Header from "./components/Header";
 import Feed from "./components/Feed";
 import ProfileBlock from "./components/ProfileBlock";
 import { Graph, HexString, Profile } from "./utilities/types";
-import { Provider } from "react-redux";
-import store from "./redux/store";
 
 const App: React.FC = () => {
   const [_sessionLoading, setSessionLoading] = useState(true);
@@ -71,25 +69,23 @@ const App: React.FC = () => {
   };
 
   return (
-    <Provider store={store}>
-      <Router>
-        <div className="App">
-          <Header
-            onAuthenticate={onAuthenticate}
-            logout={logout}
+    <Router>
+      <div className="App">
+        <Header
+          onAuthenticate={onAuthenticate}
+          logout={logout}
+          socialAddress={socialAddress}
+        />
+        <main className="App__content">
+          <Feed />
+          <ProfileBlock
+            walletAddress={walletAddress}
             socialAddress={socialAddress}
+            profile={profile}
           />
-          <main className="App__content">
-            <Feed />
-            <ProfileBlock
-              walletAddress={walletAddress}
-              socialAddress={socialAddress}
-              profile={profile}
-            />
-          </main>
-        </div>
-      </Router>
-    </Provider>
+        </main>
+      </div>
+    </Router>
   );
 };
 

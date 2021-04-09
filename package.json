@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@reduxjs/toolkit": "^1.5.1",
     "@toruslabs/torus-embed": "1.9.2",
     "@types/node-fetch": "^2.5.8",
     "antd": "^4.13.1",
