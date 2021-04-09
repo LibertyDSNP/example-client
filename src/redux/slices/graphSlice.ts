@@ -37,8 +37,8 @@ export const graphSlice = createSlice({
     follow: (state, action: PayloadAction<AddressHolder>) => {
       const socialAddress = action.payload.userAddress;
       const followAddress = action.payload.targetAddress;
-      state.graphs.get(socialAddress)?.following.add(followAddress);
-      state.graphs.get(followAddress)?.followers.add(socialAddress);
+      state.graphs.get(socialAddress)?.following.push(followAddress);
+      state.graphs.get(followAddress)?.followers.push(socialAddress);
       return {
         ...state,
         graphs: new Map(state.graphs),
@@ -47,8 +47,10 @@ export const graphSlice = createSlice({
     unfollow: (state, action: PayloadAction<AddressHolder>) => {
       const socialAddress = action.payload.userAddress;
       const unfollowAddress = action.payload.targetAddress;
-      state.graphs.get(socialAddress)?.following.delete(unfollowAddress);
-      state.graphs.get(unfollowAddress)?.followers.delete(socialAddress);
+      const following = state.graphs.get(socialAddress)?.following;
+      const followers = state.graphs.get(unfollowAddress)?.followers;
+      following?.splice(following.indexOf(unfollowAddress));
+      followers?.splice(followers.indexOf(socialAddress));
       return {
         ...state,
         graphs: new Map(state.graphs),

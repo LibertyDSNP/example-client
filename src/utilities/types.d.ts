@@ -38,6 +38,8 @@ export interface FeedItem {
 // ## Graph ##
 export interface Graph {
   socialAddress: HexString;
-  following: Set<HexString>;
-  followers: Set<HexString>;
+  following: HexString[];
+  followers: HexString[];
 }
+
+export type SocialGraph = Map<HexString,Graph>;

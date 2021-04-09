@@ -15,29 +15,34 @@ export const userSlice = createSlice({
   name: "user",
   initialState,
   reducers: {
-    login: (state, action: PayloadAction<userState>) => {
+    userLogin: (state, action: PayloadAction<userState>) => {
       const profile: Profile = action.payload.profile as Profile;
       const graph: Graph = action.payload.graph as Graph;
       state.profile = profile;
       state.graph = graph;
-      return { ...state };
+      return state;
     },
-    logout: (state) => {
+    userLogout: (state) => {
       state.profile = null;
       state.graph = null;
-      return { ...state };
+      return state;
     },
-    updateProfile: (state, action: PayloadAction<Profile>) => {
+    userUpdateProfile: (state, action: PayloadAction<Profile>) => {
       const profile: Profile = action.payload;
       state.profile = profile;
-      return { ...state };
+      return state;
     },
-    updateGraph: (state, action: PayloadAction<Graph>) => {
+    userUpdateGraph: (state, action: PayloadAction<Graph>) => {
       const graph: Graph = action.payload;
       state.graph = graph;
-      return { ...state };
+      return state;
     },
   },
 });
-export const { login, logout, updateProfile, updateGraph } = userSlice.actions;
+export const {
+  userLogin,
+  userLogout,
+  userUpdateProfile,
+  userUpdateGraph,
+} = userSlice.actions;
 export default userSlice.reducer;

@@ -2,39 +2,17 @@ import React from "react";
 import { useHistory } from "react-router-dom";
 import { Alert, Button, Spin } from "antd";
 import * as sdk from "../services/sdk";
-import { Graph, HexString, Profile } from "../utilities/types";
 import * as torus from "../services/wallets/torus";
+import { useAppDispatch, useAppSelector } from "../redux/hooks";
+import { userLogin, userLogout } from "../redux/slices/userSlice";
 
-interface LoginProps {
-  onAuthenticate: (
-    walletAddress: HexString,
-    socialAddress: HexString,
-    profile: Profile,
-    graph: Graph
-  ) => void;
-  logout: () => void;
-  socialAddress: HexString | null;
-}
-
-const Login = ({
-  onAuthenticate,
-  logout,
-  socialAddress,
-}: LoginProps): JSX.Element => {
+const Login = (): JSX.Element => {
   const [loading, startLoading] = React.useState<boolean>(false);
   const [alertError, setAlertError] = React.useState<string>("");
 
   const history = useHistory();
-
-  const auth = async (
-    walletAddress: HexString,
-    socialAddress: HexString,
-    profile: Profile,
-    graph: Graph
-  ) => {
-    await onAuthenticate(walletAddress, socialAddress, profile, graph);
-    history.push("/");
-  };
+  const dispatch = useAppDispatch();
+  const profile = useAppSelector((state) => state.user.profile);
 
   const torusLogin = async () => {
     if (loading) return;
@@ -45,7 +23,8 @@ const Login = ({
       const socialAddress = await sdk.getSocialIdentity(walletAddress);
       const profile = await sdk.getProfile(socialAddress);
       const graph = await sdk.getGraph(socialAddress);
-      auth(walletAddress, socialAddress, profile as Profile, graph as Graph);
+      dispatch(userLogin({ profile, graph }));
+      history.push("/");
       startLoading(false);
     } catch (error) {
       setAlertError(error.toString());
@@ -54,7 +33,7 @@ const Login = ({
   };
 
   const torusLogout = () => {
-    logout();
+    dispatch(userLogout());
     if (torus.isInitialized()) {
       torus.logout();
     }
@@ -72,7 +51,7 @@ const Login = ({
           onClose={() => setAlertError("")}
         />
       )}
-      {!socialAddress ? (
+      {!profile ? (
         <Button
           className="Login__loginButton"
           aria-label="Login"
