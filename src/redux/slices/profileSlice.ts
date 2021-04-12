@@ -16,17 +16,11 @@ export const profileSlice = createSlice({
     setProfile: (state, action: PayloadAction<Profile>) => {
       const newProfile: Profile = action.payload;
       state.profiles.set(newProfile.socialAddress, newProfile);
-      return {
-        ...state,
-        profiles: new Map(state.profiles),
-      };
+      return state;
     },
     removeProfile: (state, action: PayloadAction<HexString>) => {
       state.profiles.delete(action.payload);
-      return {
-        ...state,
-        profiles: new Map(state.profiles),
-      };
+      return state;
     },
   },
 });

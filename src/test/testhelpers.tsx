@@ -1,4 +1,10 @@
+import React from "react";
+import { Store } from "@reduxjs/toolkit";
+import configureStore from "redux-mock-store";
+import { ComponentType, ReactElement } from "react";
 import { act } from "react-dom/test-utils";
+import { Provider } from "react-redux";
+import { BrowserRouter as Router } from "react-router-dom";
 import { HexString } from "../utilities/types";
 
 /**
@@ -20,6 +26,24 @@ export const forcePromiseResolve = async (): Promise<void> => {
     new Promise((resolve) => setTimeout(resolve, 0));
     jest.runAllTimers();
   });
+};
+
+export const componentWithStore = (
+  Component: ComponentType,
+  store: Store,
+  props = {}
+): ReactElement => {
+  return (
+    <Provider store={store}>
+      <Router>
+        <Component {...props} />
+      </Router>
+    </Provider>
+  );
+};
+
+export const createMockStore = (initialState: unknown): any => {
+  return configureStore()(initialState);
 };
 
 /**

@@ -1,22 +1,15 @@
-import React from "react";
 import ProfileBlock from "../ProfileBlock";
-import { shallow } from "enzyme";
+import { mount } from "enzyme";
 import { getPrefabProfile } from "../../test/testProfiles";
-
-const mockProfile = getPrefabProfile(0);
-const mockSocialAddress = mockProfile.socialAddress;
-const mockWalletAddress = mockProfile.socialAddress;
+import { componentWithStore, createMockStore } from "../../test/testhelpers";
 
 describe("Profile", () => {
   it("renders without crashing", () => {
+    const profile = getPrefabProfile(0);
+    const initialState = { user: { profile } };
+    const store = createMockStore(initialState);
     expect(() => {
-      shallow(
-        <ProfileBlock
-          socialAddress={mockSocialAddress}
-          walletAddress={mockWalletAddress}
-          profile={mockProfile}
-        />
-      );
+      mount(componentWithStore(ProfileBlock, store));
     }).not.toThrow();
   });
 });

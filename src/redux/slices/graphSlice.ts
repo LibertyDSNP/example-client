@@ -21,28 +21,19 @@ export const graphSlice = createSlice({
     setGraph: (state, action: PayloadAction<Graph>) => {
       const newGraph: Graph = action.payload;
       state.graphs.set(newGraph.socialAddress, newGraph);
-      return {
-        ...state,
-        graphs: new Map(state.graphs),
-      };
+      return state;
     },
     removeGraph: (state, action: PayloadAction<HexString>) => {
       const socialAddress = action.payload;
       state.graphs.delete(socialAddress);
-      return {
-        ...state,
-        graphs: new Map(state.graphs),
-      };
+      return state;
     },
     follow: (state, action: PayloadAction<AddressHolder>) => {
       const socialAddress = action.payload.userAddress;
       const followAddress = action.payload.targetAddress;
       state.graphs.get(socialAddress)?.following.push(followAddress);
       state.graphs.get(followAddress)?.followers.push(socialAddress);
-      return {
-        ...state,
-        graphs: new Map(state.graphs),
-      };
+      return state;
     },
     unfollow: (state, action: PayloadAction<AddressHolder>) => {
       const socialAddress = action.payload.userAddress;
@@ -51,10 +42,7 @@ export const graphSlice = createSlice({
       const followers = state.graphs.get(unfollowAddress)?.followers;
       following?.splice(following.indexOf(unfollowAddress));
       followers?.splice(followers.indexOf(socialAddress));
-      return {
-        ...state,
-        graphs: new Map(state.graphs),
-      };
+      return state;
     },
   },
 });
