@@ -48,13 +48,13 @@ export const getPublicAddress = async (
 
 export const getWalletAddress = async (): Promise<string> => {
   const { verifier, verifierId } = await getUserInfo();
-  const walletObject = await getPublicAddress(
+  const walletAddressHolder = await getPublicAddress(
     verifier as VerifierTypes,
     verifierId
   );
-  if (!walletObject) throw new Error("No Wallet Address found for User");
-  else if (typeof walletObject === "string") return walletObject;
-  else return walletObject.address;
+  if (!walletAddressHolder) throw new Error("No Wallet Address found for User");
+  if (typeof walletAddressHolder === "string") return walletAddressHolder;
+  return walletAddressHolder.address;
 };
 
 export const getBalance = async (walletAddress: HexString): Promise<string> => {

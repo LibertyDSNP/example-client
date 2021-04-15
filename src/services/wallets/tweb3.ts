@@ -70,7 +70,6 @@ const web3Torus = {
       await torus.login({ verifier: undefined });
       web3Torus.setweb3(torus.provider);
       web3Torus.torus = torus;
-      sessionStorage.setItem("pageUsingTorus", buildEnv || "");
     } catch (error) {
       torus.clearInit();
       this.initialized = false;
