@@ -19,7 +19,7 @@ export const graphSlice = createSlice({
   initialState,
   reducers: {
     setGraph: (state, action: PayloadAction<Graph>) => {
-      const newGraph: Graph = action.payload;
+      const newGraph = action.payload;
       state.graphs.set(newGraph.socialAddress, newGraph);
       return state;
     },

@@ -14,7 +14,7 @@ export const profileSlice = createSlice({
   initialState,
   reducers: {
     setProfile: (state, action: PayloadAction<Profile>) => {
-      const newProfile: Profile = action.payload;
+      const newProfile = action.payload;
       state.profiles.set(newProfile.socialAddress, newProfile);
       return state;
     },

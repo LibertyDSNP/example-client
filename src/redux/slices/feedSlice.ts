@@ -14,14 +14,14 @@ export const feedSlice = createSlice({
   initialState,
   reducers: {
     addFeedItem: (state, action: PayloadAction<FeedItem>) => {
-      const newFeedItem: FeedItem = action.payload;
+      const newFeedItem = action.payload;
       return {
         ...state,
         feed: [...state.feed, newFeedItem],
       };
     },
     addFeedItems: (state, action: PayloadAction<FeedItem[]>) => {
-      const newFeedItems: FeedItem[] = action.payload;
+      const newFeedItems = action.payload;
       return {
         ...state,
         feed: [...state.feed, ...newFeedItems],
