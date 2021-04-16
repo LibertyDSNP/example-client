@@ -42,11 +42,12 @@ const popupStyling = {
 // interface TorusParams in trous-embeded types
 const initSettings = (buildEnv: BuildEnvironment) => {
   return {
-    buildEnv: buildEnv || "production",
+    buildEnv:
+      (process.env.BUILD_ENV as BuildEnvironment) || buildEnv || "production",
     network: {
-      host: "http://localhost:7545",
-      chainId: 1337,
-      networkName: "Localchain",
+      host: process.env.CHAIN_HOST || "http://localhost:7545",
+      chainId: Number(process.env.CHAIN_ID) || 1337,
+      networkName: process.env.CHAIN_NAME || "Localchain",
     },
     showTorusButton: true,
     whiteLabel: popupStyling,
