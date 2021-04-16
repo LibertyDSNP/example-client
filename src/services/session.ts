@@ -1,8 +1,17 @@
-export const clearSession = () => {
+import { Graph, HexString, Profile } from "../utilities/types";
+
+interface SessionData {
+  walletAddress: HexString | null;
+  socialAddress: HexString | null;
+  profile: Profile | null;
+  graph: Graph | null;
+}
+
+export const clearSession = (): void => {
   sessionStorage.removeItem("session");
 };
 
-export const getSession = () => {
+export const getSession = (): SessionData | null => {
   try {
     const sessionData = sessionStorage.getItem("session");
     return sessionData ? JSON.parse(sessionData) : null;
@@ -11,7 +20,7 @@ export const getSession = () => {
   }
 };
 
-export const setSession = (newSession) => {
+export const setSession = (newSession: SessionData): SessionData => {
   if (newSession.walletAddress) {
     newSession.walletAddress = newSession.walletAddress.toLowerCase();
   }
@@ -22,7 +31,7 @@ export const setSession = (newSession) => {
   return newSession;
 };
 
-export const updateSession = (profile) => {
+export const updateSession = (profile: Profile | null): void => {
   const oldSession = getSession();
   if (oldSession === null) return;
   const newSession = {
@@ -40,4 +49,4 @@ export const updateSession = (profile) => {
   }
 };
 
-export const hasSession = () => !!sessionStorage.getItem("session");
+export const hasSession = (): boolean => !!sessionStorage.getItem("session");
