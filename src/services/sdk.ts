@@ -14,20 +14,16 @@ export const getSocialIdentity = async (
   }
   return socialAddress;
 };
-export const getGraph = async (
-  socialAddress: HexString
-): Promise<Graph | null> => {
-  const graph: Graph | null = await sdk.getGraphFromSocialIdentity(
-    socialAddress
-  );
+export const getGraph = async (socialAddress: HexString): Promise<Graph> => {
+  const graph = await sdk.getGraphFromSocialIdentity(socialAddress);
+  if (!graph) throw new Error("Invalid Social Identity Address");
   return graph;
 };
 
 export const getProfile = async (
   socialAddress: HexString
-): Promise<Profile | null> => {
-  const profile: Profile | null = await sdk.getProfileFromSocialIdentity(
-    socialAddress
-  );
+): Promise<Profile> => {
+  const profile = await sdk.getProfileFromSocialIdentity(socialAddress);
+  if (!profile) throw new Error("Invalid Social Identity Address");
   return profile;
 };

@@ -1,39 +1,35 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { Graph, Profile } from "../../utilities/types";
 
-interface userState {
-  profile: Profile | null;
-  graph: Graph | null;
+interface UserState {
+  profile?: Profile;
+  graph?: Graph;
 }
 
-const initialState: userState = {
-  profile: null,
-  graph: null,
-};
+const initialState: UserState = {};
 
 export const userSlice = createSlice({
   name: "user",
   initialState,
   reducers: {
-    userLogin: (state, action: PayloadAction<userState>) => {
-      const profile: Profile = action.payload.profile as Profile;
-      const graph: Graph = action.payload.graph as Graph;
+    userLogin: (state, action: PayloadAction<UserState>) => {
+      const profile = action.payload.profile;
+      const graph = action.payload.graph;
       state.profile = profile;
       state.graph = graph;
       return state;
     },
     userLogout: (state) => {
-      state.profile = null;
-      state.graph = null;
+      state = initialState;
       return state;
     },
     userUpdateProfile: (state, action: PayloadAction<Profile>) => {
-      const profile: Profile = action.payload;
+      const profile = action.payload;
       state.profile = profile;
       return state;
     },
     userUpdateGraph: (state, action: PayloadAction<Graph>) => {
-      const graph: Graph = action.payload;
+      const graph = action.payload;
       state.graph = graph;
       return state;
     },
