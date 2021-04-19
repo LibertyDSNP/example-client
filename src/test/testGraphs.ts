@@ -5,15 +5,8 @@ export const generateRandomGraph = (
   socialAddress: HexString,
   size: number = 4
 ): Graph => {
-  const following: HexString[] = [];
-  for (let i = 0; i < size; i++) {
-    following[i] = generateSocialAddress();
-  }
-
-  const followers: HexString[] = [];
-  for (let i = 0; i < size; i++) {
-    followers[i] = generateSocialAddress();
-  }
+  const following = [...Array(size)].map(() => generateSocialAddress());
+  const followers = [...Array(size)].map(() => generateSocialAddress());
 
   return {
     socialAddress,
