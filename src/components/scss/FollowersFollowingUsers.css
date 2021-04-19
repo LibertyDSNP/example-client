@@ -1,0 +1,17 @@
+/* Error: Undefined variable.
+ *    ,
+ * 30 |     color: $black;
+ *    |            ^^^^^^
+ *    '
+ *   FollowersFollowingUsers.scss 30:12  root stylesheet */
+
+body::before {
+  font-family: "Source Code Pro", "SF Mono", Monaco, Inconsolata, "Fira Mono",
+      "Droid Sans Mono", monospace, monospace;
+  white-space: pre;
+  display: block;
+  padding: 1em;
+  margin-bottom: 1em;
+  border-bottom: 2px solid black;
+  content: "Error: Undefined variable.\a    \2577 \a 30 \2502      color: $black;\a    \2502             ^^^^^^\a    \2575 \a   FollowersFollowingUsers.scss 30:12  root stylesheet";
+}
