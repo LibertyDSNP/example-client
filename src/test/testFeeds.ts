@@ -2,13 +2,10 @@ import { keccak_256 } from "js-sha3";
 import {
   ActivityPub,
   ActivityPubAttachement,
-  EncryptedMessageActivityPub,
-  FeedItem,
-  HexString,
   NoteActivityPub,
-  NoteAttachment,
   PersonActivityPub,
-} from "../utilities/types";
+} from "../utilities/activityPub";
+import { FeedItem, HexString, NoteAttachment } from "../utilities/types";
 import { generateSocialAddress, getPrefabSocialAddress } from "./testAddresses";
 import {
   prefabFirstNames,
@@ -39,24 +36,6 @@ export const generateVideoAttachment = (url: string): NoteAttachment => {
     mediaType: url.replace(/(^\w+:|^)\/\//, ""), // Regex to scrub protocol from string
     type: "Video",
     url: url,
-  };
-};
-
-/**
- * Generate a Note piece of Content for us in constructing a Feed
- * @param address the HexString socialAddress to associate with making this note
- * @param message The message string to display in the note
- * @param attachment the NoteAttachements for pictures and videos in this Note.
- */
-export const generateDirectMessage = (
-  address: HexString
-): EncryptedMessageActivityPub => {
-  return {
-    message: undefined,
-    actor: address,
-    "@context": "https://www.w3.org/ns/activitystreams",
-    id: "http://localhost:3003/api/announce/" + address,
-    type: "EncryptedMessage",
   };
 };
 
@@ -221,18 +200,12 @@ export const generateRandomFeed = (
   // 1 - Content
   // 2 - Replies if Note
   for (let s = 0; s < size; s++) {
-    let content: NoteActivityPub | PersonActivityPub;
-    randInt(4) > 0
-      ? (content = generateRandomNote())
-      : (content = generateRandomPerson());
-
-    content.type === "Note"
-      ? (feed[s] = generateFeedItem(
-          content,
-          false,
-          generateRandomReplies(avgReplies)
-        ))
-      : (feed[s] = generateFeedItem(content));
+    const content: NoteActivityPub = generateRandomNote();
+    feed[s] = generateFeedItem(
+      content,
+      false,
+      generateRandomReplies(avgReplies)
+    );
   }
   return feed;
 };

@@ -1,4 +1,4 @@
-import { generateRandomSocialGraph } from "../test/testGraphs";
+import { generateRandomGraph } from "../test/testGraphs";
 import { generateProfile } from "../test/testProfiles";
 import { Graph, HexString, Profile } from "../utilities/types";
 
@@ -15,13 +15,13 @@ export const getSocialIdentityfromWalletAddress = async (
 };
 
 export const getGraphFromSocialIdentity = async (
-  _socialAddress: HexString
+  socialAddress: HexString
 ): Promise<Graph | null> => {
-  return generateRandomSocialGraph(10);
+  return generateRandomGraph(socialAddress);
 };
 
 export const getProfileFromSocialIdentity = async (
   socialAddress: HexString
 ): Promise<Profile | null> => {
-  return generateProfile(socialAddress);
+  return generateProfile(socialAddress, socialAddress);
 };

@@ -1,8 +1,14 @@
-import React from "react";
 import Login from "../Login";
-import { shallow } from "enzyme";
-import { getPrefabSocialAddress } from "../../test/testAddresses";
+import { mount } from "enzyme";
 import * as torus from "../../services/wallets/torus";
+import {
+  forcePromiseResolve,
+  componentWithStore,
+  createMockStore,
+} from "../../test/testhelpers";
+import { getPrefabProfile } from "../../test/testProfiles";
+import { generateRandomGraph } from "../../test/testGraphs";
+import { act } from "react-test-renderer";
 
 jest.spyOn(torus, "logout").mockImplementation(jest.fn);
 jest.spyOn(torus, "isInitialized").mockReturnValue(true);
@@ -12,49 +18,38 @@ jest
 
 describe("Login Component", () => {
   describe("is logged out", () => {
+    const initialState = { user: { profile: null } };
+    const store = createMockStore(initialState);
     it("renders without crashing", () => {
       expect(() => {
-        shallow(
-          <Login
-            logout={jest.fn}
-            onAuthenticate={jest.fn}
-            socialAddress={null}
-          />
-        );
+        mount(componentWithStore(Login, store));
       }).not.toThrow();
     });
 
-    it("button triggers login sequence", () => {
-      const component = shallow(
-        <Login logout={jest.fn} onAuthenticate={jest.fn} socialAddress={null} />
-      );
-      component.find("Button").simulate("click");
+    it("button triggers login sequence", async () => {
+      const component = mount(componentWithStore(Login, store));
+      act(() => {
+        component.find("Button").simulate("click");
+      });
+      await forcePromiseResolve();
       expect(torus.enableTorus).toHaveBeenCalled();
     });
   });
 
   describe("is logged in", () => {
-    const mockSocialAddress = getPrefabSocialAddress(0);
+    const profile = getPrefabProfile(0);
+    const graph = generateRandomGraph(profile.socialAddress);
+    const initialState = { user: { profile }, graph };
+    const store = createMockStore(initialState);
+
     it("renders without crashing", () => {
       expect(() => {
-        shallow(
-          <Login
-            logout={jest.fn}
-            onAuthenticate={jest.fn}
-            socialAddress={mockSocialAddress}
-          />
-        );
+        mount(componentWithStore(Login, store));
       }).not.toThrow();
     });
 
     it("button triggers logout sequence", () => {
-      const component = shallow(
-        <Login
-          logout={jest.fn}
-          onAuthenticate={jest.fn}
-          socialAddress={mockSocialAddress}
-        />
-      );
+      const component = mount(componentWithStore(Login, store));
       component.find("Button").simulate("click");
       expect(torus.logout).toHaveBeenCalled();
     });
