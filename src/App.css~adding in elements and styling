@@ -1,0 +1,207 @@
+body {
+  background-color: #404040 !important;
+}
+
+.Login__block .ant-btn {
+  border-radius: 6px;
+  padding: 0 30px;
+  background-color: #111;
+  color: #fff;
+  border-color: #111;
+}
+.Login__block .ant-btn:hover, .Login__block .ant-btn:active, .Login__block .ant-btn:focus {
+  color: #26e990;
+  background-color: #111;
+  border-color: #26e990;
+}
+
+.Login__block .ant-spin {
+  padding-left: 8px;
+}
+
+.FollowersFollowingUsers__user .ant-btn {
+  height: 27px;
+  padding: 0;
+  width: 80px;
+  border-radius: 8px;
+}
+
+.FollowersFollowing__buttonBlock .ant-btn {
+  border: solid #111;
+  border-width: 2px 2px 2px 1px;
+  border-radius: 0 8px 8px 0;
+  height: auto;
+}
+.FollowersFollowing__buttonBlock .ant-btn:hover {
+  border-color: #111;
+  color: #111;
+}
+
+.FollowersFollowing__button--active {
+  color: #fff !important;
+  background-color: #111 !important;
+}
+
+.FollowersFollowing__buttonBlock .ant-btn:first-child {
+  border-radius: 8px 0 0 8px;
+  border-width: 2px 1px 2px 2px;
+}
+
+.Header__block {
+  background-color: #fff;
+  padding: 0 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+
+.Header__title {
+  margin: 0;
+  font-style: italic;
+}
+
+.Login__block {
+  display: flex;
+}
+
+.Profile__block {
+  background-color: #fff;
+  padding: 32px;
+  display: flex;
+  flex-direction: column;
+  flex-basis: 30%;
+  border-radius: 25px;
+}
+
+.Profile__personalInfoBlock {
+  display: flex;
+  justify-content: space-between;
+}
+
+.Profile__personalInfo {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  margin-left: 16px;
+}
+
+.Profile__personalInfoLabel {
+  color: #7a7a7a;
+  line-height: 1;
+}
+
+.Profile__name {
+  font-size: 24px;
+  font-weight: 550;
+  background: none;
+  border-color: rgba(0, 0, 0, 0);
+  line-height: 1;
+  margin-bottom: 16px;
+}
+
+.Profile__handle {
+  font-size: 18px;
+  font-weight: 550;
+  background: none;
+  border-color: rgba(0, 0, 0, 0);
+  line-height: 1;
+  margin-bottom: 16px;
+}
+
+.Profile__socialAddress {
+  font-size: 13px;
+  font-weight: 550;
+  background: none;
+  border-color: rgba(0, 0, 0, 0);
+  line-height: 1;
+  margin-bottom: 10px;
+}
+
+.Profile__editing {
+  background-color: #d3d3d3;
+}
+
+.Profile__loginText {
+  font-size: 34px;
+  width: 75%;
+  margin: 0 auto;
+  color: #404040;
+}
+
+.Feed__block {
+  background-color: #fff;
+  border-radius: 25px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  flex-basis: 55%;
+}
+
+.Feed__header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.FollowersFollowing__buttonBlock {
+  display: flex;
+  justify-content: center;
+  margin: 16px 0;
+}
+
+.FollowersFollowing__button {
+  border: 2px solid #111;
+  border-radius: 10px;
+  width: 140px;
+}
+
+.FollowersFollowing__button--active {
+  color: #fff;
+  background-color: #111;
+}
+
+.FollowersFollowing__buttonCount {
+  font-size: 24px;
+  font-weight: 500;
+  margin-bottom: -5px;
+  line-height: 1;
+}
+
+.FollowersFollowingUsers__user {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 6px;
+}
+
+.FollowersFollowingUsers__name {
+  flex: 1;
+  padding-left: 16px;
+}
+
+.FollowersFollowingUsers__button {
+  border-radius: 6px;
+}
+
+.FollowersFollowingUsers__button[name=Unfollow]:hover, .FollowersFollowingUsers__button[name=Unfollow]:active, .FollowersFollowingUsers__button[name=Unfollow]:focus {
+  color: #111;
+  border-color: #26e990;
+  background-color: #f0f0f0;
+}
+
+.FollowersFollowingUsers__button[name=Follow] {
+  background-color: #111;
+  color: #fff;
+}
+.FollowersFollowingUsers__button[name=Follow]:hover, .FollowersFollowingUsers__button[name=Follow]:active, .FollowersFollowingUsers__button[name=Follow]:focus {
+  color: #fff;
+  border-color: #26e990;
+  background-color: #404040;
+}
+
+.App__content {
+  display: flex;
+  justify-content: space-around;
+}
+
+/*# sourceMappingURL=App.css.map */
