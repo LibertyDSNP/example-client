@@ -1,5 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { WalletType } from "../../services/wallets/wallet";
+import { hasSession, loadSession } from "../../services/session";
 import { Graph, Profile } from "../../utilities/types";
 
 interface UserState {
@@ -8,7 +9,9 @@ interface UserState {
   wallet?: WalletType;
 }
 
-const initialState: UserState = {};
+const initialState: UserState = {
+  profile: hasSession() ? loadSession()?.profile : undefined,
+};
 
 export const userSlice = createSlice({
   name: "user",

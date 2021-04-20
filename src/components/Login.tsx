@@ -4,6 +4,7 @@ import * as sdk from "../services/sdk";
 import { useAppDispatch, useAppSelector } from "../redux/hooks";
 import { userLogin, userLogout } from "../redux/slices/userSlice";
 import { wallet, WalletType } from "../services/wallets/wallet";
+import { clearSession, saveSession } from "../services/session";
 
 const Login = (): JSX.Element => {
   const [loading, startLoading] = React.useState<boolean>(false);
@@ -23,6 +24,7 @@ const Login = (): JSX.Element => {
       const profile = await sdk.getProfile(socialAddress);
       const graph = await sdk.getGraph(socialAddress);
       dispatch(userLogin({ profile, graph, wallet: walletType }));
+      saveSession({ profile });
       startLoading(false);
     } catch (error) {
       setAlertError(error.toString());
@@ -34,6 +36,7 @@ const Login = (): JSX.Element => {
   const logout = () => {
     if (walletType) wallet(walletType).logout();
     dispatch(userLogout());
+    clearSession();
   };
 
   const handleVisibleChange = (visible: boolean) => {
