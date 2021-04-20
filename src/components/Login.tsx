@@ -1,5 +1,4 @@
 import React from "react";
-import { useHistory } from "react-router-dom";
 import { Alert, Button, Popover, Spin } from "antd";
 import * as sdk from "../services/sdk";
 import { useAppDispatch, useAppSelector } from "../redux/hooks";
@@ -11,7 +10,6 @@ const Login = (): JSX.Element => {
   const [alertError, setAlertError] = React.useState<string>("");
   const [popoverVisible, setPopoverVisible] = React.useState<boolean>(false);
 
-  const history = useHistory();
   const dispatch = useAppDispatch();
   const profile = useAppSelector((state) => state.user.profile);
   const walletType = useAppSelector((state) => state.user.wallet);
@@ -24,8 +22,7 @@ const Login = (): JSX.Element => {
       const socialAddress = await sdk.getSocialIdentity(walletAddress);
       const profile = await sdk.getProfile(socialAddress);
       const graph = await sdk.getGraph(socialAddress);
-      dispatch(userLogin({ profile, graph }));
-      history.push("/");
+      dispatch(userLogin({ profile, graph, wallet: walletType }));
       startLoading(false);
     } catch (error) {
       setAlertError(error.toString());

@@ -1,6 +1,6 @@
 import Login from "../Login";
 import { mount } from "enzyme";
-import * as torus from "../../services/wallets/torus";
+import * as torus from "../../services/wallets/torus/torus";
 import {
   forcePromiseResolve,
   componentWithStore,

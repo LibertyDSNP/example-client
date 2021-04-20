@@ -19,3 +19,7 @@ export const getBalance = (account: HexString): Promise<string> => {
     return balance;
   });
 };
+
+export const getWeb3 = (): Web3 => {
+  return mmweb3;
+};
