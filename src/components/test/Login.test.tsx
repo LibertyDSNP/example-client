@@ -9,6 +9,7 @@ import {
 import { getPrefabProfile } from "../../test/testProfiles";
 import { generateRandomGraph } from "../../test/testGraphs";
 import { act } from "react-test-renderer";
+import { WalletType } from "../../services/wallets/wallet";
 
 jest.spyOn(torus, "logout").mockImplementation(jest.fn);
 jest.spyOn(torus, "isInitialized").mockReturnValue(true);
@@ -18,7 +19,7 @@ jest
 
 describe("Login Component", () => {
   describe("is logged out", () => {
-    const initialState = { user: { profile: null } };
+    const initialState = { user: {} };
     const store = createMockStore(initialState);
     it("renders without crashing", () => {
       expect(() => {
@@ -30,6 +31,7 @@ describe("Login Component", () => {
       const component = mount(componentWithStore(Login, store));
       act(() => {
         component.find("Button").simulate("click");
+        component.find(".Login__loginTorus").at(0).simulate("click");
       });
       await forcePromiseResolve();
       expect(torus.enableTorus).toHaveBeenCalled();
@@ -39,7 +41,8 @@ describe("Login Component", () => {
   describe("is logged in", () => {
     const profile = getPrefabProfile(0);
     const graph = generateRandomGraph(profile.socialAddress);
-    const initialState = { user: { profile }, graph };
+    const walletType = WalletType.TORUS;
+    const initialState = { user: { profile, graph, wallet: walletType } };
     const store = createMockStore(initialState);
 
     it("renders without crashing", () => {

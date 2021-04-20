@@ -28,8 +28,10 @@ const popupStyling = {
       torusGray2: "#FBF7F3",
     },
   },
-  logoDark: "https://www.projectliberty.io/assets/images/brand-icon.png",
-  logoLight: "https://www.projectliberty.io/assets/images/brand-icon.png",
+  logoDark:
+    "https://www.pngkit.com/png/full/119-1193080_technology-electronics-icons-png.png",
+  logoLight:
+    "https://www.pngkit.com/png/full/119-1193080_technology-electronics-icons-png.png",
   //topupHide?: boolean
   //featuredBillboardHide?: boolean
   //disclaimerHide?: boolean

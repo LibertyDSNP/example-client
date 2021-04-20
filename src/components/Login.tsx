@@ -4,7 +4,6 @@ import { Alert, Button, Popover, Spin } from "antd";
 import * as sdk from "../services/sdk";
 import { useAppDispatch, useAppSelector } from "../redux/hooks";
 import { userLogin, userLogout } from "../redux/slices/userSlice";
-import { Graph, HexString, Profile } from "../utilities/types";
 import { wallet, WalletType } from "../services/wallets/wallet";
 
 const Login = (): JSX.Element => {
@@ -15,8 +14,9 @@ const Login = (): JSX.Element => {
   const history = useHistory();
   const dispatch = useAppDispatch();
   const profile = useAppSelector((state) => state.user.profile);
+  const walletType = useAppSelector((state) => state.user.wallet);
 
-  const userLogin = async (walletType: WalletType) => {
+  const login = async (walletType: WalletType) => {
     if (loading) return;
     startLoading(true);
     try {
@@ -34,9 +34,9 @@ const Login = (): JSX.Element => {
     setPopoverVisible(false);
   };
 
-  const userLogout = (walletType: WalletType) => {
-    logout();
-    wallet(walletType).logout();
+  const logout = () => {
+    if (walletType) wallet(walletType).logout();
+    dispatch(userLogout());
   };
 
   const handleVisibleChange = (visible: boolean) => {
@@ -55,7 +55,7 @@ const Login = (): JSX.Element => {
           onClose={() => setAlertError("")}
         />
       )}
-      {!socialAddress ? (
+      {!profile ? (
         <Popover
           placement="bottomRight"
           trigger="click"
@@ -65,13 +65,13 @@ const Login = (): JSX.Element => {
             <div className="Login__loginOptions">
               <Button
                 className="Login__loginTorus"
-                onClick={() => userLogin(WalletType.TORUS)}
+                onClick={() => login(WalletType.TORUS)}
               >
                 Torus
               </Button>
               <Button
                 className="Login__loginMetamask"
-                onClick={() => userLogin(WalletType.METAMASK)}
+                onClick={() => login(WalletType.METAMASK)}
               >
                 MetaMask
               </Button>
@@ -87,7 +87,7 @@ const Login = (): JSX.Element => {
         <Button
           className="Login__logOutButton"
           aria-label="Logout"
-          onClick={() => userLogout(WalletType.METAMASK)}
+          onClick={() => logout()}
         >
           Log Out
         </Button>

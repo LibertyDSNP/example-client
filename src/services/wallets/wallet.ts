@@ -5,8 +5,8 @@ import * as metamask from "./metamask/metamask";
 
 // Add new WalletTypes Here
 export enum WalletType {
-  TORUS,
-  METAMASK,
+  TORUS = "TORUS",
+  METAMASK = "METAMASK",
 }
 
 interface Wallet {
