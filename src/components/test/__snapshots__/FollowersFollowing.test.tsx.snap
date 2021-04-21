@@ -1,0 +1,118 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Feed to match snapshot 1`] = `
+<div
+  className="FollowersFollowing__block"
+>
+  <div
+    className="FollowersFollowing__buttonBlock"
+  >
+    <Button
+      className="FollowersFollowing__button"
+      onClick={[Function]}
+    >
+      <div
+        className="FollowersFollowing__buttonCount"
+      >
+        2
+      </div>
+      Followers
+    </Button>
+    <div
+      className="FollowersFollowing__buttonSeperator"
+    >
+       
+    </div>
+    <Button
+      className="FollowersFollowing__button"
+      onClick={[Function]}
+    >
+      <div
+        className="FollowersFollowing__buttonCount"
+      >
+        2
+      </div>
+      Following
+    </Button>
+  </div>
+  <FollowersFollowingUsers
+    selectedListTitle=""
+    tempUserList={
+      Array [
+        Object {
+          "following": true,
+          "followsMe": true,
+          "icon": Object {
+            "url": "https://image.shutterstock.com/image-vector/monday-time-sparkle-shine-word-600w-731826949.jpg",
+          },
+          "name": "Monday January",
+          "profile": Object {
+            "@context": "https://www.w3.org/ns/activitystreams",
+            "actor": "0x1DCODE0000",
+            "discoverable": true,
+            "icon": Object {
+              "url": "https://image.shutterstock.com/image-vector/monday-time-sparkle-shine-word-600w-731826949.jpg",
+            },
+            "id": "http://localhost:3003/api/announce/0x1DCODE0000",
+            "name": "Monday January",
+            "preferredUsername": "0Monday0",
+            "socialAddress": "0x1DCODE0000",
+            "summary": "",
+            "type": "Person",
+            "url": "",
+            "walletAddress": "0xCODE0000",
+          },
+        },
+        Object {
+          "following": true,
+          "followsMe": false,
+          "icon": Object {
+            "url": "https://image.shutterstock.com/image-vector/traditional-taco-tuesday-neon-light-600w-1193206603.jpg",
+          },
+          "name": "Tuesday February",
+          "profile": Object {
+            "@context": "https://www.w3.org/ns/activitystreams",
+            "actor": "0x1DCODE1111",
+            "discoverable": true,
+            "icon": Object {
+              "url": "https://image.shutterstock.com/image-vector/traditional-taco-tuesday-neon-light-600w-1193206603.jpg",
+            },
+            "id": "http://localhost:3003/api/announce/0x1DCODE1111",
+            "name": "Tuesday February",
+            "preferredUsername": "1Tuesday1",
+            "socialAddress": "0x1DCODE1111",
+            "summary": "",
+            "type": "Person",
+            "url": "",
+            "walletAddress": "0xCODE1111",
+          },
+        },
+        Object {
+          "following": false,
+          "followsMe": true,
+          "icon": Object {
+            "url": "https://image.shutterstock.com/image-vector/wednesday-pop-art-illustration-vector-600w-219333010.jpg",
+          },
+          "name": "Wednesday March",
+          "profile": Object {
+            "@context": "https://www.w3.org/ns/activitystreams",
+            "actor": "0x1DCODE2222",
+            "discoverable": true,
+            "icon": Object {
+              "url": "https://image.shutterstock.com/image-vector/wednesday-pop-art-illustration-vector-600w-219333010.jpg",
+            },
+            "id": "http://localhost:3003/api/announce/0x1DCODE2222",
+            "name": "Wednesday March",
+            "preferredUsername": "2Wednesday2",
+            "socialAddress": "0x1DCODE2222",
+            "summary": "",
+            "type": "Person",
+            "url": "",
+            "walletAddress": "0xCODE2222",
+          },
+        },
+      ]
+    }
+  />
+</div>
+`;

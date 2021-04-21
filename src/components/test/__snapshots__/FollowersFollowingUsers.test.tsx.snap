@@ -1,0 +1,272 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Feed to match snapshot 1`] = `
+<FollowersFollowingUsers
+  selectedListTitle="showFollowers"
+  tempUserList={
+    Array [
+      Object {
+        "following": true,
+        "followsMe": true,
+        "icon": Object {
+          "url": "https://image.shutterstock.com/image-vector/monday-time-sparkle-shine-word-600w-731826949.jpg",
+        },
+        "name": "Monday January",
+        "profile": Object {
+          "@context": "https://www.w3.org/ns/activitystreams",
+          "actor": "0x1DCODE0000",
+          "discoverable": true,
+          "icon": Object {
+            "url": "https://image.shutterstock.com/image-vector/monday-time-sparkle-shine-word-600w-731826949.jpg",
+          },
+          "id": "http://localhost:3003/api/announce/0x1DCODE0000",
+          "name": "Monday January",
+          "preferredUsername": "0Monday0",
+          "socialAddress": "0x1DCODE0000",
+          "summary": "",
+          "type": "Person",
+          "url": "",
+          "walletAddress": "0xCODE0000",
+        },
+      },
+      Object {
+        "following": true,
+        "followsMe": false,
+        "icon": Object {
+          "url": "https://image.shutterstock.com/image-vector/traditional-taco-tuesday-neon-light-600w-1193206603.jpg",
+        },
+        "name": "Tuesday February",
+        "profile": Object {
+          "@context": "https://www.w3.org/ns/activitystreams",
+          "actor": "0x1DCODE1111",
+          "discoverable": true,
+          "icon": Object {
+            "url": "https://image.shutterstock.com/image-vector/traditional-taco-tuesday-neon-light-600w-1193206603.jpg",
+          },
+          "id": "http://localhost:3003/api/announce/0x1DCODE1111",
+          "name": "Tuesday February",
+          "preferredUsername": "1Tuesday1",
+          "socialAddress": "0x1DCODE1111",
+          "summary": "",
+          "type": "Person",
+          "url": "",
+          "walletAddress": "0xCODE1111",
+        },
+      },
+      Object {
+        "following": false,
+        "followsMe": true,
+        "icon": Object {
+          "url": "https://image.shutterstock.com/image-vector/wednesday-pop-art-illustration-vector-600w-219333010.jpg",
+        },
+        "name": "Wednesday March",
+        "profile": Object {
+          "@context": "https://www.w3.org/ns/activitystreams",
+          "actor": "0x1DCODE2222",
+          "discoverable": true,
+          "icon": Object {
+            "url": "https://image.shutterstock.com/image-vector/wednesday-pop-art-illustration-vector-600w-219333010.jpg",
+          },
+          "id": "http://localhost:3003/api/announce/0x1DCODE2222",
+          "name": "Wednesday March",
+          "preferredUsername": "2Wednesday2",
+          "socialAddress": "0x1DCODE2222",
+          "summary": "",
+          "type": "Person",
+          "url": "",
+          "walletAddress": "0xCODE2222",
+        },
+      },
+    ]
+  }
+>
+  <div
+    className="FollowersFollowingUsers__user"
+    key="0"
+  >
+    <UserAvatar
+      avatarSize="small"
+      profile={
+        Object {
+          "@context": "https://www.w3.org/ns/activitystreams",
+          "actor": "0x1DCODE0000",
+          "discoverable": true,
+          "icon": Object {
+            "url": "https://image.shutterstock.com/image-vector/monday-time-sparkle-shine-word-600w-731826949.jpg",
+          },
+          "id": "http://localhost:3003/api/announce/0x1DCODE0000",
+          "name": "Monday January",
+          "preferredUsername": "0Monday0",
+          "socialAddress": "0x1DCODE0000",
+          "summary": "",
+          "type": "Person",
+          "url": "",
+          "walletAddress": "0xCODE0000",
+        }
+      }
+    >
+      <Avatar
+        alt="Monday January"
+        shape="circle"
+        size={32}
+        src="data:image/png;base64,00"
+      >
+        <span
+          className="ant-avatar ant-avatar-circle ant-avatar-image"
+          style={
+            Object {
+              "fontSize": 18,
+              "height": 32,
+              "lineHeight": "32px",
+              "width": 32,
+            }
+          }
+        >
+          <img
+            alt="Monday January"
+            onError={[Function]}
+            src="data:image/png;base64,00"
+          />
+        </span>
+      </Avatar>
+    </UserAvatar>
+    <div
+      className="FollowersFollowingUsers__name"
+    >
+      Monday January
+    </div>
+    <Button
+      className="FollowersFollowingUsers__button"
+      name="Unfollow"
+    >
+      <Wave>
+        <button
+          className="ant-btn FollowersFollowingUsers__button"
+          name="Unfollow"
+          onClick={[Function]}
+          type="button"
+        >
+          <LoadingIcon
+            existIcon={false}
+            loading={false}
+            prefixCls="ant-btn"
+          >
+            <CSSMotion
+              motionName="ant-btn-loading-icon-motion"
+              onAppearActive={[Function]}
+              onAppearStart={[Function]}
+              onEnterActive={[Function]}
+              onEnterStart={[Function]}
+              onLeaveActive={[Function]}
+              onLeaveStart={[Function]}
+              removeOnLeave={true}
+              visible={false}
+            >
+              <DomWrapper />
+            </CSSMotion>
+          </LoadingIcon>
+          <span
+            key=".0"
+          >
+            Unfollow
+          </span>
+        </button>
+      </Wave>
+    </Button>
+  </div>
+  <div
+    className="FollowersFollowingUsers__user"
+    key="1"
+  >
+    <UserAvatar
+      avatarSize="small"
+      profile={
+        Object {
+          "@context": "https://www.w3.org/ns/activitystreams",
+          "actor": "0x1DCODE2222",
+          "discoverable": true,
+          "icon": Object {
+            "url": "https://image.shutterstock.com/image-vector/wednesday-pop-art-illustration-vector-600w-219333010.jpg",
+          },
+          "id": "http://localhost:3003/api/announce/0x1DCODE2222",
+          "name": "Wednesday March",
+          "preferredUsername": "2Wednesday2",
+          "socialAddress": "0x1DCODE2222",
+          "summary": "",
+          "type": "Person",
+          "url": "",
+          "walletAddress": "0xCODE2222",
+        }
+      }
+    >
+      <Avatar
+        alt="Wednesday March"
+        shape="circle"
+        size={32}
+        src="data:image/png;base64,00"
+      >
+        <span
+          className="ant-avatar ant-avatar-circle ant-avatar-image"
+          style={
+            Object {
+              "fontSize": 18,
+              "height": 32,
+              "lineHeight": "32px",
+              "width": 32,
+            }
+          }
+        >
+          <img
+            alt="Wednesday March"
+            onError={[Function]}
+            src="data:image/png;base64,00"
+          />
+        </span>
+      </Avatar>
+    </UserAvatar>
+    <div
+      className="FollowersFollowingUsers__name"
+    >
+      Wednesday March
+    </div>
+    <Button
+      className="FollowersFollowingUsers__button"
+      name="Follow"
+    >
+      <Wave>
+        <button
+          className="ant-btn FollowersFollowingUsers__button"
+          name="Follow"
+          onClick={[Function]}
+          type="button"
+        >
+          <LoadingIcon
+            existIcon={false}
+            loading={false}
+            prefixCls="ant-btn"
+          >
+            <CSSMotion
+              motionName="ant-btn-loading-icon-motion"
+              onAppearActive={[Function]}
+              onAppearStart={[Function]}
+              onEnterActive={[Function]}
+              onEnterStart={[Function]}
+              onLeaveActive={[Function]}
+              onLeaveStart={[Function]}
+              removeOnLeave={true}
+              visible={false}
+            >
+              <DomWrapper />
+            </CSSMotion>
+          </LoadingIcon>
+          <span
+            key=".0"
+          >
+            Follow
+          </span>
+        </button>
+      </Wave>
+    </Button>
+  </div>
+</FollowersFollowingUsers>
+`;
