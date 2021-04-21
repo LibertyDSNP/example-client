@@ -1,7 +1,8 @@
 {
   "name": "client",
   "version": "0.1.0",
-  "private": true,
+  "private": false,
+  "license": "Apache-2.0",
   "dependencies": {
     "@reduxjs/toolkit": "^1.5.1",
     "@toruslabs/torus-embed": "1.9.2",
