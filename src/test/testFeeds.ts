@@ -1,5 +1,5 @@
 import { keccak_256 } from "js-sha3";
-import { randInt } from "@unfinishedlabs/test-generators"
+import { randInt } from "@unfinishedlabs/test-generators";
 import {
   ActivityPub,
   ActivityPubAttachement,
