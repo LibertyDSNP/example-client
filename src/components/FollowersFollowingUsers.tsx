@@ -10,7 +10,7 @@ interface FollowersFollowingUsersProps {
 const FollowersFollowingUsers = ({
   selectedListTitle,
   tempUserList,
-}: FollowersFollowingUsersProps): any => {
+}: FollowersFollowingUsersProps): JSX.Element => {
   const userList = () => {
     switch (selectedListTitle) {
       case "showFollowers":
@@ -22,21 +22,21 @@ const FollowersFollowingUsers = ({
     }
   };
 
-  const getList = () => {
-    return userList().map((user, index) => {
-      const buttonText = user.following ? "Unfollow" : "Follow";
-      return (
+  return (
+    <>
+      {userList().map((user, index) => (
         <div className="FollowersFollowingUsers__user" key={index}>
           <UserAvatar avatarSize="small" profile={user.profile} />
           <div className="FollowersFollowingUsers__name">{user.name}</div>
-          <Button className="FollowersFollowingUsers__button" name={buttonText}>
-            {buttonText}
+          <Button
+            className="FollowersFollowingUsers__button"
+            name={user.following ? "Unfollow" : "Follow"}
+          >
+            {user.following ? "Unfollow" : "Follow"}
           </Button>
         </div>
-      );
-    });
-  };
-
-  return getList();
+      ))}
+    </>
+  );
 };
 export default FollowersFollowingUsers;
