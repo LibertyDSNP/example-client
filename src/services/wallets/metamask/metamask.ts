@@ -5,7 +5,7 @@ import ethereum from "./ethereum";
 export const mmweb3 = new Web3(ethereum as any);
 
 export const isInstalled = (): boolean => {
-  return Boolean(ethereum && ethereum.isMetaMask);
+  return Boolean(ethereum?.isMetaMask);
 };
 
 export const getWalletAddress = async (): Promise<HexString> => {

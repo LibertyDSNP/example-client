@@ -40,6 +40,6 @@ const ethereum = (window as any).ethereum as
   | null
   | undefined;
 
-//ethereum.autoRefreshOnNetworkChange = false;
+if (ethereum) (ethereum as EthereumProvider).autoRefreshOnNetworkChange = false;
 
 export default ethereum;

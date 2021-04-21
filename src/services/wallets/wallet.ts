@@ -1,7 +1,6 @@
 import { HexString } from "../../utilities/types";
-
-import * as torus from "./torus/torus";
-import * as metamask from "./metamask/metamask";
+import metamaskWallet from "./metamask";
+import torusWallet from "./torus";
 import Web3 from "web3";
 
 export enum WalletType {
@@ -10,7 +9,7 @@ export enum WalletType {
   // Add new WalletTypes Here
 }
 
-interface Wallet {
+export interface Wallet {
   login: () => Promise<HexString>;
   logout: () => void;
   getAddress: () => Promise<HexString>;
@@ -28,7 +27,7 @@ export const wallet = (walletType: WalletType): Wallet => {
   }
 };
 
-const torusWallet: Wallet = {
+/* const torusWallet: Wallet = {
   login: async () => {
     await torus.enableTorus();
     return await torus.getWalletAddress();
@@ -48,9 +47,9 @@ const torusWallet: Wallet = {
   getWeb3: () => {
     return torus.getWeb3();
   },
-};
+}; */
 
-const metamaskWallet: Wallet = {
+/* const metamaskWallet: Wallet = {
   login: async () => {
     return metamask.getWalletAddress();
   },
@@ -67,6 +66,6 @@ const metamaskWallet: Wallet = {
   getWeb3: () => {
     return metamask.getWeb3();
   },
-};
+}; */
 
 // Add new Wallet interface here
