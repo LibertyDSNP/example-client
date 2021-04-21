@@ -1,3 +1,4 @@
+import { randInt } from "@unfinishedlabs/test-generators"
 import { Profile, HexString } from "../utilities/types";
 import {
   generateSocialAddress,
@@ -9,7 +10,6 @@ import {
   prefabFirstNames,
   prefabLastNames,
   randImage,
-  randInt,
 } from "./testhelpers";
 
 /**

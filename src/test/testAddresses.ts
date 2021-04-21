@@ -1,5 +1,5 @@
 import { HexString } from "../utilities/types";
-import { generateHexString } from "./testhelpers";
+import { generateHexString } from "@unfinishedlabs/test-generators";
 
 /**
  * Generate a wallet address
