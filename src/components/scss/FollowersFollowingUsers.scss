@@ -1,0 +1,47 @@
+.FollowersFollowingUsers__user {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 6px;
+}
+
+.FollowersFollowingUsers__name {
+  flex: 1;
+  padding-left: 16px;
+}
+
+.FollowersFollowingUsers__button {
+  border-radius: 6px;
+}
+
+.FollowersFollowingUsers__buttonFollowIcon {
+  transform: rotate(0deg);
+  transition: transform 0.3s;
+}
+
+.FollowersFollowingUsers__buttonUnfollowIcon {
+  transform: rotate(45deg);
+}
+
+.FollowersFollowingUsers__button[name="Unfollow"] {
+  &:hover,
+  &:active,
+  &:focus {
+    color: $black;
+    border-color: $green;
+    background-color: $light-gray;
+  }
+}
+
+.FollowersFollowingUsers__button[name="Follow"] {
+  background-color: $black;
+  color: $white;
+
+  &:hover,
+  &:active,
+  &:focus {
+    color: $white;
+    border-color: $green;
+    background-color: $dark-gray;
+  }
+}
