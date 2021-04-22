@@ -1,3 +1,5 @@
+import { JsonRpcPayload, JsonRpcResponse } from "web3-core-helpers";
+
 interface ConnectInfo {
   chainId: string;
 }
@@ -19,7 +21,12 @@ interface RequestArguments {
   from?: string;
 }
 
-interface EthereumProvider {
+interface Callback<ResultType> {
+  (error: Error): void;
+  (error: null, val: ResultType): void;
+}
+
+export interface EthereumProvider {
   isMetaMask?: boolean;
   autoRefreshOnNetworkChange: boolean;
   chainId: number;
@@ -33,6 +40,12 @@ interface EthereumProvider {
   on(event: "message", handler: (message: ProviderMessage) => void): void;
 
   request(request: RequestArguments): Promise<any>;
+
+  sendAsync(
+    payload: JsonRpcPayload,
+    callback: (error: Error | null, result?: JsonRpcResponse) => void
+  ): void;
+  send(payload: JsonRpcPayload, callback: Callback<JsonRpcResponse>): any;
 }
 // eip-1193
 const ethereum = (window as any).ethereum as

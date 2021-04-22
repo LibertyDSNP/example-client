@@ -3,18 +3,18 @@ import metamaskWallet from "./metamask";
 import torusWallet from "./torus";
 import Web3 from "web3";
 
+// HOW TO ADD A WALLET
+// Add the new wallet to the enum and switch/case
+// Both places are marked with a comment
+// Then, create a Folder for the new wallet with it's implementation
+// code. create an index.ts file in the folder that implements
+// the Wallet interface below. Look at torus or metamask for
+// an example.
+
 export enum WalletType {
   TORUS = "TORUS",
   METAMASK = "METAMASK",
   // Add new WalletTypes Here
-}
-
-export interface Wallet {
-  login: () => Promise<HexString>;
-  logout: () => void;
-  getAddress: () => Promise<HexString>;
-  getBalance: (walletAddress: HexString) => Promise<number>;
-  getWeb3: () => Web3;
 }
 
 export const wallet = (walletType: WalletType): Wallet => {
@@ -27,45 +27,9 @@ export const wallet = (walletType: WalletType): Wallet => {
   }
 };
 
-/* const torusWallet: Wallet = {
-  login: async () => {
-    await torus.enableTorus();
-    return await torus.getWalletAddress();
-  },
-  logout: () => {
-    if (torus.isInitialized()) {
-      torus.logout();
-    }
-  },
-  getAddress: async () => {
-    return await torus.getWalletAddress();
-  },
-  getBalance: async (walletAddress: HexString) => {
-    const stringBal = await torus.getBalance(walletAddress);
-    return Number(stringBal);
-  },
-  getWeb3: () => {
-    return torus.getWeb3();
-  },
-}; */
-
-/* const metamaskWallet: Wallet = {
-  login: async () => {
-    return metamask.getWalletAddress();
-  },
-  logout: () => {
-    return;
-  },
-  getAddress: async () => {
-    return metamask.getWalletAddress();
-  },
-  getBalance: async (walletAddress: HexString) => {
-    const stringBal = await metamask.getBalance(walletAddress);
-    return Number(stringBal);
-  },
-  getWeb3: () => {
-    return metamask.getWeb3();
-  },
-}; */
-
-// Add new Wallet interface here
+export interface Wallet {
+  login: () => Promise<HexString>;
+  logout: () => void;
+  getAddress: () => Promise<HexString>;
+  getWeb3: () => Web3;
+}

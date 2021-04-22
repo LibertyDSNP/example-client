@@ -1,8 +1,8 @@
 import Web3 from "web3";
 import { HexString } from "../../../utilities/types";
-import ethereum from "./ethereum";
+import ethereum, { EthereumProvider } from "./ethereum";
 
-export const mmweb3 = new Web3(ethereum as any);
+export const mmweb3 = new Web3(ethereum as EthereumProvider);
 
 export const isInstalled = (): boolean => {
   return Boolean(ethereum?.isMetaMask);

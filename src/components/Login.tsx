@@ -84,7 +84,7 @@ const Login = (): JSX.Element => {
         <Button
           className="Login__logOutButton"
           aria-label="Logout"
-          onClick={() => logout()}
+          onClick={logout}
         >
           Log Out
         </Button>

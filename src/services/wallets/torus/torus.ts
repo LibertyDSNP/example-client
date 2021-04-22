@@ -6,7 +6,8 @@ import web3Torus, { BuildEnvironment } from "./tweb3";
 // They also don't enforce their own verifier system consistently
 // This means we need to create our own and update it.
 // This verifiers array is our list of approved verifiers based
-// off their internal list.
+// off their internal list. That list can be found here:
+// https://github.com/torusresearch/torus-embed/blob/master/types/embed.d.ts
 const verifiers = ["google", "reddit", "discord"] as const;
 type VerifierTypes = typeof verifiers[number];
 type AddressType = undefined | string | { address: string };
@@ -64,10 +65,6 @@ export const getWalletAddress = async (): Promise<string> => {
 };
 
 const getTypedVerifier = (untypedVerifier: string): VerifierTypes => {
-  console.log(
-    "🚀 | file: torus.ts | line 67 | untypedVerifier",
-    untypedVerifier
-  );
   const typedVerifier = verifiers.find((verifier) => {
     return untypedVerifier.includes(verifier);
   });
