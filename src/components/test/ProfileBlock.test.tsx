@@ -45,10 +45,10 @@ describe("Profile", () => {
         component.find(".Profile__editButton").first().props().disabled
       ).toEqual(false);
     });
-    it("saves on save button click", () => {
-      //complete when we are actually writing to the blockchain so we can check the
-      // return value or error message
-    });
+    // it("saves on save button click", () => {
+    //complete when we are actually writing to the blockchain so we can check the
+    // return value or error message
+    // });
   });
 
   it("cancels on cancel button click", () => {

@@ -170,6 +170,12 @@ exports[`Feed to match snapshot 1`] = `
           >
             Unfollow
           </span>
+          <div
+            className="FollowersFollowingUsers__buttonFollowIcon"
+            key=".1"
+          >
+            ✕
+          </div>
         </button>
       </Wave>
     </Button>
@@ -264,6 +270,12 @@ exports[`Feed to match snapshot 1`] = `
           >
             Follow
           </span>
+          <div
+            className="FollowersFollowingUsers__buttonUnfollowIcon"
+            key=".1"
+          >
+            ✕
+          </div>
         </button>
       </Wave>
     </Button>
