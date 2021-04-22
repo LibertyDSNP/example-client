@@ -11,6 +11,7 @@ export const clearSession = (): void => {
 export const loadSession = (): SessionData | null => {
   try {
     const sessionData = sessionStorage.getItem("session");
+    console.log("🚀 | file: session.ts | line 14 | sessionData", sessionData);
     return sessionData ? JSON.parse(sessionData) : null;
   } catch (e) {
     return null;
