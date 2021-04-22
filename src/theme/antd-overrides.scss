@@ -13,15 +13,22 @@
   }
 }
 
-.ant-spin.Login__alert {
+.ant-spin.Login__spinner {
   padding-left: 8px;
+}
+
+.ant-alert.Login__alert {
+  margin-right: 8px;
 }
 
 .ant-btn.FollowersFollowingUsers__button {
   height: 27px;
-  padding: 0;
-  width: 80px;
+  width: 100px;
   border-radius: 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 10px;
 }
 
 .ant-btn.FollowersFollowing__button {
@@ -45,11 +52,6 @@
   }
 }
 
-.ant-btn.FollowersFollowing__button--active {
-  color: $black;
-  background: $white;
-}
-
 .FollowersFollowing__buttonBlock .ant-btn:first-child {
   border-radius: 8px 0 0 8px;
   border-width: 2px 1px 2px 2px;
@@ -68,4 +70,9 @@
     background-color: $light-gray;
     border: $gray 1px solid;
   }
+}
+
+.ant-btn.FollowersFollowing__button--active {
+  color: $black !important;
+  background: $white !important;
 }
