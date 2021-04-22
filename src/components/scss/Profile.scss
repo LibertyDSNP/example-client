@@ -65,6 +65,10 @@
 
 .Profile__editing {
   background-color: $gray;
+
+  &:focus {
+    outline: none;
+  }
 }
 
 .Profile__loginText {
