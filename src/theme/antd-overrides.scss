@@ -1,9 +1,71 @@
-.Login__block .ant-btn {
-  border-radius: 25px;
-  margin-left: 16px;
+.ant-btn.Login__loginButton,
+.ant-btn.Login__logOutButton {
+  border-radius: 6px;
+  padding: 0 30px;
+  background-color: $black;
+  color: $white;
+  border-color: $black;
 
   &:hover, &:active, &:focus {
     color: $green;
+    background-color: $black;
     border-color: $green;
+  }
+}
+
+.ant-spin.Login__alert {
+  padding-left: 8px;
+}
+
+.ant-btn.FollowersFollowingUsers__button {
+  height: 27px;
+  padding: 0;
+  width: 80px;
+  border-radius: 8px;
+}
+
+.ant-btn.FollowersFollowing__button {
+  border: solid $black;
+  background: $black;
+  color: $white;
+  border-width: 2px 2px 2px 1px;
+  border-radius: 0 8px 8px 0;
+  height: auto;
+
+  &:focus {
+    border-color: $black;
+    background: $black;
+    color: $white;
+  }
+
+  &:hover, &:active {
+    border-color: $black;
+    background: $white;
+    color: $black;
+  }
+}
+
+.ant-btn.FollowersFollowing__button--active {
+  color: $black;
+  background: $white;
+}
+
+.FollowersFollowing__buttonBlock .ant-btn:first-child {
+  border-radius: 8px 0 0 8px;
+  border-width: 2px 1px 2px 2px;
+}
+
+.ant-btn.Profile__editButton {
+  background-color: $green;
+  border-radius: 8px;
+  padding: 0 10px;
+  font-size: 12px;
+  height: 24px;
+  border: $gray 0 solid;
+
+  &:active, &:focus, &:hover {
+    color: $black;
+    background-color: $light-gray;
+    border: $gray 1px solid;
   }
 }
