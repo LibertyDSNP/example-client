@@ -3,6 +3,7 @@ import { Wallet } from "../wallet";
 
 const metamaskWallet: Wallet = {
   login: async () => {
+    if (!metamask.isInstalled()) throw new Error("Metamask not installed");
     return metamask.getWalletAddress();
   },
   logout: () => {

@@ -55,7 +55,7 @@ export const getPublicAddress = async (
   });
 };
 
-export const getWalletAddress = async (): Promise<string> => {
+export const getWalletAddress = async (): Promise<HexString> => {
   const { verifier, verifierId } = await getUserInfo();
   const typedVerifier: VerifierTypes = getTypedVerifier(verifier);
   const walletAddressHolder = await getPublicAddress(typedVerifier, verifierId);
@@ -71,12 +71,6 @@ const getTypedVerifier = (untypedVerifier: string): VerifierTypes => {
 
   if (!typedVerifier) throw new Error("Unknown Verifier");
   return typedVerifier as VerifierTypes;
-};
-
-export const getBalance = async (walletAddress: HexString): Promise<string> => {
-  return await web3Torus.web3.eth.getBalance(walletAddress).then((balance) => {
-    return balance;
-  });
 };
 
 export const getWeb3 = (): Web3 => {

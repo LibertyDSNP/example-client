@@ -28,10 +28,8 @@ const popupStyling = {
       torusGray2: "#FBF7F3",
     },
   },
-  logoDark:
-    "https://www.pngkit.com/png/full/119-1193080_technology-electronics-icons-png.png",
-  logoLight:
-    "https://www.pngkit.com/png/full/119-1193080_technology-electronics-icons-png.png",
+  logoDark: "https://avatars.githubusercontent.com/u/78103996?s=200&v=4",
+  logoLight: "https://avatars.githubusercontent.com/u/78103996?s=200&v=4",
   //topupHide?: boolean
   //featuredBillboardHide?: boolean
   //disclaimerHide?: boolean
