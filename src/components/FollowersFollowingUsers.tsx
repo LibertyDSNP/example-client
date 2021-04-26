@@ -1,38 +1,51 @@
 import React from "react";
 import UserAvatar from "./UserAvatar";
 import { Button } from "antd";
+import { Profile } from "../utilities/types";
+import { ListStatus } from "../utilities/enums";
 
 interface FollowersFollowingUsersProps {
-  selectedListTitle: string;
-  tempUserList: any[];
+  listStatus: ListStatus;
+  tempUserList: Profile[];
+  notFollowing: Profile[];
 }
 
 const FollowersFollowingUsers = ({
-  selectedListTitle,
+  listStatus,
   tempUserList,
+  notFollowing,
 }: FollowersFollowingUsersProps): JSX.Element => {
-  const userList = () => {
-    switch (selectedListTitle) {
-      case "showFollowers":
-        return tempUserList.filter((user) => user.followsMe);
-      case "showFollowing":
-        return tempUserList.filter((user) => user.following);
-      default:
-        return [];
+  const userRelationship = (user: Profile) => {
+    const isNotFollowing = notFollowing.filter(
+      (notFollowingUser) => user === notFollowingUser
+    );
+    if (listStatus === ListStatus.FOLLOWERS && isNotFollowing.length === 0) {
+      return "Follow";
     }
+    return "Unfollow";
   };
-
   return (
     <>
-      {userList().map((user, index) => (
-        <div className="FollowersFollowingUsers__user" key={index}>
-          <UserAvatar avatarSize="small" profile={user.profile} />
-          <div className="FollowersFollowingUsers__name">{user.name}</div>
+      {tempUserList.map((user) => (
+        <div className="FollowersFollowingUsers__user" key={user.socialAddress}>
+          <UserAvatar avatarSize="small" profile={user} />
+          <div className="FollowersFollowingUsers__name">
+            {user.name || user.preferredUsername || "Anonymous"}
+          </div>
           <Button
             className="FollowersFollowingUsers__button"
-            name={user.following ? "Unfollow" : "Follow"}
+            name={userRelationship(user)}
           >
-            {user.following ? "Unfollow" : "Follow"}
+            {userRelationship(user)}
+            <div
+              className={
+                listStatus === ListStatus.FOLLOWING
+                  ? "FollowersFollowingUsers__buttonFollowIcon"
+                  : "FollowersFollowingUsers__buttonUnfollowIcon"
+              }
+            >
+              &#10005;
+            </div>
           </Button>
         </div>
       ))}
