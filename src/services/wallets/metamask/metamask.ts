@@ -5,7 +5,7 @@ import ethereum, { EthereumProvider } from "./ethereum";
 const mmweb3 = new Web3(ethereum as EthereumProvider);
 
 export const getWeb3 = (): Web3 => {
-  if (!ethereum) throw new Error("Metamask not installed");
+  if (!isInstalled()) throw new Error("Metamask not installed");
   return mmweb3;
 };
 
