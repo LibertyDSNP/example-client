@@ -1,42 +1,43 @@
 import React from "react";
-import { useHistory } from "react-router-dom";
-import { Alert, Button, Spin } from "antd";
+import { Alert, Button, Popover, Spin } from "antd";
 import * as sdk from "../services/sdk";
-import * as torus from "../services/wallets/torus";
 import { useAppDispatch, useAppSelector } from "../redux/hooks";
 import { userLogin, userLogout } from "../redux/slices/userSlice";
+import { wallet, WalletType } from "../services/wallets/wallet";
 
 const Login = (): JSX.Element => {
   const [loading, startLoading] = React.useState<boolean>(false);
   const [alertError, setAlertError] = React.useState<string>("");
+  const [popoverVisible, setPopoverVisible] = React.useState<boolean>(false);
 
-  const history = useHistory();
   const dispatch = useAppDispatch();
   const profile = useAppSelector((state) => state.user.profile);
+  const walletType = useAppSelector((state) => state.user.wallet);
 
-  const torusLogin = async () => {
+  const login = async (walletType: WalletType) => {
     if (loading) return;
     startLoading(true);
     try {
-      await torus.enableTorus();
-      const walletAddress = await torus.getWalletAddress();
+      const walletAddress = await wallet(walletType).login();
       const socialAddress = await sdk.getSocialIdentity(walletAddress);
       const profile = await sdk.getProfile(socialAddress);
       const graph = await sdk.getGraph(socialAddress);
-      dispatch(userLogin({ profile, graph }));
-      history.push("/");
+      dispatch(userLogin({ profile, graph, wallet: walletType }));
       startLoading(false);
     } catch (error) {
       setAlertError(error.toString());
     }
     startLoading(false);
+    setPopoverVisible(false);
   };
 
-  const torusLogout = () => {
+  const logout = () => {
+    if (walletType) wallet(walletType).logout();
     dispatch(userLogout());
-    if (torus.isInitialized()) {
-      torus.logout();
-    }
+  };
+
+  const handleVisibleChange = (visible: boolean) => {
+    setPopoverVisible(visible);
   };
 
   return (
@@ -52,19 +53,38 @@ const Login = (): JSX.Element => {
         />
       )}
       {!profile ? (
-        <Button
-          className="Login__loginButton"
-          aria-label="Login"
-          onClick={torusLogin}
+        <Popover
+          placement="bottomRight"
+          trigger="click"
+          visible={popoverVisible}
+          onVisibleChange={handleVisibleChange}
+          content={
+            <div className="Login__loginOptions">
+              <Button
+                className="Login__loginTorus"
+                onClick={() => login(WalletType.TORUS)}
+              >
+                Torus
+              </Button>
+              <Button
+                className="Login__loginMetamask"
+                onClick={() => login(WalletType.METAMASK)}
+              >
+                MetaMask
+              </Button>
+            </div>
+          }
         >
-          Log In
-          {loading && <Spin className="Login__spinner" size="small" />}
-        </Button>
+          <Button className="Login__loginButton" aria-label="Login">
+            Log In
+            {loading && <Spin className="Login__spinner" size="small" />}
+          </Button>
+        </Popover>
       ) : (
         <Button
           className="Login__logOutButton"
           aria-label="Logout"
-          onClick={torusLogout}
+          onClick={logout}
         >
           Log Out
         </Button>

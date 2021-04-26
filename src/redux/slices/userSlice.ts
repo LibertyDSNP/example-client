@@ -1,9 +1,11 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { WalletType } from "../../services/wallets/wallet";
 import { Graph, Profile } from "../../utilities/types";
 
 interface UserState {
   profile?: Profile;
   graph?: Graph;
+  wallet?: WalletType;
 }
 
 const initialState: UserState = {};
@@ -13,10 +15,9 @@ export const userSlice = createSlice({
   initialState,
   reducers: {
     userLogin: (state, action: PayloadAction<UserState>) => {
-      const profile = action.payload.profile;
-      const graph = action.payload.graph;
-      state.profile = profile;
-      state.graph = graph;
+      state.profile = action.payload.profile;
+      state.graph = action.payload.graph;
+      state.wallet = action.payload.wallet;
       return state;
     },
     userLogout: (state) => {
@@ -24,13 +25,11 @@ export const userSlice = createSlice({
       return state;
     },
     userUpdateProfile: (state, action: PayloadAction<Profile>) => {
-      const profile = action.payload;
-      state.profile = profile;
+      state.profile = action.payload;
       return state;
     },
     userUpdateGraph: (state, action: PayloadAction<Graph>) => {
-      const graph = action.payload;
-      state.graph = graph;
+      state.graph = action.payload;
       return state;
     },
   },

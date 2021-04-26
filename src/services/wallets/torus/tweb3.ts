@@ -28,8 +28,8 @@ const popupStyling = {
       torusGray2: "#FBF7F3",
     },
   },
-  logoDark: "https://www.projectliberty.io/assets/images/brand-icon.png",
-  logoLight: "https://www.projectliberty.io/assets/images/brand-icon.png",
+  logoDark: "https://avatars.githubusercontent.com/u/78103996?s=200&v=4",
+  logoLight: "https://avatars.githubusercontent.com/u/78103996?s=200&v=4",
   //topupHide?: boolean
   //featuredBillboardHide?: boolean
   //disclaimerHide?: boolean
