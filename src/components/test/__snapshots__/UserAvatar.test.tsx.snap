@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`UserAvatar renders without crashing 1`] = `
+exports[`UserAvatar matches snapshot 1`] = `
 <Avatar
   alt="Monday January"
   shape="circle"

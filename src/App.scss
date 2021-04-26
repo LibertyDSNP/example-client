@@ -3,10 +3,10 @@
 @import "theme/antd-overrides";
 @import "./components/scss/Header";
 @import "./components/scss/Login";
-@import "./components/scss/Profile";
+@import "components/scss/ProfileBlock";
 @import "./components/scss/Feed";
-@import "./components/scss/FollowersFollowing";
-@import "./components/scss/FollowersFollowingUsers";
+@import "./components/scss/ConnectionsList";
+@import "./components/scss/ConnectionsListProfiles";
 
 .App__content {
   display: flex;

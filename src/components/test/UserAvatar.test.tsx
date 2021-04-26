@@ -8,6 +8,11 @@ describe("UserAvatar", () => {
     jest.resetAllMocks();
   });
   it("renders without crashing", () => {
+    expect(() => {
+      shallow(<UserAvatar profile={getPrefabProfile(0)} avatarSize="large" />);
+    }).not.toThrow();
+  });
+  it("matches snapshot", () => {
     const component = shallow(
       <UserAvatar profile={getPrefabProfile(0)} avatarSize="large" />
     );

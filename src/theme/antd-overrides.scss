@@ -21,7 +21,7 @@
   margin-right: 8px;
 }
 
-.ant-btn.FollowersFollowingUsers__button {
+.ant-btn.ConnectionsListProfiles__button {
   height: 27px;
   width: 100px;
   border-radius: 8px;
@@ -31,7 +31,7 @@
   padding: 0 10px;
 }
 
-.ant-btn.FollowersFollowing__button {
+.ant-btn.ConnectionsList__button {
   border: solid $black;
   background: $black;
   color: $white;
@@ -52,12 +52,12 @@
   }
 }
 
-.FollowersFollowing__buttonBlock .ant-btn:first-child {
+.ConnectionsList__buttonBlock .ant-btn:first-child {
   border-radius: 8px 0 0 8px;
   border-width: 2px 1px 2px 2px;
 }
 
-.ant-btn.Profile__editButton {
+.ant-btn.ProfileBlock__editButton {
   background-color: $green;
   border-radius: 8px;
   padding: 0 10px;
@@ -72,7 +72,7 @@
   }
 }
 
-.ant-btn.FollowersFollowing__button--active {
+.ant-btn.ConnectionsList__button--active {
   color: $black !important;
   background: $white !important;
 }

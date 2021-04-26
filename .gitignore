@@ -31,3 +31,4 @@ yarn-error.log*
 
 *.css
 *.map.css
+*.css.map

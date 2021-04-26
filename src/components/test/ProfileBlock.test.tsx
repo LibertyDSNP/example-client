@@ -2,10 +2,16 @@ import ProfileBlock from "../ProfileBlock";
 import { mount } from "enzyme";
 import { getPrefabProfile } from "../../test/testProfiles";
 import { componentWithStore, createMockStore } from "../../test/testhelpers";
+import { getPreFabSocialGraph } from "../../test/testGraphs";
+import { WalletType } from "../../services/wallets/wallet";
 
 const profile = getPrefabProfile(0);
-const initialState = { user: { profile } };
-const store = createMockStore(initialState);
+const graph = getPreFabSocialGraph().get(profile.socialAddress);
+const walletType = WalletType.TORUS;
+const store = createMockStore({
+  user: { graph, profile, walletType },
+  profiles: { profiles: [profile] },
+});
 
 describe("Profile", () => {
   it("renders without crashing", () => {
@@ -14,54 +20,61 @@ describe("Profile", () => {
     }).not.toThrow();
   });
 
-  it("matches snapshot", () => {
-    expect(() => {
-      mount(componentWithStore(ProfileBlock, store));
-    }).toMatchSnapshot();
+  it("displays login prompt when not logged in", () => {
+    const store = createMockStore({
+      user: { undefined },
+      profiles: { profiles: [profile] },
+    });
+    const component = mount(componentWithStore(ProfileBlock, store));
+    expect(component.find("ProfileBlock").text()).toContain(
+      "Login With MetaMask/Taurus"
+    );
+    expect(component).toMatchSnapshot();
   });
 
   it("editable on edit button click", () => {
     const component = mount(componentWithStore(ProfileBlock, store));
-    component.find(".Profile__editButton").first().simulate("click");
-    expect(component.find(".Profile__name").props().disabled).toEqual(false);
-    expect(component.find(".Profile__handle").props().disabled).toEqual(false);
+    expect(component).toMatchSnapshot();
+    component.find(".ProfileBlock__editButton").first().simulate("click");
+    expect(component.find(".ProfileBlock__name").props().disabled).toEqual(
+      false
+    );
+    expect(component.find(".ProfileBlock__handle").props().disabled).toEqual(
+      false
+    );
   });
 
   describe("save button click", () => {
     it("save button disabled when not edited", () => {
       const component = mount(componentWithStore(ProfileBlock, store));
-      component.find(".Profile__editButton").first().simulate("click");
+      component.find(".ProfileBlock__editButton").first().simulate("click");
       expect(
-        component.find(".Profile__editButton").first().props().disabled
+        component.find(".ProfileBlock__editButton").first().props().disabled
       ).toEqual(true);
     });
     it("save button enabled when edited", () => {
       const component = mount(componentWithStore(ProfileBlock, store));
-      component.find(".Profile__editButton").first().simulate("click");
+      component.find(".ProfileBlock__editButton").first().simulate("click");
       component
-        .find(".Profile__name")
+        .find(".ProfileBlock__name")
         .simulate("change", { target: { value: "Monday NewLastName" } });
       expect(
-        component.find(".Profile__editButton").first().props().disabled
+        component.find(".ProfileBlock__editButton").first().props().disabled
       ).toEqual(false);
     });
-    // it("saves on save button click", () => {
-    //complete when we are actually writing to the blockchain so we can check the
-    // return value or error message
-    // });
   });
 
   it("cancels on cancel button click", () => {
     const component = mount(componentWithStore(ProfileBlock, store));
-    component.find(".Profile__editButton").first().simulate("click");
+    component.find(".ProfileBlock__editButton").first().simulate("click");
     component
-      .find(".Profile__name")
+      .find(".ProfileBlock__name")
       .simulate("change", { target: { value: "Monday TestLastName" } });
-    expect(component.find(".Profile__name").props().value).toEqual(
+    expect(component.find(".ProfileBlock__name").props().value).toEqual(
       "Monday TestLastName"
     );
-    component.find(".Profile__editButton").last().simulate("click");
-    expect(component.find(".Profile__name").props().value).toEqual(
+    component.find(".ProfileBlock__editButton").last().simulate("click");
+    expect(component.find(".ProfileBlock__name").props().value).toEqual(
       "Monday January"
     );
   });

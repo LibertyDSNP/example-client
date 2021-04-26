@@ -1,8 +1,9 @@
-import { Profile } from "../utilities/types";
+import { Profile, Graph } from "../utilities/types";
 import { WalletType } from "./wallets/wallet";
 
 interface SessionData {
   profile: Profile;
+  graph: Graph;
   walletType: WalletType;
 }
 

@@ -1,29 +1,26 @@
-.FollowersFollowingUsers__user {
+.ConnectionsListProfiles__profile {
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-bottom: 6px;
 }
 
-.FollowersFollowingUsers__name {
+.ConnectionsListProfiles__name {
   flex: 1;
-  padding-left: 16px;
+  margin: 0 16px;
+  overflow: hidden;
 }
 
-.FollowersFollowingUsers__button {
-  border-radius: 6px;
-}
-
-.FollowersFollowingUsers__buttonFollowIcon {
+.ConnectionsListProfiles__buttonFollowIcon {
   transform: rotate(0deg);
   transition: transform 0.3s;
 }
 
-.FollowersFollowingUsers__buttonUnfollowIcon {
+.ConnectionsListProfiles__buttonUnfollowIcon {
   transform: rotate(45deg);
 }
 
-.FollowersFollowingUsers__button[name="Unfollow"] {
+.ConnectionsListProfiles__button[name="Unfollow"] {
   &:hover,
   &:active,
   &:focus {
@@ -33,7 +30,7 @@
   }
 }
 
-.FollowersFollowingUsers__button[name="Follow"] {
+.ConnectionsListProfiles__button[name="Follow"] {
   background-color: $black;
   color: $white;
 
