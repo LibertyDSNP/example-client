@@ -68,6 +68,9 @@ const web3Torus = {
     await torus.init(initSettings(buildEnv));
     this.initialized = true;
     try {
+      console.log("CHAIN_ID: ", process.env.REACT_APP_CHAIN_ID);
+      console.log("CHAIN_HOST: ", process.env.REACT_APP_CHAIN_HOST);
+      console.log("CHAIN_NAME: ", process.env.REACT_APP_CHAIN_NAME);
       await torus.login({ verifier: undefined });
       web3Torus.setweb3(torus.provider);
       web3Torus.torus = torus;
