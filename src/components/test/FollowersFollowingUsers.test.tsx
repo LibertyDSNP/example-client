@@ -1,50 +1,26 @@
 import React from "react";
 import FollowersFollowingUsers from "../FollowersFollowingUsers";
-import { shallow, mount } from "enzyme";
+import { shallow } from "enzyme";
 import { preFabProfiles } from "../../test/testProfiles";
+import { ListStatus } from "../../utilities/enums";
 
 const mockTempUserList = [
-  {
-    profile: preFabProfiles[0],
-    icon: preFabProfiles[0].icon,
-    name: preFabProfiles[0].name,
-    following: true,
-    followsMe: true,
-  },
-  {
-    profile: preFabProfiles[1],
-    icon: preFabProfiles[1].icon,
-    name: preFabProfiles[1].name,
-    following: true,
-    followsMe: false,
-  },
-  {
-    profile: preFabProfiles[2],
-    icon: preFabProfiles[2].icon,
-    name: preFabProfiles[2].name,
-    following: false,
-    followsMe: true,
-  },
+  preFabProfiles[0],
+  preFabProfiles[1],
+  preFabProfiles[2],
+  preFabProfiles[3],
 ];
 
-describe("Feed", () => {
+describe("FollowersFollowingUsers", () => {
   it("renders without crashing", () => {
     expect(() => {
       shallow(
         <FollowersFollowingUsers
-          selectedListTitle="showFollowers"
+          listStatus={ListStatus.FOLLOWERS}
           tempUserList={mockTempUserList}
+          notFollowing={[preFabProfiles[0]]}
         />
       );
     }).not.toThrow();
-  });
-  it("to match snapshot", () => {
-    const component = mount(
-      <FollowersFollowingUsers
-        selectedListTitle="showFollowers"
-        tempUserList={mockTempUserList}
-      />
-    );
-    expect(component).toMatchSnapshot();
   });
 });

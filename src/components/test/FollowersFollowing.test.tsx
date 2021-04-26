@@ -1,17 +1,17 @@
-import React from "react";
 import FollowersFollowing from "../FollowersFollowing";
-import { shallow } from "enzyme";
+import { mount } from "enzyme";
+import { componentWithStore, createMockStore } from "../../test/testhelpers";
+import { getPreFabSocialGraph } from "../../test/testGraphs";
+import { getPrefabSocialAddress } from "../../test/testAddresses";
 
-describe("Feed", () => {
+describe("FollowersFollowing", () => {
   it("renders without crashing", () => {
+    const profile = getPrefabSocialAddress(0);
+    const graph = getPreFabSocialGraph().get(profile);
+    const userGraph = { user: { graph } };
+    const store = createMockStore(userGraph);
     expect(() => {
-      shallow(<FollowersFollowing />);
+      mount(componentWithStore(FollowersFollowing, store));
     }).not.toThrow();
-  });
-  it("to match snapshot", () => {
-    //write more specific tests when we are pulling from a real followers/following list
-    //I want to test more specific actions
-    const component = shallow(<FollowersFollowing />);
-    expect(component).toMatchSnapshot();
   });
 });
