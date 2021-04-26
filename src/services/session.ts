@@ -1,7 +1,9 @@
 import { Profile } from "../utilities/types";
+import { WalletType } from "./wallets/wallet";
 
 interface SessionData {
   profile: Profile;
+  walletType: WalletType;
 }
 
 export const clearSession = (): void => {
