@@ -43,11 +43,13 @@ const popupStyling = {
 const initSettings = (buildEnv: BuildEnvironment) => {
   return {
     buildEnv:
-      (process.env.BUILD_ENV as BuildEnvironment) || buildEnv || "production",
+      (process.env.REACT_APP_TORUS_BUILD_ENV as BuildEnvironment) ||
+      buildEnv ||
+      "production",
     network: {
-      host: process.env.CHAIN_HOST || "http://localhost:7545",
-      chainId: Number(process.env.CHAIN_ID) || 1337,
-      networkName: process.env.CHAIN_NAME || "Localchain",
+      host: process.env.REACT_APP_CHAIN_HOST || "http://localhost:7545",
+      chainId: Number(process.env.REACT_APP_CHAIN_ID) || 1337,
+      networkName: process.env.REACT_APP_CHAIN_NAME || "Localchain",
     },
     showTorusButton: true,
     whiteLabel: popupStyling,

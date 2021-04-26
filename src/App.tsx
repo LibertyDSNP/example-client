@@ -5,6 +5,7 @@ import "antd/dist/antd.less";
 import Header from "./components/Header";
 import Feed from "./components/Feed";
 import ProfileBlock from "./components/ProfileBlock";
+//require("dotenv").config();
 
 const App: React.FC = () => {
   return (
