@@ -5,7 +5,6 @@ import { ComponentType, ReactElement } from "react";
 import { act } from "react-dom/test-utils";
 import { Provider } from "react-redux";
 import { BrowserRouter as Router } from "react-router-dom";
-import { HexString } from "../utilities/types";
 
 /**
  * Using this to spy on promise functions in Jest
@@ -66,52 +65,6 @@ export const mockReactRouterParams = (mockParams: unknown): void => {
   jest.mock("react-router", () => ({
     useParams: jest.fn().mockReturnValue(mockParams),
   }));
-};
-
-/**
- * Generate a randomized hex string of a specific length
- * @param length The length of the hex string
- */
-export const generateHexString = (length: number): HexString => {
-  return (
-    "0x" +
-    [...Array(length)]
-      .map(() => Math.floor(Math.random() * 16).toString(16))
-      .join("")
-  );
-};
-
-/**
- * Generate a randomized hex string hash
- */
-export const generateHash = (): HexString => {
-  return generateHexString(64);
-};
-
-/**
- * Generate a randomized Base64 String. Meant to be used
- * to mock encryption keys.
- * @param length length of key to make
- */
-export const generateBase64String = (length: number): string => {
-  const randomChars =
-    "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
-  let result = "";
-  for (let i = 0; i < length; i++) {
-    result += randomChars.charAt(
-      Math.floor(Math.random() * randomChars.length)
-    );
-  }
-  result += "=";
-  return result;
-};
-
-/**
- * Generate a random integer between 0 (inclusive) and max (exlsuive)
- * @param max The highest number (exclusive) to generate between
- */
-export const randInt = (max: number): number => {
-  return Math.floor(Math.random() * Math.floor(max));
 };
 
 /**
