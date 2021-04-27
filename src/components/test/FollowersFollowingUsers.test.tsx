@@ -18,9 +18,20 @@ describe("FollowersFollowingUsers", () => {
         <FollowersFollowingUsers
           listStatus={ListStatus.FOLLOWERS}
           tempUserList={mockTempUserList}
-          notFollowing={[preFabProfiles[0]]}
+          notFollowing={[preFabProfiles[1]]}
         />
       );
     }).not.toThrow();
+  });
+
+  it("displays correct follow or unfollow button", () => {
+    const component = shallow(
+      <FollowersFollowingUsers
+        listStatus={ListStatus.FOLLOWERS}
+        tempUserList={mockTempUserList}
+        notFollowing={[preFabProfiles[1]]}
+      />
+    );
+    expect(component).toMatchSnapshot();
   });
 });
