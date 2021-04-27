@@ -7,7 +7,6 @@ import {
   createMockStore,
 } from "../../test/testhelpers";
 import { getPrefabProfile } from "../../test/testProfiles";
-import { generateRandomGraph } from "../../test/testGraphs";
 import { act } from "react-test-renderer";
 import { WalletType } from "../../services/wallets/wallet";
 
@@ -40,9 +39,8 @@ describe("Login Component", () => {
 
   describe("is logged in", () => {
     const profile = getPrefabProfile(0);
-    const graph = generateRandomGraph(profile.socialAddress);
     const walletType = WalletType.TORUS;
-    const initialState = { user: { profile, graph, wallet: walletType } };
+    const initialState = { user: { profile, walletType } };
     const store = createMockStore(initialState);
 
     it("renders without crashing", () => {
