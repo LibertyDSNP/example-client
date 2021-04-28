@@ -1,0 +1,398 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`FollowersFollowing displays correct list title 1`] = `
+<Provider
+  store={
+    Object {
+      "clearActions": [Function],
+      "dispatch": [Function],
+      "getActions": [Function],
+      "getState": [Function],
+      "replaceReducer": [Function],
+      "subscribe": [Function],
+    }
+  }
+>
+  <BrowserRouter>
+    <Router
+      history={
+        Object {
+          "action": "POP",
+          "block": [Function],
+          "createHref": [Function],
+          "go": [Function],
+          "goBack": [Function],
+          "goForward": [Function],
+          "length": 1,
+          "listen": [Function],
+          "location": Object {
+            "hash": "",
+            "pathname": "/",
+            "search": "",
+            "state": undefined,
+          },
+          "push": [Function],
+          "replace": [Function],
+        }
+      }
+    >
+      <FollowersFollowing>
+        <div
+          className="FollowersFollowing__block"
+        >
+          <div
+            className="FollowersFollowing__buttonBlock"
+          >
+            <Button
+              className="FollowersFollowing__button FollowersFollowing__button--active"
+              onClick={[Function]}
+            >
+              <Wave>
+                <button
+                  className="ant-btn FollowersFollowing__button FollowersFollowing__button--active"
+                  onClick={[Function]}
+                  type="button"
+                >
+                  <LoadingIcon
+                    existIcon={false}
+                    loading={false}
+                    prefixCls="ant-btn"
+                  >
+                    <CSSMotion
+                      motionName="ant-btn-loading-icon-motion"
+                      onAppearActive={[Function]}
+                      onAppearStart={[Function]}
+                      onEnterActive={[Function]}
+                      onEnterStart={[Function]}
+                      onLeaveActive={[Function]}
+                      onLeaveStart={[Function]}
+                      removeOnLeave={true}
+                      visible={false}
+                    >
+                      <DomWrapper />
+                    </CSSMotion>
+                  </LoadingIcon>
+                  <div
+                    className="FollowersFollowing__buttonCount"
+                    key=".0"
+                  >
+                    2
+                  </div>
+                  <span
+                    key=".1"
+                  >
+                    Followers
+                  </span>
+                </button>
+              </Wave>
+            </Button>
+            <Button
+              className="FollowersFollowing__button"
+              onClick={[Function]}
+            >
+              <Wave>
+                <button
+                  className="ant-btn FollowersFollowing__button"
+                  onClick={[Function]}
+                  type="button"
+                >
+                  <LoadingIcon
+                    existIcon={false}
+                    loading={false}
+                    prefixCls="ant-btn"
+                  >
+                    <CSSMotion
+                      motionName="ant-btn-loading-icon-motion"
+                      onAppearActive={[Function]}
+                      onAppearStart={[Function]}
+                      onEnterActive={[Function]}
+                      onEnterStart={[Function]}
+                      onLeaveActive={[Function]}
+                      onLeaveStart={[Function]}
+                      removeOnLeave={true}
+                      visible={false}
+                    >
+                      <DomWrapper />
+                    </CSSMotion>
+                  </LoadingIcon>
+                  <div
+                    className="FollowersFollowing__buttonCount"
+                    key=".0"
+                  >
+                    2
+                  </div>
+                  <span
+                    key=".1"
+                  >
+                    Following
+                  </span>
+                </button>
+              </Wave>
+            </Button>
+          </div>
+          <FollowersFollowingUsers
+            listStatus={1}
+            notFollowing={
+              Array [
+                Object {
+                  "@context": "https://www.w3.org/ns/activitystreams",
+                  "actor": "0x1DCODE2222",
+                  "discoverable": true,
+                  "icon": Object {
+                    "url": "",
+                  },
+                  "id": "http://localhost:3003/api/announce/0x1DCODE2222",
+                  "name": "",
+                  "preferredUsername": "",
+                  "socialAddress": "0x1DCODE2222",
+                  "summary": "",
+                  "type": "Person",
+                  "url": "",
+                  "walletAddress": "0x1DCODE2222",
+                },
+              ]
+            }
+            tempUserList={
+              Array [
+                Object {
+                  "@context": "https://www.w3.org/ns/activitystreams",
+                  "actor": "0x1DCODE1111",
+                  "discoverable": true,
+                  "icon": Object {
+                    "url": "",
+                  },
+                  "id": "http://localhost:3003/api/announce/0x1DCODE1111",
+                  "name": "",
+                  "preferredUsername": "",
+                  "socialAddress": "0x1DCODE1111",
+                  "summary": "",
+                  "type": "Person",
+                  "url": "",
+                  "walletAddress": "0x1DCODE1111",
+                },
+                Object {
+                  "@context": "https://www.w3.org/ns/activitystreams",
+                  "actor": "0x1DCODE2222",
+                  "discoverable": true,
+                  "icon": Object {
+                    "url": "",
+                  },
+                  "id": "http://localhost:3003/api/announce/0x1DCODE2222",
+                  "name": "",
+                  "preferredUsername": "",
+                  "socialAddress": "0x1DCODE2222",
+                  "summary": "",
+                  "type": "Person",
+                  "url": "",
+                  "walletAddress": "0x1DCODE2222",
+                },
+              ]
+            }
+          >
+            <div
+              className="FollowersFollowingUsers__user"
+              key="0x1DCODE1111"
+            >
+              <UserAvatar
+                avatarSize="small"
+                profile={
+                  Object {
+                    "@context": "https://www.w3.org/ns/activitystreams",
+                    "actor": "0x1DCODE1111",
+                    "discoverable": true,
+                    "icon": Object {
+                      "url": "",
+                    },
+                    "id": "http://localhost:3003/api/announce/0x1DCODE1111",
+                    "name": "",
+                    "preferredUsername": "",
+                    "socialAddress": "0x1DCODE1111",
+                    "summary": "",
+                    "type": "Person",
+                    "url": "",
+                    "walletAddress": "0x1DCODE1111",
+                  }
+                }
+              >
+                <Avatar
+                  alt="anonymous"
+                  shape="circle"
+                  size={32}
+                  src="data:image/png;base64,00"
+                >
+                  <span
+                    className="ant-avatar ant-avatar-circle ant-avatar-image"
+                    style={
+                      Object {
+                        "fontSize": 18,
+                        "height": 32,
+                        "lineHeight": "32px",
+                        "width": 32,
+                      }
+                    }
+                  >
+                    <img
+                      alt="anonymous"
+                      onError={[Function]}
+                      src="data:image/png;base64,00"
+                    />
+                  </span>
+                </Avatar>
+              </UserAvatar>
+              <div
+                className="FollowersFollowingUsers__name"
+              >
+                Anonymous
+              </div>
+              <Button
+                className="FollowersFollowingUsers__button"
+                name="Unfollow"
+              >
+                <Wave>
+                  <button
+                    className="ant-btn FollowersFollowingUsers__button"
+                    name="Unfollow"
+                    onClick={[Function]}
+                    type="button"
+                  >
+                    <LoadingIcon
+                      existIcon={false}
+                      loading={false}
+                      prefixCls="ant-btn"
+                    >
+                      <CSSMotion
+                        motionName="ant-btn-loading-icon-motion"
+                        onAppearActive={[Function]}
+                        onAppearStart={[Function]}
+                        onEnterActive={[Function]}
+                        onEnterStart={[Function]}
+                        onLeaveActive={[Function]}
+                        onLeaveStart={[Function]}
+                        removeOnLeave={true}
+                        visible={false}
+                      >
+                        <DomWrapper />
+                      </CSSMotion>
+                    </LoadingIcon>
+                    <span
+                      key=".0"
+                    >
+                      Unfollow
+                    </span>
+                    <div
+                      className="FollowersFollowingUsers__buttonUnfollowIcon"
+                      key=".1"
+                    >
+                      ✕
+                    </div>
+                  </button>
+                </Wave>
+              </Button>
+            </div>
+            <div
+              className="FollowersFollowingUsers__user"
+              key="0x1DCODE2222"
+            >
+              <UserAvatar
+                avatarSize="small"
+                profile={
+                  Object {
+                    "@context": "https://www.w3.org/ns/activitystreams",
+                    "actor": "0x1DCODE2222",
+                    "discoverable": true,
+                    "icon": Object {
+                      "url": "",
+                    },
+                    "id": "http://localhost:3003/api/announce/0x1DCODE2222",
+                    "name": "",
+                    "preferredUsername": "",
+                    "socialAddress": "0x1DCODE2222",
+                    "summary": "",
+                    "type": "Person",
+                    "url": "",
+                    "walletAddress": "0x1DCODE2222",
+                  }
+                }
+              >
+                <Avatar
+                  alt="anonymous"
+                  shape="circle"
+                  size={32}
+                  src="data:image/png;base64,00"
+                >
+                  <span
+                    className="ant-avatar ant-avatar-circle ant-avatar-image"
+                    style={
+                      Object {
+                        "fontSize": 18,
+                        "height": 32,
+                        "lineHeight": "32px",
+                        "width": 32,
+                      }
+                    }
+                  >
+                    <img
+                      alt="anonymous"
+                      onError={[Function]}
+                      src="data:image/png;base64,00"
+                    />
+                  </span>
+                </Avatar>
+              </UserAvatar>
+              <div
+                className="FollowersFollowingUsers__name"
+              >
+                Anonymous
+              </div>
+              <Button
+                className="FollowersFollowingUsers__button"
+                name="Follow"
+              >
+                <Wave>
+                  <button
+                    className="ant-btn FollowersFollowingUsers__button"
+                    name="Follow"
+                    onClick={[Function]}
+                    type="button"
+                  >
+                    <LoadingIcon
+                      existIcon={false}
+                      loading={false}
+                      prefixCls="ant-btn"
+                    >
+                      <CSSMotion
+                        motionName="ant-btn-loading-icon-motion"
+                        onAppearActive={[Function]}
+                        onAppearStart={[Function]}
+                        onEnterActive={[Function]}
+                        onEnterStart={[Function]}
+                        onLeaveActive={[Function]}
+                        onLeaveStart={[Function]}
+                        removeOnLeave={true}
+                        visible={false}
+                      >
+                        <DomWrapper />
+                      </CSSMotion>
+                    </LoadingIcon>
+                    <span
+                      key=".0"
+                    >
+                      Follow
+                    </span>
+                    <div
+                      className="FollowersFollowingUsers__buttonUnfollowIcon"
+                      key=".1"
+                    >
+                      ✕
+                    </div>
+                  </button>
+                </Wave>
+              </Button>
+            </div>
+          </FollowersFollowingUsers>
+        </div>
+      </FollowersFollowing>
+    </Router>
+  </BrowserRouter>
+</Provider>
+`;

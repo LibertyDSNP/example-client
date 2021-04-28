@@ -1,18 +1,15 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Feed to match snapshot 1`] = `
-<FollowersFollowingUsers
-  selectedListTitle="showFollowers"
-  tempUserList={
-    Array [
-      Object {
-        "following": true,
-        "followsMe": true,
-        "icon": Object {
-          "url": "https://image.shutterstock.com/image-vector/monday-time-sparkle-shine-word-600w-731826949.jpg",
-        },
-        "name": "Monday January",
-        "profile": Object {
+exports[`FollowersFollowingUsers displays correct follow or unfollow button 1`] = `
+<Fragment>
+  <div
+    className="FollowersFollowingUsers__user"
+    key="0x1DCODE0000"
+  >
+    <UserAvatar
+      avatarSize="small"
+      profile={
+        Object {
           "@context": "https://www.w3.org/ns/activitystreams",
           "actor": "0x1DCODE0000",
           "discoverable": true,
@@ -27,16 +24,34 @@ exports[`Feed to match snapshot 1`] = `
           "type": "Person",
           "url": "",
           "walletAddress": "0xCODE0000",
-        },
-      },
-      Object {
-        "following": true,
-        "followsMe": false,
-        "icon": Object {
-          "url": "https://image.shutterstock.com/image-vector/traditional-taco-tuesday-neon-light-600w-1193206603.jpg",
-        },
-        "name": "Tuesday February",
-        "profile": Object {
+        }
+      }
+    />
+    <div
+      className="FollowersFollowingUsers__name"
+    >
+      Monday January
+    </div>
+    <Button
+      className="FollowersFollowingUsers__button"
+      name="Follow"
+    >
+      Follow
+      <div
+        className="FollowersFollowingUsers__buttonUnfollowIcon"
+      >
+        ✕
+      </div>
+    </Button>
+  </div>
+  <div
+    className="FollowersFollowingUsers__user"
+    key="0x1DCODE1111"
+  >
+    <UserAvatar
+      avatarSize="small"
+      profile={
+        Object {
           "@context": "https://www.w3.org/ns/activitystreams",
           "actor": "0x1DCODE1111",
           "discoverable": true,
@@ -51,138 +66,29 @@ exports[`Feed to match snapshot 1`] = `
           "type": "Person",
           "url": "",
           "walletAddress": "0xCODE1111",
-        },
-      },
-      Object {
-        "following": false,
-        "followsMe": true,
-        "icon": Object {
-          "url": "https://image.shutterstock.com/image-vector/wednesday-pop-art-illustration-vector-600w-219333010.jpg",
-        },
-        "name": "Wednesday March",
-        "profile": Object {
-          "@context": "https://www.w3.org/ns/activitystreams",
-          "actor": "0x1DCODE2222",
-          "discoverable": true,
-          "icon": Object {
-            "url": "https://image.shutterstock.com/image-vector/wednesday-pop-art-illustration-vector-600w-219333010.jpg",
-          },
-          "id": "http://localhost:3003/api/announce/0x1DCODE2222",
-          "name": "Wednesday March",
-          "preferredUsername": "2Wednesday2",
-          "socialAddress": "0x1DCODE2222",
-          "summary": "",
-          "type": "Person",
-          "url": "",
-          "walletAddress": "0xCODE2222",
-        },
-      },
-    ]
-  }
->
-  <div
-    className="FollowersFollowingUsers__user"
-    key="0"
-  >
-    <UserAvatar
-      avatarSize="small"
-      profile={
-        Object {
-          "@context": "https://www.w3.org/ns/activitystreams",
-          "actor": "0x1DCODE0000",
-          "discoverable": true,
-          "icon": Object {
-            "url": "https://image.shutterstock.com/image-vector/monday-time-sparkle-shine-word-600w-731826949.jpg",
-          },
-          "id": "http://localhost:3003/api/announce/0x1DCODE0000",
-          "name": "Monday January",
-          "preferredUsername": "0Monday0",
-          "socialAddress": "0x1DCODE0000",
-          "summary": "",
-          "type": "Person",
-          "url": "",
-          "walletAddress": "0xCODE0000",
         }
       }
-    >
-      <Avatar
-        alt="Monday January"
-        shape="circle"
-        size={32}
-        src="data:image/png;base64,00"
-      >
-        <span
-          className="ant-avatar ant-avatar-circle ant-avatar-image"
-          style={
-            Object {
-              "fontSize": 18,
-              "height": 32,
-              "lineHeight": "32px",
-              "width": 32,
-            }
-          }
-        >
-          <img
-            alt="Monday January"
-            onError={[Function]}
-            src="data:image/png;base64,00"
-          />
-        </span>
-      </Avatar>
-    </UserAvatar>
+    />
     <div
       className="FollowersFollowingUsers__name"
     >
-      Monday January
+      Tuesday February
     </div>
     <Button
       className="FollowersFollowingUsers__button"
       name="Unfollow"
     >
-      <Wave>
-        <button
-          className="ant-btn FollowersFollowingUsers__button"
-          name="Unfollow"
-          onClick={[Function]}
-          type="button"
-        >
-          <LoadingIcon
-            existIcon={false}
-            loading={false}
-            prefixCls="ant-btn"
-          >
-            <CSSMotion
-              motionName="ant-btn-loading-icon-motion"
-              onAppearActive={[Function]}
-              onAppearStart={[Function]}
-              onEnterActive={[Function]}
-              onEnterStart={[Function]}
-              onLeaveActive={[Function]}
-              onLeaveStart={[Function]}
-              removeOnLeave={true}
-              visible={false}
-            >
-              <DomWrapper />
-            </CSSMotion>
-          </LoadingIcon>
-          <span
-            key=".0"
-          >
-            Unfollow
-          </span>
-          <div
-            className="FollowersFollowingUsers__buttonFollowIcon"
-            key=".1"
-          >
-            ✕
-          </div>
-        </button>
-      </Wave>
+      Unfollow
+      <div
+        className="FollowersFollowingUsers__buttonUnfollowIcon"
+      >
+        ✕
+      </div>
     </Button>
   </div>
   <div
     className="FollowersFollowingUsers__user"
-    key="1"
+    key="0x1DCODE2222"
   >
     <UserAvatar
       avatarSize="small"
@@ -204,32 +110,7 @@ exports[`Feed to match snapshot 1`] = `
           "walletAddress": "0xCODE2222",
         }
       }
-    >
-      <Avatar
-        alt="Wednesday March"
-        shape="circle"
-        size={32}
-        src="data:image/png;base64,00"
-      >
-        <span
-          className="ant-avatar ant-avatar-circle ant-avatar-image"
-          style={
-            Object {
-              "fontSize": 18,
-              "height": 32,
-              "lineHeight": "32px",
-              "width": 32,
-            }
-          }
-        >
-          <img
-            alt="Wednesday March"
-            onError={[Function]}
-            src="data:image/png;base64,00"
-          />
-        </span>
-      </Avatar>
-    </UserAvatar>
+    />
     <div
       className="FollowersFollowingUsers__name"
     >
@@ -239,46 +120,55 @@ exports[`Feed to match snapshot 1`] = `
       className="FollowersFollowingUsers__button"
       name="Follow"
     >
-      <Wave>
-        <button
-          className="ant-btn FollowersFollowingUsers__button"
-          name="Follow"
-          onClick={[Function]}
-          type="button"
-        >
-          <LoadingIcon
-            existIcon={false}
-            loading={false}
-            prefixCls="ant-btn"
-          >
-            <CSSMotion
-              motionName="ant-btn-loading-icon-motion"
-              onAppearActive={[Function]}
-              onAppearStart={[Function]}
-              onEnterActive={[Function]}
-              onEnterStart={[Function]}
-              onLeaveActive={[Function]}
-              onLeaveStart={[Function]}
-              removeOnLeave={true}
-              visible={false}
-            >
-              <DomWrapper />
-            </CSSMotion>
-          </LoadingIcon>
-          <span
-            key=".0"
-          >
-            Follow
-          </span>
-          <div
-            className="FollowersFollowingUsers__buttonUnfollowIcon"
-            key=".1"
-          >
-            ✕
-          </div>
-        </button>
-      </Wave>
+      Follow
+      <div
+        className="FollowersFollowingUsers__buttonUnfollowIcon"
+      >
+        ✕
+      </div>
     </Button>
   </div>
-</FollowersFollowingUsers>
+  <div
+    className="FollowersFollowingUsers__user"
+    key="0x1DCODE3333"
+  >
+    <UserAvatar
+      avatarSize="small"
+      profile={
+        Object {
+          "@context": "https://www.w3.org/ns/activitystreams",
+          "actor": "0x1DCODE3333",
+          "discoverable": true,
+          "icon": Object {
+            "url": "https://image.shutterstock.com/image-vector/throwback-thursday-brush-lettering-vector-600w-467925458.jpg",
+          },
+          "id": "http://localhost:3003/api/announce/0x1DCODE3333",
+          "name": "Thursday April",
+          "preferredUsername": "3Thursday3",
+          "socialAddress": "0x1DCODE3333",
+          "summary": "",
+          "type": "Person",
+          "url": "",
+          "walletAddress": "0xCODE3333",
+        }
+      }
+    />
+    <div
+      className="FollowersFollowingUsers__name"
+    >
+      Thursday April
+    </div>
+    <Button
+      className="FollowersFollowingUsers__button"
+      name="Follow"
+    >
+      Follow
+      <div
+        className="FollowersFollowingUsers__buttonUnfollowIcon"
+      >
+        ✕
+      </div>
+    </Button>
+  </div>
+</Fragment>
 `;
