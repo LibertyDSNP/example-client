@@ -1,3 +1,4 @@
+@charset "UTF-8";
 .ant-btn.Login__loginButton,
 .ant-btn.Login__logOutButton {
   border-radius: 6px;
@@ -258,7 +259,7 @@
   background-color: #d3d3d3;
 }
 .ProfileBlock__editing:focus {
-  outline: none !important;
+  outline: none;
 }
 
 .ProfileBlock__loginText {
