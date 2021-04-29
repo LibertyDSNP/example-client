@@ -259,7 +259,7 @@
   background-color: #d3d3d3;
 }
 .ProfileBlock__editing:focus {
-  outline: none;
+  outline: none !important;
 }
 
 .ProfileBlock__loginText {
