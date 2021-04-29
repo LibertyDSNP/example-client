@@ -4,6 +4,7 @@ import * as sdk from "../services/sdk";
 import { useAppDispatch, useAppSelector } from "../redux/hooks";
 import { userLogin, userLogout } from "../redux/slices/userSlice";
 import { wallet, WalletType } from "../services/wallets/wallet";
+import { setGraph } from "../redux/slices/graphSlice";
 
 const Login = (): JSX.Element => {
   const [loading, startLoading] = React.useState<boolean>(false);
@@ -20,8 +21,10 @@ const Login = (): JSX.Element => {
     try {
       const walletAddress = await wallet(walletType).login();
       const socialAddress = await sdk.getSocialIdentity(walletAddress);
+      const graph = await sdk.getGraph(socialAddress);
       const profile = await sdk.getProfile(socialAddress);
       dispatch(userLogin({ profile, walletType }));
+      dispatch(setGraph(graph));
       startLoading(false);
     } catch (error) {
       setAlertError(error.toString());
