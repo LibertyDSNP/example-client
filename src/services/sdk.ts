@@ -32,7 +32,7 @@ export const getProfile = async (
   return profile;
 };
 
-const convertToFeedItems = (events: MessageType[]): FeedItem[] => {
+const convertToFeedItems = async (events: MessageType[]): Promise<FeedItem[]> => {
   const feedItems: FeedItem[] = events.map((event => {
     switch (event.actionType) {
       case ActionType.Broadcast:
@@ -51,10 +51,10 @@ export const subscribeToFeed = (
   filter: BaseFilters,
   callback: (event: MessageType) => void
 ): string => {
-  //return mocksdk.subscribe(filter, (events) => callback(convertToFeedItems(events)));
-  return dsnp.socialSearch.subscribe(filter, (events) =>
+  return mocksdk.subscribe(filter, (event: MessageType) => callback(convertToFeedItems([...event])));
+  /* return dsnp.socialSearch.subscribe(filter, (events) =>
     callback(convertToFeedItems(events))
-  );
+  ); */
 };
 
 export const unsubscribeToFeed = (id: string): void => {
