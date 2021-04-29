@@ -1,8 +1,9 @@
-import { Graph, HexString, Profile } from "../utilities/types";
+import { FeedItem, Graph, HexString, Profile } from "../utilities/types";
 import * as mocksdk from "./fakesdk";
 import * as dsnp from "@unfinishedlabs/sdk";
 import { BaseFilters } from "@unfinishedlabs/sdk/dist/types/social/search";
 import { MessageType } from "@unfinishedlabs/sdk/dist/types/types/DSNP";
+import { ActionType } from "@unfinishedlabs/sdk/dist/types/batch/actionType";
 
 export const getSocialIdentity = async (
   walletAddress: HexString
@@ -31,8 +32,18 @@ export const getProfile = async (
   return profile;
 };
 
-export const loadFeed = async (filter: BaseFilters): Promise<MessageType[]> => {
-  return await mocksdk.fetchEvents(filter);
+const convertToFeedItems = (events: MessageType[]): FeedItem[] => {
+  const feedItems: FeedItem[] = events.map((event => {
+    switch (event.actionType) {
+      case ActionType.Broadcast:
+      case ActionType.
+    }
+  }));
+}
+
+export const loadFeed = async (filter: BaseFilters): Promise<FeedItem[]> => {
+  const events = await mocksdk.fetchEvents(filter);
+  return convertToFeedItems(events);
   //return await dsnp.socialSearch.fetchEvents(filter);
 };
 
@@ -40,8 +51,10 @@ export const subscribeToFeed = (
   filter: BaseFilters,
   callback: (event: MessageType) => void
 ): string => {
-  return mocksdk.subscribe(filter, callback);
-  //return dsnp.socialSearch.subscribe(filter, callback);
+  //return mocksdk.subscribe(filter, (events) => callback(convertToFeedItems(events)));
+  return dsnp.socialSearch.subscribe(filter, (events) =>
+    callback(convertToFeedItems(events))
+  );
 };
 
 export const unsubscribeToFeed = (id: string): void => {
