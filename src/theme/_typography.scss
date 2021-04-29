@@ -19,3 +19,7 @@ $font-monospace: source-code-pro, menlo, monaco, consolas, "Courier New",
 @mixin small-text {
   font-size: 13px;
 }
+
+@mixin bold-text {
+  font-weight: 550;
+}
