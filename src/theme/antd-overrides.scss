@@ -107,3 +107,19 @@
 .ant-input:focus {
   box-shadow: 0 0 0 2px $gray !important;
 }
+
+.ant-card.Post__block {
+  margin: 8px 0;
+}
+
+.ant-card-meta-detail > div:not(:last-child) {
+  margin-bottom: 0 !important;
+}
+
+.ant-input.PostReply__input {
+  border: none;
+}
+
+.ant-input.PostReply__input:focus {
+  box-shadow: none !important;
+}

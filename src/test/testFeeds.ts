@@ -2,7 +2,7 @@ import { keccak_256 } from "js-sha3";
 import { randInt } from "@dsnp/test-generators";
 import {
   ActivityPub,
-  ActivityPubAttachement,
+  ActivityPubAttachment,
   NoteActivityPub,
   PersonActivityPub,
 } from "../utilities/activityPubTypes";
@@ -48,7 +48,7 @@ export const generateVideoAttachment = (url: string): NoteAttachment => {
 export const generateNote = (
   address: HexString,
   message: string,
-  attachment?: ActivityPubAttachement[]
+  attachment?: ActivityPubAttachment[]
 ): NoteActivityPub => {
   return {
     actor: address,

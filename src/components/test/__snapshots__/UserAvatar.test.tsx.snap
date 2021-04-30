@@ -2,7 +2,7 @@
 
 exports[`UserAvatar renders without crashing 1`] = `
 <Avatar
-  alt="Monday January"
+  alt="0x1DCODE0000"
   shape="circle"
   size={100}
 />

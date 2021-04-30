@@ -1,0 +1,312 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Profile displays login prompt when not logged in 1`] = `
+<Provider
+  store={
+    Object {
+      "clearActions": [Function],
+      "dispatch": [Function],
+      "getActions": [Function],
+      "getState": [Function],
+      "replaceReducer": [Function],
+      "subscribe": [Function],
+    }
+  }
+>
+  <BrowserRouter>
+    <Router
+      history={
+        Object {
+          "action": "POP",
+          "block": [Function],
+          "createHref": [Function],
+          "go": [Function],
+          "goBack": [Function],
+          "goForward": [Function],
+          "length": 1,
+          "listen": [Function],
+          "location": Object {
+            "hash": "",
+            "pathname": "/",
+            "search": "",
+            "state": undefined,
+          },
+          "push": [Function],
+          "replace": [Function],
+        }
+      }
+    >
+      <ProfileBlock>
+        <div
+          className="ProfileBlock__block"
+        >
+          <div
+            className="ProfileBlock__loginText"
+          >
+            Login With MetaMask/Taurus
+          </div>
+        </div>
+      </ProfileBlock>
+    </Router>
+  </BrowserRouter>
+</Provider>
+`;
+
+exports[`Profile editable on edit button click 1`] = `
+<Provider
+  store={
+    Object {
+      "clearActions": [Function],
+      "dispatch": [Function],
+      "getActions": [Function],
+      "getState": [Function],
+      "replaceReducer": [Function],
+      "subscribe": [Function],
+    }
+  }
+>
+  <BrowserRouter>
+    <Router
+      history={
+        Object {
+          "action": "POP",
+          "block": [Function],
+          "createHref": [Function],
+          "go": [Function],
+          "goBack": [Function],
+          "goForward": [Function],
+          "length": 1,
+          "listen": [Function],
+          "location": Object {
+            "hash": "",
+            "pathname": "/",
+            "search": "",
+            "state": undefined,
+          },
+          "push": [Function],
+          "replace": [Function],
+        }
+      }
+    >
+      <ProfileBlock>
+        <div
+          className="ProfileBlock__block"
+        >
+          <div
+            className="ProfileBlock__personalInfoBlock"
+          >
+            <div
+              className="ProfileBlock__avatarBlock"
+            >
+              <UserAvatar
+                avatarSize="large"
+                socialAddress="0x1DCODE0000"
+              >
+                <Avatar
+                  alt="0x1DCODE0000"
+                  shape="circle"
+                  size={100}
+                  src="data:image/png;base64,00"
+                >
+                  <span
+                    className="ant-avatar ant-avatar-circle ant-avatar-image"
+                    style={
+                      Object {
+                        "fontSize": 18,
+                        "height": 100,
+                        "lineHeight": "100px",
+                        "width": 100,
+                      }
+                    }
+                  >
+                    <img
+                      alt="0x1DCODE0000"
+                      onError={[Function]}
+                      src="data:image/png;base64,00"
+                    />
+                  </span>
+                </Avatar>
+              </UserAvatar>
+              <Button
+                className="ProfileBlock__editButton"
+                onClick={[Function]}
+              >
+                <Wave>
+                  <button
+                    className="ant-btn ProfileBlock__editButton"
+                    onClick={[Function]}
+                    type="button"
+                  >
+                    <LoadingIcon
+                      existIcon={false}
+                      loading={false}
+                      prefixCls="ant-btn"
+                    >
+                      <CSSMotion
+                        motionName="ant-btn-loading-icon-motion"
+                        onAppearActive={[Function]}
+                        onAppearStart={[Function]}
+                        onEnterActive={[Function]}
+                        onEnterStart={[Function]}
+                        onLeaveActive={[Function]}
+                        onLeaveStart={[Function]}
+                        removeOnLeave={true}
+                        visible={false}
+                      >
+                        <DomWrapper />
+                      </CSSMotion>
+                    </LoadingIcon>
+                    <span
+                      key=".0"
+                    >
+                      edit
+                    </span>
+                  </button>
+                </Wave>
+              </Button>
+            </div>
+            <div
+              className="ProfileBlock__personalInfo"
+            >
+              <label
+                className="ProfileBlock__personalInfoLabel"
+              >
+                NAME
+              </label>
+              <input
+                className="ProfileBlock__name"
+                disabled={true}
+                onChange={[Function]}
+                value="Monday January"
+              />
+              <label
+                className="ProfileBlock__personalInfoLabel"
+              >
+                HANDLE
+              </label>
+              <input
+                className="ProfileBlock__handle"
+                disabled={true}
+                onChange={[Function]}
+                value="insert_handle_here"
+              />
+              <label
+                className="ProfileBlock__personalInfoLabel"
+              >
+                SOCIAL ADDRESS
+              </label>
+              <input
+                className="ProfileBlock__socialAddress"
+                disabled={true}
+                value="0x1DCODE0000"
+              />
+            </div>
+          </div>
+          <ConnectionsList>
+            <div
+              className="ConnectionsList__block"
+            >
+              <div
+                className="ConnectionsList__buttonBlock"
+              >
+                <Button
+                  className="ConnectionsList__button"
+                  onClick={[Function]}
+                >
+                  <Wave>
+                    <button
+                      className="ant-btn ConnectionsList__button"
+                      onClick={[Function]}
+                      type="button"
+                    >
+                      <LoadingIcon
+                        existIcon={false}
+                        loading={false}
+                        prefixCls="ant-btn"
+                      >
+                        <CSSMotion
+                          motionName="ant-btn-loading-icon-motion"
+                          onAppearActive={[Function]}
+                          onAppearStart={[Function]}
+                          onEnterActive={[Function]}
+                          onEnterStart={[Function]}
+                          onLeaveActive={[Function]}
+                          onLeaveStart={[Function]}
+                          removeOnLeave={true}
+                          visible={false}
+                        >
+                          <DomWrapper />
+                        </CSSMotion>
+                      </LoadingIcon>
+                      <div
+                        className="ConnectionsList__buttonCount"
+                        key=".0"
+                      />
+                      <span
+                        key=".1"
+                      >
+                        Followers
+                      </span>
+                    </button>
+                  </Wave>
+                </Button>
+                <div
+                  className="ConnectionsList__buttonSeperator"
+                >
+                   
+                </div>
+                <Button
+                  className="ConnectionsList__button"
+                  onClick={[Function]}
+                >
+                  <Wave>
+                    <button
+                      className="ant-btn ConnectionsList__button"
+                      onClick={[Function]}
+                      type="button"
+                    >
+                      <LoadingIcon
+                        existIcon={false}
+                        loading={false}
+                        prefixCls="ant-btn"
+                      >
+                        <CSSMotion
+                          motionName="ant-btn-loading-icon-motion"
+                          onAppearActive={[Function]}
+                          onAppearStart={[Function]}
+                          onEnterActive={[Function]}
+                          onEnterStart={[Function]}
+                          onLeaveActive={[Function]}
+                          onLeaveStart={[Function]}
+                          removeOnLeave={true}
+                          visible={false}
+                        >
+                          <DomWrapper />
+                        </CSSMotion>
+                      </LoadingIcon>
+                      <div
+                        className="ConnectionsList__buttonCount"
+                        key=".0"
+                      />
+                      <span
+                        key=".1"
+                      >
+                        Following
+                      </span>
+                    </button>
+                  </Wave>
+                </Button>
+              </div>
+              <ConnectionsListProfiles
+                connectionsList={Array []}
+                listStatus={0}
+                notFollowing={Array []}
+              />
+            </div>
+          </ConnectionsList>
+        </div>
+      </ProfileBlock>
+    </Router>
+  </BrowserRouter>
+</Provider>
+`;

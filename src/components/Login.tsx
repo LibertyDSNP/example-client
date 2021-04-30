@@ -28,7 +28,7 @@ const Login = (): JSX.Element => {
       const profile = await sdk.getProfile(socialAddress);
       dispatch(userLogin({ profile, walletType }));
       dispatch(upsertGraph(graph));
-      session.saveSession({ profile, walletType });
+      session.saveSession({ profile, walletType, graph });
       startLoading(false);
     } catch (error) {
       setAlertError(error.toString());

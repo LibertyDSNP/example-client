@@ -9,8 +9,12 @@
 @import "./components/scss/Feed";
 @import "./components/scss/NewPost";
 @import "./components/scss/NewPostImageUpload";
+@import "./components/scss/Post";
+@import "./components/scss/PostMedia";
 @import "./components/scss/ConnectionsList";
 @import "./components/scss/ConnectionsListProfiles";
+@import "./components/scss/RelativeTime";
+@import "./components/scss/PostReply";
 
 .App__content {
   display: flex;
