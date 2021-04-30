@@ -1,0 +1,12 @@
+body {
+  margin: 0;
+  padding: 0;
+}
+
+.btn.btn-bold {
+  position: relative;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+/*# sourceMappingURL=index.css.map */
