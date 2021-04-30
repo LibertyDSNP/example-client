@@ -1,9 +1,0 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`UserAvatar renders without crashing 1`] = `
-<Avatar
-  alt="Monday January"
-  shape="circle"
-  size={100}
-/>
-`;

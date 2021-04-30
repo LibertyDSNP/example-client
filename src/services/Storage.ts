@@ -16,6 +16,7 @@ export const createNote = async (
 ): Promise<FeedItem> => {
   // send content to api
   const activityPubNote: ActivityPub = noteToActivityPub(actor, note, uriList);
+  //mock api.createAnnouncement return value
   const newPostFeedItem: FeedItem = {
     fromAddress: actor,
     content: activityPubNote,
