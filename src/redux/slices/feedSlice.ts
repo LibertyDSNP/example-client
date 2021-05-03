@@ -4,29 +4,30 @@ import { FeedItem } from "../../utilities/types";
 interface feedState {
   feed: FeedItem[];
   newFeed: FeedItem[];
+  currentBlock: number | null;
 }
 
 const initialState: feedState = {
   feed: [],
   newFeed: [],
+  currentBlock: null,
 };
+
+interface feedData {
+  feedData: FeedItem[];
+  newCurrentBlock: number;
+}
 
 export const feedSlice = createSlice({
   name: "feed",
   initialState,
   reducers: {
-    addFeedItem: (state, action: PayloadAction<FeedItem>) => {
-      const newFeedItem = action.payload;
-      return {
-        ...state,
-        feed: [...state.feed, newFeedItem],
-      };
-    },
-    addFeedItems: (state, action: PayloadAction<FeedItem[]>) => {
-      const newFeedItems = action.payload;
+    addFeedItems: (state, action: PayloadAction<feedData>) => {
+      const newFeedItems = action.payload.feedData;
       return {
         ...state,
         feed: [...state.feed, ...newFeedItems],
+        currentBlock: action.payload.newCurrentBlock,
       };
     },
     addNewFeedItem: (state, action: PayloadAction<FeedItem>) => {
@@ -52,5 +53,10 @@ export const feedSlice = createSlice({
     },
   },
 });
-export const { addFeedItem, addFeedItems } = feedSlice.actions;
+export const {
+  addFeedItems,
+  addNewFeedItem,
+  addNewFeedItems,
+  addNewFeedtoMainFeed,
+} = feedSlice.actions;
 export default feedSlice.reducer;
