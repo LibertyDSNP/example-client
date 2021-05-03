@@ -14,10 +14,8 @@ const torusWallet: Wallet = {
     }
   },
   reload: async () => {
-    if (!torus.isInitialized()) {
-      await torus.enableTorus();
-    }
-    return;
+    if (torus.isInitialized()) return;
+    await torus.enableTorus();
   },
   getAddress: async () => {
     return await torus.getWalletAddress();
