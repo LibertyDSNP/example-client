@@ -1,7 +1,11 @@
 import { FeedItem, Graph, HexString, Profile } from "../utilities/types";
 import * as mocksdk from "./fakesdk";
 import { BaseFilters } from "@unfinishedlabs/sdk/dist/types/social/search";
-import { Broadcast, Reply } from "@unfinishedlabs/sdk/dist/types/types/DSNP";
+import {
+  Broadcast,
+  Reply,
+  MessageType,
+} from "@unfinishedlabs/sdk/dist/types/types/DSNP";
 //import { ActionType } from "@unfinishedlabs/sdk/dist/types/batch/actionType";
 //import * as dsnp from "@unfinishedlabs/sdk";
 
@@ -32,8 +36,10 @@ export const getProfile = async (
   return profile;
 };
 
-const convertToFeedItems = (events: Broadcast[] | Reply[]): FeedItem[] => {
-  return events.map((event: Broadcast | Reply) => {
+// Note to keep in mind. All Replies are Broadcasts
+const convertToFeedItems = (events: MessageType[]): FeedItem[] => {
+  return events.map((event: MessageType) => {
+    if (!isBroadcast(event)) throw new Error("Bad Message Filter");
     const feedItem: FeedItem = {
       address: event.fromAddress,
       replies: [],
@@ -43,7 +49,12 @@ const convertToFeedItems = (events: Broadcast[] | Reply[]): FeedItem[] => {
       topic: event.actionType.toString(),
       uri: event.uri,
     };
-    return feedItem;
+    if (!isReply(event)) return feedItem;
+    const parentFeedItem: FeedItem = {
+      replies: [feedItem],
+      hash: event.inReplyTo,
+    };
+    return parentFeedItem;
   });
 };
 
@@ -57,7 +68,7 @@ export const subscribeToFeed = (
   filter: BaseFilters,
   callback: (events: FeedItem[]) => void
 ): string => {
-  return mocksdk.subscribe(filter, (event: Broadcast | Reply) =>
+  return mocksdk.subscribe(filter, (event) =>
     callback(convertToFeedItems([event]))
   );
   /* return dsnp.socialSearch.subscribe(filter, (event: Broadcast | Reply) =>
@@ -70,5 +81,25 @@ export const unsubscribeToFeed = (id: string): void => {
   //dsnp.socialSearch.unsubscribe(id);
 };
 export const getNewestBlock = (): number => {
-  throw new Error("Function not implemented.");
+  return mocksdk.fakeFeed.length - 1;
+};
+
+// Remove once sdk exports this type
+export declare type BlockNumber = number;
+export interface FetchFilters extends BaseFilters {
+  limit?: number;
+  to?: BlockNumber;
+  from?: BlockNumber;
+}
+
+const isBroadcast = (event: any): event is Broadcast => {
+  return event.messageID !== undefined && event.uri !== undefined;
+};
+
+const isReply = (event: any): event is Reply => {
+  return (
+    event.messageID !== undefined &&
+    event.uri !== undefined &&
+    event.inReplyTo !== undefined
+  );
 };

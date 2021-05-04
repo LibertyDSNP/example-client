@@ -21,14 +21,14 @@ export type NoteAttachment = {
 
 // ## Feed ##
 export interface FeedItem {
-  address: HexString;
+  address?: HexString;
   content?: ActivityPub;
   replies: FeedItem[];
-  blockNumber: number;
+  blockNumber?: number;
   hash: HexString;
-  timestamp: number;
-  topic: HexString;
-  uri: URLString;
+  timestamp?: number;
+  topic?: HexString;
+  uri?: URLString;
 }
 
 // ## Graph ##

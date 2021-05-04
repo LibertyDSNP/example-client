@@ -3,29 +3,20 @@ import React from "react";
 import { useAppDispatch, useAppSelector } from "../redux/hooks";
 import { FeedItem } from "../utilities/types";
 import InfiniteScroll from "react-infinite-scroll-component";
-import { BaseFilters } from "@unfinishedlabs/sdk/dist/types/social/search";
 import * as sdk from "../services/sdk";
 import * as server from "../services/server";
 import { addFeedItems } from "../redux/slices/feedSlice";
 
 const BLOCKS_PER_LOAD = 8;
 
-// Remove once sdk exports this type
-declare type BlockNumber = number;
-interface FetchFilters extends BaseFilters {
-  limit?: number;
-  to?: BlockNumber;
-  from?: BlockNumber;
-}
-
 const PostList: React.FC = () => {
   const dispatch = useAppDispatch();
   const feed = useAppSelector((state) => state.feed.newFeed);
-  let currentBlock: BlockNumber =
+  let currentBlock: sdk.BlockNumber =
     useAppSelector((state) => state.feed.currentBlock) ?? sdk.getNewestBlock();
 
   const loadMoreFeed = async () => {
-    const filter: FetchFilters = {
+    const filter: sdk.FetchFilters = {
       types: ["Broadcast", "Reply"],
       to: currentBlock,
       from: currentBlock - BLOCKS_PER_LOAD,
