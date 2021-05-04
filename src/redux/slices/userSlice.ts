@@ -1,14 +1,17 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { WalletType } from "../../services/wallets/wallet";
-import { Graph, Profile } from "../../utilities/types";
+import { hasSession, loadSession } from "../../services/session";
+import { Profile } from "../../utilities/types";
 
 interface UserState {
   profile?: Profile;
-  graph?: Graph;
-  wallet?: WalletType;
+  walletType?: WalletType;
 }
 
-const initialState: UserState = {};
+const initialState: UserState = {
+  profile: hasSession() ? loadSession()?.profile : undefined,
+  walletType: hasSession() ? loadSession()?.walletType : undefined,
+};
 
 export const userSlice = createSlice({
   name: "user",
@@ -16,28 +19,19 @@ export const userSlice = createSlice({
   reducers: {
     userLogin: (state, action: PayloadAction<UserState>) => {
       state.profile = action.payload.profile;
-      state.graph = action.payload.graph;
-      state.wallet = action.payload.wallet;
+      state.walletType = action.payload.walletType;
       return state;
     },
     userLogout: (state) => {
-      state = initialState;
+      state.profile = hasSession() ? loadSession()?.profile : undefined;
+      state.walletType = hasSession() ? loadSession()?.walletType : undefined;
       return state;
     },
     userUpdateProfile: (state, action: PayloadAction<Profile>) => {
       state.profile = action.payload;
       return state;
     },
-    userUpdateGraph: (state, action: PayloadAction<Graph>) => {
-      state.graph = action.payload;
-      return state;
-    },
   },
 });
-export const {
-  userLogin,
-  userLogout,
-  userUpdateProfile,
-  userUpdateGraph,
-} = userSlice.actions;
+export const { userLogin, userLogout, userUpdateProfile } = userSlice.actions;
 export default userSlice.reducer;

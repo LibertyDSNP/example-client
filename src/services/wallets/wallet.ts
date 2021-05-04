@@ -28,8 +28,10 @@ export const wallet = (walletType: WalletType): Wallet => {
 };
 
 export interface Wallet {
+  icon: string;
   login: () => Promise<HexString>;
   logout: () => void;
+  reload: () => void;
   getAddress: () => Promise<HexString>;
   getWeb3: () => Web3;
 }

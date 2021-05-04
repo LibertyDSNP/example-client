@@ -4,6 +4,7 @@ import * as sdk from "../services/sdk";
 import { useAppDispatch, useAppSelector } from "../redux/hooks";
 import { userLogin, userLogout } from "../redux/slices/userSlice";
 import { wallet, WalletType } from "../services/wallets/wallet";
+import { upsertGraph } from "../redux/slices/graphSlice";
 
 const Login = (): JSX.Element => {
   const [loading, startLoading] = React.useState<boolean>(false);
@@ -12,7 +13,7 @@ const Login = (): JSX.Element => {
 
   const dispatch = useAppDispatch();
   const profile = useAppSelector((state) => state.user.profile);
-  const walletType = useAppSelector((state) => state.user.wallet);
+  const walletType = useAppSelector((state) => state.user.walletType);
 
   const login = async (walletType: WalletType) => {
     if (loading) return;
@@ -20,9 +21,10 @@ const Login = (): JSX.Element => {
     try {
       const walletAddress = await wallet(walletType).login();
       const socialAddress = await sdk.getSocialIdentity(walletAddress);
-      const profile = await sdk.getProfile(socialAddress);
       const graph = await sdk.getGraph(socialAddress);
-      dispatch(userLogin({ profile, graph, wallet: walletType }));
+      const profile = await sdk.getProfile(socialAddress);
+      dispatch(userLogin({ profile, walletType }));
+      dispatch(upsertGraph(graph));
       startLoading(false);
     } catch (error) {
       setAlertError(error.toString());

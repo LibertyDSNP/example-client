@@ -2,27 +2,36 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { HexString, Profile } from "../../utilities/types";
 
 interface profileState {
-  profiles: Map<HexString, Profile>;
+  profiles: Profile[];
 }
 
 const initialState: profileState = {
-  profiles: new Map<HexString, Profile>(),
+  profiles: [],
 };
 
 export const profileSlice = createSlice({
   name: "profiles",
   initialState,
   reducers: {
-    setProfile: (state, action: PayloadAction<Profile>) => {
+    upsertProfile: (state, action: PayloadAction<Profile>) => {
       const newProfile = action.payload;
-      state.profiles.set(newProfile.socialAddress, newProfile);
+      const oldProfile = state.profiles.find(
+        (profile) => profile.socialAddress === newProfile.socialAddress
+      );
+      if (oldProfile)
+        state.profiles.splice(state.profiles.indexOf(oldProfile), 1);
+      state.profiles.push(newProfile);
       return state;
     },
     removeProfile: (state, action: PayloadAction<HexString>) => {
-      state.profiles.delete(action.payload);
+      const oldProfile = state.profiles.find(
+        (profile) => profile.socialAddress === action.payload
+      );
+      if (oldProfile)
+        state.profiles.splice(state.profiles.indexOf(oldProfile), 1);
       return state;
     },
   },
 });
-export const { setProfile, removeProfile } = profileSlice.actions;
+export const { upsertProfile, removeProfile } = profileSlice.actions;
 export default profileSlice.reducer;
