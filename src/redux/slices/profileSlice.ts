@@ -13,12 +13,13 @@ export const profileSlice = createSlice({
   name: "profiles",
   initialState,
   reducers: {
-    setProfile: (state, action: PayloadAction<Profile>) => {
+    upsertProfile: (state, action: PayloadAction<Profile>) => {
       const newProfile = action.payload;
       const oldProfile = state.profiles.find(
         (profile) => profile.socialAddress === newProfile.socialAddress
       );
-      if (oldProfile) state.profiles.splice(state.profiles.indexOf(oldProfile));
+      if (oldProfile)
+        state.profiles.splice(state.profiles.indexOf(oldProfile), 1);
       state.profiles.push(newProfile);
       return state;
     },
@@ -26,10 +27,11 @@ export const profileSlice = createSlice({
       const oldProfile = state.profiles.find(
         (profile) => profile.socialAddress === action.payload
       );
-      if (oldProfile) state.profiles.splice(state.profiles.indexOf(oldProfile));
+      if (oldProfile)
+        state.profiles.splice(state.profiles.indexOf(oldProfile), 1);
       return state;
     },
   },
 });
-export const { setProfile, removeProfile } = profileSlice.actions;
+export const { upsertProfile, removeProfile } = profileSlice.actions;
 export default profileSlice.reducer;

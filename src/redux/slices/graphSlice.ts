@@ -18,12 +18,12 @@ export const graphSlice = createSlice({
   name: "graphs",
   initialState,
   reducers: {
-    setGraph: (state, action: PayloadAction<Graph>) => {
+    upsertGraph: (state, action: PayloadAction<Graph>) => {
       const newGraph = action.payload;
       const oldGraph = state.graphs.find(
         (graph) => graph.socialAddress === newGraph.socialAddress
       );
-      if (oldGraph) state.graphs.splice(state.graphs.indexOf(oldGraph));
+      if (oldGraph) state.graphs.splice(state.graphs.indexOf(oldGraph), 1);
       state.graphs.push(newGraph);
       return state;
     },
@@ -31,7 +31,7 @@ export const graphSlice = createSlice({
       const oldGraph = state.graphs.find(
         (graph) => graph.socialAddress === action.payload
       );
-      if (oldGraph) state.graphs.splice(state.graphs.indexOf(oldGraph));
+      if (oldGraph) state.graphs.splice(state.graphs.indexOf(oldGraph), 1);
       return state;
     },
     follow: (state, action: PayloadAction<AddressHolder>) => {
@@ -60,5 +60,10 @@ export const graphSlice = createSlice({
     },
   },
 });
-export const { setGraph, removeGraph, follow, unfollow } = graphSlice.actions;
+export const {
+  upsertGraph,
+  removeGraph,
+  follow,
+  unfollow,
+} = graphSlice.actions;
 export default graphSlice.reducer;
