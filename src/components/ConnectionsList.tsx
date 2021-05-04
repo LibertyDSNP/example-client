@@ -3,17 +3,24 @@ import { Button } from "antd";
 import ConnectionsListProfiles from "./ConnectionsListProfiles";
 import { useAppDispatch, useAppSelector } from "../redux/hooks";
 import { getProfile } from "../services/sdk";
-import { HexString, Profile } from "../utilities/types";
+import { Graph, HexString, Profile } from "../utilities/types";
 import { ListStatus } from "../utilities/enums";
-import { setProfile } from "../redux/slices/profileSlice";
+import { upsertProfile } from "../redux/slices/profileSlice";
 
 const ConnectionsList = (): JSX.Element => {
-  const graph = useAppSelector((state) => state.user.graph);
-  const cachedProfiles = useAppSelector((state) => state.profiles.profiles);
+  const profile: Profile | undefined = useAppSelector(
+    (state) => state.user.profile
+  );
+  const graphs: Graph[] = useAppSelector((state) => state.graphs.graphs);
+  const graph: Graph | undefined = graphs.find(
+    ({ socialAddress }) => socialAddress === profile?.socialAddress
+  );
+  const cachedProfiles: Profile[] = useAppSelector(
+    (state) => state.profiles.profiles
+  );
   const [selectedListTitle, setSelectedListTitle] = useState<ListStatus>(
     ListStatus.CLOSED
   );
-
   const [selectedList, setSelectedList] = useState<Profile[]>([]);
   const [followingList, setFollowingList] = useState<Profile[]>([]);
   const [followersList, setFollowersList] = useState<Profile[]>([]);
@@ -28,7 +35,7 @@ const ConnectionsList = (): JSX.Element => {
     );
     if (!userProfile) {
       userProfile = await getProfile(socialAddress);
-      dispatch(setProfile(userProfile));
+      dispatch(upsertProfile(userProfile));
     }
     return userProfile;
   };
@@ -66,7 +73,6 @@ const ConnectionsList = (): JSX.Element => {
 
   useEffect(() => {
     if (!graph) return;
-
     getUserConnectionsList(graph.following, graph.followers).then(
       (userRelationships) => {
         const [followingProfiles, followersProfiles] = userRelationships;
@@ -77,7 +83,7 @@ const ConnectionsList = (): JSX.Element => {
         );
       }
     );
-  }, []);
+  }, [graph]);
 
   useEffect(() => {
     if (selectedListTitle === ListStatus.FOLLOWING) {

@@ -6,14 +6,15 @@ import { getPreFabSocialGraph } from "../../test/testGraphs";
 import { WalletType } from "../../services/wallets/wallet";
 
 const profile = getPrefabProfile(0);
-const graph = getPreFabSocialGraph().get(profile.socialAddress);
+const graphs = getPreFabSocialGraph();
 const walletType = WalletType.TORUS;
 const store = createMockStore({
-  user: { graph, profile, walletType },
+  user: { profile, walletType },
   profiles: { profiles: [profile] },
+  graphs: { graphs: graphs },
 });
 
-describe("Profile", () => {
+describe("Profile Block", () => {
   it("renders without crashing", () => {
     expect(() => {
       mount(componentWithStore(ProfileBlock, store));
@@ -24,6 +25,7 @@ describe("Profile", () => {
     const store = createMockStore({
       user: { undefined },
       profiles: { profiles: [profile] },
+      graphs: { graphs: graphs },
     });
     const component = mount(componentWithStore(ProfileBlock, store));
     expect(component.find("ProfileBlock").text()).toContain(

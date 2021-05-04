@@ -1,20 +1,21 @@
 import ConnectionsList from "../ConnectionsList";
-import { mount } from "enzyme";
+import { mount, shallow } from "enzyme";
 import { forcePromiseResolve } from "../../test/testhelpers";
 import { componentWithStore, createMockStore } from "../../test/testhelpers";
 import { getPreFabSocialGraph } from "../../test/testGraphs";
-import { getPrefabSocialAddress } from "../../test/testAddresses";
+import { getPrefabProfile } from "../../test/testProfiles";
 
-const socialAddress = getPrefabSocialAddress(0);
-const graph = getPreFabSocialGraph().get(socialAddress);
+const profile = getPrefabProfile(0);
+const graphs = getPreFabSocialGraph();
 const store = createMockStore({
-  user: { graph },
+  user: { profile: profile },
   profiles: { profiles: [] },
+  graphs: { graphs: graphs },
 });
 
 describe("ConnectionsList", () => {
   it("renders without crashing", async () => {
-    const component = mount(componentWithStore(ConnectionsList, store));
+    const component = shallow(componentWithStore(ConnectionsList, store));
     await forcePromiseResolve();
     expect(() => component).not.toThrow();
   });

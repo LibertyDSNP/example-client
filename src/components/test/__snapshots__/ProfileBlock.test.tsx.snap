@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Profile displays login prompt when not logged in 1`] = `
+exports[`Profile Block displays login prompt when not logged in 1`] = `
 <Provider
   store={
     Object {
@@ -52,7 +52,7 @@ exports[`Profile displays login prompt when not logged in 1`] = `
 </Provider>
 `;
 
-exports[`Profile editable on edit button click 1`] = `
+exports[`Profile Block editable on edit button click 1`] = `
 <Provider
   store={
     Object {
@@ -258,9 +258,7 @@ exports[`Profile editable on edit button click 1`] = `
                       <div
                         className="ConnectionsList__buttonCount"
                         key=".0"
-                      >
-                        2
-                      </div>
+                      />
                       <span
                         key=".1"
                       >
@@ -306,9 +304,7 @@ exports[`Profile editable on edit button click 1`] = `
                       <div
                         className="ConnectionsList__buttonCount"
                         key=".0"
-                      >
-                        2
-                      </div>
+                      />
                       <span
                         key=".1"
                       >

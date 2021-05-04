@@ -45,8 +45,9 @@ const adr6 = getPrefabSocialAddress(6);
  * Returns a constant, prefabricated social graph
  * Prefabs are meant to work with other prefab components
  */
+
 export const getPreFabSocialGraph = (): SocialGraph => {
-  const socialGraph = new Map<HexString, Graph>([
+  const socialGraph = [
     [
       adr0,
       {
@@ -103,7 +104,7 @@ export const getPreFabSocialGraph = (): SocialGraph => {
         followers: [adr0, adr1, adr2, adr3, adr4, adr5],
       },
     ],
-  ]);
+  ];
 
   return socialGraph;
 };
@@ -111,7 +112,7 @@ export const getPreFabSocialGraph = (): SocialGraph => {
  * Returns an empty social graph meant to work with prefabs
  */
 export const getEmptySocialGraph = (): SocialGraph => {
-  const socialGraph = new Map<HexString, Graph>([
+  const socialGraph = [
     [adr0, { socialAddress: adr0, following: [], followers: [] }],
     [adr1, { socialAddress: adr1, following: [], followers: [] }],
     [adr2, { socialAddress: adr2, following: [], followers: [] }],
@@ -119,7 +120,7 @@ export const getEmptySocialGraph = (): SocialGraph => {
     [adr4, { socialAddress: adr4, following: [], followers: [] }],
     [adr5, { socialAddress: adr5, following: [], followers: [] }],
     [adr6, { socialAddress: adr6, following: [], followers: [] }],
-  ]);
+  ];
 
   return socialGraph;
 };
