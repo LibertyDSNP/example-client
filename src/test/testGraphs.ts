@@ -24,11 +24,11 @@ export const generateRandomSocialGraph = (
   graphSize: number = 4
 ): SocialGraph => {
   // Generate addresses
-  const socialGraph = new Map<HexString, Graph>();
+  const socialGraph = [];
   for (let i = 0; i < socialGraphSize; i++) {
     const address = generateSocialAddress();
     const graph = generateRandomGraph(address, graphSize);
-    socialGraph.set(address, graph);
+    socialGraph.push(graph);
   }
 
   return socialGraph;
@@ -48,62 +48,41 @@ const adr6 = getPrefabSocialAddress(6);
 
 export const getPreFabSocialGraph = (): SocialGraph => {
   const socialGraph = [
-    [
-      adr0,
-      {
-        socialAddress: adr0,
-        following: [adr1, adr6],
-        followers: [adr1, adr2],
-      },
-    ],
-    [
-      adr1,
-      {
-        socialAddress: adr1,
-        following: [adr0, adr6],
-        followers: [adr0, adr2],
-      },
-    ],
-    [
-      adr2,
-      {
-        socialAddress: adr2,
-        following: [adr0, adr1, adr3, adr4, adr5, adr6],
-        followers: [],
-      },
-    ],
-    [
-      adr3,
-      {
-        socialAddress: adr3,
-        following: [adr6],
-        followers: [adr2],
-      },
-    ],
-    [
-      adr4,
-      {
-        socialAddress: adr4,
-        following: [adr6, adr5],
-        followers: [adr2],
-      },
-    ],
-    [
-      adr5,
-      {
-        socialAddress: adr5,
-        following: [adr6],
-        followers: [adr2, adr4],
-      },
-    ],
-    [
-      adr6,
-      {
-        socialAddress: adr6,
-        following: [],
-        followers: [adr0, adr1, adr2, adr3, adr4, adr5],
-      },
-    ],
+    {
+      socialAddress: adr0,
+      following: [adr1, adr6],
+      followers: [adr1, adr2],
+    },
+    {
+      socialAddress: adr1,
+      following: [adr0, adr6],
+      followers: [adr0, adr2],
+    },
+    {
+      socialAddress: adr2,
+      following: [adr0, adr1, adr3, adr4, adr5, adr6],
+      followers: [],
+    },
+    {
+      socialAddress: adr3,
+      following: [adr6],
+      followers: [adr2],
+    },
+    {
+      socialAddress: adr4,
+      following: [adr6, adr5],
+      followers: [adr2],
+    },
+    {
+      socialAddress: adr5,
+      following: [adr6],
+      followers: [adr2, adr4],
+    },
+    {
+      socialAddress: adr6,
+      following: [],
+      followers: [adr0, adr1, adr2, adr3, adr4, adr5],
+    },
   ];
 
   return socialGraph;
@@ -113,13 +92,13 @@ export const getPreFabSocialGraph = (): SocialGraph => {
  */
 export const getEmptySocialGraph = (): SocialGraph => {
   const socialGraph = [
-    [adr0, { socialAddress: adr0, following: [], followers: [] }],
-    [adr1, { socialAddress: adr1, following: [], followers: [] }],
-    [adr2, { socialAddress: adr2, following: [], followers: [] }],
-    [adr3, { socialAddress: adr3, following: [], followers: [] }],
-    [adr4, { socialAddress: adr4, following: [], followers: [] }],
-    [adr5, { socialAddress: adr5, following: [], followers: [] }],
-    [adr6, { socialAddress: adr6, following: [], followers: [] }],
+    { socialAddress: adr0, following: [], followers: [] },
+    { socialAddress: adr1, following: [], followers: [] },
+    { socialAddress: adr2, following: [], followers: [] },
+    { socialAddress: adr3, following: [], followers: [] },
+    { socialAddress: adr4, following: [], followers: [] },
+    { socialAddress: adr5, following: [], followers: [] },
+    { socialAddress: adr6, following: [], followers: [] },
   ];
 
   return socialGraph;

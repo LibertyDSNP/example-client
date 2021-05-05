@@ -2,7 +2,12 @@ import React from "react";
 import UserAvatar from "./UserAvatar";
 import { Button } from "antd";
 import { Profile } from "../utilities/types";
-import { ListStatus } from "../utilities/enums";
+
+enum ListStatus {
+  CLOSED,
+  FOLLOWERS,
+  FOLLOWING,
+}
 
 interface ConnectionsListProfilesProps {
   listStatus: ListStatus;

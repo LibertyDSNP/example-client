@@ -2,7 +2,12 @@ import React from "react";
 import ConnectionsListProfiles from "../ConnectionsListProfiles";
 import { shallow } from "enzyme";
 import { preFabProfiles } from "../../test/testProfiles";
-import { ListStatus } from "../../utilities/enums";
+
+enum ListStatus {
+  CLOSED,
+  FOLLOWERS,
+  FOLLOWING,
+}
 
 const mockTempUserList = [
   preFabProfiles[0],
@@ -16,7 +21,7 @@ describe("ConnectionsListProfiles", () => {
     expect(() => {
       shallow(
         <ConnectionsListProfiles
-          listStatus={ListStatus.FOLLOWERS}
+          listStatus={ListStatus.FOLLOWING}
           connectionsList={mockTempUserList}
           notFollowing={[preFabProfiles[1]]}
         />

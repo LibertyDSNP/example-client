@@ -4,8 +4,13 @@ import ConnectionsListProfiles from "./ConnectionsListProfiles";
 import { useAppDispatch, useAppSelector } from "../redux/hooks";
 import { getProfile } from "../services/sdk";
 import { Graph, HexString, Profile } from "../utilities/types";
-import { ListStatus } from "../utilities/enums";
 import { upsertProfile } from "../redux/slices/profileSlice";
+
+enum ListStatus {
+  CLOSED,
+  FOLLOWERS,
+  FOLLOWING,
+}
 
 const ConnectionsList = (): JSX.Element => {
   const profile: Profile | undefined = useAppSelector(
