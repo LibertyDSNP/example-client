@@ -15,7 +15,11 @@ const PostList: React.FC = () => {
   let currentBlock: sdk.BlockNumber =
     useAppSelector((state) => state.feed.currentBlock) ?? sdk.getNewestBlock();
 
+  console.log("🚀 | file: PostList.tsx | line 18 | feed", feed);
+  console.log("🚀 | file: PostList.tsx | line 19 | currentBlock", currentBlock);
+
   const loadMoreFeed = async () => {
+    console.log("🚀 | file: PostList.tsx | line 22 | loadMoreFeed Called");
     const filter: sdk.FetchFilters = {
       types: ["Broadcast", "Reply"],
       to: currentBlock,
@@ -23,11 +27,17 @@ const PostList: React.FC = () => {
     };
     const feedItems: FeedItem[] = [];
     while (feedItems.length < 8 && currentBlock > 0) {
+      console.log("🚀 | file: PostList.tsx | line 30 | feedItems", feedItems);
       const moreFeedItems = await sdk.loadFeed(filter);
       feedItems.concat(moreFeedItems);
       currentBlock -= BLOCKS_PER_LOAD;
     }
+    console.log("🚀 | file: PostList.tsx | line 35 | feedItems", feedItems);
     const contentFeedItems = await server.loadContent(feedItems);
+    console.log(
+      "🚀 | file: PostList.tsx | line 37 | contentFeedItems",
+      contentFeedItems
+    );
     dispatch(
       addFeedItems({
         feedData: contentFeedItems,
