@@ -34,14 +34,14 @@ export const feedSlice = createSlice({
       const newFeedItem = action.payload;
       return {
         ...state,
-        newFeed: [...state.feed, newFeedItem],
+        newFeed: [newFeedItem, ...state.newFeed],
       };
     },
     addNewFeedItems: (state, action: PayloadAction<FeedItem[]>) => {
       const newFeedItems = action.payload;
       return {
         ...state,
-        newFeed: [...state.feed, ...newFeedItems],
+        newFeed: [...newFeedItems, ...state.newFeed],
       };
     },
     addNewFeedtoMainFeed: (state) => {

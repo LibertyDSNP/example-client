@@ -12,24 +12,26 @@ import { BaseFilters } from "@unfinishedlabs/sdk/dist/types/social/search";
 import { Button } from "antd";
 
 const Feed: React.FC = () => {
-  const dispatch = useAppDispatch();
-  const newFeed = useAppSelector((state) => state.feed.feed);
+  const [subscriptionID, setSubscriptionID] = React.useState<string>("");
 
-  let subscriptionID: string;
+  const dispatch = useAppDispatch();
+  const newFeed = useAppSelector((state) => state.feed.newFeed);
+
   useEffect(() => {
     subscribe();
     dispatch(addNewFeedtoMainFeed());
-    return unsubscribe();
-  });
+    return unsubscribe;
+  }, []);
 
   const subscribe = () => {
     const filter: BaseFilters = {
       types: ["Broadcast", "Reply"],
     };
-    subscriptionID = sdk.subscribeToFeed(filter, async (feedItems) => {
+    const subID = sdk.subscribeToFeed(filter, async (feedItems) => {
       const contentFeedItems = await server.loadContent(feedItems);
       dispatch(addNewFeedItems(contentFeedItems));
     });
+    setSubscriptionID(subID);
   };
 
   const unsubscribe = () => {
@@ -41,7 +43,7 @@ const Feed: React.FC = () => {
       <div className="Feed__header">
         <h1>Feed</h1>
         <NewPost />
-        {newFeed && (
+        {newFeed.length && (
           <Button
             className="Feed_NewContentLoad"
             onClick={() => dispatch(addNewFeedtoMainFeed())}

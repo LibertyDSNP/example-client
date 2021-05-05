@@ -11,7 +11,7 @@ const BLOCKS_PER_LOAD = 8;
 
 const PostList: React.FC = () => {
   const dispatch = useAppDispatch();
-  const feed = useAppSelector((state) => state.feed.newFeed);
+  const feed = useAppSelector((state) => state.feed.feed);
   let currentBlock: sdk.BlockNumber =
     useAppSelector((state) => state.feed.currentBlock) ?? sdk.getNewestBlock();
 
@@ -27,7 +27,6 @@ const PostList: React.FC = () => {
     };
     const feedItems: FeedItem[] = [];
     while (feedItems.length < 8 && currentBlock > 0) {
-      console.log("🚀 | file: PostList.tsx | line 30 | feedItems", feedItems);
       const moreFeedItems = await sdk.loadFeed(filter);
       feedItems.concat(moreFeedItems);
       currentBlock -= BLOCKS_PER_LOAD;
