@@ -1,15 +1,34 @@
+// Fonts
+//
+//
+// Styleguide Base.fonts
+
 $font-sans-serif: -apple-system, blinkmacsystemfont, "Segoe UI", "Roboto",
   "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
   sans-serif;
 $font-monospace: source-code-pro, menlo, monaco, consolas, "Courier New",
   monospace;
 
+// Font Sizes
+//
+// @mixin extra-large-text - font-size: 34px; extra-large-text
+//
+// Styleguide Base.font-sizes.ExtraLargeText
+
 @mixin extra-large-text {
   font-size: 34px;
 }
 
+.ExtraLargeText {
+  font-size: 34px !important;
+}
+
 @mixin large-text {
   font-size: 24px;
+}
+
+.LargeText {
+  font-size: 24px !important;
 }
 
 @mixin medium-text {
@@ -22,4 +41,43 @@ $font-monospace: source-code-pro, menlo, monaco, consolas, "Courier New",
 
 @mixin bold-text {
   font-weight: 550;
+}
+
+// Post Title (this will be the title of your component)
+//
+// Large, **in charge**, and centered. (this is the description of your component. you can use markdown in here.)
+//
+// Markup (define the markup to be used in your styleguide):
+// <h1 class="post-title">A Post Title</h1>
+//
+// Hello World
+//
+// Styleguide Components.article.post-title
+// (ꜛ this controls the organization of your style guide. Here, I'm filing this component inside Components / Article / Post Title)
+
+.post-title {
+  font-size: 10em;
+  text-align: center;
+  font-family: Helvetica;
+  color: yellow;
+}
+
+// Button
+//
+// Buttons can and should be clicked.
+//
+// Markup:
+// <button class="Button {{modifier_class}}">Button</button>
+//
+// :hover - Highlight the button when hovered.
+//
+// Styleguide 1.1
+
+.Button {
+  background-color: $green;
+  font-size: 50px;
+
+  &:hover {
+    background-color: yellow;
+  }
 }

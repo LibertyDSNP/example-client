@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Button } from "antd";
 import ConnectionsListProfiles from "./ConnectionsListProfiles";
 import { useAppDispatch, useAppSelector } from "../redux/hooks";
-import { getProfile } from "../services/sdk";
+import * as sdk from "../services/sdk";
 import { Graph, HexString, Profile } from "../utilities/types";
 import { upsertProfile } from "../redux/slices/profileSlice";
 
@@ -39,7 +39,7 @@ const ConnectionsList = (): JSX.Element => {
       (profile) => profile.socialAddress === socialAddress
     );
     if (!userProfile) {
-      userProfile = await getProfile(socialAddress);
+      userProfile = await sdk.getProfile(socialAddress);
       dispatch(upsertProfile(userProfile));
     }
     return userProfile;

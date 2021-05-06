@@ -3,11 +3,11 @@ import { mount } from "enzyme";
 import { getPrefabProfile } from "../../test/testProfiles";
 import { componentWithStore, createMockStore } from "../../test/testhelpers";
 import { getPreFabSocialGraph } from "../../test/testGraphs";
-import { WalletType } from "../../services/wallets/wallet";
+import * as wallet from "../../services/wallets/wallet";
 
 const profile = getPrefabProfile(0);
 const graphs = getPreFabSocialGraph();
-const walletType = WalletType.TORUS;
+const walletType = wallet.WalletType.TORUS;
 const store = createMockStore({
   user: { profile, walletType },
   profiles: { profiles: [profile] },
