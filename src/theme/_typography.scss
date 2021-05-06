@@ -11,24 +11,20 @@ $font-monospace: source-code-pro, menlo, monaco, consolas, "Courier New",
 
 // Font Sizes
 //
-// @mixin extra-large-text - font-size: 34px; extra-large-text
+// <div class="ExtraLargeText">Extra Large Text</div>
+// <div class="LargeText">Large Text</div>
+// <div class="MediumText">Medium Text</div>
+// <div class="SmallText">Small Text</div>
+// <div class="BoldText">Bold Text</div>
 //
-// Styleguide Base.font-sizes.ExtraLargeText
+// Styleguide Base.font-sizes
 
 @mixin extra-large-text {
   font-size: 34px;
 }
 
-.ExtraLargeText {
-  font-size: 34px !important;
-}
-
 @mixin large-text {
   font-size: 24px;
-}
-
-.LargeText {
-  font-size: 24px !important;
 }
 
 @mixin medium-text {

@@ -2,5 +2,6 @@
   "title": "Example Client Style Guide",
   "source": "../src/",
   "destination": "../styleguide/",
-  "builder": "../node_modules/michelangelo/kss_styleguide/custom-template/"
+  "builder": "../node_modules/michelangelo/kss_styleguide/custom-template/",
+  "css": ["../src/App.css"]
 }
