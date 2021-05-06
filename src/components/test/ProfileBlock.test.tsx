@@ -31,12 +31,10 @@ describe("Profile Block", () => {
     expect(component.find("ProfileBlock").text()).toContain(
       "Login With MetaMask/Taurus"
     );
-    expect(component).toMatchSnapshot();
   });
 
   it("editable on edit button click", () => {
     const component = mount(componentWithStore(ProfileBlock, store));
-    expect(component).toMatchSnapshot();
     component.find(".ProfileBlock__editButton").first().simulate("click");
     expect(component.find(".ProfileBlock__name").props().disabled).toEqual(
       false

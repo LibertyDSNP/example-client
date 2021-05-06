@@ -1,21 +1,33 @@
-// Fonts
-//
-//
-// Styleguide Base.fonts
-
-$font-sans-serif: -apple-system, blinkmacsystemfont, "Segoe UI", "Roboto",
-  "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
-  sans-serif;
-$font-monospace: source-code-pro, menlo, monaco, consolas, "Courier New",
-  monospace;
-
 // Font Sizes
 //
-// <div class="ExtraLargeText">Extra Large Text</div>
-// <div class="LargeText">Large Text</div>
-// <div class="MediumText">Medium Text</div>
-// <div class="SmallText">Small Text</div>
-// <div class="BoldText">Bold Text</div>
+// @include extra-large-text;
+//
+// For headers and accentuated text:
+// <div class="ExtraLargeText">Extra Large Text - font-size: 34px;</div>
+// <hr />
+//
+// @include large-text;
+//
+// For sub headers and component titles:
+// <div class="LargeText">Large Text - font-size: 24px;</div>
+// <hr />
+//
+// @include medium-text;
+//
+// For body text:
+// <div class="MediumText">Medium Text - font-size: 18px;</div>
+// <hr />
+//
+// @include small-text;
+//
+// For descriptions and minor text:
+// <div class="SmallText">Small Text - font-size: 13px;</div>
+// <hr />
+//
+// @include bold-text;
+//
+// For applying to all font sizes to emphasize text:
+// <div class="BoldText">Bold Text - font-weight: 550;</div>
 //
 // Styleguide Base.font-sizes
 
@@ -37,43 +49,4 @@ $font-monospace: source-code-pro, menlo, monaco, consolas, "Courier New",
 
 @mixin bold-text {
   font-weight: 550;
-}
-
-// Post Title (this will be the title of your component)
-//
-// Large, **in charge**, and centered. (this is the description of your component. you can use markdown in here.)
-//
-// Markup (define the markup to be used in your styleguide):
-// <h1 class="post-title">A Post Title</h1>
-//
-// Hello World
-//
-// Styleguide Components.article.post-title
-// (ꜛ this controls the organization of your style guide. Here, I'm filing this component inside Components / Article / Post Title)
-
-.post-title {
-  font-size: 10em;
-  text-align: center;
-  font-family: Helvetica;
-  color: yellow;
-}
-
-// Button
-//
-// Buttons can and should be clicked.
-//
-// Markup:
-// <button class="Button {{modifier_class}}">Button</button>
-//
-// :hover - Highlight the button when hovered.
-//
-// Styleguide 1.1
-
-.Button {
-  background-color: $green;
-  font-size: 50px;
-
-  &:hover {
-    background-color: yellow;
-  }
 }
