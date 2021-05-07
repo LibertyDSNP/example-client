@@ -12,16 +12,16 @@ enum ListStatus {
 interface ConnectionsListProfilesProps {
   listStatus: ListStatus;
   connectionsList: Profile[];
-  notFollowing: Profile[];
+  notFollowingList: Profile[];
 }
 
 const ConnectionsListProfiles = ({
   listStatus,
   connectionsList,
-  notFollowing,
+  notFollowingList,
 }: ConnectionsListProfilesProps): JSX.Element => {
   const userRelationship = (userProfile: Profile) => {
-    const isNotFollowing = notFollowing.filter(
+    const isNotFollowing = notFollowingList.filter(
       (notFollowingUser) => userProfile === notFollowingUser
     );
     if (listStatus === ListStatus.FOLLOWERS && isNotFollowing.length !== 0) {

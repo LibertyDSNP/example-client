@@ -23,7 +23,7 @@ describe("ConnectionsListProfiles", () => {
         <ConnectionsListProfiles
           listStatus={ListStatus.FOLLOWING}
           connectionsList={mockTempUserList}
-          notFollowing={[preFabProfiles[1]]}
+          notFollowingList={[preFabProfiles[1]]}
         />
       );
     }).not.toThrow();
@@ -34,7 +34,7 @@ describe("ConnectionsListProfiles", () => {
       <ConnectionsListProfiles
         listStatus={ListStatus.FOLLOWERS}
         connectionsList={mockTempUserList}
-        notFollowing={[preFabProfiles[0]]}
+        notFollowingList={[preFabProfiles[0]]}
       />
     );
     expect(
@@ -47,7 +47,7 @@ describe("ConnectionsListProfiles", () => {
       <ConnectionsListProfiles
         listStatus={ListStatus.FOLLOWERS}
         connectionsList={mockTempUserList}
-        notFollowing={[preFabProfiles[0]]}
+        notFollowingList={[preFabProfiles[0]]}
       />
     );
     expect(

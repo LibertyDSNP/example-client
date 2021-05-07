@@ -29,7 +29,7 @@ const ConnectionsList = (): JSX.Element => {
   const [selectedList, setSelectedList] = useState<Profile[]>([]);
   const [followingList, setFollowingList] = useState<Profile[]>([]);
   const [followersList, setFollowersList] = useState<Profile[]>([]);
-  const [notFollowing, setNotFollowing] = useState<Profile[]>([]);
+  const [notFollowingList, setNotFollowingList] = useState<Profile[]>([]);
   const dispatch = useAppDispatch();
 
   const getConnectionProfile = async (
@@ -50,15 +50,13 @@ const ConnectionsList = (): JSX.Element => {
     followers: HexString[]
   ) => {
     const followingProfiles: Profile[] = await Promise.all(
-      (following || []).map(
-        async (socialAddress: string) =>
-          await getConnectionProfile(socialAddress)
+      (following || []).map(async (socialAddress: string) =>
+        getConnectionProfile(socialAddress)
       )
     );
     const followersProfiles: Profile[] = await Promise.all(
-      (followers || []).map(
-        async (socialAddress: string) =>
-          await getConnectionProfile(socialAddress)
+      (followers || []).map(async (socialAddress: string) =>
+        getConnectionProfile(socialAddress)
       )
     );
     return [followingProfiles, followersProfiles];
@@ -83,7 +81,7 @@ const ConnectionsList = (): JSX.Element => {
         const [followingProfiles, followersProfiles] = userRelationships;
         setFollowingList(followingProfiles);
         setFollowersList(followersProfiles);
-        setNotFollowing(
+        setNotFollowingList(
           getNotFollowingProfiles(followingProfiles, followersProfiles)
         );
       }
@@ -124,6 +122,7 @@ const ConnectionsList = (): JSX.Element => {
           </div>
           Followers
         </Button>
+
         {selectedListTitle === ListStatus.CLOSED && (
           <div className="ConnectionsList__buttonSeperator"> </div>
         )}
@@ -140,7 +139,7 @@ const ConnectionsList = (): JSX.Element => {
       <ConnectionsListProfiles
         listStatus={selectedListTitle}
         connectionsList={selectedList}
-        notFollowing={notFollowing}
+        notFollowingList={notFollowingList}
       />
     </div>
   );
