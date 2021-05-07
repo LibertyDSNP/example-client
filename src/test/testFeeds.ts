@@ -4,13 +4,13 @@ import {
   ActivityPub,
   ActivityPubAttachement,
   NoteActivityPub,
-  PersonActivityPub,
+  //PersonActivityPub,
 } from "../utilities/activityPub";
 import { FeedItem, HexString, NoteAttachment } from "../utilities/types";
 import { generateSocialAddress, getPrefabSocialAddress } from "./testAddresses";
 import {
-  prefabFirstNames,
-  prefabLastNames,
+  //prefabFirstNames,
+  //prefabLastNames,
   prefabMessages,
   randImage,
 } from "./testhelpers";
@@ -66,7 +66,7 @@ export const generateNote = (
  * @param name the new name of the profile update
  * @param username the new username of the profile update
  */
-export const generatePerson = (
+/* export const generatePerson = (
   address: HexString,
   name?: string,
   username?: string
@@ -82,7 +82,7 @@ export const generatePerson = (
     id: "http://localhost:3003/api/announce/" + address,
     type: "Person",
   };
-};
+}; */
 
 /**
  * Generate a FeedItem needed to make a full Feed
@@ -133,10 +133,10 @@ export const getPrefabFeed = (): FeedItem[] => {
       ]),
     ]),
     // FeedItem that is a profile update
-    generateFeedItem(
+    /* generateFeedItem(
       generatePerson(address2, "Grumpy Gills Jr", "Grumps"),
       true
-    ),
+    ), */
     // FeedItem Note with media
     generateFeedItem(
       generateNote(address2, "Everyone leave me alone", [
@@ -162,14 +162,14 @@ export const generateRandomNote = (): NoteActivityPub => {
 /**
  * Generate random profile update content
  */
-export const generateRandomPerson = (): PersonActivityPub => {
+/* export const generateRandomPerson = (): PersonActivityPub => {
   const address = generateSocialAddress();
   const name = getRandomName();
   const username = getRandomUsername();
   if (randInt(5) > 0) return generatePerson(address);
   if (randInt(5) > 0) return generatePerson(address, name);
   return generatePerson(address, name, username);
-};
+}; */
 
 /**
  * Generate random replies Array. Only generates depth 0 random replies
@@ -216,7 +216,7 @@ const getRandomAttachment = (): NoteAttachment[] => {
   return [generateImageAttachment(randImage)];
 };
 
-const getRandomName = (): string => {
+/* const getRandomName = (): string => {
   const firstName = prefabFirstNames[randInt(prefabFirstNames.length)];
   const lastName = prefabLastNames[randInt(prefabLastNames.length)];
   return firstName + " " + lastName;
@@ -226,4 +226,4 @@ const getRandomUsername = (): string => {
   const firstName = prefabFirstNames[randInt(prefabFirstNames.length)];
   const lastName = prefabLastNames[randInt(prefabLastNames.length)];
   return firstName.substring(0, 3) + lastName.substring(0, 3).toLocaleLowerCase;
-};
+}; */

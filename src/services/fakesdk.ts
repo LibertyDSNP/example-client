@@ -90,10 +90,10 @@ const createFakeBroadcast = (from: number, id: number): Broadcast => {
   };
 };
 
-const createFakeReply = (from: number, id: number, to: number): Reply => {
+const createFakeReply = (from: number, id: number, toID: number): Reply => {
   const actionType = ActionType.Reply;
   const fromAddress = getPrefabSocialAddress(from);
-  const inReplyTo = getPrefabSocialAddress(to);
+  const inReplyTo = "" + toID;
   const messageID = "" + id;
   const uri = "fakeuri.com/" + id;
   return {

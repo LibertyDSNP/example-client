@@ -22,7 +22,7 @@ export type NoteAttachment = {
 // ## Feed ##
 export interface FeedItem {
   address?: HexString;
-  content?: ActivityPub;
+  content?: NoteActivityPub;
   replies: FeedItem[];
   blockNumber?: number;
   hash: HexString;

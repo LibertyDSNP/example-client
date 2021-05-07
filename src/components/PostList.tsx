@@ -1,5 +1,5 @@
 import { List } from "antd";
-import React from "react";
+import React, { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "../redux/hooks";
 import { FeedItem } from "../utilities/types";
 import InfiniteScroll from "react-infinite-scroll-component";
@@ -23,12 +23,13 @@ const PostList: React.FC = () => {
     const filter: sdk.FetchFilters = {
       types: ["Broadcast", "Reply"],
       to: currentBlock,
-      from: currentBlock - BLOCKS_PER_LOAD,
+      from: currentBlock > BLOCKS_PER_LOAD ? currentBlock - BLOCKS_PER_LOAD : 0,
     };
     const feedItems: FeedItem[] = [];
     while (feedItems.length < 8 && currentBlock > 0) {
       const moreFeedItems = await sdk.loadFeed(filter);
-      feedItems.concat(moreFeedItems);
+      moreFeedItems.reverse();
+      feedItems.push(...moreFeedItems);
       currentBlock -= BLOCKS_PER_LOAD;
     }
     console.log("🚀 | file: PostList.tsx | line 35 | feedItems", feedItems);
@@ -44,6 +45,11 @@ const PostList: React.FC = () => {
       })
     );
   };
+
+  useEffect(() => {
+    if (feed.length !== 0) return;
+    loadMoreFeed();
+  }, []);
 
   return (
     <>
@@ -62,7 +68,21 @@ const PostList: React.FC = () => {
           dataSource={feed || []}
           renderItem={(feedItem: FeedItem) => (
             <List.Item>
-              <div> {feedItem.hash} </div>
+              <div> Poster: {feedItem.address} </div>
+              <div> Hash: {feedItem.hash} </div>
+              {feedItem?.content && feedItem?.content?.attachment && (
+                <img
+                  src={(feedItem?.content).attachment[0].url}
+                  alt="Post"
+                ></img>
+              )}
+              {feedItem.replies.length > 0 && (
+                <>
+                  {feedItem.replies.forEach((reply) => (
+                    <div>Reply From: {reply.address}</div>
+                  ))}
+                </>
+              )}
             </List.Item>
           )}
         />

@@ -1,3 +1,4 @@
+import { randInt } from "@unfinishedlabs/test-generators";
 import { FeedItem } from "../utilities/types";
 
 // This is a placeholder method until we have a server that can return data
@@ -15,6 +16,7 @@ export const loadContent = async (
 };
 
 const getItemContent = (feedItem: FeedItem) => {
+  const picID = randInt(50) + 1000;
   feedItem.content = {
     actor: feedItem.address || "ERROR",
     type: "Note",
@@ -23,7 +25,7 @@ const getItemContent = (feedItem: FeedItem) => {
       {
         type: "Image",
         mediaType: "image",
-        url: "https://picsum.photos/200/300",
+        url: `https://picsum.photos/id/${picID}/200/300`,
       },
     ],
   };
