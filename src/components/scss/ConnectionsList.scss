@@ -1,0 +1,23 @@
+.ConnectionsList__buttonBlock {
+  display: flex;
+  justify-content: center;
+  margin: 16px 0;
+}
+
+.ConnectionsList__button {
+  border-radius: 10px;
+  width: 140px;
+}
+
+.ConnectionsList__buttonCount {
+  @include large-text;
+  font-weight: 500;
+  margin-bottom: -5px;
+  line-height: 1;
+}
+
+.ConnectionsList__buttonSeparator {
+  height: inherit;
+  width: 2px;
+  background-color: $green;
+}

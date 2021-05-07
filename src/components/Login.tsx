@@ -3,7 +3,7 @@ import { Alert, Button, Popover, Spin } from "antd";
 import * as sdk from "../services/sdk";
 import { useAppDispatch, useAppSelector } from "../redux/hooks";
 import { userLogin, userLogout } from "../redux/slices/userSlice";
-import { wallet, WalletType } from "../services/wallets/wallet";
+import * as wallet from "../services/wallets/wallet";
 import { upsertGraph } from "../redux/slices/graphSlice";
 
 const Login = (): JSX.Element => {
@@ -15,11 +15,11 @@ const Login = (): JSX.Element => {
   const profile = useAppSelector((state) => state.user.profile);
   const walletType = useAppSelector((state) => state.user.walletType);
 
-  const login = async (walletType: WalletType) => {
+  const login = async (walletType: wallet.WalletType) => {
     if (loading) return;
     startLoading(true);
     try {
-      const walletAddress = await wallet(walletType).login();
+      const walletAddress = await wallet.wallet(walletType).login();
       const socialAddress = await sdk.getSocialIdentity(walletAddress);
       const graph = await sdk.getGraph(socialAddress);
       const profile = await sdk.getProfile(socialAddress);
@@ -34,7 +34,7 @@ const Login = (): JSX.Element => {
   };
 
   const logout = () => {
-    if (walletType) wallet(walletType).logout();
+    if (walletType) wallet.wallet(walletType).logout();
     dispatch(userLogout());
   };
 
@@ -64,13 +64,13 @@ const Login = (): JSX.Element => {
             <div className="Login__loginOptions">
               <Button
                 className="Login__loginTorus"
-                onClick={() => login(WalletType.TORUS)}
+                onClick={() => login(wallet.WalletType.TORUS)}
               >
                 Torus
               </Button>
               <Button
                 className="Login__loginMetamask"
-                onClick={() => login(WalletType.METAMASK)}
+                onClick={() => login(wallet.WalletType.METAMASK)}
               >
                 MetaMask
               </Button>

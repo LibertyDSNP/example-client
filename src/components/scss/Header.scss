@@ -1,5 +1,5 @@
 .Header__block {
-  background-color: $gray;
+  background-color: $white;
   padding: 0 16px;
   display: flex;
   align-items: center;
@@ -9,4 +9,5 @@
 
 .Header__title {
   margin: 0;
+  font-style: italic;
 }

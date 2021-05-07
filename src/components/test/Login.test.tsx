@@ -8,7 +8,7 @@ import {
 } from "../../test/testhelpers";
 import { getPrefabProfile } from "../../test/testProfiles";
 import { act } from "react-test-renderer";
-import { WalletType } from "../../services/wallets/wallet";
+import * as wallet from "../../services/wallets/wallet";
 
 jest.spyOn(torus, "logout").mockImplementation(jest.fn);
 jest.spyOn(torus, "isInitialized").mockReturnValue(true);
@@ -39,7 +39,7 @@ describe("Login Component", () => {
 
   describe("is logged in", () => {
     const profile = getPrefabProfile(0);
-    const walletType = WalletType.TORUS;
+    const walletType = wallet.WalletType.TORUS;
     const initialState = { user: { profile, walletType } };
     const store = createMockStore(initialState);
 

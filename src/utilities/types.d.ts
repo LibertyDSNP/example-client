@@ -42,4 +42,4 @@ export interface Graph {
   followers: HexString[];
 }
 
-export type SocialGraph = Map<HexString,Graph>;
+export type SocialGraph = Graph[];

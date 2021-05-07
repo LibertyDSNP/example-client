@@ -1,10 +1,13 @@
 @import "theme/colors";
 @import "theme/typography";
 @import "theme/antd-overrides";
+@import "theme/kss-styleguide-classes";
 @import "./components/scss/Header";
 @import "./components/scss/Login";
-@import "./components/scss/Profile";
+@import "components/scss/ProfileBlock";
 @import "./components/scss/Feed";
+@import "./components/scss/ConnectionsList";
+@import "./components/scss/ConnectionsListProfiles";
 
 .App__content {
   display: flex;

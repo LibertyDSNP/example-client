@@ -1,8 +1,21 @@
-$blue: #61dafb;
-$blue-darker: darken($blue, 30%);
-$blue-lighter: lighten($blue, 5%);
+// Colors
+//
+// $white - #fff; White
+// $light-gray - #f0f0f0; Light Gray
+// $gray - #d3d3d3; Gray
+// $text-gray - #7a7a7a; Text Gray
+// $dark-gray - #404040; Dark Gray
+// $black - #111; Black
+// $green - #26e990; Green
+// $clear - rgba(0, 0, 0, 0); Clear
+//
+// Styleguide Base.colors
 
 $white: #fff;
+$light-gray: #f0f0f0;
 $gray: #d3d3d3;
+$text-gray: #7a7a7a;
+$dark-gray: #404040;
 $black: #111;
 $green: #26e990;
+$clear: rgba(0, 0, 0, 0);

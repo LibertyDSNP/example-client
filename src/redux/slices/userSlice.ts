@@ -1,16 +1,18 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { WalletType } from "../../services/wallets/wallet";
-import { hasSession, loadSession } from "../../services/session";
+import * as wallet from "../../services/wallets/wallet";
+import * as session from "../../services/session";
 import { Profile } from "../../utilities/types";
 
 interface UserState {
   profile?: Profile;
-  walletType?: WalletType;
+  walletType?: wallet.WalletType;
 }
 
 const initialState: UserState = {
-  profile: hasSession() ? loadSession()?.profile : undefined,
-  walletType: hasSession() ? loadSession()?.walletType : undefined,
+  profile: session.hasSession() ? session.loadSession()?.profile : undefined,
+  walletType: session.hasSession()
+    ? session.loadSession()?.walletType
+    : undefined,
 };
 
 export const userSlice = createSlice({
@@ -23,8 +25,12 @@ export const userSlice = createSlice({
       return state;
     },
     userLogout: (state) => {
-      state.profile = hasSession() ? loadSession()?.profile : undefined;
-      state.walletType = hasSession() ? loadSession()?.walletType : undefined;
+      state.profile = session.hasSession()
+        ? session.loadSession()?.profile
+        : undefined;
+      state.walletType = session.hasSession()
+        ? session.loadSession()?.walletType
+        : undefined;
       return state;
     },
     userUpdateProfile: (state, action: PayloadAction<Profile>) => {

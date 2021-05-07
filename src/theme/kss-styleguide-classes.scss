@@ -1,0 +1,19 @@
+.ExtraLargeText {
+  @include extra-large-text;
+}
+
+.LargeText {
+  @include large-text;
+}
+
+.MediumText {
+  @include medium-text;
+}
+
+.SmallText {
+  @include small-text;
+}
+
+.BoldText {
+  @include bold-text;
+}

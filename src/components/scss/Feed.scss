@@ -1,9 +1,10 @@
 .Feed__block {
-  background-color: $gray;
+  background-color: $white;
+  border-radius: 25px;
   padding: 16px;
   display: flex;
   flex-direction: column;
-  flex-basis: 50%;
+  flex-basis: 55%;
 }
 
 .Feed__header {
