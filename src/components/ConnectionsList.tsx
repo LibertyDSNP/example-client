@@ -50,12 +50,12 @@ const ConnectionsList = (): JSX.Element => {
     followers: HexString[]
   ) => {
     const followingProfiles: Profile[] = await Promise.all(
-      (following || []).map(async (socialAddress: string) =>
+      (following || []).map((socialAddress: string) =>
         stableGetConnectionProfile(socialAddress)
       )
     );
     const followersProfiles: Profile[] = await Promise.all(
-      (followers || []).map(async (socialAddress: string) =>
+      (followers || []).map((socialAddress: string) =>
         stableGetConnectionProfile(socialAddress)
       )
     );
