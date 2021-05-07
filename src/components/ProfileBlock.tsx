@@ -3,9 +3,12 @@ import { Button } from "antd";
 import { useAppSelector } from "../redux/hooks";
 import ConnectionsList from "./ConnectionsList";
 import UserAvatar from "./UserAvatar";
+import { Profile } from "../utilities/types";
 
 const ProfileBlock = (): JSX.Element => {
-  const profile = useAppSelector((state) => state.user.profile);
+  const profile: Profile | undefined = useAppSelector(
+    (state) => state.user.profile
+  );
   const socialAddress = profile?.socialAddress;
 
   const handle = "insert_handle_here";
@@ -17,17 +20,15 @@ const ProfileBlock = (): JSX.Element => {
   const profileName = profile?.name || "Anonymous";
 
   useEffect(() => {
-    if (isEditing) {
-      if (
-        (newName && newName !== profileName) ||
-        (newHandle && newHandle !== handle)
-      ) {
-        setDidEditProfile(true);
-        return;
-      }
-      setDidEditProfile(false);
+    if (
+      (newName && newName !== profileName) ||
+      (newHandle && newHandle !== handle)
+    ) {
+      setDidEditProfile(true);
+      return;
     }
-  }, [isEditing, newName, newHandle, profileName]);
+    setDidEditProfile(false);
+  }, [newName, newHandle, profileName]);
 
   const getClassName = (sectionName: string) => {
     return isEditing
