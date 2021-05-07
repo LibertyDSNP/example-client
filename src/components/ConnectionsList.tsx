@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import { Button } from "antd";
 import ConnectionsListProfiles from "./ConnectionsListProfiles";
 import { useAppDispatch, useAppSelector } from "../redux/hooks";
@@ -40,7 +40,7 @@ const ConnectionsList = (): JSX.Element => {
     );
     if (!userProfile) {
       userProfile = await sdk.getProfile(socialAddress);
-      dispatch(upsertProfile(userProfile));
+      stableDispatch(upsertProfile(userProfile));
     }
     return userProfile;
   };
@@ -51,12 +51,12 @@ const ConnectionsList = (): JSX.Element => {
   ) => {
     const followingProfiles: Profile[] = await Promise.all(
       (following || []).map(async (socialAddress: string) =>
-        getConnectionProfile(socialAddress)
+        stableGetConnectionProfile(socialAddress)
       )
     );
     const followersProfiles: Profile[] = await Promise.all(
       (followers || []).map(async (socialAddress: string) =>
-        getConnectionProfile(socialAddress)
+        stableGetConnectionProfile(socialAddress)
       )
     );
     return [followingProfiles, followersProfiles];
@@ -74,9 +74,20 @@ const ConnectionsList = (): JSX.Element => {
     });
   };
 
+  const stableDispatch = useCallback(dispatch, [dispatch]);
+
+  const stableGetConnectionProfile = useCallback(getConnectionProfile, [
+    cachedProfiles,
+    stableDispatch,
+  ]);
+
+  const stableGetUserConnectionsList = useCallback(getUserConnectionsList, [
+    stableGetConnectionProfile,
+  ]);
+
   useEffect(() => {
     if (!graph) return;
-    getUserConnectionsList(graph.following, graph.followers).then(
+    stableGetUserConnectionsList(graph.following, graph.followers).then(
       (userRelationships) => {
         const [followingProfiles, followersProfiles] = userRelationships;
         setFollowingList(followingProfiles);
@@ -86,7 +97,7 @@ const ConnectionsList = (): JSX.Element => {
         );
       }
     );
-  }, [graph]);
+  }, [stableGetUserConnectionsList, graph]);
 
   useEffect(() => {
     if (selectedListTitle === ListStatus.FOLLOWING) {
@@ -94,7 +105,7 @@ const ConnectionsList = (): JSX.Element => {
     } else if (selectedListTitle === ListStatus.FOLLOWERS) {
       setSelectedList(followersList);
     } else setSelectedList([]);
-  }, [selectedListTitle]);
+  }, [selectedListTitle, followersList, followingList]);
 
   const handleClick = (listTitle: ListStatus) => {
     if (selectedListTitle === listTitle)
@@ -124,7 +135,7 @@ const ConnectionsList = (): JSX.Element => {
         </Button>
 
         {selectedListTitle === ListStatus.CLOSED && (
-          <div className="ConnectionsList__buttonSeperator"> </div>
+          <div className="ConnectionsList__buttonSeparator"> </div>
         )}
         <Button
           className={getClassName(ListStatus.FOLLOWING)}
