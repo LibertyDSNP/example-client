@@ -4,17 +4,20 @@ import { FeedItem } from "../../utilities/types";
 interface feedState {
   feed: FeedItem[];
   newFeed: FeedItem[];
+  replies: FeedItem[];
   currentBlock: number | null;
 }
 
 const initialState: feedState = {
   feed: [],
   newFeed: [],
+  replies: [],
   currentBlock: null,
 };
 
 interface feedData {
   feedData: FeedItem[];
+  replyData: FeedItem[];
   newCurrentBlock: number;
 }
 
@@ -23,36 +26,33 @@ export const feedSlice = createSlice({
   initialState,
   reducers: {
     addFeedItems: (state, action: PayloadAction<feedData>) => {
-      // Old feed array copy
-      let oldFeed = [...state.feed];
+      let allReplies = [...state.replies, ...action.payload.replyData];
 
-      // New feed array copy
-      const newFeed = [...action.payload.feedData];
+      let olderFeed = [...action.payload.feedData];
 
-      // Look for matching Feed Item addresses
-      // Use newest Feed item, grab old replies
-      // This works because the final new feed item
-      // with matching addres is the Reply Parent
-      // All previous feed items are replies that
-      // get combined through this process.
-      oldFeed = oldFeed.map((oldFeedItem) => {
-        const newReplyParent = newFeed.find(
-          (newFeedItem) => oldFeedItem.address === newFeedItem.address
-        );
-        if (newReplyParent) {
-          //newReplyParent.replies = oldFeedItem.replies;
-          newFeed.splice(newFeed.indexOf(newReplyParent), 1);
-          return {
-            ...newReplyParent,
-            replies: oldFeedItem.replies,
-          };
-        }
-        return oldFeedItem;
+      olderFeed = olderFeed.map((feedItem) => {
+        const feedReplies: FeedItem[] = [];
+        console.log("🚀 | file: feedSlice.ts | line 36 | Before allReplies", allReplies);
+        allReplies = allReplies.filter((reply) => {
+          if (feedItem.hash === reply.inReplyTo) {
+            feedReplies.push(reply);
+            return false;
+          }
+          return true;
+        });
+        console.log("🚀 | file: feedSlice.ts | line 35 | After feedReplies", feedReplies);
+        console.log("🚀 | file: feedSlice.ts | line 36 | After allReplies", allReplies);
+        if (feedReplies.length === 0) return feedItem;
+        return {
+          ...feedItem,
+          replies: feedReplies,
+        };
       });
 
       return {
         ...state,
-        feed: [...oldFeed, ...newFeed],
+        feed: [...state.feed, ...olderFeed],
+        replies: [...allReplies],
         currentBlock: action.payload.newCurrentBlock,
       };
     },

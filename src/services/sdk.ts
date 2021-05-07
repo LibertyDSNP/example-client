@@ -49,12 +49,8 @@ const convertToFeedItems = (events: MessageType[]): FeedItem[] => {
       topic: event.actionType.toString(),
       uri: event.uri,
     };
-    if (!isReply(event)) return feedItem;
-    const parentFeedItem: FeedItem = {
-      replies: [feedItem],
-      hash: event.inReplyTo,
-    };
-    return parentFeedItem;
+    if (isReply(event)) feedItem.inReplyTo = event.inReplyTo;
+    return feedItem;
   });
 };
 

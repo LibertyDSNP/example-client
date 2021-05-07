@@ -29,7 +29,9 @@ export interface FeedItem {
   timestamp?: number;
   topic?: HexString;
   uri?: URLString;
+  inReplyTo?: HexString
 }
+
 
 // ## Graph ##
 export interface Graph {
