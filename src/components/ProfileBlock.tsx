@@ -19,8 +19,8 @@ const ProfileBlock = (): JSX.Element => {
   useEffect(() => {
     if (isEditing) {
       if (
-        (newName !== null && newName !== profileName) ||
-        (newHandle !== null && newHandle !== handle)
+        (newName && newName !== profileName) ||
+        (newHandle && newHandle !== handle)
       ) {
         setDidEditProfile(true);
         return;
