@@ -9,23 +9,6 @@ import { addFeedItems } from "../redux/slices/feedSlice";
 
 const BLOCKS_PER_LOAD = 8;
 
-enum ActionType {
-  Private = 0,
-  GraphChange = 1,
-  Broadcast = 2,
-  Profile = 3,
-  KeyList = 4,
-  PrivateGraphKeyList = 5,
-  EncryptionKeyList = 6,
-  Reaction = 7,
-  PrivateGraphChange = 8,
-  Drop = 9,
-  EncryptedInbox = 10,
-  PrivateBroadcast = 11,
-  Reply = 12,
-  Batch = 13,
-}
-
 const PostList: React.FC = () => {
   const dispatch = useAppDispatch();
   const feed = useAppSelector((state) => state.feed.feed);
@@ -47,19 +30,9 @@ const PostList: React.FC = () => {
     }
     const contentFeedAndReplies = await server.loadContent(feedAndReplies);
 
-    const feedItems: FeedItem[] = [];
-    const replyItems: FeedItem[] = [];
-    contentFeedAndReplies.forEach((feedItem) => {
-      if (feedItem.topic === ActionType.Broadcast.toString())
-        feedItems.push(feedItem);
-      if (feedItem.topic === ActionType.Reply.toString())
-        replyItems.push(feedItem);
-    });
-
     dispatch(
       addFeedItems({
-        feedData: feedItems,
-        replyData: replyItems,
+        feedData: contentFeedAndReplies,
         newCurrentBlock: currentBlock,
       })
     );
@@ -72,7 +45,7 @@ const PostList: React.FC = () => {
 
   // Used for mocked data. Remove when no longer mocking data
   const brokenLink = (e: any) => {
-    e.target.src = "https://picsum.photos/200/300"
+    e.target.src = "https://picsum.photos/200/300";
   };
 
   return (

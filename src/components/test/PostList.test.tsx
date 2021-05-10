@@ -1,11 +1,13 @@
-import React from "react";
 import PostList from "../PostList";
-import { shallow } from "enzyme";
+import { mount } from "enzyme";
+import { componentWithStore, createMockStore } from "../../test/testhelpers";
+import { initialFeedState } from "../../redux/slices/feedSlice";
 
 describe("PostList", () => {
+  const store = createMockStore(initialFeedState);
   it("renders without crashing", () => {
     expect(() => {
-      shallow(<PostList />);
+      mount(componentWithStore(PostList, store));
     }).not.toThrow();
   });
 });

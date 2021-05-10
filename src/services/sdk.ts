@@ -76,6 +76,8 @@ export const unsubscribeToFeed = (id: string): void => {
   mocksdk.unsubscribe(id);
   //dsnp.socialSearch.unsubscribe(id);
 };
+
+//This method needs to get replced with a way to get the most current block
 export const getNewestBlock = (): number => {
   return mocksdk.fakeFeed.length - 1;
 };
