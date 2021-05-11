@@ -10,7 +10,7 @@ export interface ActivityPubBase {
 }
 
 export interface PersonActivityPub extends ActivityPubBase {
-  preferredUsername?: string;
+  handle?: string;
   name?: string;
   summary?: string;
   url?: string;

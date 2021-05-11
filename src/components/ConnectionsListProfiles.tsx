@@ -37,9 +37,12 @@ const ConnectionsListProfiles = ({
           className="ConnectionsListProfiles__profile"
           key={userProfile.socialAddress}
         >
-          <UserAvatar avatarSize="small" profile={userProfile} />
+          <UserAvatar
+            avatarSize="small"
+            profileAddress={userProfile.socialAddress}
+          />
           <div className="ConnectionsListProfiles__name">
-            {userProfile.name || userProfile.preferredUsername || "Anonymous"}
+            {userProfile.name || userProfile.handle || "Anonymous"}
           </div>
           <Button
             className="ConnectionsListProfiles__button"

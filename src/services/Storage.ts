@@ -1,0 +1,19 @@
+import { noteToActivityPub } from "../utilities/activityPub";
+import { FeedItem, HexString } from "../utilities/types";
+import { ActivityPub } from "../utilities/activityPubTypes";
+
+export const createNote = async (
+  actor: HexString,
+  note: string,
+  uriList: string[]
+): Promise<FeedItem> => {
+  // send content to api
+  const activityPubNote: ActivityPub = noteToActivityPub(actor, note, uriList);
+  const newPostFeedItem: FeedItem = {
+    fromAddress: actor,
+    content: activityPubNote,
+    blockNumber: 0x123,
+    timestamp: 123456,
+  };
+  return newPostFeedItem;
+};

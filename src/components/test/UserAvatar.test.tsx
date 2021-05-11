@@ -1,12 +1,17 @@
 import React from "react";
 import { shallow } from "enzyme";
 import UserAvatar from "../UserAvatar";
-import { getPrefabProfile } from "../../test/testProfiles";
+import { getPrefabSocialAddress } from "../../test/testAddresses";
 
 describe("UserAvatar", () => {
   it("renders without crashing", () => {
     expect(() => {
-      shallow(<UserAvatar profile={getPrefabProfile(0)} avatarSize="large" />);
+      shallow(
+        <UserAvatar
+          profileAddress={getPrefabSocialAddress(0)}
+          avatarSize="large"
+        />
+      );
     }).not.toThrow();
   });
 });

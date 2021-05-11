@@ -53,7 +53,10 @@ const ProfileBlock = (): JSX.Element => {
         <>
           <div className="ProfileBlock__personalInfoBlock">
             <div className="ProfileBlock__avatarBlock">
-              <UserAvatar profile={profile || null} avatarSize="large" />
+              <UserAvatar
+                profileAddress={profile?.socialAddress}
+                avatarSize="large"
+              />
               {isEditing ? (
                 <>
                   <Button

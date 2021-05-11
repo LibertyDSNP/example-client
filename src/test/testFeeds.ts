@@ -5,7 +5,7 @@ import {
   ActivityPubAttachement,
   NoteActivityPub,
   PersonActivityPub,
-} from "../utilities/activityPub";
+} from "../utilities/activityPubTypes";
 import { FeedItem, HexString, NoteAttachment } from "../utilities/types";
 import { generateSocialAddress, getPrefabSocialAddress } from "./testAddresses";
 import {
@@ -64,18 +64,18 @@ export const generateNote = (
  * Generate a Profile update. The type `Person` is not a `Profile`
  * @param address the HexString socialAddress to make this person update around
  * @param name the new name of the profile update
- * @param username the new username of the profile update
+ * @param handle the new username of the profile update
  */
 export const generatePerson = (
   address: HexString,
   name?: string,
-  username?: string
+  handle?: string
 ): PersonActivityPub => {
   return {
     actor: address,
     "@context": "https://www.w3.org/ns/activitystreams",
     name: name || undefined,
-    preferredUsername: username || undefined,
+    handle: handle || undefined,
     summary: "",
     url: "",
     discoverable: true,
@@ -101,7 +101,7 @@ export const generateFeedItem = (
     timestamp: constTime ? 1608580122 : Math.round(Date.now() / 1000),
     inbox: false,
     topic: "0x" + keccak_256("Announce(string,bytes32,bytes32)"),
-    address: content.actor,
+    fromAddress: content.actor,
     content: content,
     replies: replies || [],
     blockNumber: 50,
@@ -167,10 +167,10 @@ export const generateRandomNote = (): NoteActivityPub => {
 export const generateRandomPerson = (): PersonActivityPub => {
   const address = generateSocialAddress();
   const name = getRandomName();
-  const username = getRandomUsername();
+  const handle = getRandomHandle();
   if (randInt(5) > 0) return generatePerson(address);
   if (randInt(5) > 0) return generatePerson(address, name);
-  return generatePerson(address, name, username);
+  return generatePerson(address, name, handle);
 };
 
 /**
@@ -224,7 +224,7 @@ const getRandomName = (): string => {
   return firstName + " " + lastName;
 };
 
-const getRandomUsername = (): string => {
+const getRandomHandle = (): string => {
   const firstName = prefabFirstNames[randInt(prefabFirstNames.length)];
   const lastName = prefabLastNames[randInt(prefabLastNames.length)];
   return firstName.substring(0, 3) + lastName.substring(0, 3).toLocaleLowerCase;
