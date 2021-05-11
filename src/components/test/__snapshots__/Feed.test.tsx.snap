@@ -101,7 +101,11 @@ exports[`Feed does display new post button when logged in 1`] = `
                   My favorite dessert is Cake
                 </div>
                 <img
+<<<<<<< HEAD
                   alt=""
+=======
+                  alt="undefined"
+>>>>>>> c0a25e5 (new post modal and styling)
                   width={400}
                 />
               </div>
@@ -115,7 +119,11 @@ exports[`Feed does display new post button when logged in 1`] = `
                   Going to the mall!
                 </div>
                 <img
+<<<<<<< HEAD
                   alt=""
+=======
+                  alt="undefined"
+>>>>>>> c0a25e5 (new post modal and styling)
                   width={400}
                 />
               </div>
@@ -129,7 +137,11 @@ exports[`Feed does display new post button when logged in 1`] = `
                   Hello World
                 </div>
                 <img
+<<<<<<< HEAD
                   alt=""
+=======
+                  alt="undefined"
+>>>>>>> c0a25e5 (new post modal and styling)
                   width={400}
                 />
               </div>
@@ -139,11 +151,26 @@ exports[`Feed does display new post button when logged in 1`] = `
                 <div>
                   0x1DCODE2222
                 </div>
+<<<<<<< HEAD
+=======
+                <div />
+              </div>
+              <div
+                key="4"
+              >
+                <div>
+                  0x1DCODE2222
+                </div>
+>>>>>>> c0a25e5 (new post modal and styling)
                 <div>
                   Everyone leave me alone
                 </div>
                 <img
+<<<<<<< HEAD
                   alt="Image for post"
+=======
+                  alt="undefined"
+>>>>>>> c0a25e5 (new post modal and styling)
                   src="https://64.media.tumblr.com/bd8d2127a91f57463c2e753cf837ab6e/014df86f4004efef-ec/s1280x1920/adda1023806b71606f83f484a64daa03bce12c8d.jpg"
                   width={400}
                 />
