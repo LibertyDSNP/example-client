@@ -38,7 +38,8 @@ const Login = (): JSX.Element => {
 
   const logout = () => {
     session.clearSession();
-    if (walletType) wallet.wallet(walletType).logout();
+    if (walletType !== wallet.WalletType.NONE)
+      wallet.wallet(walletType).logout();
     dispatch(userLogout());
   };
 
