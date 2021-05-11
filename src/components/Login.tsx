@@ -1,5 +1,6 @@
 import React from "react";
-import { Alert, Button, Popover, Spin } from "antd";
+import { Alert, Badge, Button, Popover, Spin } from "antd";
+import { WalletOutlined } from "@ant-design/icons";
 import { useAppDispatch, useAppSelector } from "../redux/hooks";
 import { userLogin, userLogout } from "../redux/slices/userSlice";
 import * as sdk from "../services/sdk";
@@ -89,13 +90,17 @@ const Login = (): JSX.Element => {
         </Popover>
       ) : (
         <>
-          {walletType && (
+          <Badge
+            count={<WalletOutlined style={{ color: "#52C41A" }} />}
+            offset={[-48, 8]}
+          >
             <img
               className="Login__walletIcon"
               src={wallet.wallet(walletType).icon}
               alt="Wallet Symbol"
             ></img>
-          )}
+          </Badge>
+
           <Button
             className="Login__logOutButton"
             aria-label="Logout"
