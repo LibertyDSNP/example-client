@@ -1,9 +1,11 @@
 import React from "react";
 import { Alert, Button, Popover, Spin } from "antd";
-import * as sdk from "../services/sdk";
 import { useAppDispatch, useAppSelector } from "../redux/hooks";
 import { userLogin, userLogout } from "../redux/slices/userSlice";
+import * as sdk from "../services/sdk";
 import * as wallet from "../services/wallets/wallet";
+import * as session from "../services/session";
+
 import { upsertGraph } from "../redux/slices/graphSlice";
 
 const Login = (): JSX.Element => {
@@ -25,6 +27,7 @@ const Login = (): JSX.Element => {
       const profile = await sdk.getProfile(socialAddress);
       dispatch(userLogin({ profile, walletType }));
       dispatch(upsertGraph(graph));
+      session.saveSession({ profile, walletType });
       startLoading(false);
     } catch (error) {
       setAlertError(error.toString());
@@ -34,6 +37,7 @@ const Login = (): JSX.Element => {
   };
 
   const logout = () => {
+    session.clearSession();
     if (walletType) wallet.wallet(walletType).logout();
     dispatch(userLogout());
   };
@@ -83,13 +87,22 @@ const Login = (): JSX.Element => {
           </Button>
         </Popover>
       ) : (
-        <Button
-          className="Login__logOutButton"
-          aria-label="Logout"
-          onClick={logout}
-        >
-          Log Out
-        </Button>
+        <>
+          {walletType && (
+            <img
+              className="Login__walletIcon"
+              src={wallet.wallet(walletType).icon}
+              alt="Wallet Symbol"
+            ></img>
+          )}
+          <Button
+            className="Login__logOutButton"
+            aria-label="Logout"
+            onClick={logout}
+          >
+            Log Out
+          </Button>
+        </>
       )}
     </div>
   );
