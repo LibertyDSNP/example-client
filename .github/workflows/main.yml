@@ -23,16 +23,34 @@ jobs:
         with:
           node-version: '14.5.0'
 
-      - name: Install
+      - name: Client Check
+        run: cd client
+
+      - name: Client Install
         run: npm install
 
-      - name: Build
+      - name: Client Build
         run: npm run build
 
-      - name: Lint
+      - name: Client Lint
         run: npm run lint
 
-      - name: Test
+      - name: Client Test
+        run: npm run test
+
+      - name: Server Check
+        run: cd ../server
+
+      - name: Server Install
+        run: npm install
+
+      - name: Server Build
+        run: npm run build
+
+      - name: Server Lint
+        run: npm run lint
+
+      - name: Server Test
         run: npm run test
 
       - name: Report Test

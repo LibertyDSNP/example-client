@@ -1,0 +1,48 @@
+{
+  "env": {
+    "node": true,
+    "commonjs": true,
+    "es6": true
+  },
+  "plugins": ["jest", "prettier"],
+  "parser": "@typescript-eslint/parser",
+  "extends": [
+    "plugin:@typescript-eslint/recommended",
+    "eslint:recommended",
+    "plugin:jest/recommended",
+    "prettier"
+  ],
+  "parserOptions": {
+    "ecmaVersion": 2018,
+    "sourceType": "module"
+  },
+  "rules": {
+    "semi": ["error", "always"],
+    "quotes": ["error", "double"],
+    "prettier/prettier": "error",
+    "no-unused-vars": [
+      "error",
+      {
+        "args": "after-used",
+        "argsIgnorePattern": "^_",
+        "varsIgnorePattern": "^_"
+      }
+    ],
+    "no-var": "error",
+    "@typescript-eslint/no-use-before-define": "off",
+    "@typescript-eslint/explicit-function-return-type": "off",
+    "@typescript-eslint/no-explicit-any": "off",
+    "@typescript-eslint/no-inferrable-types": [
+      "warn",
+      {
+        "ignoreParameters": true
+      }
+    ],
+    "@typescript-eslint/no-unused-vars": [
+      "error",
+      {
+        "argsIgnorePattern": "^_"
+      }
+    ]
+  }
+}
