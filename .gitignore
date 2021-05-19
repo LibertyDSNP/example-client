@@ -34,7 +34,7 @@ junit.xml
 client/build
 
 # styleguide
-/styleguide/
+styleguide/
 
 # css
 *.css
