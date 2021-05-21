@@ -5,14 +5,12 @@ import { Profile } from "../../utilities/types";
 
 interface UserState {
   profile?: Profile;
-  walletType?: wallet.WalletType;
+  walletType: wallet.WalletType;
 }
 
 const initialState: UserState = {
   profile: session.hasSession() ? session.loadSession()?.profile : undefined,
-  walletType: session.hasSession()
-    ? session.loadSession()?.walletType
-    : undefined,
+  walletType: session.loadSession()?.walletType ?? wallet.WalletType.NONE,
 };
 
 export const userSlice = createSlice({
@@ -25,12 +23,8 @@ export const userSlice = createSlice({
       return state;
     },
     userLogout: (state) => {
-      state.profile = session.hasSession()
-        ? session.loadSession()?.profile
-        : undefined;
-      state.walletType = session.hasSession()
-        ? session.loadSession()?.walletType
-        : undefined;
+      state.profile = undefined;
+      state.walletType = wallet.WalletType.NONE;
       return state;
     },
     userUpdateProfile: (state, action: PayloadAction<Profile>) => {

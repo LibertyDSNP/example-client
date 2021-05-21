@@ -12,6 +12,7 @@ import Web3 from "web3";
 // an example.
 
 export enum WalletType {
+  NONE = "NONE",
   TORUS = "TORUS",
   METAMASK = "METAMASK",
   // Add new WalletTypes Here
@@ -19,6 +20,8 @@ export enum WalletType {
 
 export const wallet = (walletType: WalletType): Wallet => {
   switch (walletType) {
+    case WalletType.NONE:
+      return noWallet;
     case WalletType.TORUS:
       return torusWallet;
     case WalletType.METAMASK:
@@ -35,3 +38,17 @@ export interface Wallet {
   getAddress: () => Promise<HexString>;
   getWeb3: () => Web3;
 }
+
+const noWallet: Wallet = {
+  icon:
+    "https://icons.veryicon.com/png/o/business/business-style-icon/wallet-62.png",
+  login: async () => await "",
+  logout: () => {
+    return;
+  },
+  reload: () => {
+    return;
+  },
+  getAddress: async () => await "",
+  getWeb3: () => new Web3(),
+};
