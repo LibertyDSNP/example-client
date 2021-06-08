@@ -1,5 +1,8 @@
 import * as torus from "./torus";
 import { Wallet } from "../wallet";
+import ethereum from "../metamask/ethereum";
+import { ethers } from "ethers";
+import { setConfig } from "@dsnp/sdk";
 
 const torusWallet: Wallet = {
   icon:
@@ -14,14 +17,17 @@ const torusWallet: Wallet = {
     }
   },
   reload: async () => {
-    if (torus.isInitialized()) return;
-    await torus.enableTorus();
+    if (!torus.isInitialized()) {
+      await torus.enableTorus();
+    }
+    const provider = torus.getProvider();
+    setConfig({
+      provider,
+      signer: provider?.getSigner(),
+    });
   },
   getAddress: async () => {
     return await torus.getWalletAddress();
-  },
-  getWeb3: () => {
-    return torus.getWeb3();
   },
 };
 

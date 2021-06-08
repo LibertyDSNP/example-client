@@ -1,6 +1,6 @@
-import Web3 from "web3";
 import { HexString } from "../../../utilities/types";
-import web3Torus, { BuildEnvironment } from "./tweb3";
+import localTorus, { BuildEnvironment } from "./tweb3";
+import { ethers } from "ethers";
 
 // Torus doesn't give us access to their internal verifier types
 // They also don't enforce their own verifier system consistently
@@ -23,15 +23,15 @@ interface UserInfo {
 export const enableTorus = async (
   buildEnv?: BuildEnvironment
 ): Promise<void> => {
-  await web3Torus.initialize(buildEnv || "production");
+  await localTorus.initialize(buildEnv || "production");
 };
 
 export const isInitialized = (): boolean => {
-  return web3Torus.initialized;
+  return localTorus.initialized;
 };
 
 export const getUserInfo = async (): Promise<UserInfo> => {
-  const userInfo = await web3Torus.torus?.getUserInfo(
+  const userInfo = await localTorus.torus?.getUserInfo(
     "This site is requesting your information"
   );
   if (!userInfo) throw new Error("Unable to find user's info");
@@ -39,7 +39,7 @@ export const getUserInfo = async (): Promise<UserInfo> => {
 };
 
 export const logout = (): void => {
-  web3Torus.torus?.cleanUp().then(() => {
+  localTorus.torus?.cleanUp().then(() => {
     sessionStorage.setItem("pageUsingTorus", "false");
   });
 };
@@ -48,7 +48,7 @@ export const getPublicAddress = async (
   verifier: VerifierTypes,
   verifierId: string
 ): Promise<AddressType> => {
-  return await web3Torus.torus?.getPublicAddress({
+  return await localTorus.torus?.getPublicAddress({
     verifier,
     verifierId,
     isExtended: true,
@@ -73,6 +73,9 @@ const getTypedVerifier = (untypedVerifier: string): VerifierTypes => {
   return typedVerifier as VerifierTypes;
 };
 
-export const getWeb3 = (): Web3 => {
-  return web3Torus.web3;
+export const getProvider = (): ethers.providers.Web3Provider | undefined => {
+  if (!localTorus.torus?.provider) return undefined;
+  return new ethers.providers.Web3Provider(
+    localTorus.torus.ethereum as ethers.providers.ExternalProvider
+  );
 };

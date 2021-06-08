@@ -1,5 +1,3 @@
-import { JsonRpcPayload, JsonRpcResponse } from "web3-core-helpers";
-
 interface ConnectInfo {
   chainId: string;
 }
@@ -22,11 +20,33 @@ interface RequestArguments {
 }
 
 interface Callback<ResultType> {
-  (error: Error): void;
+  (error: Error, val: undefined): void;
   (error: null, val: ResultType): void;
 }
 
-export interface EthereumProvider {
+interface JsonRpcPayload {
+  jsonrpc?: string;
+  method: string;
+  params?: any[];
+  id?: string | number;
+}
+
+interface JsonRpcResponse {
+  jsonrpc?: string;
+  id: number;
+  result: any;
+  error: string;
+}
+
+export interface Provider {
+  sendAsync(
+    payload: JsonRpcPayload,
+    callback: (error: Error | null, result?: JsonRpcResponse) => void
+  ): void;
+  send(payload: JsonRpcPayload, callback: Callback<JsonRpcResponse>): any;
+}
+
+export interface EthereumProvider extends Provider {
   isMetaMask?: boolean;
   autoRefreshOnNetworkChange: boolean;
   chainId: number;
@@ -40,12 +60,6 @@ export interface EthereumProvider {
   on(event: "message", handler: (message: ProviderMessage) => void): void;
 
   request(request: RequestArguments): Promise<any>;
-
-  sendAsync(
-    payload: JsonRpcPayload,
-    callback: (error: Error | null, result?: JsonRpcResponse) => void
-  ): void;
-  send(payload: JsonRpcPayload, callback: Callback<JsonRpcResponse>): any;
 }
 // eip-1193
 const ethereum = (window as any).ethereum as

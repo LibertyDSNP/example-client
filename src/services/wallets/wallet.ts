@@ -1,7 +1,7 @@
 import { HexString } from "../../utilities/types";
 import metamaskWallet from "./metamask";
 import torusWallet from "./torus";
-import Web3 from "web3";
+import { setConfig } from "@dsnp/sdk";
 
 // HOW TO ADD A WALLET
 // Add the new wallet to the enum and switch/case
@@ -36,7 +36,6 @@ export interface Wallet {
   logout: () => void;
   reload: () => void;
   getAddress: () => Promise<HexString>;
-  getWeb3: () => Web3;
 }
 
 const noWallet: Wallet = {
@@ -47,8 +46,11 @@ const noWallet: Wallet = {
     return;
   },
   reload: () => {
+    setConfig({
+      provider: undefined,
+      signer: undefined,
+    });
     return;
   },
-  getAddress: async () => await "",
-  getWeb3: () => new Web3(),
+  getAddress: async () => "",
 };

@@ -1,5 +1,8 @@
 import * as metamask from "./metamask";
 import { Wallet } from "../wallet";
+import { setConfig } from "@dsnp/sdk";
+import { ethers } from "ethers";
+import ethereum from "./ethereum";
 
 const metamaskWallet: Wallet = {
   icon:
@@ -12,13 +15,16 @@ const metamaskWallet: Wallet = {
     return;
   },
   reload: () => {
+    const provider =
+      (ethereum && new ethers.providers.Web3Provider(ethereum)) || undefined;
+    setConfig({
+      provider,
+      signer: provider?.getSigner(),
+    });
     return;
   },
   getAddress: async () => {
     return metamask.getWalletAddress();
-  },
-  getWeb3: () => {
-    return metamask.getWeb3();
   },
 };
 

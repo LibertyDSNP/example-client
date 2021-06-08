@@ -8,6 +8,7 @@ import ProfileBlock from "./components/ProfileBlock";
 import * as wallet from "./services/wallets/wallet";
 import { useAppSelector } from "./redux/hooks";
 
+
 const App: React.FC = () => {
   const walletType = useAppSelector((state) => state.user.walletType);
   useEffect(() => {

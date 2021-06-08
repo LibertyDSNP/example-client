@@ -1,6 +1,4 @@
-import Web3 from "web3";
 import Torus from "@toruslabs/torus-embed";
-import { provider } from "web3-core";
 
 export type BuildEnvironment =
   | "production"
@@ -56,23 +54,16 @@ const initSettings = (buildEnv: BuildEnvironment) => {
   };
 };
 
-const web3Torus = {
-  web3: new Web3(),
+const localTorus = {
   torus: null as Torus | null,
   initialized: false,
-  setweb3: function (provider: provider): void {
-    const web3Inst = new Web3(provider);
-    web3Torus.web3 = web3Inst;
-    this.web3.setProvider(provider);
-  },
   initialize: async function (buildEnv: BuildEnvironment): Promise<void> {
     const torus = new Torus(torusSettings);
     await torus.init(initSettings(buildEnv));
     this.initialized = true;
     try {
       await torus.login({ verifier: undefined });
-      web3Torus.setweb3(torus.provider);
-      web3Torus.torus = torus;
+      localTorus.torus = torus;
     } catch (error) {
       torus.clearInit();
       this.initialized = false;
@@ -81,4 +72,4 @@ const web3Torus = {
   },
 };
 
-export default web3Torus;
+export default localTorus;
