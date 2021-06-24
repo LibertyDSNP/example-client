@@ -23,8 +23,6 @@ const NewPost = ({ onSuccess, onCancel }: NewPostProps): JSX.Element => {
   const profile = useAppSelector((state) => state.user.profile);
 
   useEffect(() => {
-    console.log(postMessage.length);
-    console.log(uriList.length);
     if (postMessage.length > 0 || uriList.length > 0) {
       setIsValidPost(true);
     } else setIsValidPost(false);
@@ -66,7 +64,7 @@ const NewPost = ({ onSuccess, onCancel }: NewPostProps): JSX.Element => {
               disabled={!isValidPost || saving}
               onClick={createPost}
             >
-              {"Post"}
+              Post
             </Button>
           </Space>
         </Spin>,

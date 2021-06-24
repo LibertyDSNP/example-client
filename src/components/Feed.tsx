@@ -6,7 +6,7 @@ import { useAppSelector } from "../redux/hooks";
 
 const Feed: React.FC = () => {
   const profile = useAppSelector((state) => state.user.profile);
-  const [openCreatePost, setCreatePost] = useState<boolean>(false);
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
   return (
     <div className="Feed__block">
@@ -15,15 +15,15 @@ const Feed: React.FC = () => {
         {profile && (
           <Button
             className="Feed__newPostButton"
-            onClick={() => setCreatePost(true)}
+            onClick={() => setIsModalOpen(true)}
           >
             New Post
           </Button>
         )}
-        {openCreatePost && (
+        {isModalOpen && (
           <NewPost
-            onSuccess={() => setCreatePost(false)}
-            onCancel={() => setCreatePost(false)}
+            onSuccess={() => setIsModalOpen(false)}
+            onCancel={() => setIsModalOpen(false)}
           />
         )}
       </div>
