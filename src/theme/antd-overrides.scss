@@ -98,3 +98,12 @@
 .anticon.NewPostImageUpload__imageDelete {
   font-size: 20px;
 }
+
+.ant-input:focus,
+.ant-input:hover {
+  border-color: $dark-gray !important;
+}
+
+.ant-input:focus {
+  box-shadow: 0 0 0 2px $gray !important;
+}

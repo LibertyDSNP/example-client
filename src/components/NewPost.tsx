@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Alert, Button, Space, Spin, Modal, Input } from "antd";
 import { useAppDispatch, useAppSelector } from "../redux/hooks";
 import UserAvatar from "./UserAvatar";
@@ -18,8 +18,17 @@ const NewPost = ({ onSuccess, onCancel }: NewPostProps): JSX.Element => {
   const [saving, setSaving] = React.useState<boolean>(false);
   const [uriList, setUriList] = React.useState<string[]>([]);
   const [postMessage, setPostMessage] = React.useState<string>("");
+  const [isValidPost, setIsValidPost] = React.useState<boolean>(false);
 
   const profile = useAppSelector((state) => state.user.profile);
+
+  useEffect(() => {
+    console.log(postMessage.length);
+    console.log(uriList.length);
+    if (postMessage.length > 0 || uriList.length > 0) {
+      setIsValidPost(true);
+    } else setIsValidPost(false);
+  }, [postMessage, uriList]);
 
   const success = () => {
     setSaving(false);
@@ -54,7 +63,7 @@ const NewPost = ({ onSuccess, onCancel }: NewPostProps): JSX.Element => {
               className="NewPost__footerBtn"
               key="post"
               type="primary"
-              disabled={saving}
+              disabled={!isValidPost || saving}
               onClick={createPost}
             >
               {"Post"}

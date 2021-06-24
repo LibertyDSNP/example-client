@@ -1,7 +1,7 @@
 import { Alert, Input, Spin } from "antd";
 import { CloseCircleTwoTone } from "@ant-design/icons";
 import React from "react";
-import cameraIcon from "../images/Camera.png";
+import cameraIcon from "../images/Camera.svg";
 import { HexString } from "../utilities/types";
 import { Button } from "antd";
 
