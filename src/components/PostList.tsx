@@ -4,9 +4,8 @@ import { FeedItem } from "../utilities/types";
 import { NoteActivityPub } from "../utilities/activityPubTypes";
 
 const PostList: React.FC = () => {
-  const feed: FeedItem[] = useAppSelector((state) => state.feed.feed).filter(
-    (post) => post?.content?.type === "Note"
-  );
+  const feed: FeedItem[] = useAppSelector((state) => state.feed.feed);
+  feed.filter((post) => post?.content?.type === "Note");
 
   const postItems = feed.map((post: FeedItem, index: number) => {
     const noteContent: NoteActivityPub = post.content as NoteActivityPub;
