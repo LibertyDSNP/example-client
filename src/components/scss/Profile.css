@@ -12,6 +12,6 @@ body::before {
   display: block;
   padding: 1em;
   margin-bottom: 1em;
-  border-bottom: 2px solid black;
+  border-bottom: 2px solid $black;
   content: "Error: Undefined variable.\a   \2577 \a 2 \2502    background-color: $gray;\a   \2502                      ^^^^^\a   \2575 \a   Profile.scss 2:21  root stylesheet";
 }
