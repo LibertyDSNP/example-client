@@ -30,5 +30,5 @@ yarn-error.log*
 /.idea
 
 *.css
-*.map.css
 *.css.map
+src/**/*.css

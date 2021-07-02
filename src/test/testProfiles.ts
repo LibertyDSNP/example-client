@@ -12,20 +12,20 @@ import { prefabFirstNames, prefabLastNames, randImage } from "./testhelpers";
  * Generate a complete Profile
  * @param address the address to use with the profile
  * @param name the name for the profile
- * @param preferredUsername the username for the profile
+ * @param handle the username for the profile
  * @param icon the image/icon to use for the profile
  */
 export const generateProfile = (
   walletAddress: HexString,
   socialAddress: HexString,
   name?: string,
-  preferredUsername?: string,
+  handle?: string,
   icon?: string
 ): Profile => {
   return {
     "@context": "https://www.w3.org/ns/activitystreams",
     name: name || "",
-    preferredUsername: preferredUsername || "",
+    handle: handle || "",
     icon: { url: icon || "" },
     walletAddress,
     socialAddress,
@@ -47,14 +47,14 @@ export const generateRandomProfile = (): Profile => {
   const socialAddress = generateSocialAddress();
   const firstName = prefabFirstNames[randInt(prefabFirstNames.length)];
   const lastName = prefabLastNames[randInt(prefabLastNames.length)];
-  const username =
+  const handle =
     firstName.substring(0, 3) + lastName.substring(0, 3).toLocaleLowerCase();
   const icon = randImage;
   return generateProfile(
     walletAddress,
     socialAddress,
     firstName + " " + lastName,
-    username,
+    handle,
     icon
   );
 };

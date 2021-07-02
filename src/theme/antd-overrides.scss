@@ -58,21 +58,52 @@
 }
 
 .ant-btn.ProfileBlock__editButton {
-  background-color: $green;
-  border-radius: 8px;
+  @include button($shadow-green, $green);
   padding: 0 10px;
   font-size: 12px;
   height: 24px;
-  border: $gray 0 solid;
-
-  &:active, &:focus, &:hover {
-    color: $black;
-    background-color: $light-gray;
-    border: $gray 1px solid;
-  }
 }
 
 .ant-btn.ConnectionsList__button--active {
   color: $black !important;
   background: $white !important;
+}
+
+.ant-btn.Feed__newPostButton {
+  @include button($shadow-green, $green);
+}
+
+.ant-btn.NewPost__footerBtn {
+  @include button($shadow-green, $green);
+}
+
+.ant-input.NewPostImageUpload__urlInput {
+  margin: 0 10px;
+}
+
+.ant-btn.NewPostImageUpload__urlInputBtn {
+  @include button($gray, $light-gray);
+  height: inherit;
+}
+
+.ant-spin.NewPostImageUpload__spinner {
+  display: flex;
+  margin: 10px 10px 0 0;
+}
+
+.ant-alert.NewPostImageUpload__alert {
+  margin-top: 16px;
+}
+
+.anticon.NewPostImageUpload__imageDelete {
+  font-size: 20px;
+}
+
+.ant-input:focus,
+.ant-input:hover {
+  border-color: $dark-gray !important;
+}
+
+.ant-input:focus {
+  box-shadow: 0 0 0 2px $gray !important;
 }

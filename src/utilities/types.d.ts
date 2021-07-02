@@ -1,4 +1,4 @@
-import { PersonActivityPub, ActivityPub } from "./activityPub";
+import { PersonActivityPub, ActivityPub } from "./activityPubTypes";
 
 export type HexString = string;
 export type EncryptedString = string;
@@ -21,15 +21,15 @@ export type NoteAttachment = {
 
 // ## Feed ##
 export interface FeedItem {
-  address: HexString;
+  fromAddress: HexString;
   content?: ActivityPub;
   replies?: FeedItem[];
   blockNumber: number;
-  hash: HexString;
-  inbox: boolean;
+  hash?: HexString;
+  inbox?: boolean;
   timestamp: number;
-  topic: HexString;
-  uri: URLString | undefined;
+  topic?: HexString;
+  uri?: URLString | undefined;
   rawContent?: string;
   ddid?: HexString;
   inReplyTo?: HexString;

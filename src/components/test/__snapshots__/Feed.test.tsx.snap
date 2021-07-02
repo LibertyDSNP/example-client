@@ -1,0 +1,158 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Feed does display new post button when logged in 1`] = `
+<Provider
+  store={
+    Object {
+      "clearActions": [Function],
+      "dispatch": [Function],
+      "getActions": [Function],
+      "getState": [Function],
+      "replaceReducer": [Function],
+      "subscribe": [Function],
+    }
+  }
+>
+  <BrowserRouter>
+    <Router
+      history={
+        Object {
+          "action": "POP",
+          "block": [Function],
+          "createHref": [Function],
+          "go": [Function],
+          "goBack": [Function],
+          "goForward": [Function],
+          "length": 1,
+          "listen": [Function],
+          "location": Object {
+            "hash": "",
+            "pathname": "/",
+            "search": "",
+            "state": undefined,
+          },
+          "push": [Function],
+          "replace": [Function],
+        }
+      }
+    >
+      <Feed>
+        <div
+          className="Feed__block"
+        >
+          <div
+            className="Feed__header"
+          >
+            <h1>
+              Feed
+            </h1>
+            <Button
+              className="Feed__newPostButton"
+              onClick={[Function]}
+            >
+              <Wave>
+                <button
+                  className="ant-btn Feed__newPostButton"
+                  onClick={[Function]}
+                  type="button"
+                >
+                  <LoadingIcon
+                    existIcon={false}
+                    loading={false}
+                    prefixCls="ant-btn"
+                  >
+                    <CSSMotion
+                      motionName="ant-btn-loading-icon-motion"
+                      onAppearActive={[Function]}
+                      onAppearStart={[Function]}
+                      onEnterActive={[Function]}
+                      onEnterStart={[Function]}
+                      onLeaveActive={[Function]}
+                      onLeaveStart={[Function]}
+                      removeOnLeave={true}
+                      visible={false}
+                    >
+                      <DomWrapper />
+                    </CSSMotion>
+                  </LoadingIcon>
+                  <span
+                    key=".0"
+                  >
+                    New Post
+                  </span>
+                </button>
+              </Wave>
+            </Button>
+          </div>
+          <PostList>
+            <div
+              className="PostList__block"
+            >
+              <h1>
+                PostList
+              </h1>
+              <div
+                key="0"
+              >
+                <div>
+                  0x1DCODE3333
+                </div>
+                <div>
+                  My favorite dessert is Cake
+                </div>
+                <img
+                  alt=""
+                  width={400}
+                />
+              </div>
+              <div
+                key="1"
+              >
+                <div>
+                  0x1DCODE0000
+                </div>
+                <div>
+                  Going to the mall!
+                </div>
+                <img
+                  alt=""
+                  width={400}
+                />
+              </div>
+              <div
+                key="2"
+              >
+                <div>
+                  0x1DCODE0000
+                </div>
+                <div>
+                  Hello World
+                </div>
+                <img
+                  alt=""
+                  width={400}
+                />
+              </div>
+              <div
+                key="3"
+              >
+                <div>
+                  0x1DCODE2222
+                </div>
+                <div>
+                  Everyone leave me alone
+                </div>
+                <img
+                  alt="Image for post"
+                  src="https://64.media.tumblr.com/bd8d2127a91f57463c2e753cf837ab6e/014df86f4004efef-ec/s1280x1920/adda1023806b71606f83f484a64daa03bce12c8d.jpg"
+                  width={400}
+                />
+              </div>
+            </div>
+          </PostList>
+        </div>
+      </Feed>
+    </Router>
+  </BrowserRouter>
+</Provider>
+`;
