@@ -35,7 +35,11 @@ const GetCards = ({ attachment }: GetCardsProps) => {
 
 const PostMedia = ({ attachment }: GetCardsProps): JSX.Element => {
   return (
-    <Carousel arrows nextArrow={<RightOutlined />} prevArrow={<LeftOutlined />}>
+    <Carousel
+      nextArrow={<RightOutlined />}
+      prevArrow={<LeftOutlined />}
+      dots={true}
+    >
       {GetCards({ attachment })}
     </Carousel>
   );

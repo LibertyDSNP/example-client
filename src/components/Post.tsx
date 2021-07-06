@@ -9,8 +9,9 @@ import RelativeTime from "./RelativeTime";
 import PostReply from "./PostReply";
 
 const Post: React.FC = () => {
-  const feed: FeedItem[] = useAppSelector((state) => state.feed.feed);
-  feed.filter((post) => post.content.type === "Note");
+  const feed: FeedItem[] = useAppSelector((state) => state.feed.feed).filter(
+    (post) => post?.content?.type === "Note"
+  );
 
   const postItems = feed
     .slice(0)
@@ -39,12 +40,16 @@ const Post: React.FC = () => {
               )}
             </>
           )}
-          <PostReply parent={post.hash as string} />
+          <PostReply />
         </Card>
       );
     });
 
-  return <div className="PostList__block">{postItems}</div>;
+  return (
+    <div className="PostList__block">
+      {feed.length > 0 ? postItems : "Empty Feed!"}
+    </div>
+  );
 };
 
 export default Post;

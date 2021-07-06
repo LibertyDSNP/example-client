@@ -110,6 +110,7 @@
 
 .ant-card.Post__block {
   margin: 8px 0;
+  width: auto;
 }
 
 .ant-card-meta-detail > div:not(:last-child) {
@@ -122,4 +123,17 @@
 
 .ant-input.PostReply__input:focus {
   box-shadow: none !important;
+}
+
+.slick-dots {
+  padding-bottom: 10px;
+  &>* {
+    height: 15px !important;
+
+    button {
+      height: 15px !important;
+      border-radius: 8px !important;
+      border: 1px solid $black !important;
+    }
+  }
 }

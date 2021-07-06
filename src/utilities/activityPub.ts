@@ -54,17 +54,3 @@ export const noteToActivityPub = (
   }
   return activityPub;
 };
-
-export const postReplyToActivityPub = (
-  actor: HexString,
-  reply: string,
-  parent: HexString
-): ActivityPub => {
-  return {
-    "@context": "https://www.w3.org/ns/activitystreams",
-    actor,
-    type: "Note",
-    content: reply,
-    inReplyTo: parent,
-  };
-};

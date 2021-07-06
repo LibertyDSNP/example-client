@@ -1,15 +1,9 @@
 import React, { useState } from "react";
-import { useAppDispatch, useAppSelector } from "../redux/hooks";
+import { useAppSelector } from "../redux/hooks";
 import { FeedItem } from "../utilities/types";
 import { Input } from "antd";
-import { storeReply } from "../services/Storage";
-import { addFeedItem } from "../redux/slices/feedSlice";
 
-interface PostReplyProps {
-  parent: string;
-}
-
-const PostReply = ({ parent }: PostReplyProps): JSX.Element => {
+const PostReply = (): JSX.Element => {
   // const dispatch = useAppDispatch();
   const profile = useAppSelector((state) => state.user.profile);
   const feed: FeedItem[] = useAppSelector((state) => state.feed.feed);
@@ -17,16 +11,14 @@ const PostReply = ({ parent }: PostReplyProps): JSX.Element => {
   const [saving, setSaving] = React.useState<boolean>(false);
   const [replyValue, setReplyValue] = useState<string>("");
 
-  const createReply = async () => {
-    //save reply here
-    //not sure how we want to do that
+  const createReply = async (
+    event: React.KeyboardEvent<HTMLTextAreaElement>
+  ) => {
+    event.preventDefault();
     if (!profile) return;
     setSaving(true);
-    const newPostFeedItem: FeedItem = await storeReply(
-      profile.socialAddress,
-      replyValue,
-      parent
-    );
+    //save reply here
+    //not sure how we want to do that
     setReplyValue("");
     setSaving(false);
   };
@@ -42,7 +34,7 @@ const PostReply = ({ parent }: PostReplyProps): JSX.Element => {
           setReplyValue(e.target.value);
         }}
         autoSize={true}
-        onPressEnter={() => createReply()}
+        onPressEnter={(event) => createReply(event)}
       />
     </div>
   );
