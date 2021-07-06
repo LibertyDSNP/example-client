@@ -5,6 +5,7 @@
   "private": false,
   "license": "Apache-2.0",
   "dependencies": {
+    "@dsnp/sdk": "file:dsnp-sdk-1.0.0.tgz",
     "@reduxjs/toolkit": "^1.5.1",
     "@toruslabs/torus-embed": "1.9.2",
     "antd": "^4.13.1",
@@ -151,6 +152,7 @@
   },
   "devDependencies": {
     "@babel/core": "7.13.10",
+    "@babel/plugin-proposal-class-properties": "^7.14.5",
     "@dsnp/test-generators": "^0.0.0-6a23bc",
     "@svgr/webpack": "5.5.0",
     "@testing-library/react-hooks": "^5.1.0",

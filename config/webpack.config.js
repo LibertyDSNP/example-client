@@ -359,6 +359,7 @@ module.exports = function (webpackEnv) {
 
                 plugins: [
                   ["import", { libraryName: "antd" }],
+                  "@babel/plugin-proposal-class-properties",
                   [
                     require.resolve("babel-plugin-named-asset-import"),
                     {

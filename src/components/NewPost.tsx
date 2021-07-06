@@ -6,6 +6,7 @@ import NewPostImageUpload from "./NewPostImageUpload";
 import { addFeedItem } from "../redux/slices/feedSlice";
 import { FeedItem } from "../utilities/types";
 import { createNote } from "../services/Storage";
+import { sendPost } from "../services/sdk";
 
 interface NewPostProps {
   onSuccess: () => void;
@@ -37,12 +38,13 @@ const NewPost = ({ onSuccess, onCancel }: NewPostProps): JSX.Element => {
   const createPost = async () => {
     //needs to store in batch file here
     if (!profile) return;
-    const newPostFeedItem: FeedItem = await createNote(
-      profile.socialAddress,
-      postMessage,
-      uriList
-    );
-    dispatch(addFeedItem(newPostFeedItem));
+    // const newPostFeedItem: FeedItem = await createNote(
+    //   profile.socialAddress,
+    //   postMessage,
+    //   uriList
+    // );
+    // dispatch(addFeedItem(newPostFeedItem));
+    sendPost();
     success();
   };
 
