@@ -39,7 +39,6 @@ const Post: React.FC = () => {
               )}
             </>
           )}
-          {console.log(post.replies)}
           <PostReply parent={post.hash as string} />
         </Card>
       );

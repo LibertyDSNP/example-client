@@ -27,8 +27,6 @@ const PostReply = ({ parent }: PostReplyProps): JSX.Element => {
       replyValue,
       parent
     );
-    // dispatch(addFeedItem(newPostFeedItem));
-    console.log(newPostFeedItem);
     setReplyValue("");
     setSaving(false);
   };
