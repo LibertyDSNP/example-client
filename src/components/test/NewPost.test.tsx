@@ -17,15 +17,4 @@ describe("NewPost", () => {
       );
     }).not.toThrow();
   });
-
-  it("matches snapshot", () => {
-    expect(() => {
-      shallow(
-        componentWithStore(NewPost, store, {
-          onCancel: jest.fn,
-          onSuccess: jest.fn,
-        })
-      );
-    }).toMatchSnapshot();
-  });
 });
