@@ -4,7 +4,6 @@ import { FeedItem } from "../utilities/types";
 import { Input } from "antd";
 
 const PostReply = (): JSX.Element => {
-  // const dispatch = useAppDispatch();
   const profile = useAppSelector((state) => state.user.profile);
   const feed: FeedItem[] = useAppSelector((state) => state.feed.feed);
   feed.filter((post) => post.content.type === "Note");

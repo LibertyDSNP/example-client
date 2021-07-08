@@ -88,217 +88,262 @@ exports[`Feed does display new post button when logged in 1`] = `
             <div
               className="PostList__block"
             >
-              <Post>
-                <div
-                  className="PostList__block"
+              <Post
+                feedItem={
+                  Object {
+                    "blockNumber": 50,
+                    "content": Object {
+                      "@context": "https://www.w3.org/ns/activitystreams",
+                      "actor": "0x1DCODE2222",
+                      "attachment": Array [
+                        Object {
+                          "mediaType": "64.media.tumblr.com/bd8d2127a91f57463c2e753cf837ab6e/014df86f4004efef-ec/s1280x1920/adda1023806b71606f83f484a64daa03bce12c8d.jpg",
+                          "type": "Image",
+                          "url": "https://64.media.tumblr.com/bd8d2127a91f57463c2e753cf837ab6e/014df86f4004efef-ec/s1280x1920/adda1023806b71606f83f484a64daa03bce12c8d.jpg",
+                        },
+                      ],
+                      "content": "Everyone leave me alone",
+                      "id": "http://localhost:3003/api/announce/0x1DCODE2222",
+                      "type": "Note",
+                    },
+                    "fromAddress": "0x1DCODE2222",
+                    "hash": "04cc38a7a1ac3a1aa34abde4ca8bf118a2dd5885ce37c07cbffb615f3d872f4d",
+                    "inbox": false,
+                    "rawContent": "",
+                    "replies": Array [],
+                    "timestamp": 1608580122,
+                    "topic": "0xb4fc0e356691332d9ea3819c239aef5980ce60784568183bd2a540a9b9a6712c",
+                    "uri": "http://localhost:3003/api/announce/0x1DCODE2222",
+                  }
+                }
+              >
+                <Card
+                  bordered={false}
+                  className="Post__block"
+                  key="04cc38a7a1ac3a1aa34abde4ca8bf118a2dd5885ce37c07cbffb615f3d872f4d"
                 >
-                  <Card
-                    bordered={false}
-                    className="Post__block"
-                    key="0"
+                  <div
+                    className="ant-card Post__block"
                   >
                     <div
-                      className="ant-card Post__block"
+                      className="ant-card-body"
+                      style={Object {}}
                     >
-                      <div
-                        className="ant-card-body"
-                        style={Object {}}
+                      <Meta
+                        avatar={
+                          <UserAvatar
+                            avatarSize="medium"
+                            profileAddress="0x1DCODE2222"
+                          />
+                        }
+                        description={
+                          <RelativeTime
+                            postStyle={true}
+                            timestamp={1608580122}
+                          />
+                        }
+                        title="0x1DCODE2222"
                       >
-                        <Meta
-                          avatar={
+                        <div
+                          className="ant-card-meta"
+                        >
+                          <div
+                            className="ant-card-meta-avatar"
+                          >
                             <UserAvatar
                               avatarSize="medium"
                               profileAddress="0x1DCODE2222"
-                            />
-                          }
-                          description={
-                            <RelativeTime
-                              postStyle={true}
-                              timestamp={1608580122}
-                            />
-                          }
-                          title="0x1DCODE2222"
-                        >
+                            >
+                              <Avatar
+                                alt="0x1DCODE2222"
+                                shape="circle"
+                                size={50}
+                                src="data:image/png;base64,00"
+                              >
+                                <span
+                                  className="ant-avatar ant-avatar-circle ant-avatar-image"
+                                  style={
+                                    Object {
+                                      "fontSize": 18,
+                                      "height": 50,
+                                      "lineHeight": "50px",
+                                      "width": 50,
+                                    }
+                                  }
+                                >
+                                  <img
+                                    alt="0x1DCODE2222"
+                                    onError={[Function]}
+                                    src="data:image/png;base64,00"
+                                  />
+                                </span>
+                              </Avatar>
+                            </UserAvatar>
+                          </div>
                           <div
-                            className="ant-card-meta"
+                            className="ant-card-meta-detail"
                           >
                             <div
-                              className="ant-card-meta-avatar"
+                              className="ant-card-meta-title"
                             >
-                              <UserAvatar
-                                avatarSize="medium"
-                                profileAddress="0x1DCODE2222"
-                              >
-                                <Avatar
-                                  alt="0x1DCODE2222"
-                                  shape="circle"
-                                  size={50}
-                                  src="data:image/png;base64,00"
-                                >
-                                  <span
-                                    className="ant-avatar ant-avatar-circle ant-avatar-image"
-                                    style={
-                                      Object {
-                                        "fontSize": 18,
-                                        "height": 50,
-                                        "lineHeight": "50px",
-                                        "width": 50,
-                                      }
-                                    }
-                                  >
-                                    <img
-                                      alt="0x1DCODE2222"
-                                      onError={[Function]}
-                                      src="data:image/png;base64,00"
-                                    />
-                                  </span>
-                                </Avatar>
-                              </UserAvatar>
+                              0x1DCODE2222
                             </div>
                             <div
-                              className="ant-card-meta-detail"
+                              className="ant-card-meta-description"
                             >
-                              <div
-                                className="ant-card-meta-title"
+                              <RelativeTime
+                                postStyle={true}
+                                timestamp={1608580122}
                               >
-                                0x1DCODE2222
-                              </div>
-                              <div
-                                className="ant-card-meta-description"
-                              >
-                                <RelativeTime
-                                  postStyle={true}
-                                  timestamp={1608580122}
+                                <p
+                                  className="RelativeTime RelativeTime--post"
                                 >
-                                  <p
-                                    className="RelativeTime RelativeTime--post"
-                                  >
-                                    Dec 21, 2020 •
-                                  </p>
-                                </RelativeTime>
-                              </div>
+                                  Dec 21, 2020 •
+                                </p>
+                              </RelativeTime>
                             </div>
                           </div>
-                        </Meta>
-                        <div
-                          className="Post__caption"
-                        >
-                          Everyone leave me alone
                         </div>
-                        <PostMedia
-                          attachment={
-                            Array [
-                              Object {
-                                "mediaType": "64.media.tumblr.com/bd8d2127a91f57463c2e753cf837ab6e/014df86f4004efef-ec/s1280x1920/adda1023806b71606f83f484a64daa03bce12c8d.jpg",
-                                "type": "Image",
-                                "url": "https://64.media.tumblr.com/bd8d2127a91f57463c2e753cf837ab6e/014df86f4004efef-ec/s1280x1920/adda1023806b71606f83f484a64daa03bce12c8d.jpg",
-                              },
-                            ]
-                          }
+                      </Meta>
+                      <div
+                        className="Post__caption"
+                      >
+                        Everyone leave me alone
+                      </div>
+                      <PostMedia
+                        attachment={
+                          Array [
+                            Object {
+                              "mediaType": "64.media.tumblr.com/bd8d2127a91f57463c2e753cf837ab6e/014df86f4004efef-ec/s1280x1920/adda1023806b71606f83f484a64daa03bce12c8d.jpg",
+                              "type": "Image",
+                              "url": "https://64.media.tumblr.com/bd8d2127a91f57463c2e753cf837ab6e/014df86f4004efef-ec/s1280x1920/adda1023806b71606f83f484a64daa03bce12c8d.jpg",
+                            },
+                          ]
+                        }
+                      >
+                        <ForwardRef
+                          dots={true}
+                          nextArrow={<ForwardRef(RightOutlined) />}
+                          prevArrow={<ForwardRef(LeftOutlined) />}
                         >
-                          <ForwardRef
-                            dots={true}
-                            nextArrow={<ForwardRef(RightOutlined) />}
-                            prevArrow={<ForwardRef(LeftOutlined) />}
+                          <div
+                            className="ant-carousel"
                           >
-                            <div
-                              className="ant-carousel"
+                            <Slider
+                              arrows={false}
+                              dots={true}
+                              dotsClass="slick-dots slick-dots-bottom"
+                              draggable={false}
+                              nextArrow={<ForwardRef(RightOutlined) />}
+                              prevArrow={<ForwardRef(LeftOutlined) />}
+                              vertical={false}
                             >
-                              <Slider
+                              <InnerSlider
+                                accessibility={true}
+                                adaptiveHeight={false}
+                                afterChange={null}
+                                appendDots={[Function]}
                                 arrows={false}
+                                autoplay={false}
+                                autoplaySpeed={3000}
+                                beforeChange={null}
+                                centerMode={false}
+                                centerPadding="50px"
+                                className=""
+                                cssEase="ease"
+                                customPaging={[Function]}
                                 dots={true}
                                 dotsClass="slick-dots slick-dots-bottom"
                                 draggable={false}
+                                easing="linear"
+                                edgeFriction={0.35}
+                                fade={false}
+                                focusOnSelect={false}
+                                infinite={true}
+                                initialSlide={0}
+                                lazyLoad={null}
                                 nextArrow={<ForwardRef(RightOutlined) />}
+                                onEdge={null}
+                                onInit={null}
+                                onLazyLoadError={null}
+                                onReInit={null}
+                                pauseOnDotsHover={false}
+                                pauseOnFocus={false}
+                                pauseOnHover={true}
                                 prevArrow={<ForwardRef(LeftOutlined) />}
+                                responsive={null}
+                                rows={1}
+                                rtl={false}
+                                slide="div"
+                                slidesPerRow={1}
+                                slidesToScroll={1}
+                                slidesToShow={1}
+                                speed={500}
+                                swipe={true}
+                                swipeEvent={null}
+                                swipeToSlide={false}
+                                touchMove={true}
+                                touchThreshold={5}
+                                unslick={true}
+                                useCSS={true}
+                                useTransform={true}
+                                variableWidth={false}
                                 vertical={false}
+                                waitForAnimate={true}
                               >
-                                <InnerSlider
-                                  accessibility={true}
-                                  adaptiveHeight={false}
-                                  afterChange={null}
-                                  appendDots={[Function]}
-                                  arrows={false}
-                                  autoplay={false}
-                                  autoplaySpeed={3000}
-                                  beforeChange={null}
-                                  centerMode={false}
-                                  centerPadding="50px"
-                                  className=""
-                                  cssEase="ease"
-                                  customPaging={[Function]}
-                                  dots={true}
-                                  dotsClass="slick-dots slick-dots-bottom"
-                                  draggable={false}
-                                  easing="linear"
-                                  edgeFriction={0.35}
-                                  fade={false}
-                                  focusOnSelect={false}
-                                  infinite={true}
-                                  initialSlide={0}
-                                  lazyLoad={null}
-                                  nextArrow={<ForwardRef(RightOutlined) />}
-                                  onEdge={null}
-                                  onInit={null}
-                                  onLazyLoadError={null}
-                                  onReInit={null}
-                                  pauseOnDotsHover={false}
-                                  pauseOnFocus={false}
-                                  pauseOnHover={true}
-                                  prevArrow={<ForwardRef(LeftOutlined) />}
-                                  responsive={null}
-                                  rows={1}
-                                  rtl={false}
-                                  slide="div"
-                                  slidesPerRow={1}
-                                  slidesToScroll={1}
-                                  slidesToShow={1}
-                                  speed={500}
-                                  swipe={true}
-                                  swipeEvent={null}
-                                  swipeToSlide={false}
-                                  touchMove={true}
-                                  touchThreshold={5}
-                                  unslick={true}
-                                  useCSS={true}
-                                  useTransform={true}
-                                  variableWidth={false}
-                                  vertical={false}
-                                  waitForAnimate={true}
+                                <div
+                                  className="slick-slider slick-initialized"
                                 >
                                   <div
-                                    className="slick-slider slick-initialized"
+                                    className="slick-list"
                                   >
-                                    <div
-                                      className="slick-list"
-                                    >
-                                      <Track
-                                        centerMode={false}
-                                        centerPadding="50px"
-                                        cssEase="ease"
-                                        currentSlide={0}
-                                        fade={false}
-                                        focusOnSelect={null}
-                                        infinite={true}
-                                        lazyLoad={null}
-                                        lazyLoadedList={
-                                          Array [
-                                            0,
-                                          ]
+                                    <Track
+                                      centerMode={false}
+                                      centerPadding="50px"
+                                      cssEase="ease"
+                                      currentSlide={0}
+                                      fade={false}
+                                      focusOnSelect={null}
+                                      infinite={true}
+                                      lazyLoad={null}
+                                      lazyLoadedList={
+                                        Array [
+                                          0,
+                                        ]
+                                      }
+                                      listHeight={0}
+                                      onMouseEnter={[Function]}
+                                      onMouseLeave={[Function]}
+                                      onMouseOver={[Function]}
+                                      rtl={false}
+                                      slideCount={1}
+                                      slideHeight={0}
+                                      slideWidth={0}
+                                      slidesToScroll={1}
+                                      slidesToShow={1}
+                                      speed={500}
+                                      targetSlide={0}
+                                      trackStyle={
+                                        Object {
+                                          "WebkitTransform": "translate3d(0px, 0px, 0px)",
+                                          "WebkitTransition": "",
+                                          "msTransform": "translateX(0px)",
+                                          "opacity": 1,
+                                          "transform": "translate3d(0px, 0px, 0px)",
+                                          "transition": "",
                                         }
-                                        listHeight={0}
+                                      }
+                                      unslick={true}
+                                      useCSS={true}
+                                      variableWidth={false}
+                                      vertical={false}
+                                    >
+                                      <div
+                                        className="slick-track"
                                         onMouseEnter={[Function]}
                                         onMouseLeave={[Function]}
                                         onMouseOver={[Function]}
-                                        rtl={false}
-                                        slideCount={1}
-                                        slideHeight={0}
-                                        slideWidth={0}
-                                        slidesToScroll={1}
-                                        slidesToShow={1}
-                                        speed={500}
-                                        targetSlide={0}
-                                        trackStyle={
+                                        style={
                                           Object {
                                             "WebkitTransform": "translate3d(0px, 0px, 0px)",
                                             "WebkitTransition": "",
@@ -308,297 +353,341 @@ exports[`Feed does display new post button when logged in 1`] = `
                                             "transition": "",
                                           }
                                         }
-                                        unslick={true}
-                                        useCSS={true}
-                                        variableWidth={false}
-                                        vertical={false}
                                       >
                                         <div
-                                          className="slick-track"
-                                          onMouseEnter={[Function]}
-                                          onMouseLeave={[Function]}
-                                          onMouseOver={[Function]}
+                                          aria-hidden={false}
+                                          className="slick-slide slick-active slick-current"
+                                          data-index={0}
+                                          key="original0-0"
+                                          onClick={[Function]}
                                           style={
                                             Object {
-                                              "WebkitTransform": "translate3d(0px, 0px, 0px)",
-                                              "WebkitTransition": "",
-                                              "msTransform": "translateX(0px)",
-                                              "opacity": 1,
-                                              "transform": "translate3d(0px, 0px, 0px)",
-                                              "transition": "",
+                                              "outline": "none",
+                                              "width": 0,
                                             }
                                           }
+                                          tabIndex="-1"
                                         >
                                           <div
-                                            aria-hidden={false}
-                                            className="slick-slide slick-active slick-current"
-                                            data-index={0}
-                                            key="original0-0"
-                                            onClick={[Function]}
-                                            style={
-                                              Object {
-                                                "outline": "none",
-                                                "width": 0,
-                                              }
-                                            }
-                                            tabIndex="-1"
+                                            key="0"
                                           >
                                             <div
+                                              className="PostMedia__cover"
                                               key="0"
-                                            >
-                                              <div
-                                                className="PostMedia__cover"
-                                                key="0"
-                                                style={
-                                                  Object {
-                                                    "display": "inline-block",
-                                                    "width": "100%",
-                                                  }
+                                              style={
+                                                Object {
+                                                  "display": "inline-block",
+                                                  "width": "100%",
                                                 }
-                                                tabIndex={-1}
+                                              }
+                                              tabIndex={-1}
+                                            >
+                                              <a
+                                                href="https://64.media.tumblr.com/bd8d2127a91f57463c2e753cf837ab6e/014df86f4004efef-ec/s1280x1920/adda1023806b71606f83f484a64daa03bce12c8d.jpg"
+                                                rel="noopener noreferrer"
+                                                target="_blank"
                                               >
-                                                <a
-                                                  href="https://64.media.tumblr.com/bd8d2127a91f57463c2e753cf837ab6e/014df86f4004efef-ec/s1280x1920/adda1023806b71606f83f484a64daa03bce12c8d.jpg"
-                                                  rel="noopener noreferrer"
-                                                  target="_blank"
-                                                >
-                                                  <img
-                                                    alt=""
-                                                    className="PostMedia__img"
-                                                    src="https://64.media.tumblr.com/bd8d2127a91f57463c2e753cf837ab6e/014df86f4004efef-ec/s1280x1920/adda1023806b71606f83f484a64daa03bce12c8d.jpg"
-                                                  />
-                                                </a>
-                                              </div>
+                                                <img
+                                                  alt=""
+                                                  className="PostMedia__img"
+                                                  src="https://64.media.tumblr.com/bd8d2127a91f57463c2e753cf837ab6e/014df86f4004efef-ec/s1280x1920/adda1023806b71606f83f484a64daa03bce12c8d.jpg"
+                                                />
+                                              </a>
                                             </div>
                                           </div>
                                         </div>
-                                      </Track>
-                                    </div>
+                                      </div>
+                                    </Track>
                                   </div>
-                                </InnerSlider>
-                              </Slider>
-                            </div>
+                                </div>
+                              </InnerSlider>
+                            </Slider>
+                          </div>
+                        </ForwardRef>
+                      </PostMedia>
+                      <PostReply>
+                        <div
+                          className="PostReply__block"
+                        >
+                          <ForwardRef
+                            autoSize={true}
+                            className="PostReply__input"
+                            onChange={[Function]}
+                            onPressEnter={[Function]}
+                            placeholder="Reply..."
+                            value=""
+                          >
+                            <ClearableLabeledInput
+                              autoSize={true}
+                              bordered={true}
+                              element={
+                                <TextArea
+                                  autoSize={true}
+                                  className="PostReply__input"
+                                  onChange={[Function]}
+                                  onCompositionEnd={[Function]}
+                                  onCompositionStart={[Function]}
+                                  onPressEnter={[Function]}
+                                  placeholder="Reply..."
+                                  prefixCls="ant-input"
+                                  value=""
+                                />
+                              }
+                              handleReset={[Function]}
+                              inputType="text"
+                              onPressEnter={[Function]}
+                              placeholder="Reply..."
+                              prefixCls="ant-input"
+                              value=""
+                            >
+                              <TextArea
+                                autoSize={true}
+                                className="PostReply__input"
+                                onChange={[Function]}
+                                onCompositionEnd={[Function]}
+                                onCompositionStart={[Function]}
+                                onPressEnter={[Function]}
+                                placeholder="Reply..."
+                                prefixCls="ant-input"
+                                value=""
+                              >
+                                <ResizableTextArea
+                                  autoSize={true}
+                                  className="PostReply__input"
+                                  onChange={[Function]}
+                                  onCompositionEnd={[Function]}
+                                  onCompositionStart={[Function]}
+                                  onKeyDown={[Function]}
+                                  onPressEnter={[Function]}
+                                  placeholder="Reply..."
+                                  prefixCls="ant-input"
+                                  value=""
+                                >
+                                  <ResizeObserver
+                                    disabled={false}
+                                    onResize={[Function]}
+                                  >
+                                    <textarea
+                                      className="ant-input PostReply__input"
+                                      onChange={[Function]}
+                                      onCompositionEnd={[Function]}
+                                      onCompositionStart={[Function]}
+                                      onKeyDown={[Function]}
+                                      placeholder="Reply..."
+                                      style={
+                                        Object {
+                                          "height": 0,
+                                          "maxHeight": 9007199254740991,
+                                          "minHeight": -9007199254740991,
+                                          "overflowX": "hidden",
+                                          "overflowY": "hidden",
+                                          "resize": "none",
+                                        }
+                                      }
+                                      value=""
+                                    />
+                                  </ResizeObserver>
+                                </ResizableTextArea>
+                              </TextArea>
+                            </ClearableLabeledInput>
                           </ForwardRef>
-                        </PostMedia>
-                        <PostReply>
-                          <div
-                            className="PostReply__block"
-                          >
-                            <ForwardRef
-                              autoSize={true}
-                              className="PostReply__input"
-                              onChange={[Function]}
-                              onPressEnter={[Function]}
-                              placeholder="Reply..."
-                              value=""
-                            >
-                              <ClearableLabeledInput
-                                autoSize={true}
-                                bordered={true}
-                                element={
-                                  <TextArea
-                                    autoSize={true}
-                                    className="PostReply__input"
-                                    onChange={[Function]}
-                                    onCompositionEnd={[Function]}
-                                    onCompositionStart={[Function]}
-                                    onPressEnter={[Function]}
-                                    placeholder="Reply..."
-                                    prefixCls="ant-input"
-                                    value=""
-                                  />
-                                }
-                                handleReset={[Function]}
-                                inputType="text"
-                                onPressEnter={[Function]}
-                                placeholder="Reply..."
-                                prefixCls="ant-input"
-                                value=""
-                              >
-                                <TextArea
-                                  autoSize={true}
-                                  className="PostReply__input"
-                                  onChange={[Function]}
-                                  onCompositionEnd={[Function]}
-                                  onCompositionStart={[Function]}
-                                  onPressEnter={[Function]}
-                                  placeholder="Reply..."
-                                  prefixCls="ant-input"
-                                  value=""
-                                >
-                                  <ResizableTextArea
-                                    autoSize={true}
-                                    className="PostReply__input"
-                                    onChange={[Function]}
-                                    onCompositionEnd={[Function]}
-                                    onCompositionStart={[Function]}
-                                    onKeyDown={[Function]}
-                                    onPressEnter={[Function]}
-                                    placeholder="Reply..."
-                                    prefixCls="ant-input"
-                                    value=""
-                                  >
-                                    <ResizeObserver
-                                      disabled={false}
-                                      onResize={[Function]}
-                                    >
-                                      <textarea
-                                        className="ant-input PostReply__input"
-                                        onChange={[Function]}
-                                        onCompositionEnd={[Function]}
-                                        onCompositionStart={[Function]}
-                                        onKeyDown={[Function]}
-                                        placeholder="Reply..."
-                                        style={
-                                          Object {
-                                            "height": 0,
-                                            "maxHeight": 9007199254740991,
-                                            "minHeight": -9007199254740991,
-                                            "overflowX": "hidden",
-                                            "overflowY": "hidden",
-                                            "resize": "none",
-                                          }
-                                        }
-                                        value=""
-                                      />
-                                    </ResizeObserver>
-                                  </ResizableTextArea>
-                                </TextArea>
-                              </ClearableLabeledInput>
-                            </ForwardRef>
-                          </div>
-                        </PostReply>
-                      </div>
+                        </div>
+                      </PostReply>
                     </div>
-                  </Card>
-                  <Card
-                    bordered={false}
-                    className="Post__block"
-                    key="1"
+                  </div>
+                </Card>
+              </Post>
+              <Post
+                feedItem={
+                  Object {
+                    "blockNumber": 50,
+                    "content": Object {
+                      "@context": "https://www.w3.org/ns/activitystreams",
+                      "actor": "0x1DCODE0000",
+                      "attachment": Array [],
+                      "content": "Hello World",
+                      "id": "http://localhost:3003/api/announce/0x1DCODE0000",
+                      "type": "Note",
+                    },
+                    "fromAddress": "0x1DCODE0000",
+                    "hash": "04cc38a7a1ac3a1aa34abde4ca8bf118a2dd5885ce37c07cbffb615f3d872f4d",
+                    "inbox": false,
+                    "rawContent": "",
+                    "replies": Array [
+                      Object {
+                        "blockNumber": 50,
+                        "content": Object {
+                          "@context": "https://www.w3.org/ns/activitystreams",
+                          "actor": "0x1DCODE1111",
+                          "attachment": Array [],
+                          "content": "Hi Monday!",
+                          "id": "http://localhost:3003/api/announce/0x1DCODE1111",
+                          "type": "Note",
+                        },
+                        "fromAddress": "0x1DCODE1111",
+                        "hash": "04cc38a7a1ac3a1aa34abde4ca8bf118a2dd5885ce37c07cbffb615f3d872f4d",
+                        "inbox": false,
+                        "rawContent": "",
+                        "replies": Array [],
+                        "timestamp": 1608580122,
+                        "topic": "0xb4fc0e356691332d9ea3819c239aef5980ce60784568183bd2a540a9b9a6712c",
+                        "uri": "http://localhost:3003/api/announce/0x1DCODE1111",
+                      },
+                      Object {
+                        "blockNumber": 50,
+                        "content": Object {
+                          "@context": "https://www.w3.org/ns/activitystreams",
+                          "actor": "0x1DCODE2222",
+                          "attachment": Array [],
+                          "content": "Go away",
+                          "id": "http://localhost:3003/api/announce/0x1DCODE2222",
+                          "type": "Note",
+                        },
+                        "fromAddress": "0x1DCODE2222",
+                        "hash": "04cc38a7a1ac3a1aa34abde4ca8bf118a2dd5885ce37c07cbffb615f3d872f4d",
+                        "inbox": false,
+                        "rawContent": "",
+                        "replies": Array [
+                          Object {
+                            "blockNumber": 50,
+                            "content": Object {
+                              "@context": "https://www.w3.org/ns/activitystreams",
+                              "actor": "0x1DCODE0000",
+                              "attachment": Array [],
+                              "content": "You're mean",
+                              "id": "http://localhost:3003/api/announce/0x1DCODE0000",
+                              "type": "Note",
+                            },
+                            "fromAddress": "0x1DCODE0000",
+                            "hash": "04cc38a7a1ac3a1aa34abde4ca8bf118a2dd5885ce37c07cbffb615f3d872f4d",
+                            "inbox": false,
+                            "rawContent": "",
+                            "replies": Array [],
+                            "timestamp": 1608580122,
+                            "topic": "0xb4fc0e356691332d9ea3819c239aef5980ce60784568183bd2a540a9b9a6712c",
+                            "uri": "http://localhost:3003/api/announce/0x1DCODE0000",
+                          },
+                        ],
+                        "timestamp": 1608580122,
+                        "topic": "0xb4fc0e356691332d9ea3819c239aef5980ce60784568183bd2a540a9b9a6712c",
+                        "uri": "http://localhost:3003/api/announce/0x1DCODE2222",
+                      },
+                    ],
+                    "timestamp": 1608580122,
+                    "topic": "0xb4fc0e356691332d9ea3819c239aef5980ce60784568183bd2a540a9b9a6712c",
+                    "uri": "http://localhost:3003/api/announce/0x1DCODE0000",
+                  }
+                }
+              >
+                <Card
+                  bordered={false}
+                  className="Post__block"
+                  key="04cc38a7a1ac3a1aa34abde4ca8bf118a2dd5885ce37c07cbffb615f3d872f4d"
+                >
+                  <div
+                    className="ant-card Post__block"
                   >
                     <div
-                      className="ant-card Post__block"
+                      className="ant-card-body"
+                      style={Object {}}
                     >
-                      <div
-                        className="ant-card-body"
-                        style={Object {}}
+                      <Meta
+                        avatar={
+                          <UserAvatar
+                            avatarSize="medium"
+                            profileAddress="0x1DCODE0000"
+                          />
+                        }
+                        description={
+                          <RelativeTime
+                            postStyle={true}
+                            timestamp={1608580122}
+                          />
+                        }
+                        title="0x1DCODE0000"
                       >
-                        <Meta
-                          avatar={
+                        <div
+                          className="ant-card-meta"
+                        >
+                          <div
+                            className="ant-card-meta-avatar"
+                          >
                             <UserAvatar
                               avatarSize="medium"
                               profileAddress="0x1DCODE0000"
-                            />
-                          }
-                          description={
-                            <RelativeTime
-                              postStyle={true}
-                              timestamp={1608580122}
-                            />
-                          }
-                          title="0x1DCODE0000"
-                        >
+                            >
+                              <Avatar
+                                alt="0x1DCODE0000"
+                                shape="circle"
+                                size={50}
+                                src="data:image/png;base64,00"
+                              >
+                                <span
+                                  className="ant-avatar ant-avatar-circle ant-avatar-image"
+                                  style={
+                                    Object {
+                                      "fontSize": 18,
+                                      "height": 50,
+                                      "lineHeight": "50px",
+                                      "width": 50,
+                                    }
+                                  }
+                                >
+                                  <img
+                                    alt="0x1DCODE0000"
+                                    onError={[Function]}
+                                    src="data:image/png;base64,00"
+                                  />
+                                </span>
+                              </Avatar>
+                            </UserAvatar>
+                          </div>
                           <div
-                            className="ant-card-meta"
+                            className="ant-card-meta-detail"
                           >
                             <div
-                              className="ant-card-meta-avatar"
+                              className="ant-card-meta-title"
                             >
-                              <UserAvatar
-                                avatarSize="medium"
-                                profileAddress="0x1DCODE0000"
-                              >
-                                <Avatar
-                                  alt="0x1DCODE0000"
-                                  shape="circle"
-                                  size={50}
-                                  src="data:image/png;base64,00"
-                                >
-                                  <span
-                                    className="ant-avatar ant-avatar-circle ant-avatar-image"
-                                    style={
-                                      Object {
-                                        "fontSize": 18,
-                                        "height": 50,
-                                        "lineHeight": "50px",
-                                        "width": 50,
-                                      }
-                                    }
-                                  >
-                                    <img
-                                      alt="0x1DCODE0000"
-                                      onError={[Function]}
-                                      src="data:image/png;base64,00"
-                                    />
-                                  </span>
-                                </Avatar>
-                              </UserAvatar>
+                              0x1DCODE0000
                             </div>
                             <div
-                              className="ant-card-meta-detail"
+                              className="ant-card-meta-description"
                             >
-                              <div
-                                className="ant-card-meta-title"
+                              <RelativeTime
+                                postStyle={true}
+                                timestamp={1608580122}
                               >
-                                0x1DCODE0000
-                              </div>
-                              <div
-                                className="ant-card-meta-description"
-                              >
-                                <RelativeTime
-                                  postStyle={true}
-                                  timestamp={1608580122}
+                                <p
+                                  className="RelativeTime RelativeTime--post"
                                 >
-                                  <p
-                                    className="RelativeTime RelativeTime--post"
-                                  >
-                                    Dec 21, 2020 •
-                                  </p>
-                                </RelativeTime>
-                              </div>
+                                  Dec 21, 2020 •
+                                </p>
+                              </RelativeTime>
                             </div>
                           </div>
-                        </Meta>
-                        <div
-                          className="Post__caption"
-                        >
-                          Hello World
                         </div>
-                        <PostReply>
-                          <div
-                            className="PostReply__block"
+                      </Meta>
+                      <div
+                        className="Post__caption"
+                      >
+                        Hello World
+                      </div>
+                      <PostReply>
+                        <div
+                          className="PostReply__block"
+                        >
+                          <ForwardRef
+                            autoSize={true}
+                            className="PostReply__input"
+                            onChange={[Function]}
+                            onPressEnter={[Function]}
+                            placeholder="Reply..."
+                            value=""
                           >
-                            <ForwardRef
+                            <ClearableLabeledInput
                               autoSize={true}
-                              className="PostReply__input"
-                              onChange={[Function]}
-                              onPressEnter={[Function]}
-                              placeholder="Reply..."
-                              value=""
-                            >
-                              <ClearableLabeledInput
-                                autoSize={true}
-                                bordered={true}
-                                element={
-                                  <TextArea
-                                    autoSize={true}
-                                    className="PostReply__input"
-                                    onChange={[Function]}
-                                    onCompositionEnd={[Function]}
-                                    onCompositionStart={[Function]}
-                                    onPressEnter={[Function]}
-                                    placeholder="Reply..."
-                                    prefixCls="ant-input"
-                                    value=""
-                                  />
-                                }
-                                handleReset={[Function]}
-                                inputType="text"
-                                onPressEnter={[Function]}
-                                placeholder="Reply..."
-                                prefixCls="ant-input"
-                                value=""
-                              >
+                              bordered={true}
+                              element={
                                 <TextArea
                                   autoSize={true}
                                   className="PostReply__input"
@@ -609,180 +698,204 @@ exports[`Feed does display new post button when logged in 1`] = `
                                   placeholder="Reply..."
                                   prefixCls="ant-input"
                                   value=""
+                                />
+                              }
+                              handleReset={[Function]}
+                              inputType="text"
+                              onPressEnter={[Function]}
+                              placeholder="Reply..."
+                              prefixCls="ant-input"
+                              value=""
+                            >
+                              <TextArea
+                                autoSize={true}
+                                className="PostReply__input"
+                                onChange={[Function]}
+                                onCompositionEnd={[Function]}
+                                onCompositionStart={[Function]}
+                                onPressEnter={[Function]}
+                                placeholder="Reply..."
+                                prefixCls="ant-input"
+                                value=""
+                              >
+                                <ResizableTextArea
+                                  autoSize={true}
+                                  className="PostReply__input"
+                                  onChange={[Function]}
+                                  onCompositionEnd={[Function]}
+                                  onCompositionStart={[Function]}
+                                  onKeyDown={[Function]}
+                                  onPressEnter={[Function]}
+                                  placeholder="Reply..."
+                                  prefixCls="ant-input"
+                                  value=""
                                 >
-                                  <ResizableTextArea
-                                    autoSize={true}
-                                    className="PostReply__input"
-                                    onChange={[Function]}
-                                    onCompositionEnd={[Function]}
-                                    onCompositionStart={[Function]}
-                                    onKeyDown={[Function]}
-                                    onPressEnter={[Function]}
-                                    placeholder="Reply..."
-                                    prefixCls="ant-input"
-                                    value=""
+                                  <ResizeObserver
+                                    disabled={false}
+                                    onResize={[Function]}
                                   >
-                                    <ResizeObserver
-                                      disabled={false}
-                                      onResize={[Function]}
-                                    >
-                                      <textarea
-                                        className="ant-input PostReply__input"
-                                        onChange={[Function]}
-                                        onCompositionEnd={[Function]}
-                                        onCompositionStart={[Function]}
-                                        onKeyDown={[Function]}
-                                        placeholder="Reply..."
-                                        style={
-                                          Object {
-                                            "height": 0,
-                                            "maxHeight": 9007199254740991,
-                                            "minHeight": -9007199254740991,
-                                            "overflowX": "hidden",
-                                            "overflowY": "hidden",
-                                            "resize": "none",
-                                          }
+                                    <textarea
+                                      className="ant-input PostReply__input"
+                                      onChange={[Function]}
+                                      onCompositionEnd={[Function]}
+                                      onCompositionStart={[Function]}
+                                      onKeyDown={[Function]}
+                                      placeholder="Reply..."
+                                      style={
+                                        Object {
+                                          "height": 0,
+                                          "maxHeight": 9007199254740991,
+                                          "minHeight": -9007199254740991,
+                                          "overflowX": "hidden",
+                                          "overflowY": "hidden",
+                                          "resize": "none",
                                         }
-                                        value=""
-                                      />
-                                    </ResizeObserver>
-                                  </ResizableTextArea>
-                                </TextArea>
-                              </ClearableLabeledInput>
-                            </ForwardRef>
-                          </div>
-                        </PostReply>
-                      </div>
+                                      }
+                                      value=""
+                                    />
+                                  </ResizeObserver>
+                                </ResizableTextArea>
+                              </TextArea>
+                            </ClearableLabeledInput>
+                          </ForwardRef>
+                        </div>
+                      </PostReply>
                     </div>
-                  </Card>
-                  <Card
-                    bordered={false}
-                    className="Post__block"
-                    key="2"
+                  </div>
+                </Card>
+              </Post>
+              <Post
+                feedItem={
+                  Object {
+                    "blockNumber": 50,
+                    "content": Object {
+                      "@context": "https://www.w3.org/ns/activitystreams",
+                      "actor": "0x1DCODE0000",
+                      "attachment": Array [],
+                      "content": "Going to the mall!",
+                      "id": "http://localhost:3003/api/announce/0x1DCODE0000",
+                      "type": "Note",
+                    },
+                    "fromAddress": "0x1DCODE0000",
+                    "hash": "04cc38a7a1ac3a1aa34abde4ca8bf118a2dd5885ce37c07cbffb615f3d872f4d",
+                    "inbox": false,
+                    "rawContent": "",
+                    "replies": Array [],
+                    "timestamp": 1608580122,
+                    "topic": "0xb4fc0e356691332d9ea3819c239aef5980ce60784568183bd2a540a9b9a6712c",
+                    "uri": "http://localhost:3003/api/announce/0x1DCODE0000",
+                  }
+                }
+              >
+                <Card
+                  bordered={false}
+                  className="Post__block"
+                  key="04cc38a7a1ac3a1aa34abde4ca8bf118a2dd5885ce37c07cbffb615f3d872f4d"
+                >
+                  <div
+                    className="ant-card Post__block"
                   >
                     <div
-                      className="ant-card Post__block"
+                      className="ant-card-body"
+                      style={Object {}}
                     >
-                      <div
-                        className="ant-card-body"
-                        style={Object {}}
+                      <Meta
+                        avatar={
+                          <UserAvatar
+                            avatarSize="medium"
+                            profileAddress="0x1DCODE0000"
+                          />
+                        }
+                        description={
+                          <RelativeTime
+                            postStyle={true}
+                            timestamp={1608580122}
+                          />
+                        }
+                        title="0x1DCODE0000"
                       >
-                        <Meta
-                          avatar={
+                        <div
+                          className="ant-card-meta"
+                        >
+                          <div
+                            className="ant-card-meta-avatar"
+                          >
                             <UserAvatar
                               avatarSize="medium"
                               profileAddress="0x1DCODE0000"
-                            />
-                          }
-                          description={
-                            <RelativeTime
-                              postStyle={true}
-                              timestamp={1608580122}
-                            />
-                          }
-                          title="0x1DCODE0000"
-                        >
+                            >
+                              <Avatar
+                                alt="0x1DCODE0000"
+                                shape="circle"
+                                size={50}
+                                src="data:image/png;base64,00"
+                              >
+                                <span
+                                  className="ant-avatar ant-avatar-circle ant-avatar-image"
+                                  style={
+                                    Object {
+                                      "fontSize": 18,
+                                      "height": 50,
+                                      "lineHeight": "50px",
+                                      "width": 50,
+                                    }
+                                  }
+                                >
+                                  <img
+                                    alt="0x1DCODE0000"
+                                    onError={[Function]}
+                                    src="data:image/png;base64,00"
+                                  />
+                                </span>
+                              </Avatar>
+                            </UserAvatar>
+                          </div>
                           <div
-                            className="ant-card-meta"
+                            className="ant-card-meta-detail"
                           >
                             <div
-                              className="ant-card-meta-avatar"
+                              className="ant-card-meta-title"
                             >
-                              <UserAvatar
-                                avatarSize="medium"
-                                profileAddress="0x1DCODE0000"
-                              >
-                                <Avatar
-                                  alt="0x1DCODE0000"
-                                  shape="circle"
-                                  size={50}
-                                  src="data:image/png;base64,00"
-                                >
-                                  <span
-                                    className="ant-avatar ant-avatar-circle ant-avatar-image"
-                                    style={
-                                      Object {
-                                        "fontSize": 18,
-                                        "height": 50,
-                                        "lineHeight": "50px",
-                                        "width": 50,
-                                      }
-                                    }
-                                  >
-                                    <img
-                                      alt="0x1DCODE0000"
-                                      onError={[Function]}
-                                      src="data:image/png;base64,00"
-                                    />
-                                  </span>
-                                </Avatar>
-                              </UserAvatar>
+                              0x1DCODE0000
                             </div>
                             <div
-                              className="ant-card-meta-detail"
+                              className="ant-card-meta-description"
                             >
-                              <div
-                                className="ant-card-meta-title"
+                              <RelativeTime
+                                postStyle={true}
+                                timestamp={1608580122}
                               >
-                                0x1DCODE0000
-                              </div>
-                              <div
-                                className="ant-card-meta-description"
-                              >
-                                <RelativeTime
-                                  postStyle={true}
-                                  timestamp={1608580122}
+                                <p
+                                  className="RelativeTime RelativeTime--post"
                                 >
-                                  <p
-                                    className="RelativeTime RelativeTime--post"
-                                  >
-                                    Dec 21, 2020 •
-                                  </p>
-                                </RelativeTime>
-                              </div>
+                                  Dec 21, 2020 •
+                                </p>
+                              </RelativeTime>
                             </div>
                           </div>
-                        </Meta>
-                        <div
-                          className="Post__caption"
-                        >
-                          Going to the mall!
                         </div>
-                        <PostReply>
-                          <div
-                            className="PostReply__block"
+                      </Meta>
+                      <div
+                        className="Post__caption"
+                      >
+                        Going to the mall!
+                      </div>
+                      <PostReply>
+                        <div
+                          className="PostReply__block"
+                        >
+                          <ForwardRef
+                            autoSize={true}
+                            className="PostReply__input"
+                            onChange={[Function]}
+                            onPressEnter={[Function]}
+                            placeholder="Reply..."
+                            value=""
                           >
-                            <ForwardRef
+                            <ClearableLabeledInput
                               autoSize={true}
-                              className="PostReply__input"
-                              onChange={[Function]}
-                              onPressEnter={[Function]}
-                              placeholder="Reply..."
-                              value=""
-                            >
-                              <ClearableLabeledInput
-                                autoSize={true}
-                                bordered={true}
-                                element={
-                                  <TextArea
-                                    autoSize={true}
-                                    className="PostReply__input"
-                                    onChange={[Function]}
-                                    onCompositionEnd={[Function]}
-                                    onCompositionStart={[Function]}
-                                    onPressEnter={[Function]}
-                                    placeholder="Reply..."
-                                    prefixCls="ant-input"
-                                    value=""
-                                  />
-                                }
-                                handleReset={[Function]}
-                                inputType="text"
-                                onPressEnter={[Function]}
-                                placeholder="Reply..."
-                                prefixCls="ant-input"
-                                value=""
-                              >
+                              bordered={true}
+                              element={
                                 <TextArea
                                   autoSize={true}
                                   className="PostReply__input"
@@ -793,180 +906,204 @@ exports[`Feed does display new post button when logged in 1`] = `
                                   placeholder="Reply..."
                                   prefixCls="ant-input"
                                   value=""
+                                />
+                              }
+                              handleReset={[Function]}
+                              inputType="text"
+                              onPressEnter={[Function]}
+                              placeholder="Reply..."
+                              prefixCls="ant-input"
+                              value=""
+                            >
+                              <TextArea
+                                autoSize={true}
+                                className="PostReply__input"
+                                onChange={[Function]}
+                                onCompositionEnd={[Function]}
+                                onCompositionStart={[Function]}
+                                onPressEnter={[Function]}
+                                placeholder="Reply..."
+                                prefixCls="ant-input"
+                                value=""
+                              >
+                                <ResizableTextArea
+                                  autoSize={true}
+                                  className="PostReply__input"
+                                  onChange={[Function]}
+                                  onCompositionEnd={[Function]}
+                                  onCompositionStart={[Function]}
+                                  onKeyDown={[Function]}
+                                  onPressEnter={[Function]}
+                                  placeholder="Reply..."
+                                  prefixCls="ant-input"
+                                  value=""
                                 >
-                                  <ResizableTextArea
-                                    autoSize={true}
-                                    className="PostReply__input"
-                                    onChange={[Function]}
-                                    onCompositionEnd={[Function]}
-                                    onCompositionStart={[Function]}
-                                    onKeyDown={[Function]}
-                                    onPressEnter={[Function]}
-                                    placeholder="Reply..."
-                                    prefixCls="ant-input"
-                                    value=""
+                                  <ResizeObserver
+                                    disabled={false}
+                                    onResize={[Function]}
                                   >
-                                    <ResizeObserver
-                                      disabled={false}
-                                      onResize={[Function]}
-                                    >
-                                      <textarea
-                                        className="ant-input PostReply__input"
-                                        onChange={[Function]}
-                                        onCompositionEnd={[Function]}
-                                        onCompositionStart={[Function]}
-                                        onKeyDown={[Function]}
-                                        placeholder="Reply..."
-                                        style={
-                                          Object {
-                                            "height": 0,
-                                            "maxHeight": 9007199254740991,
-                                            "minHeight": -9007199254740991,
-                                            "overflowX": "hidden",
-                                            "overflowY": "hidden",
-                                            "resize": "none",
-                                          }
+                                    <textarea
+                                      className="ant-input PostReply__input"
+                                      onChange={[Function]}
+                                      onCompositionEnd={[Function]}
+                                      onCompositionStart={[Function]}
+                                      onKeyDown={[Function]}
+                                      placeholder="Reply..."
+                                      style={
+                                        Object {
+                                          "height": 0,
+                                          "maxHeight": 9007199254740991,
+                                          "minHeight": -9007199254740991,
+                                          "overflowX": "hidden",
+                                          "overflowY": "hidden",
+                                          "resize": "none",
                                         }
-                                        value=""
-                                      />
-                                    </ResizeObserver>
-                                  </ResizableTextArea>
-                                </TextArea>
-                              </ClearableLabeledInput>
-                            </ForwardRef>
-                          </div>
-                        </PostReply>
-                      </div>
+                                      }
+                                      value=""
+                                    />
+                                  </ResizeObserver>
+                                </ResizableTextArea>
+                              </TextArea>
+                            </ClearableLabeledInput>
+                          </ForwardRef>
+                        </div>
+                      </PostReply>
                     </div>
-                  </Card>
-                  <Card
-                    bordered={false}
-                    className="Post__block"
-                    key="3"
+                  </div>
+                </Card>
+              </Post>
+              <Post
+                feedItem={
+                  Object {
+                    "blockNumber": 50,
+                    "content": Object {
+                      "@context": "https://www.w3.org/ns/activitystreams",
+                      "actor": "0x1DCODE3333",
+                      "attachment": Array [],
+                      "content": "My favorite dessert is Cake",
+                      "id": "http://localhost:3003/api/announce/0x1DCODE3333",
+                      "type": "Note",
+                    },
+                    "fromAddress": "0x1DCODE3333",
+                    "hash": "04cc38a7a1ac3a1aa34abde4ca8bf118a2dd5885ce37c07cbffb615f3d872f4d",
+                    "inbox": false,
+                    "rawContent": "",
+                    "replies": Array [],
+                    "timestamp": 1608580122,
+                    "topic": "0xb4fc0e356691332d9ea3819c239aef5980ce60784568183bd2a540a9b9a6712c",
+                    "uri": "http://localhost:3003/api/announce/0x1DCODE3333",
+                  }
+                }
+              >
+                <Card
+                  bordered={false}
+                  className="Post__block"
+                  key="04cc38a7a1ac3a1aa34abde4ca8bf118a2dd5885ce37c07cbffb615f3d872f4d"
+                >
+                  <div
+                    className="ant-card Post__block"
                   >
                     <div
-                      className="ant-card Post__block"
+                      className="ant-card-body"
+                      style={Object {}}
                     >
-                      <div
-                        className="ant-card-body"
-                        style={Object {}}
+                      <Meta
+                        avatar={
+                          <UserAvatar
+                            avatarSize="medium"
+                            profileAddress="0x1DCODE3333"
+                          />
+                        }
+                        description={
+                          <RelativeTime
+                            postStyle={true}
+                            timestamp={1608580122}
+                          />
+                        }
+                        title="0x1DCODE3333"
                       >
-                        <Meta
-                          avatar={
+                        <div
+                          className="ant-card-meta"
+                        >
+                          <div
+                            className="ant-card-meta-avatar"
+                          >
                             <UserAvatar
                               avatarSize="medium"
                               profileAddress="0x1DCODE3333"
-                            />
-                          }
-                          description={
-                            <RelativeTime
-                              postStyle={true}
-                              timestamp={1608580122}
-                            />
-                          }
-                          title="0x1DCODE3333"
-                        >
+                            >
+                              <Avatar
+                                alt="0x1DCODE3333"
+                                shape="circle"
+                                size={50}
+                                src="data:image/png;base64,00"
+                              >
+                                <span
+                                  className="ant-avatar ant-avatar-circle ant-avatar-image"
+                                  style={
+                                    Object {
+                                      "fontSize": 18,
+                                      "height": 50,
+                                      "lineHeight": "50px",
+                                      "width": 50,
+                                    }
+                                  }
+                                >
+                                  <img
+                                    alt="0x1DCODE3333"
+                                    onError={[Function]}
+                                    src="data:image/png;base64,00"
+                                  />
+                                </span>
+                              </Avatar>
+                            </UserAvatar>
+                          </div>
                           <div
-                            className="ant-card-meta"
+                            className="ant-card-meta-detail"
                           >
                             <div
-                              className="ant-card-meta-avatar"
+                              className="ant-card-meta-title"
                             >
-                              <UserAvatar
-                                avatarSize="medium"
-                                profileAddress="0x1DCODE3333"
-                              >
-                                <Avatar
-                                  alt="0x1DCODE3333"
-                                  shape="circle"
-                                  size={50}
-                                  src="data:image/png;base64,00"
-                                >
-                                  <span
-                                    className="ant-avatar ant-avatar-circle ant-avatar-image"
-                                    style={
-                                      Object {
-                                        "fontSize": 18,
-                                        "height": 50,
-                                        "lineHeight": "50px",
-                                        "width": 50,
-                                      }
-                                    }
-                                  >
-                                    <img
-                                      alt="0x1DCODE3333"
-                                      onError={[Function]}
-                                      src="data:image/png;base64,00"
-                                    />
-                                  </span>
-                                </Avatar>
-                              </UserAvatar>
+                              0x1DCODE3333
                             </div>
                             <div
-                              className="ant-card-meta-detail"
+                              className="ant-card-meta-description"
                             >
-                              <div
-                                className="ant-card-meta-title"
+                              <RelativeTime
+                                postStyle={true}
+                                timestamp={1608580122}
                               >
-                                0x1DCODE3333
-                              </div>
-                              <div
-                                className="ant-card-meta-description"
-                              >
-                                <RelativeTime
-                                  postStyle={true}
-                                  timestamp={1608580122}
+                                <p
+                                  className="RelativeTime RelativeTime--post"
                                 >
-                                  <p
-                                    className="RelativeTime RelativeTime--post"
-                                  >
-                                    Dec 21, 2020 •
-                                  </p>
-                                </RelativeTime>
-                              </div>
+                                  Dec 21, 2020 •
+                                </p>
+                              </RelativeTime>
                             </div>
                           </div>
-                        </Meta>
-                        <div
-                          className="Post__caption"
-                        >
-                          My favorite dessert is Cake
                         </div>
-                        <PostReply>
-                          <div
-                            className="PostReply__block"
+                      </Meta>
+                      <div
+                        className="Post__caption"
+                      >
+                        My favorite dessert is Cake
+                      </div>
+                      <PostReply>
+                        <div
+                          className="PostReply__block"
+                        >
+                          <ForwardRef
+                            autoSize={true}
+                            className="PostReply__input"
+                            onChange={[Function]}
+                            onPressEnter={[Function]}
+                            placeholder="Reply..."
+                            value=""
                           >
-                            <ForwardRef
+                            <ClearableLabeledInput
                               autoSize={true}
-                              className="PostReply__input"
-                              onChange={[Function]}
-                              onPressEnter={[Function]}
-                              placeholder="Reply..."
-                              value=""
-                            >
-                              <ClearableLabeledInput
-                                autoSize={true}
-                                bordered={true}
-                                element={
-                                  <TextArea
-                                    autoSize={true}
-                                    className="PostReply__input"
-                                    onChange={[Function]}
-                                    onCompositionEnd={[Function]}
-                                    onCompositionStart={[Function]}
-                                    onPressEnter={[Function]}
-                                    placeholder="Reply..."
-                                    prefixCls="ant-input"
-                                    value=""
-                                  />
-                                }
-                                handleReset={[Function]}
-                                inputType="text"
-                                onPressEnter={[Function]}
-                                placeholder="Reply..."
-                                prefixCls="ant-input"
-                                value=""
-                              >
+                              bordered={true}
+                              element={
                                 <TextArea
                                   autoSize={true}
                                   className="PostReply__input"
@@ -977,53 +1114,71 @@ exports[`Feed does display new post button when logged in 1`] = `
                                   placeholder="Reply..."
                                   prefixCls="ant-input"
                                   value=""
+                                />
+                              }
+                              handleReset={[Function]}
+                              inputType="text"
+                              onPressEnter={[Function]}
+                              placeholder="Reply..."
+                              prefixCls="ant-input"
+                              value=""
+                            >
+                              <TextArea
+                                autoSize={true}
+                                className="PostReply__input"
+                                onChange={[Function]}
+                                onCompositionEnd={[Function]}
+                                onCompositionStart={[Function]}
+                                onPressEnter={[Function]}
+                                placeholder="Reply..."
+                                prefixCls="ant-input"
+                                value=""
+                              >
+                                <ResizableTextArea
+                                  autoSize={true}
+                                  className="PostReply__input"
+                                  onChange={[Function]}
+                                  onCompositionEnd={[Function]}
+                                  onCompositionStart={[Function]}
+                                  onKeyDown={[Function]}
+                                  onPressEnter={[Function]}
+                                  placeholder="Reply..."
+                                  prefixCls="ant-input"
+                                  value=""
                                 >
-                                  <ResizableTextArea
-                                    autoSize={true}
-                                    className="PostReply__input"
-                                    onChange={[Function]}
-                                    onCompositionEnd={[Function]}
-                                    onCompositionStart={[Function]}
-                                    onKeyDown={[Function]}
-                                    onPressEnter={[Function]}
-                                    placeholder="Reply..."
-                                    prefixCls="ant-input"
-                                    value=""
+                                  <ResizeObserver
+                                    disabled={false}
+                                    onResize={[Function]}
                                   >
-                                    <ResizeObserver
-                                      disabled={false}
-                                      onResize={[Function]}
-                                    >
-                                      <textarea
-                                        className="ant-input PostReply__input"
-                                        onChange={[Function]}
-                                        onCompositionEnd={[Function]}
-                                        onCompositionStart={[Function]}
-                                        onKeyDown={[Function]}
-                                        placeholder="Reply..."
-                                        style={
-                                          Object {
-                                            "height": 0,
-                                            "maxHeight": 9007199254740991,
-                                            "minHeight": -9007199254740991,
-                                            "overflowX": "hidden",
-                                            "overflowY": "hidden",
-                                            "resize": "none",
-                                          }
+                                    <textarea
+                                      className="ant-input PostReply__input"
+                                      onChange={[Function]}
+                                      onCompositionEnd={[Function]}
+                                      onCompositionStart={[Function]}
+                                      onKeyDown={[Function]}
+                                      placeholder="Reply..."
+                                      style={
+                                        Object {
+                                          "height": 0,
+                                          "maxHeight": 9007199254740991,
+                                          "minHeight": -9007199254740991,
+                                          "overflowX": "hidden",
+                                          "overflowY": "hidden",
+                                          "resize": "none",
                                         }
-                                        value=""
-                                      />
-                                    </ResizeObserver>
-                                  </ResizableTextArea>
-                                </TextArea>
-                              </ClearableLabeledInput>
-                            </ForwardRef>
-                          </div>
-                        </PostReply>
-                      </div>
+                                      }
+                                      value=""
+                                    />
+                                  </ResizeObserver>
+                                </ResizableTextArea>
+                              </TextArea>
+                            </ClearableLabeledInput>
+                          </ForwardRef>
+                        </div>
+                      </PostReply>
                     </div>
-                  </Card>
-                </div>
+                  </div>
+                </Card>
               </Post>
             </div>
           </PostList>
