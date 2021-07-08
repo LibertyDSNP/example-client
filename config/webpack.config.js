@@ -305,6 +305,9 @@ module.exports = function (webpackEnv) {
           "scheduler/tracing": "scheduler/tracing-profiling",
         }),
         ...(modules.webpackAliases || {}),
+        "@dsnp/parquetjs": path.resolve(
+          "./node_modules/@dsnp/parquetjs/dist/browser/parquet.js"
+        ),
       },
       plugins: [
         // Adds support for installing with Plug'n'Play, leading to faster installs and adding
