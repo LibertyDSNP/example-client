@@ -4,7 +4,7 @@ import { setConfig, core } from "@dsnp/sdk";
 import { providers } from "ethers";
 import { addFeedItem } from "../redux/slices/feedSlice";
 import { AnyAction, ThunkDispatch } from "@reduxjs/toolkit";
-import { generateHash } from "@dsnp/test-generators"
+import { generateHash } from "@dsnp/test-generators";
 
 export const getSocialIdentity = async (
   walletAddress: HexString
@@ -65,15 +65,19 @@ export const startPostSubscription = (
   });
 
   core.contracts.subscription.subscribeToBatchAnnounceEvents((announcement) => {
+    console.log("got feed item", announcement);
     dispatch(
       addFeedItem({
-        address: announcement.transactionHash,
+        fromAddress: announcement.transactionHash,
         blockNumber: announcement.blockNumber,
         hash: announcement.dsnpHash,
-        inbox: true,
         timestamp: 123456789,
-        topic: "0x4ad32",
         uri: announcement.dsnpUri,
+        content: {
+          type: "Note",
+          actor: "actor",
+          content: "content",
+        },
       })
     );
   });

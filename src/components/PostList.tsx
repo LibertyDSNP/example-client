@@ -4,11 +4,9 @@ import { FeedItem } from "../utilities/types";
 import { useAppSelector } from "../redux/hooks";
 
 const PostList: React.FC = () => {
-  // const feed: FeedItem[] = useAppSelector((state) => state.feed.feed).filter(
-  //   (post) => post?.content?.type === "Note"
-  // );
-
-  const { feed } = useAppSelector((state) => state.feed);
+  const feed: FeedItem[] = useAppSelector((state) => state.feed.feed).filter(
+    (post) => post?.content?.type === "Note"
+  );
 
   const postList = feed
     .slice(0)
