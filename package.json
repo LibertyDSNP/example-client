@@ -145,14 +145,15 @@
       "not op_mini all"
     ],
     "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
+    "last 1 chrome version",
+    "last 1 firefox version",
+    "last 1 safari version"
     ]
   },
   "devDependencies": {
     "@babel/core": "7.13.10",
     "@babel/plugin-proposal-class-properties": "^7.14.5",
+    "@babel/preset-env": "^7.14.7",
     "@dsnp/test-generators": "^0.0.0-6a23bc",
     "@svgr/webpack": "5.5.0",
     "@testing-library/react-hooks": "^5.1.0",
@@ -214,11 +215,6 @@
     "webpack-dev-server": "^3.11.2",
     "webpack-manifest-plugin": "3.0.0",
     "workbox-webpack-plugin": "6.1.1"
-  },
-  "babel": {
-    "presets": [
-      "react-app"
-    ]
   },
   "eslintConfig": {
     "extends": "react-app"
