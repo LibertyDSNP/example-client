@@ -1,4 +1,4 @@
-.ant-btn.Login__loginButton,
+.ant-btn.LoginButton__loginButton,
 .ant-btn.Login__logOutButton {
   border-radius: 6px;
   padding: 0 30px;
@@ -106,6 +106,27 @@
 
 .ant-input:focus {
   box-shadow: 0 0 0 2px $gray !important;
+}
+
+.ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn {
+  color: $shadow-green !important;
+}
+
+.ant-tabs-tab-btn:hover,
+.ant-tabs-tab-remove:hover,
+.ant-tabs-tab-btn:focus,
+.ant-tabs-tab-remove:focus,
+.ant-tabs-tab-btn:active,
+.ant-tabs-tab-remove:active {
+  color: $shadow-green !important;
+}
+
+.ant-tabs-ink-bar {
+  background: $shadow-green !important;
+}
+
+a {
+  color: $shadow-green !important;
 }
 
 .ant-card.Post__block {
