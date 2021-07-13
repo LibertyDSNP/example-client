@@ -4,6 +4,7 @@ import { useAppSelector } from "../redux/hooks";
 import ConnectionsList from "./ConnectionsList";
 import UserAvatar from "./UserAvatar";
 import { Profile } from "../utilities/types";
+import { Tabs } from "antd";
 
 const ProfileBlock = (): JSX.Element => {
   const profile: Profile | undefined = useAppSelector(
@@ -110,9 +111,13 @@ const ProfileBlock = (): JSX.Element => {
           <ConnectionsList />
         </>
       ) : (
-        <div className="ProfileBlock__loginText">
-          Login With MetaMask/Taurus
-        </div>
+        <>
+          <div className="ProfileBlock__loginText"> Login Quick Start</div>
+          <Tabs defaultActiveKey="1">
+            <Tabs.TabPane tab="MetaMask" key="1"></Tabs.TabPane>
+            <Tabs.TabPane tab="Taurus" key="2"></Tabs.TabPane>
+          </Tabs>
+        </>
       )}
     </div>
   );

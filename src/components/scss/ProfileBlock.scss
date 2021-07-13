@@ -74,8 +74,7 @@
 }
 
 .ProfileBlock__loginText {
-  @include extra-large-text;
-  margin: 0 auto;
+  @include large-text;
   color: $dark-gray;
   line-height: 1.3;
 }
