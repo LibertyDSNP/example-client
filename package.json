@@ -5,6 +5,7 @@
   "private": false,
   "license": "Apache-2.0",
   "dependencies": {
+    "@dsnp/parquetjs": "^1.1.0",
     "@dsnp/sdk": "file:dsnp-sdk-1.0.0.tgz",
     "@reduxjs/toolkit": "^1.5.1",
     "@toruslabs/torus-embed": "1.9.2",
@@ -145,9 +146,9 @@
       "not op_mini all"
     ],
     "development": [
-    "last 1 chrome version",
-    "last 1 firefox version",
-    "last 1 safari version"
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
     ]
   },
   "devDependencies": {

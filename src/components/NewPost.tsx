@@ -1,9 +1,8 @@
 import React, { useEffect } from "react";
 import { Alert, Button, Space, Spin, Modal, Input } from "antd";
-import { useAppDispatch, useAppSelector } from "../redux/hooks";
+import { useAppSelector } from "../redux/hooks";
 import UserAvatar from "./UserAvatar";
 import NewPostImageUpload from "./NewPostImageUpload";
-import { addFeedItem } from "../redux/slices/feedSlice";
 import { FeedItem } from "../utilities/types";
 import { createNote } from "../services/Storage";
 import { sendPost } from "../services/sdk";
@@ -14,7 +13,6 @@ interface NewPostProps {
 }
 
 const NewPost = ({ onSuccess, onCancel }: NewPostProps): JSX.Element => {
-  const dispatch = useAppDispatch();
   const [errorMsg, setErrorMsg] = React.useState<string | null>(null);
   const [saving, setSaving] = React.useState<boolean>(false);
   const [uriList, setUriList] = React.useState<string[]>([]);
@@ -36,15 +34,13 @@ const NewPost = ({ onSuccess, onCancel }: NewPostProps): JSX.Element => {
   };
 
   const createPost = async () => {
-    //needs to store in batch file here
     if (!profile) return;
-    // const newPostFeedItem: FeedItem = await createNote(
-    //   profile.socialAddress,
-    //   postMessage,
-    //   uriList
-    // );
-    // dispatch(addFeedItem(newPostFeedItem));
-    sendPost();
+    const newPostFeedItem: FeedItem = await createNote(
+      profile.socialAddress,
+      postMessage,
+      uriList
+    );
+    sendPost(newPostFeedItem);
     success();
   };
 

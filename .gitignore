@@ -1,7 +1,7 @@
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
 # dependencies
-/node_modules
+node_modules
 yarn.lock
 
 # testing
@@ -32,3 +32,6 @@ yarn-error.log*
 *.css
 *.css.map
 src/**/*.css
+
+static-server/public/*
+static-server/coverage/*
