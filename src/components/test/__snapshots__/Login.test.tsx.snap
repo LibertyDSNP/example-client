@@ -1,0 +1,97 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Login Component is logged out login from login guide torus login guide 1`] = `
+<Provider
+  store={
+    Object {
+      "clearActions": [Function],
+      "dispatch": [Function],
+      "getActions": [Function],
+      "getState": [Function],
+      "replaceReducer": [Function],
+      "subscribe": [Function],
+    }
+  }
+>
+  <BrowserRouter>
+    <Router
+      history={
+        Object {
+          "action": "POP",
+          "block": [Function],
+          "createHref": [Function],
+          "go": [Function],
+          "goBack": [Function],
+          "goForward": [Function],
+          "length": 1,
+          "listen": [Function],
+          "location": Object {
+            "hash": "",
+            "pathname": "/",
+            "search": "",
+            "state": undefined,
+          },
+          "push": [Function],
+          "replace": [Function],
+        }
+      }
+    >
+      <Login
+        loginWalletOptions="TORUS"
+      >
+        <div
+          className="Login__block"
+        >
+          <LoginButton
+            loading={false}
+            loginWalletOptions="TORUS"
+            onButtonClick={[Function]}
+            popoverVisible={false}
+            setPopoverVisible={[Function]}
+          >
+            <Button
+              aria-label="Login"
+              className="LoginButton__loginButton LoginButton__loginButton--quickStart"
+              onClick={[Function]}
+            >
+              <Wave>
+                <button
+                  aria-label="Login"
+                  className="ant-btn LoginButton__loginButton LoginButton__loginButton--quickStart"
+                  onClick={[Function]}
+                  type="button"
+                >
+                  <LoadingIcon
+                    existIcon={false}
+                    loading={false}
+                    prefixCls="ant-btn"
+                  >
+                    <CSSMotion
+                      motionName="ant-btn-loading-icon-motion"
+                      onAppearActive={[Function]}
+                      onAppearStart={[Function]}
+                      onEnterActive={[Function]}
+                      onEnterStart={[Function]}
+                      onLeaveActive={[Function]}
+                      onLeaveStart={[Function]}
+                      removeOnLeave={true}
+                      visible={false}
+                    >
+                      <DomWrapper />
+                    </CSSMotion>
+                  </LoadingIcon>
+                  <span
+                    key=".0"
+                  >
+                    Log In With TORUS
+                  </span>
+                </button>
+              </Wave>
+            </Button>
+          </LoginButton>
+        </div>
+      </Login>
+    </Router>
+  </BrowserRouter>
+</Provider>
+`;

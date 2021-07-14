@@ -1,7 +1,6 @@
 import React from "react";
 import { Store } from "@reduxjs/toolkit";
 import configureStore from "redux-mock-store";
-import { ComponentType, ReactElement } from "react";
 import { act } from "react-dom/test-utils";
 import { Provider } from "react-redux";
 import { BrowserRouter as Router } from "react-router-dom";
@@ -28,10 +27,10 @@ export const forcePromiseResolve = async (): Promise<void> => {
 };
 
 export const componentWithStore = (
-  Component: ComponentType,
+  Component: (props: any) => JSX.Element,
   store: Store,
-  props = {}
-): ReactElement => {
+  props: Record<string, unknown> = {}
+): JSX.Element => {
   return (
     <Provider store={store}>
       <Router>

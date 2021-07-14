@@ -11,8 +11,8 @@ describe("NewPost", () => {
     expect(() => {
       shallow(
         componentWithStore(NewPost, store, {
-          onCancel: jest.fn,
           onSuccess: jest.fn,
+          onCancel: jest.fn,
         })
       );
     }).not.toThrow();
