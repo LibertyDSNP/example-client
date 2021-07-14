@@ -38,7 +38,6 @@
     "sass-loader": "10.1.1",
     "serve": "^11.3.2",
     "shelljs": "^0.8.4",
-    "source-map-js": "^0.6.2",
     "style-loader": "2.0.0",
     "ts-jest": "^26.5.4",
     "ts-pnp": "1.2.0",
@@ -70,7 +69,7 @@
     "kss": "kss --config config/kss-config.json"
   },
   "engines": {
-    "node": ">=14.5.0"
+    "node": "14.5.0"
   },
   "jest": {
     "roots": [

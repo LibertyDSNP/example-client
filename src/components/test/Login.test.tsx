@@ -21,9 +21,8 @@ jest
   .mockImplementation(() => Promise.resolve("0x123"));
 
 describe("Login Component", () => {
+  const store = createMockStore({ user: {} });
   describe("is logged out", () => {
-    const initialState = { user: {} };
-    const store = createMockStore(initialState);
     it("renders without crashing", () => {
       expect(() => {
         mount(
@@ -33,64 +32,32 @@ describe("Login Component", () => {
         );
       }).not.toThrow();
     });
+  });
 
-    describe("header button triggers login sequence", () => {
-      it("header button -> torus login", async () => {
-        const component = mount(
-          componentWithStore(Login, store, {
-            loginWalletOptions: wallet.WalletType.NONE,
-          })
-        );
-        component.find(".LoginButton__loginButton").first().simulate("click");
-        component.find(".LoginButton__loginTorus").first().simulate("click");
-        await forcePromiseResolve();
-        expect(torus.enableTorus).toHaveBeenCalled();
-      });
-
-      it("header button -> metamask login", async () => {
-        const component = mount(
-          componentWithStore(Login, store, {
-            loginWalletOptions: wallet.WalletType.NONE,
-          })
-        );
-        component.find(".LoginButton__loginButton").first().simulate("click");
-        component.find(".LoginButton__loginMetamask").first().simulate("click");
-        await forcePromiseResolve();
-        expect(metamask.getWalletAddress).toHaveBeenCalled();
-      });
+  describe("header button triggers login sequence", () => {
+    it("header button -> torus login", async () => {
+      const component = mount(
+        componentWithStore(Login, store, {
+          loginWalletOptions: wallet.WalletType.NONE,
+        })
+      );
+      component.find(".LoginButton__loginButton").first().simulate("click");
+      component.find(".LoginButton__loginTorus").first().simulate("click");
+      await forcePromiseResolve();
+      expect(torus.enableTorus).toHaveBeenCalled();
     });
 
-    describe("login from login guide", () => {
-      it("metamask login guide", () => {
-        const initialState = { user: {} };
-        const store = createMockStore(initialState);
-        const component = mount(
-          componentWithStore(Login, store, {
-            loginWalletOptions: wallet.WalletType.METAMASK,
-          })
-        );
-        component
-          .find(".LoginButton__loginButton--quickStart")
-          .first()
-          .simulate("click");
-        expect(metamask.getWalletAddress).toHaveBeenCalled();
-      });
-
-      it("torus login guide", () => {
-        const initialState = { user: {} };
-        const store = createMockStore(initialState);
-        const component = mount(
-          componentWithStore(Login, store, {
-            loginWalletOptions: wallet.WalletType.TORUS,
-          })
-        );
-        expect(component).toMatchSnapshot();
-        component
-          .find(".LoginButton__loginButton--quickStart")
-          .first()
-          .simulate("click");
-        expect(torus.enableTorus).toHaveBeenCalled();
-      });
+    it("header button -> metamask login", async () => {
+      const store = createMockStore({ user: {} });
+      const component = mount(
+        componentWithStore(Login, store, {
+          loginWalletOptions: wallet.WalletType.NONE,
+        })
+      );
+      component.find(".LoginButton__loginButton").first().simulate("click");
+      component.find(".LoginButton__loginMetamask").first().simulate("click");
+      await forcePromiseResolve();
+      expect(metamask.getWalletAddress).toHaveBeenCalled();
     });
   });
 

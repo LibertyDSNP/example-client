@@ -21,7 +21,7 @@ const LoginButton = ({
     setPopoverVisible(visible);
   };
 
-  const getHeaderLoginButton = (
+  const HeaderLoginButton = (
     <Popover
       placement="bottomRight"
       trigger="click"
@@ -51,7 +51,7 @@ const LoginButton = ({
     </Popover>
   );
 
-  const getQuickStartLoginButton = (
+  const QuickStartLoginButton = (
     <Button
       className="LoginButton__loginButton LoginButton__loginButton--quickStart"
       aria-label="Login"
@@ -65,8 +65,8 @@ const LoginButton = ({
   return (
     <>
       {loginWalletOptions === wallet.WalletType.NONE
-        ? getHeaderLoginButton
-        : getQuickStartLoginButton}
+        ? HeaderLoginButton
+        : QuickStartLoginButton}
     </>
   );
 };
