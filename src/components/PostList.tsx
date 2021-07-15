@@ -1,38 +1,21 @@
 import React from "react";
-import { useAppSelector } from "../redux/hooks";
+import Post from "./Post";
 import { FeedItem } from "../utilities/types";
-import { NoteActivityPub } from "../utilities/activityPubTypes";
+import { useAppSelector } from "../redux/hooks";
 
 const PostList: React.FC = () => {
   const feed: FeedItem[] = useAppSelector((state) => state.feed.feed).filter(
     (post) => post?.content?.type === "Note"
   );
 
-  const postItems = feed.map((post: FeedItem, index: number) => {
-    const noteContent: NoteActivityPub = post.content as NoteActivityPub;
-    return (
-      <div key={index}>
-        {noteContent && (
-          <>
-            <div>{post.fromAddress}</div>
-            <div>{noteContent.content}</div>
-            {noteContent.attachment && (
-              <img
-                width={400}
-                src={noteContent.attachment[0]?.url}
-                alt={noteContent.attachment[0]?.url ? "Image for post" : ""}
-              />
-            )}
-          </>
-        )}
-      </div>
-    );
-  });
+  const postList = feed
+    .slice(0)
+    .reverse()
+    .map((feedItem) => <Post feedItem={feedItem} />);
 
   return (
     <div className="PostList__block">
-      <h1>PostList</h1>
-      {postItems}
+      {feed.length > 0 ? postList : "Empty Feed!"}
     </div>
   );
 };

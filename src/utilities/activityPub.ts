@@ -1,6 +1,6 @@
 import {
   ActivityPub,
-  ActivityPubAttachement,
+  ActivityPubAttachment,
   PubType,
 } from "./activityPubTypes";
 import { HexString } from "./types";
@@ -22,7 +22,7 @@ export const noteToActivityPub = (
       uriList = [uriList];
     }
     activityPub["attachment"] = uriList.map(
-      (item): ActivityPubAttachement => {
+      (item): ActivityPubAttachment => {
         const extension = path.extname(item).replace(".", "");
         let mediaType;
         let pubType: PubType = "Image";

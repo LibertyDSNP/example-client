@@ -13,7 +13,7 @@ export const createNote = async (
     fromAddress: actor,
     content: activityPubNote,
     blockNumber: 0x123,
-    timestamp: 123456,
+    timestamp: Math.floor(Math.random() * 999999),
   };
   return newPostFeedItem;
 };

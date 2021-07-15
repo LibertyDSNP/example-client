@@ -20,7 +20,7 @@ export interface PersonActivityPub extends ActivityPubBase {
 }
 
 type PubType = "Image" | "Video";
-interface ActivityPubAttachement {
+interface ActivityPubAttachment {
   type: PubType;
   mediaType: string;
   url: string;
@@ -28,7 +28,7 @@ interface ActivityPubAttachement {
 
 export interface NoteActivityPub extends ActivityPubBase {
   content: string;
-  attachment?: ActivityPubAttachement[];
+  attachment?: ActivityPubAttachment[];
   inReplyTo?: HexString;
   type: "Note";
 }

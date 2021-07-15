@@ -4,7 +4,9 @@
   padding: 16px;
   display: flex;
   flex-direction: column;
-  flex-basis: 55%;
+  width: 750px;
+  height: fit-content;
+  margin-right: 15px;
 }
 
 .Feed__header {
