@@ -1,6 +1,6 @@
 import React from "react";
 
-const showMonth = (monthNum: number) => {
+const getMonthName = (monthNum: number) => {
   const months = [
     "Jan",
     "Feb",
@@ -33,7 +33,7 @@ const getRelativeTime = (timestamp: number) => {
   }
   if (secondsPast > 86400) {
     const day = postTime.getDate();
-    const month = showMonth(postTime.getMonth());
+    const month = getMonthName(postTime.getMonth());
     const year =
       postTime.getFullYear() === currentTime.getFullYear()
         ? ""
