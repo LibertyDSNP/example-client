@@ -3,7 +3,6 @@ import Login from "./Login";
 import * as wallet from "../services/wallets/wallet";
 
 const Header = (): JSX.Element => {
-  console.log(process.env);
   return (
     <div className="Header__block">
 <<<<<<< HEAD

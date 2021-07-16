@@ -8,13 +8,12 @@ const app = express();
 
 app.use(cors());
 app.use(logger("dev"));
-app.use(express.json());
 app.use(express.static(path.join(__dirname, "../build")));
 app.use(express.static(path.join(__dirname, "public")));
 
 const uploadRouter = express.Router();
 
-uploadRouter.post("/", (req, res, next) => {
+uploadRouter.post("/", (req, res) => {
   const path = `./public/${req.query.filename}`;
   req.pipe(fs.createWriteStream(path));
   req.on("end", () => {

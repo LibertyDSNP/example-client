@@ -6,7 +6,7 @@
   "license": "Apache-2.0",
   "dependencies": {
     "@dsnp/parquetjs": "^1.1.0",
-    "@dsnp/sdk": "file:dsnp-sdk-1.0.0.tgz",
+    "@dsnp/sdk": "^0.0.0-86342e",
     "@reduxjs/toolkit": "^1.5.1",
     "@toruslabs/torus-embed": "1.9.2",
     "antd": "^4.13.1",

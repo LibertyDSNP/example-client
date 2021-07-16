@@ -21,14 +21,19 @@ export const feedSlice = createSlice({
       };
     },
     addFeedItems: (state, action: PayloadAction<FeedItem[]>) => {
-      console.log("adding feed item");
       const newFeedItems = action.payload;
       return {
         ...state,
         feed: [...state.feed, ...newFeedItems],
       };
     },
+    clearFeedItems: (state) => {
+      return {
+        ...state,
+        feed: [],
+      };
+    },
   },
 });
-export const { addFeedItem, addFeedItems } = feedSlice.actions;
+export const { addFeedItem, addFeedItems, clearFeedItems } = feedSlice.actions;
 export default feedSlice.reducer;
