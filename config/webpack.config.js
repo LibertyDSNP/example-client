@@ -394,8 +394,9 @@ module.exports = function (webpackEnv) {
             },
             {
               test: /parquet\.cjs\.js/,
-              loader: require.resolve("babel-loader"),
+              loader: "babel-loader",
               options: {
+                compact: false,
                 sourceMaps: true,
                 inputSourceMap: true,
                 presets: [
@@ -648,7 +649,7 @@ module.exports = function (webpackEnv) {
         new WorkboxWebpackPlugin.GenerateSW({
           clientsClaim: true,
           exclude: [/\.map$/, /asset-manifest\.json$/],
-          maximumFileSizeToCacheInBytes: 3097152,
+          maximumFileSizeToCacheInBytes: 4194304,
           navigateFallback: paths.publicUrlOrPath + "index.html",
           navigateFallbackDenylist: [
             // Exclude URLs starting with /_, as they're likely an API call
