@@ -57,7 +57,9 @@ export const getProfile = async (
   return profile;
 };
 
-export const sendPost = async (post: FeedItem): Promise<void> => {
+export const sendPost = async (
+  post: FeedItem<ActivityContentNote>
+): Promise<void> => {
   if (!post.content) return;
 
   const hash = await storeActivityContentactivityContent(post.content);
@@ -215,7 +217,7 @@ const handleBatchAnnouncement = (dispatch: Dispatch) => (
 };
 
 const storeActivityContentactivityContent = async (
-  content: ActivityContentNote
+  content: ActivityContent
 ): Promise<string> => {
   const hash = keccak256(core.activityContent.serialize(content));
 

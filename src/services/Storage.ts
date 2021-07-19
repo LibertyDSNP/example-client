@@ -1,4 +1,3 @@
-import { noteToActivityContentNote } from "../utilities/activityContent";
 import { FeedItem, HexString } from "../utilities/types";
 import {
   Content,
@@ -8,22 +7,24 @@ import {
 } from "@dsnp/sdk/core/store";
 import { isFunction, isUint8Array } from "./utilities";
 import { ActivityContentNote } from "@dsnp/sdk/core/activityContent";
+import { noteToActivityContentNote } from "../utilities/activityContent";
 
 export const createNote = async (
   actor: HexString,
   note: string,
   uriList: string[]
-): Promise<FeedItem> => {
+): Promise<FeedItem<ActivityContentNote>> => {
   // send content to api
   const activityPubNote: ActivityContentNote = noteToActivityContentNote(
     note,
     uriList
   );
-  const newPostFeedItem: FeedItem = {
+  const newPostFeedItem: FeedItem<ActivityContentNote> = {
     fromAddress: actor,
     content: activityPubNote,
     blockNumber: 0x123,
     timestamp: Math.floor(Math.random() * 999999),
+    hash: "0x89205A3A3b2A69De6Dbf7f01ED13B2108B2c43e7",
   };
   return newPostFeedItem;
 };
@@ -116,3 +117,18 @@ class ServerWriteStream implements WriteStream {
     });
   }
 }
+
+export const storeReply = async (
+  actor: HexString,
+  reply: string
+): Promise<FeedItem<ActivityContentNote>> => {
+  const activityPubReply = noteToActivityContentNote(reply, []);
+  const newReplyFeedItem: FeedItem<ActivityContentNote> = {
+    fromAddress: actor,
+    content: activityPubReply,
+    blockNumber: 0x1234,
+    timestamp: Math.floor(Math.random() * 999999),
+    hash: "0x12305A3A3b2A69De6Dbf7f01ED13B2108B2c43e7",
+  };
+  return newReplyFeedItem;
+};

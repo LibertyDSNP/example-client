@@ -1,0 +1,11 @@
+.ReplyBlock__repliesList {
+  max-height: 300px;
+  overflow-y: auto;
+  border-top: 2px solid $black;
+  padding-top: 14px;
+}
+
+.ReplyBlock__newReplyBlock {
+  border-top: 2px solid $black;
+  border-bottom: 2px solid $black;
+}

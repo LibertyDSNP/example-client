@@ -1,8 +1,16 @@
-import React, { useState } from "react";
-import { useAppSelector } from "../redux/hooks";
 import { Input } from "antd";
+import React, { useState } from "react";
+import { storeReply } from "../services/Storage";
+import { addFeedItem } from "../redux/slices/feedSlice";
+import { HexString } from "../utilities/types";
+import { useAppDispatch, useAppSelector } from "../redux/hooks";
 
-const PostReply = (): JSX.Element => {
+interface ReplyInputProps {
+  parent: HexString;
+}
+
+const ReplyInput = ({ parent }: ReplyInputProps): JSX.Element => {
+  const dispatch = useAppDispatch();
   const profile = useAppSelector((state) => state.user.profile);
   const [saving, setSaving] = React.useState<boolean>(false);
   const [replyValue, setReplyValue] = useState<string>("");
@@ -13,16 +21,20 @@ const PostReply = (): JSX.Element => {
     event.preventDefault();
     if (!profile) return;
     setSaving(true);
-    //save reply here
-    //not sure how we want to do that
+    const newReplyFeedItem = await storeReply(
+      profile?.socialAddress,
+      replyValue
+    );
+    dispatch(addFeedItem(newReplyFeedItem));
+    // await sendPost(newReplyFeedItem);
     setReplyValue("");
     setSaving(false);
   };
 
   return (
-    <div className="PostReply__block">
+    <div className="ReplyBlock__newReplyBlock">
       <Input.TextArea
-        className="PostReply__input"
+        className="ReplyBlock__input"
         placeholder="Reply..."
         value={replyValue}
         onChange={(e) => {
@@ -36,4 +48,4 @@ const PostReply = (): JSX.Element => {
   );
 };
 
-export default PostReply;
+export default ReplyInput;
