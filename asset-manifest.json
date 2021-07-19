@@ -1,28 +1,28 @@
 {
   "files": {
-    "main.css": "/example-client/static/css/main.5f4890da.chunk.css",
-    "main.js": "/example-client/static/js/main.ca1d90e5.chunk.js",
-    "main.js.map": "/example-client/static/js/main.ca1d90e5.chunk.js.map",
+    "main.css": "/example-client/static/css/main.3c0b3368.chunk.css",
+    "main.js": "/example-client/static/js/main.6413630f.chunk.js",
+    "main.js.map": "/example-client/static/js/main.6413630f.chunk.js.map",
     "runtime-main.js": "/example-client/static/js/runtime-main.86f1febe.js",
     "runtime-main.js.map": "/example-client/static/js/runtime-main.86f1febe.js.map",
-    "static/css/2.b1bb06c9.chunk.css": "/example-client/static/css/2.b1bb06c9.chunk.css",
-    "static/js/2.f7f184e5.chunk.js": "/example-client/static/js/2.f7f184e5.chunk.js",
-    "static/js/2.f7f184e5.chunk.js.map": "/example-client/static/js/2.f7f184e5.chunk.js.map",
+    "static/css/2.00598249.chunk.css": "/example-client/static/css/2.00598249.chunk.css",
+    "static/js/2.e877aaa0.chunk.js": "/example-client/static/js/2.e877aaa0.chunk.js",
+    "static/js/2.e877aaa0.chunk.js.map": "/example-client/static/js/2.e877aaa0.chunk.js.map",
     "index.html": "/example-client/index.html",
     "service-worker.js": "/example-client/service-worker.js",
     "service-worker.js.map": "/example-client/service-worker.js.map",
-    "static/css/2.b1bb06c9.chunk.css.map": "/example-client/static/css/2.b1bb06c9.chunk.css.map",
-    "static/css/main.5f4890da.chunk.css.map": "/example-client/static/css/main.5f4890da.chunk.css.map",
-    "static/js/2.f7f184e5.chunk.js.LICENSE.txt": "/example-client/static/js/2.f7f184e5.chunk.js.LICENSE.txt",
+    "static/css/2.00598249.chunk.css.map": "/example-client/static/css/2.00598249.chunk.css.map",
+    "static/css/main.3c0b3368.chunk.css.map": "/example-client/static/css/main.3c0b3368.chunk.css.map",
+    "static/js/2.e877aaa0.chunk.js.LICENSE.txt": "/example-client/static/js/2.e877aaa0.chunk.js.LICENSE.txt",
     "static/media/Camera.svg": "/example-client/static/media/Camera.a7abe56b.svg",
-    "workbox-1d550c88.js": "/example-client/workbox-1d550c88.js",
-    "workbox-1d550c88.js.map": "/example-client/workbox-1d550c88.js.map"
+    "workbox-347b9996.js": "/example-client/workbox-347b9996.js",
+    "workbox-347b9996.js.map": "/example-client/workbox-347b9996.js.map"
   },
   "entrypoints": [
     "static/js/runtime-main.86f1febe.js",
-    "static/css/2.b1bb06c9.chunk.css",
-    "static/js/2.f7f184e5.chunk.js",
-    "static/css/main.5f4890da.chunk.css",
-    "static/js/main.ca1d90e5.chunk.js"
+    "static/css/2.00598249.chunk.css",
+    "static/js/2.e877aaa0.chunk.js",
+    "static/css/main.3c0b3368.chunk.css",
+    "static/js/main.6413630f.chunk.js"
   ]
 }
