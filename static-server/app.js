@@ -8,7 +8,6 @@ const app = express();
 
 app.use(cors());
 app.use(logger("dev"));
-app.use(express.static(path.join(__dirname, "../build")));
 app.use(express.static(path.join(__dirname, "public")));
 
 const uploadRouter = express.Router();
