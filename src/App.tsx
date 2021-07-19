@@ -9,7 +9,6 @@ import * as wallet from "./services/wallets/wallet";
 import { useAppDispatch, useAppSelector } from "./redux/hooks";
 import { setupProvider, startPostSubscription } from "./services/sdk";
 
-
 const App: React.FC = () => {
   const dispatch = useAppDispatch();
 

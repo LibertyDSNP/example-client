@@ -46,7 +46,7 @@ type EndCallback = () => void;
 
 const isFunction = (o: any) => typeof o == "function";
 const isUint8Array = (o: any) =>
-  typeof o == "object" && o.constructor == Uint8Array;
+  typeof o == "object" && o.constructor === Uint8Array;
 
 /* eslint-disable no-dupe-class-members */
 class ServerWriteStream implements WriteStream {
