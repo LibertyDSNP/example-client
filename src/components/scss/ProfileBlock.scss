@@ -73,9 +73,17 @@
   }
 }
 
-.ProfileBlock__loginText {
-  @include extra-large-text;
-  margin: 0 auto;
+.ProfileBlock__loginHeaderText {
+  @include large-text;
+  font-weight: bold;
   color: $dark-gray;
   line-height: 1.3;
+}
+
+.ProfileBlock__loginTitleText {
+  @include large-text;
+  font-weight: bold;
+  color: $dark-gray;
+  line-height: 1.3;
+  margin-bottom: 1em;
 }

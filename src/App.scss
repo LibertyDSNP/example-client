@@ -5,6 +5,7 @@
 @import "theme/kss-styleguide-classes";
 @import "./components/scss/Header";
 @import "./components/scss/Login";
+@import "./components/scss/LoginButton";
 @import "components/scss/ProfileBlock";
 @import "./components/scss/Feed";
 @import "./components/scss/NewPost";
@@ -19,4 +20,8 @@
 .App__content {
   display: flex;
   justify-content: center;
+}
+
+code {
+  background-color: $gray;
 }

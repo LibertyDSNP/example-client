@@ -29,7 +29,7 @@ describe("Profile Block", () => {
     });
     const component = mount(componentWithStore(ProfileBlock, store));
     expect(component.find("ProfileBlock").text()).toContain(
-      "Login With MetaMask/Taurus"
+      "Login Quick Start"
     );
   });
 

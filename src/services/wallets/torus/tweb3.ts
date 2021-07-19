@@ -47,7 +47,7 @@ const initSettings = (buildEnv: BuildEnvironment) => {
       buildEnv ||
       "production",
     network: {
-      host: process.env.REACT_APP_CHAIN_HOST || "http://localhost:7545",
+      host: process.env.REACT_APP_CHAIN_HOST || "http://localhost:8545",
       chainId: Number(process.env.REACT_APP_CHAIN_ID) || 1337,
       networkName: process.env.REACT_APP_CHAIN_NAME || "Localchain",
     },

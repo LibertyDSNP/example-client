@@ -1,15 +1,19 @@
 import React from "react";
-import { Alert, Badge, Button, Popover, Spin } from "antd";
+import { Alert, Badge, Button } from "antd";
 import { WalletOutlined } from "@ant-design/icons";
 import { useAppDispatch, useAppSelector } from "../redux/hooks";
 import { userLogin, userLogout } from "../redux/slices/userSlice";
 import * as sdk from "../services/sdk";
 import * as wallet from "../services/wallets/wallet";
 import * as session from "../services/session";
-
 import { upsertGraph } from "../redux/slices/graphSlice";
+import LoginButton from "./LoginButton";
 
-const Login = (): JSX.Element => {
+interface LoginProps {
+  loginWalletOptions: wallet.WalletType;
+}
+
+const Login = ({ loginWalletOptions }: LoginProps): JSX.Element => {
   const [loading, startLoading] = React.useState<boolean>(false);
   const [alertError, setAlertError] = React.useState<string>("");
   const [popoverVisible, setPopoverVisible] = React.useState<boolean>(false);
@@ -44,10 +48,6 @@ const Login = (): JSX.Element => {
     dispatch(userLogout());
   };
 
-  const handleVisibleChange = (visible: boolean) => {
-    setPopoverVisible(visible);
-  };
-
   return (
     <div className="Login__block">
       {alertError && (
@@ -61,33 +61,13 @@ const Login = (): JSX.Element => {
         />
       )}
       {!profile ? (
-        <Popover
-          placement="bottomRight"
-          trigger="click"
-          visible={popoverVisible}
-          onVisibleChange={handleVisibleChange}
-          content={
-            <div className="Login__loginOptions">
-              <Button
-                className="Login__loginTorus"
-                onClick={() => login(wallet.WalletType.TORUS)}
-              >
-                Torus
-              </Button>
-              <Button
-                className="Login__loginMetamask"
-                onClick={() => login(wallet.WalletType.METAMASK)}
-              >
-                MetaMask
-              </Button>
-            </div>
-          }
-        >
-          <Button className="Login__loginButton" aria-label="Login">
-            Log In
-            {loading && <Spin className="Login__spinner" size="small" />}
-          </Button>
-        </Popover>
+        <LoginButton
+          popoverVisible={popoverVisible}
+          setPopoverVisible={setPopoverVisible}
+          loginWalletOptions={loginWalletOptions}
+          loading={loading}
+          onButtonClick={(wallet: wallet.WalletType) => login(wallet)}
+        />
       ) : (
         <>
           <Badge
@@ -98,7 +78,7 @@ const Login = (): JSX.Element => {
               className="Login__walletIcon"
               src={wallet.wallet(walletType).icon}
               alt="Wallet Symbol"
-            ></img>
+            />
           </Badge>
 
           <Button
