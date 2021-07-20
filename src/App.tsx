@@ -6,12 +6,19 @@ import Header from "./components/Header";
 import Feed from "./components/Feed";
 import ProfileBlock from "./components/ProfileBlock";
 import * as wallet from "./services/wallets/wallet";
-import { useAppSelector } from "./redux/hooks";
+import { useAppDispatch, useAppSelector } from "./redux/hooks";
+import { setupProvider, startPostSubscription } from "./services/sdk";
 
 const App: React.FC = () => {
+  const dispatch = useAppDispatch();
+
   const walletType = useAppSelector((state) => state.user.walletType);
   useEffect(() => {
-    if (walletType) wallet.wallet(walletType).reload();
+    if (walletType) {
+      wallet.wallet(walletType).reload();
+      setupProvider();
+      dispatch(startPostSubscription);
+    }
   });
 
   return (

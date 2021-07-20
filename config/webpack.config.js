@@ -305,6 +305,16 @@ module.exports = function (webpackEnv) {
           "scheduler/tracing": "scheduler/tracing-profiling",
         }),
         ...(modules.webpackAliases || {}),
+        "@dsnp/parquetjs": path.resolve(
+          __dirname,
+          "..",
+          "node_modules",
+          "@dsnp",
+          "parquetjs",
+          "dist",
+          "browser",
+          "parquet.cjs.js"
+        ),
       },
       plugins: [
         // Adds support for installing with Plug'n'Play, leading to faster installs and adding
@@ -351,14 +361,16 @@ module.exports = function (webpackEnv) {
             {
               test: /\.(js|mjs|jsx|ts|tsx)$/,
               include: paths.appSrc,
-              loader: require.resolve("babel-loader"),
+              loader: "babel-loader",
               options: {
+                babelrc: false,
                 customize: require.resolve(
                   "babel-preset-react-app/webpack-overrides"
                 ),
-
+                presets: ["react-app"],
                 plugins: [
                   ["import", { libraryName: "antd" }],
+                  "@babel/plugin-proposal-class-properties",
                   [
                     require.resolve("babel-plugin-named-asset-import"),
                     {
@@ -378,6 +390,25 @@ module.exports = function (webpackEnv) {
                 // See #6846 for context on why cacheCompression is disabled
                 cacheCompression: false,
                 compact: isEnvProduction,
+              },
+            },
+            {
+              test: /parquet\.cjs\.js/,
+              loader: "babel-loader",
+              options: {
+                compact: false,
+                sourceMaps: true,
+                inputSourceMap: true,
+                presets: [
+                  [
+                    "@babel/preset-env",
+                    {
+                      targets: {
+                        esmodules: true,
+                      },
+                    },
+                  ],
+                ],
               },
             },
             // Process any JS outside of the app with Babel.
@@ -618,7 +649,7 @@ module.exports = function (webpackEnv) {
         new WorkboxWebpackPlugin.GenerateSW({
           clientsClaim: true,
           exclude: [/\.map$/, /asset-manifest\.json$/],
-          maximumFileSizeToCacheInBytes: 3097152,
+          maximumFileSizeToCacheInBytes: 4194304,
           navigateFallback: paths.publicUrlOrPath + "index.html",
           navigateFallbackDenylist: [
             // Exclude URLs starting with /_, as they're likely an API call

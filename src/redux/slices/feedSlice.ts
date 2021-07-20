@@ -27,7 +27,13 @@ export const feedSlice = createSlice({
         feed: [...state.feed, ...newFeedItems],
       };
     },
+    clearFeedItems: (state) => {
+      return {
+        ...state,
+        feed: [],
+      };
+    },
   },
 });
-export const { addFeedItem, addFeedItems } = feedSlice.actions;
+export const { addFeedItem, addFeedItems, clearFeedItems } = feedSlice.actions;
 export default feedSlice.reducer;

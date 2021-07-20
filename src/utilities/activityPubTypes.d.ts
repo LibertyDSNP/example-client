@@ -3,7 +3,7 @@ import { HexString } from "./types";
 export type ContentType = "Person" | "Note" | "EncryptedMessage";
 
 export interface ActivityPubBase {
-  "@context"?: string;
+  "@context": string;
   actor: HexString;
   id?: string; // See other comment below about this vs `activitypub.ts`
   type: ContentType | string; // Why or string? Because `ContentType` are just the ones that we care about, others can and do exist
