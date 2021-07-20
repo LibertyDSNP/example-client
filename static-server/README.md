@@ -21,7 +21,7 @@ npm run test
 To upload a file
 
 ```js
- /upload?filename=parquetfile.parquet
+ /upload?filename=913a707a9eca3f46.parquet
 ```
 
 To download a file from public
