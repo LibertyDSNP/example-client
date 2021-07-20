@@ -172,12 +172,11 @@ const storeActivityPub = async (content: ActivityPub): Promise<string> => {
 
 const buildAndSignAnnouncement = async (
   hash: string
-): Promise<SignedBroadcastAnnouncement> => {
-  return {
-    signature: "0x00000000", // TODO: call out to wallet to get this signed
-    announcementType: AnnouncementType.Broadcast,
-    contentHash: hash,
-    fromId: "0x1111", // TODO: disambiguate fromID from public key and set here
-    url: `${process.env.REACT_APP_UPLOAD_HOST}/${hash}.json`,
-  };
-};
+): Promise<SignedBroadcastAnnouncement> => ({
+  ...core.announcements.createBroadcast(
+    "0x1111",
+    `${process.env.REACT_APP_UPLOAD_HOST}/${hash}.json`,
+    hash
+  ),
+  signature: "0x00000000", // TODO: call out to wallet to get this signed
+});

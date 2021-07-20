@@ -77,22 +77,18 @@ class ServerWriteStream implements WriteStream {
   end(chunk: unknown, cb?: EndCallback): void;
   end(chunk: unknown, encoding?: string, cb?: EndCallback): void;
 
-  end(
-    param0?: unknown | EndCallback,
-    param1?: string | EndCallback,
-    param2?: EndCallback
-  ): void {
-    if (isUint8Array(param0)) {
-      this.chunks.push(param0 as Uint8Array);
+  end(...args: any): void {
+    if (isUint8Array(args[0])) {
+      this.chunks.push(args[0] as Uint8Array);
     }
 
     let cb: () => void;
-    if (isFunction(param0)) {
-      cb = param0 as () => void;
-    } else if (isFunction(param1)) {
-      cb = param1 as () => void;
+    if (isFunction(args[0])) {
+      cb = args[0] as EndCallback;
+    } else if (isFunction(args[1])) {
+      cb = args[1] as EndCallback;
     } else {
-      cb = param2 as () => void;
+      cb = args[2] as EndCallback;
     }
 
     const fileLength = this.chunks.reduce((m, s) => m + s.length, 0);
