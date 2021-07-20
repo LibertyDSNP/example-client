@@ -7,6 +7,7 @@ import {
   WriteStream,
   StoreInterface,
 } from "@dsnp/sdk/core/store";
+import { isFunction, isUint8Array } from "./utilities";
 
 export const createNote = async (
   actor: HexString,
@@ -43,10 +44,6 @@ export class Store implements StoreInterface {
 
 type WriteCallback = (error: Error | null | undefined) => void;
 type EndCallback = () => void;
-
-const isFunction = (o: any) => typeof o == "function";
-const isUint8Array = (o: any) =>
-  typeof o == "object" && o.constructor === Uint8Array;
 
 /* eslint-disable no-dupe-class-members */
 class ServerWriteStream implements WriteStream {
