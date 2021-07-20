@@ -17,12 +17,12 @@ class Storage {
 
     callback(readWriteStream);
 
-    await fetch(`http://localhost:3000/upload?filename=${targetPath}`, {
+    await fetch(`http://localhost:8080/upload?filename=${targetPath}`, {
       method: "POST",
       body: readWriteStream,
     });
 
-    return new URL(`http://localhost:3000/${targetPath}`);
+    return new URL(`http://localhost:8080/${targetPath}`);
   }
 }
 
