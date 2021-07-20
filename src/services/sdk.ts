@@ -72,7 +72,7 @@ export const startPostSubscription = (
   core.contracts.subscription.subscribeToBatchPublications(
     handleBatchAnnouncement(dispatch),
     {
-      announcementType: 2,
+      announcementType: core.announcements.AnnouncementType.Broadcast,
     }
   );
 };

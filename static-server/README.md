@@ -27,5 +27,5 @@ To upload a file
 To download a file from public
 
 ```js
-http://localhost:3000/913a707a9eca3f46.parquet
+http://localhost:8080/913a707a9eca3f46.parquet
 ```
