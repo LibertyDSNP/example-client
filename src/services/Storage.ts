@@ -86,11 +86,14 @@ class ServerWriteStream implements WriteStream {
       this.chunks.push(param0 as Uint8Array);
     }
 
-    const cb = (isFunction(param0)
-      ? param0
-      : isFunction(param1)
-      ? param1
-      : param2) as () => void;
+    let cb: () => void;
+    if (isFunction(param0)) {
+      cb = param0 as () => void;
+    } else if (isFunction(param1)) {
+      cb = param1 as () => void;
+    } else {
+      cb = param2 as () => void;
+    }
 
     const fileLength = this.chunks.reduce((m, s) => m + s.length, 0);
     const file = new ArrayBuffer(fileLength);
