@@ -26,7 +26,7 @@ const PostList = ({ feedType }: PostListProps): JSX.Element => {
   );
   let currentFeed: FeedItem[] = [];
 
-  if (feedType === 0) {
+  if (feedType === FeedTypes.FEED) {
     currentFeed = feed.filter((post) => {
       myGraph?.following.filter((userAddress) => {
         if (userAddress === post?.fromAddress) {
@@ -39,7 +39,7 @@ const PostList = ({ feedType }: PostListProps): JSX.Element => {
       }
       return null;
     });
-  } else if (feedType === 1) {
+  } else if (feedType === FeedTypes.MY_POSTS) {
     currentFeed = feed.filter(
       (post) => profile?.socialAddress === post?.fromAddress
     );
