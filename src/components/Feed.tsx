@@ -4,14 +4,47 @@ import PostList from "./PostList";
 import { Button } from "antd";
 import { useAppSelector } from "../redux/hooks";
 
-const Feed: React.FC = () => {
+enum FeedTypes {
+  FEED,
+  MY_POSTS,
+  ALL_POSTS,
+}
+
+const Feed = (): JSX.Element => {
   const profile = useAppSelector((state) => state.user.profile);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+  const [feedType, setFeedType] = useState<FeedTypes>(FeedTypes.FEED);
+
+  const feedNavClassName = (navItemType: number) =>
+    feedType === navItemType
+      ? "Feed__navigationItem Feed__navigationItem--active"
+      : "Feed__navigationItem";
 
   return (
     <div className="Feed__block">
       <div className="Feed__header">
-        <h1>Feed</h1>
+        <nav className="Feed__navigation">
+          <div
+            className={feedNavClassName(0)}
+            onClick={() => setFeedType(FeedTypes.FEED)}
+          >
+            Feed
+          </div>
+          <div className="Feed__navigationSpacer"></div>
+          <div
+            className={feedNavClassName(1)}
+            onClick={() => setFeedType(FeedTypes.MY_POSTS)}
+          >
+            My Posts
+          </div>
+          <div className="Feed__navigationSpacer"></div>
+          <div
+            className={feedNavClassName(2)}
+            onClick={() => setFeedType(FeedTypes.ALL_POSTS)}
+          >
+            All Posts
+          </div>
+        </nav>
         {profile && (
           <Button
             className="Feed__newPostButton"
@@ -27,7 +60,7 @@ const Feed: React.FC = () => {
           />
         )}
       </div>
-      <PostList />
+      <PostList feedType={feedType} />
     </div>
   );
 };

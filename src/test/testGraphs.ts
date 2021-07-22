@@ -50,8 +50,8 @@ export const getPreFabSocialGraph = (): SocialGraph => {
   const socialGraph = [
     {
       socialAddress: adr0,
-      following: [adr1, adr6],
-      followers: [adr1, adr2],
+      following: [adr1, adr2],
+      followers: [adr1, adr6],
     },
     {
       socialAddress: adr1,

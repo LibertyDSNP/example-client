@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Feed does display new post button when logged in 1`] = `
+exports[`Feed Displays Correct Feed All Posts 1`] = `
 <Provider
   store={
     Object {
@@ -43,9 +43,34 @@ exports[`Feed does display new post button when logged in 1`] = `
           <div
             className="Feed__header"
           >
-            <h1>
-              Feed
-            </h1>
+            <nav
+              className="Feed__navigation"
+            >
+              <div
+                className="Feed__navigationItem"
+                onClick={[Function]}
+              >
+                Feed
+              </div>
+              <div
+                className="Feed__navigationSpacer"
+              />
+              <div
+                className="Feed__navigationItem"
+                onClick={[Function]}
+              >
+                My Posts
+              </div>
+              <div
+                className="Feed__navigationSpacer"
+              />
+              <div
+                className="Feed__navigationItem Feed__navigationItem--active"
+                onClick={[Function]}
+              >
+                All Posts
+              </div>
+            </nav>
             <Button
               className="Feed__newPostButton"
               onClick={[Function]}
@@ -84,7 +109,9 @@ exports[`Feed does display new post button when logged in 1`] = `
               </Wave>
             </Button>
           </div>
-          <PostList>
+          <PostList
+            feedType={2}
+          >
             <div
               className="PostList__block"
             >
@@ -116,6 +143,7 @@ exports[`Feed does display new post button when logged in 1`] = `
                     "uri": "http://localhost:3003/api/announce/0x1DCODE2222",
                   }
                 }
+                key="0"
               >
                 <Card
                   bordered={false}
@@ -578,6 +606,7 @@ exports[`Feed does display new post button when logged in 1`] = `
                     "uri": "http://localhost:3003/api/announce/0x1DCODE0000",
                   }
                 }
+                key="1"
               >
                 <Card
                   bordered={false}
@@ -786,6 +815,7 @@ exports[`Feed does display new post button when logged in 1`] = `
                     "uri": "http://localhost:3003/api/announce/0x1DCODE0000",
                   }
                 }
+                key="2"
               >
                 <Card
                   bordered={false}
@@ -994,6 +1024,7 @@ exports[`Feed does display new post button when logged in 1`] = `
                     "uri": "http://localhost:3003/api/announce/0x1DCODE3333",
                   }
                 }
+                key="3"
               >
                 <Card
                   bordered={false}
@@ -1087,6 +1118,1809 @@ exports[`Feed does display new post button when logged in 1`] = `
                         className="Post__caption"
                       >
                         My favorite dessert is Cake
+                      </div>
+                      <PostReply>
+                        <div
+                          className="PostReply__block"
+                        >
+                          <ForwardRef
+                            autoSize={true}
+                            className="PostReply__input"
+                            onChange={[Function]}
+                            onPressEnter={[Function]}
+                            placeholder="Reply..."
+                            value=""
+                          >
+                            <ClearableLabeledInput
+                              autoSize={true}
+                              bordered={true}
+                              element={
+                                <TextArea
+                                  autoSize={true}
+                                  className="PostReply__input"
+                                  onChange={[Function]}
+                                  onCompositionEnd={[Function]}
+                                  onCompositionStart={[Function]}
+                                  onPressEnter={[Function]}
+                                  placeholder="Reply..."
+                                  prefixCls="ant-input"
+                                  value=""
+                                />
+                              }
+                              handleReset={[Function]}
+                              inputType="text"
+                              onPressEnter={[Function]}
+                              placeholder="Reply..."
+                              prefixCls="ant-input"
+                              value=""
+                            >
+                              <TextArea
+                                autoSize={true}
+                                className="PostReply__input"
+                                onChange={[Function]}
+                                onCompositionEnd={[Function]}
+                                onCompositionStart={[Function]}
+                                onPressEnter={[Function]}
+                                placeholder="Reply..."
+                                prefixCls="ant-input"
+                                value=""
+                              >
+                                <ResizableTextArea
+                                  autoSize={true}
+                                  className="PostReply__input"
+                                  onChange={[Function]}
+                                  onCompositionEnd={[Function]}
+                                  onCompositionStart={[Function]}
+                                  onKeyDown={[Function]}
+                                  onPressEnter={[Function]}
+                                  placeholder="Reply..."
+                                  prefixCls="ant-input"
+                                  value=""
+                                >
+                                  <ResizeObserver
+                                    disabled={false}
+                                    onResize={[Function]}
+                                  >
+                                    <textarea
+                                      className="ant-input PostReply__input"
+                                      onChange={[Function]}
+                                      onCompositionEnd={[Function]}
+                                      onCompositionStart={[Function]}
+                                      onKeyDown={[Function]}
+                                      placeholder="Reply..."
+                                      style={
+                                        Object {
+                                          "height": 0,
+                                          "maxHeight": 9007199254740991,
+                                          "minHeight": -9007199254740991,
+                                          "overflowX": "hidden",
+                                          "overflowY": "hidden",
+                                          "resize": "none",
+                                        }
+                                      }
+                                      value=""
+                                    />
+                                  </ResizeObserver>
+                                </ResizableTextArea>
+                              </TextArea>
+                            </ClearableLabeledInput>
+                          </ForwardRef>
+                        </div>
+                      </PostReply>
+                    </div>
+                  </div>
+                </Card>
+              </Post>
+            </div>
+          </PostList>
+        </div>
+      </Feed>
+    </Router>
+  </BrowserRouter>
+</Provider>
+`;
+
+exports[`Feed Displays Correct Feed Connections Feed 1`] = `
+<Provider
+  store={
+    Object {
+      "clearActions": [Function],
+      "dispatch": [Function],
+      "getActions": [Function],
+      "getState": [Function],
+      "replaceReducer": [Function],
+      "subscribe": [Function],
+    }
+  }
+>
+  <BrowserRouter>
+    <Router
+      history={
+        Object {
+          "action": "POP",
+          "block": [Function],
+          "createHref": [Function],
+          "go": [Function],
+          "goBack": [Function],
+          "goForward": [Function],
+          "length": 1,
+          "listen": [Function],
+          "location": Object {
+            "hash": "",
+            "pathname": "/",
+            "search": "",
+            "state": undefined,
+          },
+          "push": [Function],
+          "replace": [Function],
+        }
+      }
+    >
+      <Feed>
+        <div
+          className="Feed__block"
+        >
+          <div
+            className="Feed__header"
+          >
+            <nav
+              className="Feed__navigation"
+            >
+              <div
+                className="Feed__navigationItem Feed__navigationItem--active"
+                onClick={[Function]}
+              >
+                Feed
+              </div>
+              <div
+                className="Feed__navigationSpacer"
+              />
+              <div
+                className="Feed__navigationItem"
+                onClick={[Function]}
+              >
+                My Posts
+              </div>
+              <div
+                className="Feed__navigationSpacer"
+              />
+              <div
+                className="Feed__navigationItem"
+                onClick={[Function]}
+              >
+                All Posts
+              </div>
+            </nav>
+            <Button
+              className="Feed__newPostButton"
+              onClick={[Function]}
+            >
+              <Wave>
+                <button
+                  className="ant-btn Feed__newPostButton"
+                  onClick={[Function]}
+                  type="button"
+                >
+                  <LoadingIcon
+                    existIcon={false}
+                    loading={false}
+                    prefixCls="ant-btn"
+                  >
+                    <CSSMotion
+                      motionName="ant-btn-loading-icon-motion"
+                      onAppearActive={[Function]}
+                      onAppearStart={[Function]}
+                      onEnterActive={[Function]}
+                      onEnterStart={[Function]}
+                      onLeaveActive={[Function]}
+                      onLeaveStart={[Function]}
+                      removeOnLeave={true}
+                      visible={false}
+                    >
+                      <DomWrapper />
+                    </CSSMotion>
+                  </LoadingIcon>
+                  <span
+                    key=".0"
+                  >
+                    New Post
+                  </span>
+                </button>
+              </Wave>
+            </Button>
+          </div>
+          <PostList
+            feedType={0}
+          >
+            <div
+              className="PostList__block"
+            >
+              <Post
+                feedItem={
+                  Object {
+                    "blockNumber": 50,
+                    "content": Object {
+                      "@context": "https://www.w3.org/ns/activitystreams",
+                      "actor": "0x1DCODE0000",
+                      "attachment": Array [],
+                      "content": "Hello World",
+                      "id": "http://localhost:3003/api/announce/0x1DCODE0000",
+                      "type": "Note",
+                    },
+                    "fromAddress": "0x1DCODE0000",
+                    "hash": "04cc38a7a1ac3a1aa34abde4ca8bf118a2dd5885ce37c07cbffb615f3d872f4d",
+                    "inbox": false,
+                    "rawContent": "",
+                    "replies": Array [
+                      Object {
+                        "blockNumber": 50,
+                        "content": Object {
+                          "@context": "https://www.w3.org/ns/activitystreams",
+                          "actor": "0x1DCODE1111",
+                          "attachment": Array [],
+                          "content": "Hi Monday!",
+                          "id": "http://localhost:3003/api/announce/0x1DCODE1111",
+                          "type": "Note",
+                        },
+                        "fromAddress": "0x1DCODE1111",
+                        "hash": "04cc38a7a1ac3a1aa34abde4ca8bf118a2dd5885ce37c07cbffb615f3d872f4d",
+                        "inbox": false,
+                        "rawContent": "",
+                        "replies": Array [],
+                        "timestamp": 1608580122,
+                        "topic": "0xb4fc0e356691332d9ea3819c239aef5980ce60784568183bd2a540a9b9a6712c",
+                        "uri": "http://localhost:3003/api/announce/0x1DCODE1111",
+                      },
+                      Object {
+                        "blockNumber": 50,
+                        "content": Object {
+                          "@context": "https://www.w3.org/ns/activitystreams",
+                          "actor": "0x1DCODE2222",
+                          "attachment": Array [],
+                          "content": "Go away",
+                          "id": "http://localhost:3003/api/announce/0x1DCODE2222",
+                          "type": "Note",
+                        },
+                        "fromAddress": "0x1DCODE2222",
+                        "hash": "04cc38a7a1ac3a1aa34abde4ca8bf118a2dd5885ce37c07cbffb615f3d872f4d",
+                        "inbox": false,
+                        "rawContent": "",
+                        "replies": Array [
+                          Object {
+                            "blockNumber": 50,
+                            "content": Object {
+                              "@context": "https://www.w3.org/ns/activitystreams",
+                              "actor": "0x1DCODE0000",
+                              "attachment": Array [],
+                              "content": "You're mean",
+                              "id": "http://localhost:3003/api/announce/0x1DCODE0000",
+                              "type": "Note",
+                            },
+                            "fromAddress": "0x1DCODE0000",
+                            "hash": "04cc38a7a1ac3a1aa34abde4ca8bf118a2dd5885ce37c07cbffb615f3d872f4d",
+                            "inbox": false,
+                            "rawContent": "",
+                            "replies": Array [],
+                            "timestamp": 1608580122,
+                            "topic": "0xb4fc0e356691332d9ea3819c239aef5980ce60784568183bd2a540a9b9a6712c",
+                            "uri": "http://localhost:3003/api/announce/0x1DCODE0000",
+                          },
+                        ],
+                        "timestamp": 1608580122,
+                        "topic": "0xb4fc0e356691332d9ea3819c239aef5980ce60784568183bd2a540a9b9a6712c",
+                        "uri": "http://localhost:3003/api/announce/0x1DCODE2222",
+                      },
+                    ],
+                    "timestamp": 1608580122,
+                    "topic": "0xb4fc0e356691332d9ea3819c239aef5980ce60784568183bd2a540a9b9a6712c",
+                    "uri": "http://localhost:3003/api/announce/0x1DCODE0000",
+                  }
+                }
+                key="0"
+              >
+                <Card
+                  bordered={false}
+                  className="Post__block"
+                  key="04cc38a7a1ac3a1aa34abde4ca8bf118a2dd5885ce37c07cbffb615f3d872f4d"
+                >
+                  <div
+                    className="ant-card Post__block"
+                  >
+                    <div
+                      className="ant-card-body"
+                      style={Object {}}
+                    >
+                      <Meta
+                        avatar={
+                          <UserAvatar
+                            avatarSize="medium"
+                            profileAddress="0x1DCODE0000"
+                          />
+                        }
+                        description={
+                          <RelativeTime
+                            postStyle={true}
+                            timestamp={1608580122}
+                          />
+                        }
+                        title="0x1DCODE0000"
+                      >
+                        <div
+                          className="ant-card-meta"
+                        >
+                          <div
+                            className="ant-card-meta-avatar"
+                          >
+                            <UserAvatar
+                              avatarSize="medium"
+                              profileAddress="0x1DCODE0000"
+                            >
+                              <Avatar
+                                alt="0x1DCODE0000"
+                                shape="circle"
+                                size={50}
+                                src="data:image/png;base64,00"
+                              >
+                                <span
+                                  className="ant-avatar ant-avatar-circle ant-avatar-image"
+                                  style={
+                                    Object {
+                                      "fontSize": 18,
+                                      "height": 50,
+                                      "lineHeight": "50px",
+                                      "width": 50,
+                                    }
+                                  }
+                                >
+                                  <img
+                                    alt="0x1DCODE0000"
+                                    onError={[Function]}
+                                    src="data:image/png;base64,00"
+                                  />
+                                </span>
+                              </Avatar>
+                            </UserAvatar>
+                          </div>
+                          <div
+                            className="ant-card-meta-detail"
+                          >
+                            <div
+                              className="ant-card-meta-title"
+                            >
+                              0x1DCODE0000
+                            </div>
+                            <div
+                              className="ant-card-meta-description"
+                            >
+                              <RelativeTime
+                                postStyle={true}
+                                timestamp={1608580122}
+                              >
+                                <p
+                                  className="RelativeTime RelativeTime--post"
+                                >
+                                  Dec 21, 2020 •
+                                </p>
+                              </RelativeTime>
+                            </div>
+                          </div>
+                        </div>
+                      </Meta>
+                      <div
+                        className="Post__caption"
+                      >
+                        Hello World
+                      </div>
+                      <PostReply>
+                        <div
+                          className="PostReply__block"
+                        >
+                          <ForwardRef
+                            autoSize={true}
+                            className="PostReply__input"
+                            onChange={[Function]}
+                            onPressEnter={[Function]}
+                            placeholder="Reply..."
+                            value=""
+                          >
+                            <ClearableLabeledInput
+                              autoSize={true}
+                              bordered={true}
+                              element={
+                                <TextArea
+                                  autoSize={true}
+                                  className="PostReply__input"
+                                  onChange={[Function]}
+                                  onCompositionEnd={[Function]}
+                                  onCompositionStart={[Function]}
+                                  onPressEnter={[Function]}
+                                  placeholder="Reply..."
+                                  prefixCls="ant-input"
+                                  value=""
+                                />
+                              }
+                              handleReset={[Function]}
+                              inputType="text"
+                              onPressEnter={[Function]}
+                              placeholder="Reply..."
+                              prefixCls="ant-input"
+                              value=""
+                            >
+                              <TextArea
+                                autoSize={true}
+                                className="PostReply__input"
+                                onChange={[Function]}
+                                onCompositionEnd={[Function]}
+                                onCompositionStart={[Function]}
+                                onPressEnter={[Function]}
+                                placeholder="Reply..."
+                                prefixCls="ant-input"
+                                value=""
+                              >
+                                <ResizableTextArea
+                                  autoSize={true}
+                                  className="PostReply__input"
+                                  onChange={[Function]}
+                                  onCompositionEnd={[Function]}
+                                  onCompositionStart={[Function]}
+                                  onKeyDown={[Function]}
+                                  onPressEnter={[Function]}
+                                  placeholder="Reply..."
+                                  prefixCls="ant-input"
+                                  value=""
+                                >
+                                  <ResizeObserver
+                                    disabled={false}
+                                    onResize={[Function]}
+                                  >
+                                    <textarea
+                                      className="ant-input PostReply__input"
+                                      onChange={[Function]}
+                                      onCompositionEnd={[Function]}
+                                      onCompositionStart={[Function]}
+                                      onKeyDown={[Function]}
+                                      placeholder="Reply..."
+                                      style={
+                                        Object {
+                                          "height": 0,
+                                          "maxHeight": 9007199254740991,
+                                          "minHeight": -9007199254740991,
+                                          "overflowX": "hidden",
+                                          "overflowY": "hidden",
+                                          "resize": "none",
+                                        }
+                                      }
+                                      value=""
+                                    />
+                                  </ResizeObserver>
+                                </ResizableTextArea>
+                              </TextArea>
+                            </ClearableLabeledInput>
+                          </ForwardRef>
+                        </div>
+                      </PostReply>
+                    </div>
+                  </div>
+                </Card>
+              </Post>
+              <Post
+                feedItem={
+                  Object {
+                    "blockNumber": 50,
+                    "content": Object {
+                      "@context": "https://www.w3.org/ns/activitystreams",
+                      "actor": "0x1DCODE0000",
+                      "attachment": Array [],
+                      "content": "Going to the mall!",
+                      "id": "http://localhost:3003/api/announce/0x1DCODE0000",
+                      "type": "Note",
+                    },
+                    "fromAddress": "0x1DCODE0000",
+                    "hash": "04cc38a7a1ac3a1aa34abde4ca8bf118a2dd5885ce37c07cbffb615f3d872f4d",
+                    "inbox": false,
+                    "rawContent": "",
+                    "replies": Array [],
+                    "timestamp": 1608580122,
+                    "topic": "0xb4fc0e356691332d9ea3819c239aef5980ce60784568183bd2a540a9b9a6712c",
+                    "uri": "http://localhost:3003/api/announce/0x1DCODE0000",
+                  }
+                }
+                key="1"
+              >
+                <Card
+                  bordered={false}
+                  className="Post__block"
+                  key="04cc38a7a1ac3a1aa34abde4ca8bf118a2dd5885ce37c07cbffb615f3d872f4d"
+                >
+                  <div
+                    className="ant-card Post__block"
+                  >
+                    <div
+                      className="ant-card-body"
+                      style={Object {}}
+                    >
+                      <Meta
+                        avatar={
+                          <UserAvatar
+                            avatarSize="medium"
+                            profileAddress="0x1DCODE0000"
+                          />
+                        }
+                        description={
+                          <RelativeTime
+                            postStyle={true}
+                            timestamp={1608580122}
+                          />
+                        }
+                        title="0x1DCODE0000"
+                      >
+                        <div
+                          className="ant-card-meta"
+                        >
+                          <div
+                            className="ant-card-meta-avatar"
+                          >
+                            <UserAvatar
+                              avatarSize="medium"
+                              profileAddress="0x1DCODE0000"
+                            >
+                              <Avatar
+                                alt="0x1DCODE0000"
+                                shape="circle"
+                                size={50}
+                                src="data:image/png;base64,00"
+                              >
+                                <span
+                                  className="ant-avatar ant-avatar-circle ant-avatar-image"
+                                  style={
+                                    Object {
+                                      "fontSize": 18,
+                                      "height": 50,
+                                      "lineHeight": "50px",
+                                      "width": 50,
+                                    }
+                                  }
+                                >
+                                  <img
+                                    alt="0x1DCODE0000"
+                                    onError={[Function]}
+                                    src="data:image/png;base64,00"
+                                  />
+                                </span>
+                              </Avatar>
+                            </UserAvatar>
+                          </div>
+                          <div
+                            className="ant-card-meta-detail"
+                          >
+                            <div
+                              className="ant-card-meta-title"
+                            >
+                              0x1DCODE0000
+                            </div>
+                            <div
+                              className="ant-card-meta-description"
+                            >
+                              <RelativeTime
+                                postStyle={true}
+                                timestamp={1608580122}
+                              >
+                                <p
+                                  className="RelativeTime RelativeTime--post"
+                                >
+                                  Dec 21, 2020 •
+                                </p>
+                              </RelativeTime>
+                            </div>
+                          </div>
+                        </div>
+                      </Meta>
+                      <div
+                        className="Post__caption"
+                      >
+                        Going to the mall!
+                      </div>
+                      <PostReply>
+                        <div
+                          className="PostReply__block"
+                        >
+                          <ForwardRef
+                            autoSize={true}
+                            className="PostReply__input"
+                            onChange={[Function]}
+                            onPressEnter={[Function]}
+                            placeholder="Reply..."
+                            value=""
+                          >
+                            <ClearableLabeledInput
+                              autoSize={true}
+                              bordered={true}
+                              element={
+                                <TextArea
+                                  autoSize={true}
+                                  className="PostReply__input"
+                                  onChange={[Function]}
+                                  onCompositionEnd={[Function]}
+                                  onCompositionStart={[Function]}
+                                  onPressEnter={[Function]}
+                                  placeholder="Reply..."
+                                  prefixCls="ant-input"
+                                  value=""
+                                />
+                              }
+                              handleReset={[Function]}
+                              inputType="text"
+                              onPressEnter={[Function]}
+                              placeholder="Reply..."
+                              prefixCls="ant-input"
+                              value=""
+                            >
+                              <TextArea
+                                autoSize={true}
+                                className="PostReply__input"
+                                onChange={[Function]}
+                                onCompositionEnd={[Function]}
+                                onCompositionStart={[Function]}
+                                onPressEnter={[Function]}
+                                placeholder="Reply..."
+                                prefixCls="ant-input"
+                                value=""
+                              >
+                                <ResizableTextArea
+                                  autoSize={true}
+                                  className="PostReply__input"
+                                  onChange={[Function]}
+                                  onCompositionEnd={[Function]}
+                                  onCompositionStart={[Function]}
+                                  onKeyDown={[Function]}
+                                  onPressEnter={[Function]}
+                                  placeholder="Reply..."
+                                  prefixCls="ant-input"
+                                  value=""
+                                >
+                                  <ResizeObserver
+                                    disabled={false}
+                                    onResize={[Function]}
+                                  >
+                                    <textarea
+                                      className="ant-input PostReply__input"
+                                      onChange={[Function]}
+                                      onCompositionEnd={[Function]}
+                                      onCompositionStart={[Function]}
+                                      onKeyDown={[Function]}
+                                      placeholder="Reply..."
+                                      style={
+                                        Object {
+                                          "height": 0,
+                                          "maxHeight": 9007199254740991,
+                                          "minHeight": -9007199254740991,
+                                          "overflowX": "hidden",
+                                          "overflowY": "hidden",
+                                          "resize": "none",
+                                        }
+                                      }
+                                      value=""
+                                    />
+                                  </ResizeObserver>
+                                </ResizableTextArea>
+                              </TextArea>
+                            </ClearableLabeledInput>
+                          </ForwardRef>
+                        </div>
+                      </PostReply>
+                    </div>
+                  </div>
+                </Card>
+              </Post>
+            </div>
+          </PostList>
+        </div>
+      </Feed>
+    </Router>
+  </BrowserRouter>
+</Provider>
+`;
+
+exports[`Feed Displays Correct Feed My Feed 1`] = `
+<Provider
+  store={
+    Object {
+      "clearActions": [Function],
+      "dispatch": [Function],
+      "getActions": [Function],
+      "getState": [Function],
+      "replaceReducer": [Function],
+      "subscribe": [Function],
+    }
+  }
+>
+  <BrowserRouter>
+    <Router
+      history={
+        Object {
+          "action": "POP",
+          "block": [Function],
+          "createHref": [Function],
+          "go": [Function],
+          "goBack": [Function],
+          "goForward": [Function],
+          "length": 1,
+          "listen": [Function],
+          "location": Object {
+            "hash": "",
+            "pathname": "/",
+            "search": "",
+            "state": undefined,
+          },
+          "push": [Function],
+          "replace": [Function],
+        }
+      }
+    >
+      <Feed>
+        <div
+          className="Feed__block"
+        >
+          <div
+            className="Feed__header"
+          >
+            <nav
+              className="Feed__navigation"
+            >
+              <div
+                className="Feed__navigationItem"
+                onClick={[Function]}
+              >
+                Feed
+              </div>
+              <div
+                className="Feed__navigationSpacer"
+              />
+              <div
+                className="Feed__navigationItem Feed__navigationItem--active"
+                onClick={[Function]}
+              >
+                My Posts
+              </div>
+              <div
+                className="Feed__navigationSpacer"
+              />
+              <div
+                className="Feed__navigationItem"
+                onClick={[Function]}
+              >
+                All Posts
+              </div>
+            </nav>
+            <Button
+              className="Feed__newPostButton"
+              onClick={[Function]}
+            >
+              <Wave>
+                <button
+                  className="ant-btn Feed__newPostButton"
+                  onClick={[Function]}
+                  type="button"
+                >
+                  <LoadingIcon
+                    existIcon={false}
+                    loading={false}
+                    prefixCls="ant-btn"
+                  >
+                    <CSSMotion
+                      motionName="ant-btn-loading-icon-motion"
+                      onAppearActive={[Function]}
+                      onAppearStart={[Function]}
+                      onEnterActive={[Function]}
+                      onEnterStart={[Function]}
+                      onLeaveActive={[Function]}
+                      onLeaveStart={[Function]}
+                      removeOnLeave={true}
+                      visible={false}
+                    >
+                      <DomWrapper />
+                    </CSSMotion>
+                  </LoadingIcon>
+                  <span
+                    key=".0"
+                  >
+                    New Post
+                  </span>
+                </button>
+              </Wave>
+            </Button>
+          </div>
+          <PostList
+            feedType={1}
+          >
+            <div
+              className="PostList__block"
+            >
+              <Post
+                feedItem={
+                  Object {
+                    "blockNumber": 50,
+                    "content": Object {
+                      "@context": "https://www.w3.org/ns/activitystreams",
+                      "actor": "0x1DCODE0000",
+                      "attachment": Array [],
+                      "content": "Hello World",
+                      "id": "http://localhost:3003/api/announce/0x1DCODE0000",
+                      "type": "Note",
+                    },
+                    "fromAddress": "0x1DCODE0000",
+                    "hash": "04cc38a7a1ac3a1aa34abde4ca8bf118a2dd5885ce37c07cbffb615f3d872f4d",
+                    "inbox": false,
+                    "rawContent": "",
+                    "replies": Array [
+                      Object {
+                        "blockNumber": 50,
+                        "content": Object {
+                          "@context": "https://www.w3.org/ns/activitystreams",
+                          "actor": "0x1DCODE1111",
+                          "attachment": Array [],
+                          "content": "Hi Monday!",
+                          "id": "http://localhost:3003/api/announce/0x1DCODE1111",
+                          "type": "Note",
+                        },
+                        "fromAddress": "0x1DCODE1111",
+                        "hash": "04cc38a7a1ac3a1aa34abde4ca8bf118a2dd5885ce37c07cbffb615f3d872f4d",
+                        "inbox": false,
+                        "rawContent": "",
+                        "replies": Array [],
+                        "timestamp": 1608580122,
+                        "topic": "0xb4fc0e356691332d9ea3819c239aef5980ce60784568183bd2a540a9b9a6712c",
+                        "uri": "http://localhost:3003/api/announce/0x1DCODE1111",
+                      },
+                      Object {
+                        "blockNumber": 50,
+                        "content": Object {
+                          "@context": "https://www.w3.org/ns/activitystreams",
+                          "actor": "0x1DCODE2222",
+                          "attachment": Array [],
+                          "content": "Go away",
+                          "id": "http://localhost:3003/api/announce/0x1DCODE2222",
+                          "type": "Note",
+                        },
+                        "fromAddress": "0x1DCODE2222",
+                        "hash": "04cc38a7a1ac3a1aa34abde4ca8bf118a2dd5885ce37c07cbffb615f3d872f4d",
+                        "inbox": false,
+                        "rawContent": "",
+                        "replies": Array [
+                          Object {
+                            "blockNumber": 50,
+                            "content": Object {
+                              "@context": "https://www.w3.org/ns/activitystreams",
+                              "actor": "0x1DCODE0000",
+                              "attachment": Array [],
+                              "content": "You're mean",
+                              "id": "http://localhost:3003/api/announce/0x1DCODE0000",
+                              "type": "Note",
+                            },
+                            "fromAddress": "0x1DCODE0000",
+                            "hash": "04cc38a7a1ac3a1aa34abde4ca8bf118a2dd5885ce37c07cbffb615f3d872f4d",
+                            "inbox": false,
+                            "rawContent": "",
+                            "replies": Array [],
+                            "timestamp": 1608580122,
+                            "topic": "0xb4fc0e356691332d9ea3819c239aef5980ce60784568183bd2a540a9b9a6712c",
+                            "uri": "http://localhost:3003/api/announce/0x1DCODE0000",
+                          },
+                        ],
+                        "timestamp": 1608580122,
+                        "topic": "0xb4fc0e356691332d9ea3819c239aef5980ce60784568183bd2a540a9b9a6712c",
+                        "uri": "http://localhost:3003/api/announce/0x1DCODE2222",
+                      },
+                    ],
+                    "timestamp": 1608580122,
+                    "topic": "0xb4fc0e356691332d9ea3819c239aef5980ce60784568183bd2a540a9b9a6712c",
+                    "uri": "http://localhost:3003/api/announce/0x1DCODE0000",
+                  }
+                }
+                key="0"
+              >
+                <Card
+                  bordered={false}
+                  className="Post__block"
+                  key="04cc38a7a1ac3a1aa34abde4ca8bf118a2dd5885ce37c07cbffb615f3d872f4d"
+                >
+                  <div
+                    className="ant-card Post__block"
+                  >
+                    <div
+                      className="ant-card-body"
+                      style={Object {}}
+                    >
+                      <Meta
+                        avatar={
+                          <UserAvatar
+                            avatarSize="medium"
+                            profileAddress="0x1DCODE0000"
+                          />
+                        }
+                        description={
+                          <RelativeTime
+                            postStyle={true}
+                            timestamp={1608580122}
+                          />
+                        }
+                        title="0x1DCODE0000"
+                      >
+                        <div
+                          className="ant-card-meta"
+                        >
+                          <div
+                            className="ant-card-meta-avatar"
+                          >
+                            <UserAvatar
+                              avatarSize="medium"
+                              profileAddress="0x1DCODE0000"
+                            >
+                              <Avatar
+                                alt="0x1DCODE0000"
+                                shape="circle"
+                                size={50}
+                                src="data:image/png;base64,00"
+                              >
+                                <span
+                                  className="ant-avatar ant-avatar-circle ant-avatar-image"
+                                  style={
+                                    Object {
+                                      "fontSize": 18,
+                                      "height": 50,
+                                      "lineHeight": "50px",
+                                      "width": 50,
+                                    }
+                                  }
+                                >
+                                  <img
+                                    alt="0x1DCODE0000"
+                                    onError={[Function]}
+                                    src="data:image/png;base64,00"
+                                  />
+                                </span>
+                              </Avatar>
+                            </UserAvatar>
+                          </div>
+                          <div
+                            className="ant-card-meta-detail"
+                          >
+                            <div
+                              className="ant-card-meta-title"
+                            >
+                              0x1DCODE0000
+                            </div>
+                            <div
+                              className="ant-card-meta-description"
+                            >
+                              <RelativeTime
+                                postStyle={true}
+                                timestamp={1608580122}
+                              >
+                                <p
+                                  className="RelativeTime RelativeTime--post"
+                                >
+                                  Dec 21, 2020 •
+                                </p>
+                              </RelativeTime>
+                            </div>
+                          </div>
+                        </div>
+                      </Meta>
+                      <div
+                        className="Post__caption"
+                      >
+                        Hello World
+                      </div>
+                      <PostReply>
+                        <div
+                          className="PostReply__block"
+                        >
+                          <ForwardRef
+                            autoSize={true}
+                            className="PostReply__input"
+                            onChange={[Function]}
+                            onPressEnter={[Function]}
+                            placeholder="Reply..."
+                            value=""
+                          >
+                            <ClearableLabeledInput
+                              autoSize={true}
+                              bordered={true}
+                              element={
+                                <TextArea
+                                  autoSize={true}
+                                  className="PostReply__input"
+                                  onChange={[Function]}
+                                  onCompositionEnd={[Function]}
+                                  onCompositionStart={[Function]}
+                                  onPressEnter={[Function]}
+                                  placeholder="Reply..."
+                                  prefixCls="ant-input"
+                                  value=""
+                                />
+                              }
+                              handleReset={[Function]}
+                              inputType="text"
+                              onPressEnter={[Function]}
+                              placeholder="Reply..."
+                              prefixCls="ant-input"
+                              value=""
+                            >
+                              <TextArea
+                                autoSize={true}
+                                className="PostReply__input"
+                                onChange={[Function]}
+                                onCompositionEnd={[Function]}
+                                onCompositionStart={[Function]}
+                                onPressEnter={[Function]}
+                                placeholder="Reply..."
+                                prefixCls="ant-input"
+                                value=""
+                              >
+                                <ResizableTextArea
+                                  autoSize={true}
+                                  className="PostReply__input"
+                                  onChange={[Function]}
+                                  onCompositionEnd={[Function]}
+                                  onCompositionStart={[Function]}
+                                  onKeyDown={[Function]}
+                                  onPressEnter={[Function]}
+                                  placeholder="Reply..."
+                                  prefixCls="ant-input"
+                                  value=""
+                                >
+                                  <ResizeObserver
+                                    disabled={false}
+                                    onResize={[Function]}
+                                  >
+                                    <textarea
+                                      className="ant-input PostReply__input"
+                                      onChange={[Function]}
+                                      onCompositionEnd={[Function]}
+                                      onCompositionStart={[Function]}
+                                      onKeyDown={[Function]}
+                                      placeholder="Reply..."
+                                      style={
+                                        Object {
+                                          "height": 0,
+                                          "maxHeight": 9007199254740991,
+                                          "minHeight": -9007199254740991,
+                                          "overflowX": "hidden",
+                                          "overflowY": "hidden",
+                                          "resize": "none",
+                                        }
+                                      }
+                                      value=""
+                                    />
+                                  </ResizeObserver>
+                                </ResizableTextArea>
+                              </TextArea>
+                            </ClearableLabeledInput>
+                          </ForwardRef>
+                        </div>
+                      </PostReply>
+                    </div>
+                  </div>
+                </Card>
+              </Post>
+              <Post
+                feedItem={
+                  Object {
+                    "blockNumber": 50,
+                    "content": Object {
+                      "@context": "https://www.w3.org/ns/activitystreams",
+                      "actor": "0x1DCODE0000",
+                      "attachment": Array [],
+                      "content": "Going to the mall!",
+                      "id": "http://localhost:3003/api/announce/0x1DCODE0000",
+                      "type": "Note",
+                    },
+                    "fromAddress": "0x1DCODE0000",
+                    "hash": "04cc38a7a1ac3a1aa34abde4ca8bf118a2dd5885ce37c07cbffb615f3d872f4d",
+                    "inbox": false,
+                    "rawContent": "",
+                    "replies": Array [],
+                    "timestamp": 1608580122,
+                    "topic": "0xb4fc0e356691332d9ea3819c239aef5980ce60784568183bd2a540a9b9a6712c",
+                    "uri": "http://localhost:3003/api/announce/0x1DCODE0000",
+                  }
+                }
+                key="1"
+              >
+                <Card
+                  bordered={false}
+                  className="Post__block"
+                  key="04cc38a7a1ac3a1aa34abde4ca8bf118a2dd5885ce37c07cbffb615f3d872f4d"
+                >
+                  <div
+                    className="ant-card Post__block"
+                  >
+                    <div
+                      className="ant-card-body"
+                      style={Object {}}
+                    >
+                      <Meta
+                        avatar={
+                          <UserAvatar
+                            avatarSize="medium"
+                            profileAddress="0x1DCODE0000"
+                          />
+                        }
+                        description={
+                          <RelativeTime
+                            postStyle={true}
+                            timestamp={1608580122}
+                          />
+                        }
+                        title="0x1DCODE0000"
+                      >
+                        <div
+                          className="ant-card-meta"
+                        >
+                          <div
+                            className="ant-card-meta-avatar"
+                          >
+                            <UserAvatar
+                              avatarSize="medium"
+                              profileAddress="0x1DCODE0000"
+                            >
+                              <Avatar
+                                alt="0x1DCODE0000"
+                                shape="circle"
+                                size={50}
+                                src="data:image/png;base64,00"
+                              >
+                                <span
+                                  className="ant-avatar ant-avatar-circle ant-avatar-image"
+                                  style={
+                                    Object {
+                                      "fontSize": 18,
+                                      "height": 50,
+                                      "lineHeight": "50px",
+                                      "width": 50,
+                                    }
+                                  }
+                                >
+                                  <img
+                                    alt="0x1DCODE0000"
+                                    onError={[Function]}
+                                    src="data:image/png;base64,00"
+                                  />
+                                </span>
+                              </Avatar>
+                            </UserAvatar>
+                          </div>
+                          <div
+                            className="ant-card-meta-detail"
+                          >
+                            <div
+                              className="ant-card-meta-title"
+                            >
+                              0x1DCODE0000
+                            </div>
+                            <div
+                              className="ant-card-meta-description"
+                            >
+                              <RelativeTime
+                                postStyle={true}
+                                timestamp={1608580122}
+                              >
+                                <p
+                                  className="RelativeTime RelativeTime--post"
+                                >
+                                  Dec 21, 2020 •
+                                </p>
+                              </RelativeTime>
+                            </div>
+                          </div>
+                        </div>
+                      </Meta>
+                      <div
+                        className="Post__caption"
+                      >
+                        Going to the mall!
+                      </div>
+                      <PostReply>
+                        <div
+                          className="PostReply__block"
+                        >
+                          <ForwardRef
+                            autoSize={true}
+                            className="PostReply__input"
+                            onChange={[Function]}
+                            onPressEnter={[Function]}
+                            placeholder="Reply..."
+                            value=""
+                          >
+                            <ClearableLabeledInput
+                              autoSize={true}
+                              bordered={true}
+                              element={
+                                <TextArea
+                                  autoSize={true}
+                                  className="PostReply__input"
+                                  onChange={[Function]}
+                                  onCompositionEnd={[Function]}
+                                  onCompositionStart={[Function]}
+                                  onPressEnter={[Function]}
+                                  placeholder="Reply..."
+                                  prefixCls="ant-input"
+                                  value=""
+                                />
+                              }
+                              handleReset={[Function]}
+                              inputType="text"
+                              onPressEnter={[Function]}
+                              placeholder="Reply..."
+                              prefixCls="ant-input"
+                              value=""
+                            >
+                              <TextArea
+                                autoSize={true}
+                                className="PostReply__input"
+                                onChange={[Function]}
+                                onCompositionEnd={[Function]}
+                                onCompositionStart={[Function]}
+                                onPressEnter={[Function]}
+                                placeholder="Reply..."
+                                prefixCls="ant-input"
+                                value=""
+                              >
+                                <ResizableTextArea
+                                  autoSize={true}
+                                  className="PostReply__input"
+                                  onChange={[Function]}
+                                  onCompositionEnd={[Function]}
+                                  onCompositionStart={[Function]}
+                                  onKeyDown={[Function]}
+                                  onPressEnter={[Function]}
+                                  placeholder="Reply..."
+                                  prefixCls="ant-input"
+                                  value=""
+                                >
+                                  <ResizeObserver
+                                    disabled={false}
+                                    onResize={[Function]}
+                                  >
+                                    <textarea
+                                      className="ant-input PostReply__input"
+                                      onChange={[Function]}
+                                      onCompositionEnd={[Function]}
+                                      onCompositionStart={[Function]}
+                                      onKeyDown={[Function]}
+                                      placeholder="Reply..."
+                                      style={
+                                        Object {
+                                          "height": 0,
+                                          "maxHeight": 9007199254740991,
+                                          "minHeight": -9007199254740991,
+                                          "overflowX": "hidden",
+                                          "overflowY": "hidden",
+                                          "resize": "none",
+                                        }
+                                      }
+                                      value=""
+                                    />
+                                  </ResizeObserver>
+                                </ResizableTextArea>
+                              </TextArea>
+                            </ClearableLabeledInput>
+                          </ForwardRef>
+                        </div>
+                      </PostReply>
+                    </div>
+                  </div>
+                </Card>
+              </Post>
+            </div>
+          </PostList>
+        </div>
+      </Feed>
+    </Router>
+  </BrowserRouter>
+</Provider>
+`;
+
+exports[`Feed does display new post button when logged in 1`] = `
+<Provider
+  store={
+    Object {
+      "clearActions": [Function],
+      "dispatch": [Function],
+      "getActions": [Function],
+      "getState": [Function],
+      "replaceReducer": [Function],
+      "subscribe": [Function],
+    }
+  }
+>
+  <BrowserRouter>
+    <Router
+      history={
+        Object {
+          "action": "POP",
+          "block": [Function],
+          "createHref": [Function],
+          "go": [Function],
+          "goBack": [Function],
+          "goForward": [Function],
+          "length": 1,
+          "listen": [Function],
+          "location": Object {
+            "hash": "",
+            "pathname": "/",
+            "search": "",
+            "state": undefined,
+          },
+          "push": [Function],
+          "replace": [Function],
+        }
+      }
+    >
+      <Feed>
+        <div
+          className="Feed__block"
+        >
+          <div
+            className="Feed__header"
+          >
+            <nav
+              className="Feed__navigation"
+            >
+              <div
+                className="Feed__navigationItem Feed__navigationItem--active"
+                onClick={[Function]}
+              >
+                Feed
+              </div>
+              <div
+                className="Feed__navigationSpacer"
+              />
+              <div
+                className="Feed__navigationItem"
+                onClick={[Function]}
+              >
+                My Posts
+              </div>
+              <div
+                className="Feed__navigationSpacer"
+              />
+              <div
+                className="Feed__navigationItem"
+                onClick={[Function]}
+              >
+                All Posts
+              </div>
+            </nav>
+            <Button
+              className="Feed__newPostButton"
+              onClick={[Function]}
+            >
+              <Wave>
+                <button
+                  className="ant-btn Feed__newPostButton"
+                  onClick={[Function]}
+                  type="button"
+                >
+                  <LoadingIcon
+                    existIcon={false}
+                    loading={false}
+                    prefixCls="ant-btn"
+                  >
+                    <CSSMotion
+                      motionName="ant-btn-loading-icon-motion"
+                      onAppearActive={[Function]}
+                      onAppearStart={[Function]}
+                      onEnterActive={[Function]}
+                      onEnterStart={[Function]}
+                      onLeaveActive={[Function]}
+                      onLeaveStart={[Function]}
+                      removeOnLeave={true}
+                      visible={false}
+                    >
+                      <DomWrapper />
+                    </CSSMotion>
+                  </LoadingIcon>
+                  <span
+                    key=".0"
+                  >
+                    New Post
+                  </span>
+                </button>
+              </Wave>
+            </Button>
+          </div>
+          <PostList
+            feedType={0}
+          >
+            <div
+              className="PostList__block"
+            >
+              <Post
+                feedItem={
+                  Object {
+                    "blockNumber": 50,
+                    "content": Object {
+                      "@context": "https://www.w3.org/ns/activitystreams",
+                      "actor": "0x1DCODE0000",
+                      "attachment": Array [],
+                      "content": "Hello World",
+                      "id": "http://localhost:3003/api/announce/0x1DCODE0000",
+                      "type": "Note",
+                    },
+                    "fromAddress": "0x1DCODE0000",
+                    "hash": "04cc38a7a1ac3a1aa34abde4ca8bf118a2dd5885ce37c07cbffb615f3d872f4d",
+                    "inbox": false,
+                    "rawContent": "",
+                    "replies": Array [
+                      Object {
+                        "blockNumber": 50,
+                        "content": Object {
+                          "@context": "https://www.w3.org/ns/activitystreams",
+                          "actor": "0x1DCODE1111",
+                          "attachment": Array [],
+                          "content": "Hi Monday!",
+                          "id": "http://localhost:3003/api/announce/0x1DCODE1111",
+                          "type": "Note",
+                        },
+                        "fromAddress": "0x1DCODE1111",
+                        "hash": "04cc38a7a1ac3a1aa34abde4ca8bf118a2dd5885ce37c07cbffb615f3d872f4d",
+                        "inbox": false,
+                        "rawContent": "",
+                        "replies": Array [],
+                        "timestamp": 1608580122,
+                        "topic": "0xb4fc0e356691332d9ea3819c239aef5980ce60784568183bd2a540a9b9a6712c",
+                        "uri": "http://localhost:3003/api/announce/0x1DCODE1111",
+                      },
+                      Object {
+                        "blockNumber": 50,
+                        "content": Object {
+                          "@context": "https://www.w3.org/ns/activitystreams",
+                          "actor": "0x1DCODE2222",
+                          "attachment": Array [],
+                          "content": "Go away",
+                          "id": "http://localhost:3003/api/announce/0x1DCODE2222",
+                          "type": "Note",
+                        },
+                        "fromAddress": "0x1DCODE2222",
+                        "hash": "04cc38a7a1ac3a1aa34abde4ca8bf118a2dd5885ce37c07cbffb615f3d872f4d",
+                        "inbox": false,
+                        "rawContent": "",
+                        "replies": Array [
+                          Object {
+                            "blockNumber": 50,
+                            "content": Object {
+                              "@context": "https://www.w3.org/ns/activitystreams",
+                              "actor": "0x1DCODE0000",
+                              "attachment": Array [],
+                              "content": "You're mean",
+                              "id": "http://localhost:3003/api/announce/0x1DCODE0000",
+                              "type": "Note",
+                            },
+                            "fromAddress": "0x1DCODE0000",
+                            "hash": "04cc38a7a1ac3a1aa34abde4ca8bf118a2dd5885ce37c07cbffb615f3d872f4d",
+                            "inbox": false,
+                            "rawContent": "",
+                            "replies": Array [],
+                            "timestamp": 1608580122,
+                            "topic": "0xb4fc0e356691332d9ea3819c239aef5980ce60784568183bd2a540a9b9a6712c",
+                            "uri": "http://localhost:3003/api/announce/0x1DCODE0000",
+                          },
+                        ],
+                        "timestamp": 1608580122,
+                        "topic": "0xb4fc0e356691332d9ea3819c239aef5980ce60784568183bd2a540a9b9a6712c",
+                        "uri": "http://localhost:3003/api/announce/0x1DCODE2222",
+                      },
+                    ],
+                    "timestamp": 1608580122,
+                    "topic": "0xb4fc0e356691332d9ea3819c239aef5980ce60784568183bd2a540a9b9a6712c",
+                    "uri": "http://localhost:3003/api/announce/0x1DCODE0000",
+                  }
+                }
+                key="0"
+              >
+                <Card
+                  bordered={false}
+                  className="Post__block"
+                  key="04cc38a7a1ac3a1aa34abde4ca8bf118a2dd5885ce37c07cbffb615f3d872f4d"
+                >
+                  <div
+                    className="ant-card Post__block"
+                  >
+                    <div
+                      className="ant-card-body"
+                      style={Object {}}
+                    >
+                      <Meta
+                        avatar={
+                          <UserAvatar
+                            avatarSize="medium"
+                            profileAddress="0x1DCODE0000"
+                          />
+                        }
+                        description={
+                          <RelativeTime
+                            postStyle={true}
+                            timestamp={1608580122}
+                          />
+                        }
+                        title="0x1DCODE0000"
+                      >
+                        <div
+                          className="ant-card-meta"
+                        >
+                          <div
+                            className="ant-card-meta-avatar"
+                          >
+                            <UserAvatar
+                              avatarSize="medium"
+                              profileAddress="0x1DCODE0000"
+                            >
+                              <Avatar
+                                alt="0x1DCODE0000"
+                                shape="circle"
+                                size={50}
+                                src="data:image/png;base64,00"
+                              >
+                                <span
+                                  className="ant-avatar ant-avatar-circle ant-avatar-image"
+                                  style={
+                                    Object {
+                                      "fontSize": 18,
+                                      "height": 50,
+                                      "lineHeight": "50px",
+                                      "width": 50,
+                                    }
+                                  }
+                                >
+                                  <img
+                                    alt="0x1DCODE0000"
+                                    onError={[Function]}
+                                    src="data:image/png;base64,00"
+                                  />
+                                </span>
+                              </Avatar>
+                            </UserAvatar>
+                          </div>
+                          <div
+                            className="ant-card-meta-detail"
+                          >
+                            <div
+                              className="ant-card-meta-title"
+                            >
+                              0x1DCODE0000
+                            </div>
+                            <div
+                              className="ant-card-meta-description"
+                            >
+                              <RelativeTime
+                                postStyle={true}
+                                timestamp={1608580122}
+                              >
+                                <p
+                                  className="RelativeTime RelativeTime--post"
+                                >
+                                  Dec 21, 2020 •
+                                </p>
+                              </RelativeTime>
+                            </div>
+                          </div>
+                        </div>
+                      </Meta>
+                      <div
+                        className="Post__caption"
+                      >
+                        Hello World
+                      </div>
+                      <PostReply>
+                        <div
+                          className="PostReply__block"
+                        >
+                          <ForwardRef
+                            autoSize={true}
+                            className="PostReply__input"
+                            onChange={[Function]}
+                            onPressEnter={[Function]}
+                            placeholder="Reply..."
+                            value=""
+                          >
+                            <ClearableLabeledInput
+                              autoSize={true}
+                              bordered={true}
+                              element={
+                                <TextArea
+                                  autoSize={true}
+                                  className="PostReply__input"
+                                  onChange={[Function]}
+                                  onCompositionEnd={[Function]}
+                                  onCompositionStart={[Function]}
+                                  onPressEnter={[Function]}
+                                  placeholder="Reply..."
+                                  prefixCls="ant-input"
+                                  value=""
+                                />
+                              }
+                              handleReset={[Function]}
+                              inputType="text"
+                              onPressEnter={[Function]}
+                              placeholder="Reply..."
+                              prefixCls="ant-input"
+                              value=""
+                            >
+                              <TextArea
+                                autoSize={true}
+                                className="PostReply__input"
+                                onChange={[Function]}
+                                onCompositionEnd={[Function]}
+                                onCompositionStart={[Function]}
+                                onPressEnter={[Function]}
+                                placeholder="Reply..."
+                                prefixCls="ant-input"
+                                value=""
+                              >
+                                <ResizableTextArea
+                                  autoSize={true}
+                                  className="PostReply__input"
+                                  onChange={[Function]}
+                                  onCompositionEnd={[Function]}
+                                  onCompositionStart={[Function]}
+                                  onKeyDown={[Function]}
+                                  onPressEnter={[Function]}
+                                  placeholder="Reply..."
+                                  prefixCls="ant-input"
+                                  value=""
+                                >
+                                  <ResizeObserver
+                                    disabled={false}
+                                    onResize={[Function]}
+                                  >
+                                    <textarea
+                                      className="ant-input PostReply__input"
+                                      onChange={[Function]}
+                                      onCompositionEnd={[Function]}
+                                      onCompositionStart={[Function]}
+                                      onKeyDown={[Function]}
+                                      placeholder="Reply..."
+                                      style={
+                                        Object {
+                                          "height": 0,
+                                          "maxHeight": 9007199254740991,
+                                          "minHeight": -9007199254740991,
+                                          "overflowX": "hidden",
+                                          "overflowY": "hidden",
+                                          "resize": "none",
+                                        }
+                                      }
+                                      value=""
+                                    />
+                                  </ResizeObserver>
+                                </ResizableTextArea>
+                              </TextArea>
+                            </ClearableLabeledInput>
+                          </ForwardRef>
+                        </div>
+                      </PostReply>
+                    </div>
+                  </div>
+                </Card>
+              </Post>
+              <Post
+                feedItem={
+                  Object {
+                    "blockNumber": 50,
+                    "content": Object {
+                      "@context": "https://www.w3.org/ns/activitystreams",
+                      "actor": "0x1DCODE0000",
+                      "attachment": Array [],
+                      "content": "Going to the mall!",
+                      "id": "http://localhost:3003/api/announce/0x1DCODE0000",
+                      "type": "Note",
+                    },
+                    "fromAddress": "0x1DCODE0000",
+                    "hash": "04cc38a7a1ac3a1aa34abde4ca8bf118a2dd5885ce37c07cbffb615f3d872f4d",
+                    "inbox": false,
+                    "rawContent": "",
+                    "replies": Array [],
+                    "timestamp": 1608580122,
+                    "topic": "0xb4fc0e356691332d9ea3819c239aef5980ce60784568183bd2a540a9b9a6712c",
+                    "uri": "http://localhost:3003/api/announce/0x1DCODE0000",
+                  }
+                }
+                key="1"
+              >
+                <Card
+                  bordered={false}
+                  className="Post__block"
+                  key="04cc38a7a1ac3a1aa34abde4ca8bf118a2dd5885ce37c07cbffb615f3d872f4d"
+                >
+                  <div
+                    className="ant-card Post__block"
+                  >
+                    <div
+                      className="ant-card-body"
+                      style={Object {}}
+                    >
+                      <Meta
+                        avatar={
+                          <UserAvatar
+                            avatarSize="medium"
+                            profileAddress="0x1DCODE0000"
+                          />
+                        }
+                        description={
+                          <RelativeTime
+                            postStyle={true}
+                            timestamp={1608580122}
+                          />
+                        }
+                        title="0x1DCODE0000"
+                      >
+                        <div
+                          className="ant-card-meta"
+                        >
+                          <div
+                            className="ant-card-meta-avatar"
+                          >
+                            <UserAvatar
+                              avatarSize="medium"
+                              profileAddress="0x1DCODE0000"
+                            >
+                              <Avatar
+                                alt="0x1DCODE0000"
+                                shape="circle"
+                                size={50}
+                                src="data:image/png;base64,00"
+                              >
+                                <span
+                                  className="ant-avatar ant-avatar-circle ant-avatar-image"
+                                  style={
+                                    Object {
+                                      "fontSize": 18,
+                                      "height": 50,
+                                      "lineHeight": "50px",
+                                      "width": 50,
+                                    }
+                                  }
+                                >
+                                  <img
+                                    alt="0x1DCODE0000"
+                                    onError={[Function]}
+                                    src="data:image/png;base64,00"
+                                  />
+                                </span>
+                              </Avatar>
+                            </UserAvatar>
+                          </div>
+                          <div
+                            className="ant-card-meta-detail"
+                          >
+                            <div
+                              className="ant-card-meta-title"
+                            >
+                              0x1DCODE0000
+                            </div>
+                            <div
+                              className="ant-card-meta-description"
+                            >
+                              <RelativeTime
+                                postStyle={true}
+                                timestamp={1608580122}
+                              >
+                                <p
+                                  className="RelativeTime RelativeTime--post"
+                                >
+                                  Dec 21, 2020 •
+                                </p>
+                              </RelativeTime>
+                            </div>
+                          </div>
+                        </div>
+                      </Meta>
+                      <div
+                        className="Post__caption"
+                      >
+                        Going to the mall!
                       </div>
                       <PostReply>
                         <div
