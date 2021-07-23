@@ -34,7 +34,7 @@ const Login = ({ loginWalletOptions }: LoginProps): JSX.Element => {
       dispatch(upsertGraph(graph));
       session.saveSession({ profile, walletType });
 
-      sdk.setupProvider();
+      sdk.setupProvider(walletType);
 
       startLoading(false);
     } catch (error) {

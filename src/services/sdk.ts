@@ -14,6 +14,8 @@ import {
   SignedBroadcastAnnouncement,
 } from "@dsnp/sdk/core/announcements";
 import { BatchPublicationCallbackArgs } from "@dsnp/sdk/core/contracts/subscription";
+import { WalletType } from "./wallets/wallet";
+import torusWallet from "./wallets/torus";
 
 interface BatchFileData {
   url: URL;
@@ -77,13 +79,27 @@ export const startPostSubscription = (
   );
 };
 
-export const setupProvider = (): void => {
-  const global: any = window;
-  const eth = global.ethereum;
+export const setupProvider = (walletType: WalletType): void => {
+  let eth;
 
-  if (!eth) {
+  console.log("setup provider: wallet type:", walletType);
+  if (walletType === WalletType.TORUS) {
+    console.log("torusWallet Web3", torusWallet.getWeb3().currentProvider);
+    const global: any = window;
+    eth = torusWallet.getWeb3().currentProvider;
+    global.torus = torusWallet;
+  } else if (walletType === WalletType.METAMASK) {
+    const global: any = window;
+    eth = global.ethereum;
+
+    if (!eth) {
+      throw new Error(
+        "Could not create provider, because ethereum has not been set"
+      );
+    }
+  } else {
     throw new Error(
-      "Could not create provider, because ethereum has not been set"
+      `Unknown walletType attempting to setup provider: ${walletType}`
     );
   }
 
