@@ -25,7 +25,9 @@ const PostList = ({ feedType }: PostListProps): JSX.Element => {
   );
   const feed: FeedItem<ActivityContentNote>[] = useAppSelector(
     (state) => state.feed.feed
-  ).filter((post) => post?.content?.type === "Note");
+  ).filter(
+    (post) => post?.content?.type === "Note" && post?.inReplyTo === undefined
+  );
   const profiles: Record<HexString, Profile> = useAppSelector(
     (state) => state.profiles?.profiles || {}
   );

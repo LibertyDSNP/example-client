@@ -13,8 +13,7 @@ const ReplyBlock = ({ parent }: ReplyBlockProps): JSX.Element => {
   const replyFeed: FeedItem<ActivityContentNote>[] = useAppSelector(
     (state) => state.feed.feed
   ).filter(
-    (reply) =>
-      reply?.content?.type === "Note" && reply?.content?.inReplyTo === parent
+    (reply) => reply?.content?.type === "Note" && reply?.inReplyTo === parent
   ) as FeedItem<ActivityContentNote>[];
 
   return (

@@ -17,6 +17,8 @@ import {
   BroadcastAnnouncement,
   AnnouncementType,
   SignedBroadcastAnnouncement,
+  SignedReplyAnnouncement,
+  ReplyAnnouncement,
 } from "@dsnp/sdk/core/announcements";
 import { BatchPublicationCallbackArgs } from "@dsnp/sdk/core/contracts/subscription";
 import { WalletType } from "./wallets/wallet";
@@ -62,14 +64,42 @@ export const sendPost = async (
 ): Promise<void> => {
   if (!post.content) return;
 
-  const hash = await storeActivityContentactivityContent(post.content);
-  const announcement = await buildAndSignAnnouncement(hash);
+  const hash = await storeActivityContent(post.content);
+  const announcement = await buildAndSignPostAnnouncement(hash, post);
 
   const batchData = await core.batch.createFile(hash + ".parquet", [
     announcement,
   ]);
 
-  const publication = buildPublication(batchData);
+  const publication = buildPublication(
+    batchData,
+    core.announcements.AnnouncementType.Broadcast
+  );
+
+  await core.contracts.publisher.publish([publication]);
+};
+
+export const sendReply = async (
+  reply: FeedItem<ActivityContentNote>,
+  inReplyTo: HexString
+): Promise<void> => {
+  if (!reply.content || !inReplyTo) return;
+
+  const hash = await storeActivityContent(reply.content);
+  const announcement = await buildAndSignReplyAnnouncement(
+    hash,
+    reply.fromAddress,
+    inReplyTo
+  );
+
+  const batchData = await core.batch.createFile(hash + ".parquet", [
+    announcement,
+  ]);
+
+  const publication = buildPublication(
+    batchData,
+    core.announcements.AnnouncementType.Reply
+  );
 
   await core.contracts.publisher.publish([publication]);
 };
@@ -115,9 +145,9 @@ export const setupProvider = (walletType: WalletType): void => {
   });
 };
 
-const buildPublication = (batchData: BatchFileData): Publication => {
+const buildPublication = (batchData: BatchFileData, type: any): Publication => {
   return {
-    announcementType: core.announcements.AnnouncementType.Broadcast,
+    announcementType: type,
     fileUrl: batchData.url.toString(),
     fileHash: batchData.hash,
   };
@@ -150,25 +180,31 @@ const dispatchActivityContent = (
 
 const dispatchFeedItem = (
   dispatch: Dispatch,
-  message: BroadcastAnnouncement,
-  activityContent: ActivityContentNote,
+  message: BroadcastAnnouncement | ReplyAnnouncement,
+  content: ActivityContentNote,
   blockNumber: number
 ) => {
   const decoder = new TextDecoder();
+
+  console.log("dispatch feed item: ", content);
 
   dispatch(
     addFeedItem({
       fromAddress: decoder.decode((message.fromId as any) as Uint8Array),
       blockNumber: blockNumber,
       hash: decoder.decode((message.contentHash as any) as Uint8Array),
-      timestamp: new Date(activityContent.published).getTime(), // TODO: really wrong
+      timestamp: new Date(content.published).getTime(), // TODO: really wrong
       uri: decoder.decode((message.url as any) as Uint8Array),
       content: {
         "@context": "https://www.w3.org/ns/activitystreams",
         type: "Note",
-        published: activityContent.published,
-        content: activityContent.content || "",
+        published: content.published,
+        content: content.content || "",
       },
+      inReplyTo:
+        message.announcementType === core.announcements.AnnouncementType.Reply
+          ? message.inReplyTo
+          : undefined,
     })
   );
 };
@@ -192,6 +228,7 @@ const dispatchProfile = (
 const handleBatchAnnouncement = (dispatch: Dispatch) => (
   announcement: BatchPublicationCallbackArgs
 ) => {
+  console.log("handleBatchAnnouncement", announcement);
   core.batch
     .openURL((announcement.fileUrl.toString() as any) as URL)
     .then((reader: any) =>
@@ -216,7 +253,7 @@ const handleBatchAnnouncement = (dispatch: Dispatch) => (
     .catch((err) => console.log(err));
 };
 
-const storeActivityContentactivityContent = async (
+const storeActivityContent = async (
   content: ActivityContent
 ): Promise<string> => {
   const hash = keccak256(core.activityContent.serialize(content));
@@ -234,13 +271,28 @@ const storeActivityContentactivityContent = async (
   return hash;
 };
 
-const buildAndSignAnnouncement = async (
-  hash: string
+const buildAndSignPostAnnouncement = async (
+  hash: string,
+  post: FeedItem<ActivityContentNote>
 ): Promise<SignedBroadcastAnnouncement> => ({
   ...core.announcements.createBroadcast(
-    "0x1111",
+    post.fromAddress,
     `${process.env.REACT_APP_UPLOAD_HOST}/${hash}.json`,
     hash
+  ),
+  signature: "0x00000000", // TODO: call out to wallet to get this signed
+});
+
+const buildAndSignReplyAnnouncement = async (
+  hash: string,
+  replyFromAddress: HexString,
+  replyInReplyTo: HexString
+): Promise<SignedReplyAnnouncement> => ({
+  ...core.announcements.createReply(
+    replyFromAddress,
+    `${process.env.REACT_APP_UPLOAD_HOST}/${hash}.json`,
+    hash,
+    replyInReplyTo
   ),
   signature: "0x00000000", // TODO: call out to wallet to get this signed
 });
