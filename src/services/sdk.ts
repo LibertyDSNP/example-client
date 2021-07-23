@@ -82,12 +82,8 @@ export const startPostSubscription = (
 export const setupProvider = (walletType: WalletType): void => {
   let eth;
 
-  console.log("setup provider: wallet type:", walletType);
   if (walletType === WalletType.TORUS) {
-    console.log("torusWallet Web3", torusWallet.getWeb3().currentProvider);
-    const global: any = window;
     eth = torusWallet.getWeb3().currentProvider;
-    global.torus = torusWallet;
   } else if (walletType === WalletType.METAMASK) {
     const global: any = window;
     eth = global.ethereum;
