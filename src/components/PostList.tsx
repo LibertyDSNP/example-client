@@ -2,6 +2,8 @@ import React from "react";
 import Post from "./Post";
 import { FeedItem, Graph, Profile } from "../utilities/types";
 import { useAppSelector } from "../redux/hooks";
+import { HexString } from "@dsnp/sdk/dist/types/types/Strings";
+import { current } from "@reduxjs/toolkit";
 
 enum FeedTypes {
   FEED,
@@ -23,6 +25,9 @@ const PostList = ({ feedType }: PostListProps): JSX.Element => {
   );
   const feed: FeedItem[] = useAppSelector((state) => state.feed.feed).filter(
     (post) => post?.content?.type === "Note"
+  );
+  const profiles: Record<HexString, Profile> = useAppSelector(
+    (state) => state.profiles.profiles
   );
   let currentFeed: FeedItem[] = [];
 
@@ -54,9 +59,15 @@ const PostList = ({ feedType }: PostListProps): JSX.Element => {
           {currentFeed
             .slice(0)
             .reverse()
-            .map((post, index) => (
-              <Post key={index} feedItem={post} />
-            ))}
+            .map((post, index) => {
+              const namedPost = {
+                ...post,
+                fromAddress: profiles[post.fromAddress]
+                  ? profiles[post.fromAddress].name
+                  : post.fromAddress,
+              };
+              return <Post key={index} feedItem={namedPost} />;
+            })}
         </>
       ) : (
         "Empty Feed!"

@@ -20,7 +20,7 @@ const ConnectionsList = (): JSX.Element => {
   const graph: Graph | undefined = graphs.find(
     ({ socialAddress }) => socialAddress === profile?.socialAddress
   );
-  const cachedProfiles: Profile[] = useAppSelector(
+  const cachedProfiles: Record<HexString, Profile> = useAppSelector(
     (state) => state.profiles.profiles
   );
   const [selectedListTitle, setSelectedListTitle] = useState<ListStatus>(
@@ -35,9 +35,7 @@ const ConnectionsList = (): JSX.Element => {
   const getConnectionProfile = async (
     socialAddress: HexString
   ): Promise<Profile> => {
-    let userProfile = cachedProfiles.find(
-      (profile) => profile.socialAddress === socialAddress
-    );
+    let userProfile = cachedProfiles[socialAddress];
     if (!userProfile) {
       userProfile = await sdk.getProfile(socialAddress);
       stableDispatch(upsertProfile(userProfile));

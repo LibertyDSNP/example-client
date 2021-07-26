@@ -42,7 +42,7 @@ const ConnectionsListProfiles = ({
             profileAddress={userProfile.socialAddress}
           />
           <div className="ConnectionsListProfiles__name">
-            {userProfile.name || userProfile.handle || "Anonymous"}
+            {userProfile.name || userProfile.socialAddress || "Anonymous"}
           </div>
           <Button
             className="ConnectionsListProfiles__button"

@@ -1,12 +1,7 @@
 import { randInt } from "@dsnp/test-generators";
 import { Profile, HexString } from "../utilities/types";
-import {
-  generateSocialAddress,
-  generateWalletAddress,
-  getPrefabSocialAddress,
-  getPrefabWalletAddress,
-} from "./testAddresses";
-import { prefabFirstNames, prefabLastNames, randImage } from "./testhelpers";
+import { generateSocialAddress, getPrefabSocialAddress } from "./testAddresses";
+import { prefabFirstNames, prefabLastNames } from "./testhelpers";
 
 /**
  * Generate a complete Profile
@@ -16,25 +11,15 @@ import { prefabFirstNames, prefabLastNames, randImage } from "./testhelpers";
  * @param icon the image/icon to use for the profile
  */
 export const generateProfile = (
-  walletAddress: HexString,
   socialAddress: HexString,
-  name?: string,
-  handle?: string,
-  icon?: string
+  name?: string
 ): Profile => {
   return {
     "@context": "https://www.w3.org/ns/activitystreams",
     name: name || "",
-    handle: handle || "",
-    icon: { url: icon || "" },
-    walletAddress,
     socialAddress,
-    actor: socialAddress,
-    discoverable: true,
     type: "Person",
-    summary: "",
-    url: "",
-    id: "http://localhost:3003/api/announce/" + socialAddress,
+    published: "17ad9d83a36",
   };
 };
 
@@ -43,20 +28,10 @@ export const generateProfile = (
  * names and a generated social address
  */
 export const generateRandomProfile = (): Profile => {
-  const walletAddress = generateWalletAddress();
   const socialAddress = generateSocialAddress();
   const firstName = prefabFirstNames[randInt(prefabFirstNames.length)];
   const lastName = prefabLastNames[randInt(prefabLastNames.length)];
-  const handle =
-    firstName.substring(0, 3) + lastName.substring(0, 3).toLocaleLowerCase();
-  const icon = randImage;
-  return generateProfile(
-    walletAddress,
-    socialAddress,
-    firstName + " " + lastName,
-    handle,
-    icon
-  );
+  return generateProfile(socialAddress, firstName + " " + lastName);
 };
 
 /**
@@ -73,55 +48,13 @@ export const getPrefabProfile = (index: number): Profile => {
  * work with other prefab components
  */
 export const preFabProfiles = [
-  generateProfile(
-    getPrefabWalletAddress(0),
-    getPrefabSocialAddress(0),
-    "Monday January",
-    "0Monday0",
-    "https://image.shutterstock.com/image-vector/monday-time-sparkle-shine-word-600w-731826949.jpg"
-  ),
-  generateProfile(
-    getPrefabWalletAddress(1),
-    getPrefabSocialAddress(1),
-    "Tuesday February",
-    "1Tuesday1",
-    "https://image.shutterstock.com/image-vector/traditional-taco-tuesday-neon-light-600w-1193206603.jpg"
-  ),
-  generateProfile(
-    getPrefabWalletAddress(2),
-    getPrefabSocialAddress(2),
-    "Wednesday March",
-    "2Wednesday2",
-    "https://image.shutterstock.com/image-vector/wednesday-pop-art-illustration-vector-600w-219333010.jpg"
-  ),
-  generateProfile(
-    getPrefabWalletAddress(3),
-    getPrefabSocialAddress(3),
-    "Thursday April",
-    "3Thursday3",
-    "https://image.shutterstock.com/image-vector/throwback-thursday-brush-lettering-vector-600w-467925458.jpg"
-  ),
-  generateProfile(
-    getPrefabWalletAddress(4),
-    getPrefabSocialAddress(4),
-    "Friday May",
-    "4Friday4",
-    "https://image.shutterstock.com/image-vector/friday-loading-concept-vector-illustration-600w-1160548075.jpg"
-  ),
-  generateProfile(
-    getPrefabWalletAddress(5),
-    getPrefabSocialAddress(5),
-    "Saturday June",
-    "5Saturday5",
-    "https://image.shutterstock.com/image-vector/hello-saturday-typographic-design-vector-600w-394210252.jpg"
-  ),
-  generateProfile(
-    getPrefabWalletAddress(6),
-    getPrefabSocialAddress(6),
-    "Sunday July",
-    "6Sunday6",
-    "https://image.shutterstock.com/image-vector/sunday-funday-hand-written-lettering-600w-1420085606.jpg"
-  ),
+  generateProfile(getPrefabSocialAddress(0), "Monday January"),
+  generateProfile(getPrefabSocialAddress(1), "Tuesday February"),
+  generateProfile(getPrefabSocialAddress(2), "Wednesday March"),
+  generateProfile(getPrefabSocialAddress(3), "Thursday April"),
+  generateProfile(getPrefabSocialAddress(4), "Friday May"),
+  generateProfile(getPrefabSocialAddress(5), "Saturday June"),
+  generateProfile(getPrefabSocialAddress(6), "Sunday July"),
 ];
 
 export const getPrefabProfileByAddress = (
