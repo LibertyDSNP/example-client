@@ -37,7 +37,6 @@ const NewPost = ({ onSuccess, onCancel }: NewPostProps): JSX.Element => {
   const createPost = async () => {
     if (!profile) return;
     const newPostFeedItem: FeedItem<ActivityContentNote> = await createNote(
-      profile.socialAddress,
       postMessage,
       uriList
     );

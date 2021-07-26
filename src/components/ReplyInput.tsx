@@ -1,6 +1,6 @@
 import { Input } from "antd";
 import React, { useState } from "react";
-import { storeReply } from "../services/Storage";
+import { createNote } from "../services/Storage";
 import { sendReply } from "../services/sdk";
 import { HexString } from "../utilities/types";
 import { useAppSelector } from "../redux/hooks";
@@ -20,19 +20,16 @@ const ReplyInput = ({ parent }: ReplyInputProps): JSX.Element => {
     event.preventDefault();
     if (!profile) return;
     setSaving(true);
-    const newReplyFeedItem = await storeReply(
-      profile?.socialAddress,
-      replyValue
-    );
+    const newReplyFeedItem = await createNote(replyValue, []);
     await sendReply(newReplyFeedItem, parent);
     setReplyValue("");
     setSaving(false);
   };
 
   return (
-    <div className="ReplyBlock__newReplyBlock">
+    <div className="ReplyInput__newReplyBlock">
       <Input.TextArea
-        className="ReplyBlock__input"
+        className="ReplyInput__input"
         placeholder="Reply..."
         value={replyValue}
         onChange={(e) => {

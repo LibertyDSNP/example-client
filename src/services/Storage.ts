@@ -1,4 +1,4 @@
-import { FeedItem, HexString } from "../utilities/types";
+import { FeedItem } from "../utilities/types";
 import {
   Content,
   WriteStreamCallback,
@@ -10,7 +10,6 @@ import { ActivityContentNote } from "@dsnp/sdk/core/activityContent";
 import { noteToActivityContentNote } from "../utilities/activityContent";
 
 export const createNote = async (
-  actor: HexString,
   note: string,
   uriList: string[]
 ): Promise<FeedItem<ActivityContentNote>> => {
@@ -20,7 +19,7 @@ export const createNote = async (
     uriList
   );
   const newPostFeedItem: FeedItem<ActivityContentNote> = {
-    fromAddress: actor,
+    fromAddress: "",
     content: activityPubNote,
     blockNumber: 0x123,
     timestamp: Math.floor(Math.random() * 999999),
@@ -117,18 +116,3 @@ class ServerWriteStream implements WriteStream {
     });
   }
 }
-
-export const storeReply = async (
-  actor: HexString,
-  reply: string
-): Promise<FeedItem<ActivityContentNote>> => {
-  const activityPubReply = noteToActivityContentNote(reply, []);
-  const newReplyFeedItem: FeedItem<ActivityContentNote> = {
-    fromAddress: actor,
-    content: activityPubReply,
-    blockNumber: 0x1234,
-    timestamp: Math.floor(Math.random() * 999999),
-    hash: "0x12305A3A3b2A69De6Dbf7f01ED13B2108B2c43e7",
-  };
-  return newReplyFeedItem;
-};

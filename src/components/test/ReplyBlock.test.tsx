@@ -12,14 +12,14 @@ const store = createMockStore(initialState);
 
 const writeReply = async (component: any) => {
   return component
-    .find(".ReplyBlock__input")
+    .find(".ReplyInput__input")
     .first()
     .simulate("change", { target: { value: "This is our new reply!" } });
 };
 
 const pressEnter = async (component: any) => {
   return component
-    .find(".ReplyBlock__input")
+    .find(".ReplyInput__input")
     .last()
     .simulate("keydown", { keyCode: 13 });
 };
@@ -66,7 +66,9 @@ describe("UserAvatar", () => {
     it("clears message value on new message submit", async () => {
       await writeReply(component);
       await pressEnter(component);
-      expect(component.find("textarea").first().instance().value).toEqual("");
+      await expect(component.find("textarea").first().instance().value).toEqual(
+        ""
+      );
     });
   });
 });

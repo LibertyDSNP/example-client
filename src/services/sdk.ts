@@ -111,7 +111,6 @@ export const startPostSubscription = (
   core.contracts.subscription.subscribeToBatchPublications(
     handleBatchAnnouncement(dispatch),
     {
-      announcementType: core.announcements.AnnouncementType.Broadcast,
       fromBlock: 0,
     }
   );
@@ -145,7 +144,10 @@ export const setupProvider = (walletType: WalletType): void => {
   });
 };
 
-const buildPublication = (batchData: BatchFileData, type: any): Publication => {
+const buildPublication = (
+  batchData: BatchFileData,
+  type: AnnouncementType.Broadcast | AnnouncementType.Reply
+): Publication => {
   return {
     announcementType: type,
     fileUrl: batchData.url.toString(),
@@ -185,9 +187,6 @@ const dispatchFeedItem = (
   blockNumber: number
 ) => {
   const decoder = new TextDecoder();
-
-  console.log("dispatch feed item: ", content);
-
   dispatch(
     addFeedItem({
       fromAddress: decoder.decode((message.fromId as any) as Uint8Array),
@@ -203,7 +202,7 @@ const dispatchFeedItem = (
       },
       inReplyTo:
         message.announcementType === core.announcements.AnnouncementType.Reply
-          ? message.inReplyTo
+          ? decoder.decode((message.inReplyTo as any) as Uint8Array)
           : undefined,
     })
   );
@@ -228,7 +227,6 @@ const dispatchProfile = (
 const handleBatchAnnouncement = (dispatch: Dispatch) => (
   announcement: BatchPublicationCallbackArgs
 ) => {
-  console.log("handleBatchAnnouncement", announcement);
   core.batch
     .openURL((announcement.fileUrl.toString() as any) as URL)
     .then((reader: any) =>
