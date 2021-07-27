@@ -1,6 +1,6 @@
 {
-  "name": "client",
-  "homepage": "https://libertydsnp.github.io/example-client/",
+  "name": "fandom-client",
+  "homepage": "https://liberty30.github.io/fandom-example-client/",
   "version": "0.1.0",
   "private": false,
   "license": "Apache-2.0",
