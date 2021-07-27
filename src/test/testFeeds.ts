@@ -19,8 +19,8 @@ import {
 } from "@dsnp/sdk/core/activityContent";
 
 /**
- * Generate an image attachement from a given url.
- * @param url The url to generate the attachement around
+ * Generate an image attachment from a given url.
+ * @param url The url to generate the attachment around
  */
 export const generateImageAttachment = (url: string): ActivityContentImage => {
   return createImage(
@@ -33,8 +33,8 @@ export const generateImageAttachment = (url: string): ActivityContentImage => {
 };
 
 /**
- * Generate a video attachement from a given url.
- * @param url The url to generate the attachement around
+ * Generate a video attachment from a given url.
+ * @param url The url to generate the attachment around
  */
 export const generateVideoAttachment = (url: string): ActivityContentVideo => {
   return createVideo(
@@ -50,7 +50,7 @@ export const generateVideoAttachment = (url: string): ActivityContentVideo => {
  * Generate a Note piece of Content for us in constructing a Feed
  * @param address the HexString socialAddress to associate with making this note
  * @param message The message string to display in the note
- * @param attachment the NoteAttachements for pictures and videos in this Note.
+ * @param attachment the NoteAttachments for pictures and videos in this Note.
  */
 export const generateNote = (
   message: string,
