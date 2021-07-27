@@ -1,4 +1,4 @@
-# Foodee Example Client
+# Fandom Example Client
 This is a fork of [LibertyDSNP/example-client](https://github.com/LibertyDSNP/example-client) for demo purposes.
 
 ### Note:
@@ -46,9 +46,9 @@ __Testing:__
 * React to posts
 * Filter and navigate through the feed
   - My Posts
-  - My FeedNavigation
+  - My Feed
   - A specific user's posts
-  - Main FeedNavigation
+  - Main Feed
 
 #### Note
 The features of the Example Client are subject to change with future versions and as decisions are made on the DSNP SDK.
@@ -59,7 +59,7 @@ Follow this quick start guide to get up and running. This guide assumes a workin
 * Clone the example-client repository: `git clone git@github.com:LibertyDSNP/example-client.git`
 * Install the correct npm and node version. Recommend using asdf: `asdf install`
 * Install modules: `npm install`
-* Copy `.env.example` to `.env` and edit as needed.
+* Copy `.env.example` to `.env` and edit as needed. 
 * Start up site locally: `npm run start`
 * Visit http://localhost:3000 (or you configured port)
 
