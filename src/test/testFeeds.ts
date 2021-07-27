@@ -131,16 +131,16 @@ export const getPrefabFeed = (): FeedItem[] => {
         generateFeedItem(address0, generateNote("You're mean"), true),
       ]),
     ]),
-    generateFeedItem(address2, generateNote("Happy Friday!"), true),
     // FeedItem Note with media
-    // generateFeedItem(
-    //   generateNote(address2, "Everyone leave me alone", [
-    //     generateImageAttachment(
-    //       "https://64.media.tumblr.com/bd8d2127a91f57463c2e753cf837ab6e/014df86f4004efef-ec/s1280x1920/adda1023806b71606f83f484a64daa03bce12c8d.jpg"
-    //     ),
-    //   ]),
-    //   true
-    // ),
+    generateFeedItem(
+      address2,
+      generateNote("Everyone leave me alone", [
+        generateImageAttachment(
+          "https://64.media.tumblr.com/bd8d2127a91f57463c2e753cf837ab6e/014df86f4004efef-ec/s1280x1920/adda1023806b71606f83f484a64daa03bce12c8d.jpg"
+        ),
+      ]),
+      true
+    ),
   ];
 };
 
