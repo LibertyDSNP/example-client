@@ -1,4 +1,5 @@
-# Example Client
+# Fandom Example Client
+This is a fork of [LibertyDSNP/example-client](https://github.com/LibertyDSNP/example-client) for demo purposes.
 
 ### Note:
 Enzyme is not ready for react 17 yet, so using an unofficial version and installing
@@ -54,46 +55,26 @@ The features of the Example Client are subject to change with future versions an
 
 ***
 ## Project Setup
-Follow this quick start guide to get up and running. This guide assumes a working knowledge of npm and git. Make sure to check out [CONTRIBUTING.md](CONTRIBUTING.md) as well.
+Follow this quick start guide to get up and running. This guide assumes a working knowledge of npm and git. Make sure to check out the __CONTRIBUTING.md__ as well.
 * Clone the example-client repository: `git clone git@github.com:LibertyDSNP/example-client.git`
 * Install the correct npm and node version. Recommend using asdf: `asdf install`
 * Install modules: `npm install`
-  * Install Static Server modules `cd ./static-server && npm install`
-* Copy `.env.example` to `.env` and edit as needed.
-* Start the Static Server `cd ./static-server && npm run start`
+* Copy `.env.example` to `.env` and edit as needed. 
 * Start up site locally: `npm run start`
 * Visit http://localhost:3000 (or you configured port)
-
-## Development Troubleshooting and FAQ
-* **Transactions rejected due to invalid nonce** - If you've restarted the chain, you probably need to reset your test accounts. In Metamask, click on the **Account** icon from the extension.  Then go to **Settings --> Advanced**, scroll down a little and click **Reset Account**. Do this for each connected account.
-* **Still seeing old events after resetting chain** - If you're running static-server, it needs to be stopped.  Then delete all the batch files it stored with `rm static-server/public/0x*`
-* **How do I restart example-app with an empty chain and no events?** - For best results, in this order, do the following:
-    1. Logout of the app from your browser.
-    1. Kill the example-app with ^C (If you haven't changed the code and just want to delete and recreate all posts, you can skip this step.)
-    1. Kill static-server same way
-    1. Delete static-server batch files with `rm static-server/public/0x*`
-    1. Go to the contracts repo and kill hardhat node (^C)
-    1. Restart hardhat node: `npx hardhat node`
-    1. Redeploy the contracts: `npm run deploy:localhost`
-    1. Reset your test accounts in Metamask
-    1. Restart example-app/static server: `npm run start` from within static-server
-    1. Optionally, rerun populate script from example-app, if you want to quickly populate some accounts and events: `node script/populate`
-    1. If you stopped the example-app, restart it: `npm run start`
-
-    You should now be able to login to the app, and view and create posts.
 
 ## Miscellaneous Information
 
 __Contributing Guide:__
-To contribute to this project please read our [CONTRIBUTING.md](CONTRIBUTING.md) file.
-It provides the details on everything from requesting features, to reporting bugs, to making your own PR requests.
+To contribute to this project please read our __CONTRIBUTING.md__
+This files will provide the details on everything from requesting features, to reporting bugs, to making your own PR requests.
 
 __Style Guide:__
-The layout of this project adheres to a specific style guide that you can find in [STYLING.md](STYLING.md).
-This file provides the details on the many different facets of the look and feel of this project. It is required to adhere to this style guide when making contributions to the project.
+The layout of this project adheres to a specific style guide that you can find in __STYLING.md__
+This file will provide the details on the many different facets of the look and feel of this project. It is required to adhere to this style guide when making contributions to the project.
 
 __Code of Conduct:__
-In all interactions we request everyone review, understand, and follow our [CODE OF CONDUCT](https://www.projectliberty.io/codeOfConduct.html).
+In all interactions we request everyone review, understand, and follow our [CODE OF CONDUCT](https://www.projectliberty.io/codeOfConduct.html)
 
 __Licensing:__
-Before doing anything beyond reading through the project please take a moment to view our [LICENSE](LICENSE).
+Before doing anything beyond reading through the project please take a moment to view our __LICENSE.md__
