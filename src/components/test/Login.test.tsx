@@ -9,16 +9,22 @@ import {
 } from "../../test/testhelpers";
 import { getPrefabProfile } from "../../test/testProfiles";
 import * as metamask from "../../services/wallets/metamask/metamask";
+import * as sdk from "../../services/sdk";
 
-jest.spyOn(torus, "logout").mockImplementation(jest.fn);
-jest.spyOn(torus, "isInitialized").mockReturnValue(true);
-jest
-  .spyOn(torus, "enableTorus")
-  .mockImplementation(jest.fn((_build) => Promise.resolve()));
-jest.spyOn(metamask, "isInstalled").mockReturnValue(true);
-jest
-  .spyOn(metamask, "getWalletAddress")
-  .mockImplementation(() => Promise.resolve("0x123"));
+let torusWallet: wallet.Wallet;
+beforeAll(async () => {
+  torusWallet = await wallet.wallet(wallet.WalletType.TORUS);
+  jest.spyOn(torus, "logout").mockImplementation(jest.fn);
+  jest.spyOn(torus, "isInitialized").mockReturnValue(true);
+  jest
+    .spyOn(torusWallet, "login")
+    .mockImplementation(() => Promise.resolve("0x123"));
+  jest.spyOn(metamask, "isInstalled").mockReturnValue(true);
+  jest
+    .spyOn(metamask, "getWalletAddress")
+    .mockImplementation(() => Promise.resolve("0x123"));
+  jest.spyOn(sdk, "setupProvider").mockImplementation(jest.fn);
+});
 
 describe("Login Component", () => {
   const store = createMockStore({ user: {} });
@@ -44,7 +50,7 @@ describe("Login Component", () => {
       component.find(".LoginButton__loginButton").first().simulate("click");
       component.find(".LoginButton__loginTorus").first().simulate("click");
       await forcePromiseResolve();
-      expect(torus.enableTorus).toHaveBeenCalled();
+      expect(torusWallet.login).toHaveBeenCalled();
     });
 
     it("header button -> metamask login", async () => {

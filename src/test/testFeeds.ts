@@ -53,7 +53,6 @@ export const generateVideoAttachment = (url: string): ActivityContentVideo => {
  * @param attachment the NoteAttachements for pictures and videos in this Note.
  */
 export const generateNote = (
-  address: HexString,
   message: string,
   attachment?: ActivityContentAttachment[]
 ): ActivityContentNote => {
@@ -90,6 +89,7 @@ export const generatePerson = (name?: string): ActivityContentPerson => {
  * @param replies? an array of FeedItem replies to this FeedItem
  */
 export const generateFeedItem = (
+  address: HexString,
   content: ActivityContentNote,
   constTime: boolean = false,
   replies?: FeedItem[]
@@ -98,7 +98,7 @@ export const generateFeedItem = (
     timestamp: constTime ? 1608580122 : Math.round(Date.now() / 1000),
     inbox: false,
     topic: "0x" + keccak_256("Announce(string,bytes32,bytes32)"),
-    fromAddress: "",
+    fromAddress: address,
     content: content,
     replies: replies || [],
     blockNumber: 50,
@@ -119,20 +119,20 @@ export const getPrefabFeed = (): FeedItem[] => {
   return [
     // FeedItems that are just Notes
     generateFeedItem(
-      generateNote(address3, "My favorite dessert is Cake"),
+      address3,
+      generateNote("My favorite dessert is Cake"),
       true
     ),
-    generateFeedItem(generateNote(address0, "Going to the mall!"), true),
+    generateFeedItem(address0, generateNote("Going to the mall!"), true),
     // FeedItem note with replies
-    generateFeedItem(generateNote(address0, "Hello World"), true, [
-      generateFeedItem(generateNote(address1, "Hi Monday!"), true),
-      generateFeedItem(generateNote(address2, "Go away"), true, [
-        generateFeedItem(generateNote(address0, "You're mean"), true),
+    generateFeedItem(address0, generateNote("Hello World"), true, [
+      generateFeedItem(address1, generateNote("Hi Monday!"), true),
+      generateFeedItem(address2, generateNote("Go away"), true, [
+        generateFeedItem(address0, generateNote("You're mean"), true),
       ]),
     ]),
-    // FeedItem that is a profile update
-    // generateFeedItem(generatePerson("Grumpy Gills Jr"), true),
-    // // FeedItem Note with media
+    generateFeedItem(address2, generateNote("Happy Friday!"), true),
+    // FeedItem Note with media
     // generateFeedItem(
     //   generateNote(address2, "Everyone leave me alone", [
     //     generateImageAttachment(
@@ -148,10 +148,9 @@ export const getPrefabFeed = (): FeedItem[] => {
  * Generate random note content
  */
 export const generateRandomNote = (): ActivityContentNote => {
-  const address = generateSocialAddress();
   const message = getRandomMessage();
   const attachment = getRandomAttachment();
-  return generateNote(address, message, attachment);
+  return generateNote(message, attachment);
 };
 
 /**
@@ -172,7 +171,10 @@ export const generateRandomReplies = (avgReplies: number): FeedItem[] => {
   const replies: FeedItem[] = [];
   const numReplies = randInt(avgReplies * 2 + 1);
   for (let r = 0; r < numReplies; r++) {
-    replies[r] = generateFeedItem(generateRandomNote());
+    replies[r] = generateFeedItem(
+      generateSocialAddress(),
+      generateRandomNote()
+    );
   }
   return replies;
 };
@@ -193,6 +195,7 @@ export const generateRandomFeed = (
   for (let s = 0; s < size; s++) {
     const content: ActivityContentNote = generateRandomNote();
     feed[s] = generateFeedItem(
+      generateSocialAddress(),
       content,
       false,
       generateRandomReplies(avgReplies)

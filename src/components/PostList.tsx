@@ -3,7 +3,6 @@ import Post from "./Post";
 import { FeedItem, Graph, Profile } from "../utilities/types";
 import { useAppSelector } from "../redux/hooks";
 import { HexString } from "@dsnp/sdk/dist/types/types/Strings";
-import { current } from "@reduxjs/toolkit";
 
 enum FeedTypes {
   FEED,
@@ -27,23 +26,16 @@ const PostList = ({ feedType }: PostListProps): JSX.Element => {
     (post) => post?.content?.type === "Note"
   );
   const profiles: Record<HexString, Profile> = useAppSelector(
-    (state) => state.profiles.profiles
+    (state) => state.profiles?.profiles || {}
   );
   let currentFeed: FeedItem[] = [];
 
   if (feedType === FeedTypes.FEED) {
-    currentFeed = feed.filter((post) => {
-      myGraph?.following.filter((userAddress) => {
-        if (userAddress === post?.fromAddress) {
-          return post;
-        }
-        return null;
-      });
-      if (profile?.socialAddress === post?.fromAddress) {
-        return post;
-      }
-      return null;
-    });
+    const addrSet = profile?.socialAddress
+      ? { [profile.socialAddress]: true }
+      : {};
+    myGraph?.following.forEach((addr) => (addrSet[addr] = true));
+    currentFeed = feed.filter((post) => post?.fromAddress in addrSet);
   } else if (feedType === FeedTypes.MY_POSTS) {
     currentFeed = feed.filter(
       (post) => profile?.socialAddress === post?.fromAddress

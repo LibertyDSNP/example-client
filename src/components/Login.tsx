@@ -38,7 +38,7 @@ const Login = ({ loginWalletOptions }: LoginProps): JSX.Element => {
 
       startLoading(false);
     } catch (error) {
-      setAlertError(error.toString());
+      console.log("Error in login:", error);
     }
     startLoading(false);
     setPopoverVisible(false);
