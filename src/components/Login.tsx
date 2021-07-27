@@ -34,11 +34,11 @@ const Login = ({ loginWalletOptions }: LoginProps): JSX.Element => {
       dispatch(upsertGraph(graph));
       session.saveSession({ profile, walletType });
 
-      sdk.setupProvider();
+      sdk.setupProvider(walletType);
 
       startLoading(false);
     } catch (error) {
-      setAlertError(error.toString());
+      console.log("Error in login:", error);
     }
     startLoading(false);
     setPopoverVisible(false);

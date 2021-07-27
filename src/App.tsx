@@ -14,10 +14,12 @@ const App: React.FC = () => {
 
   const walletType = useAppSelector((state) => state.user.walletType);
   useEffect(() => {
-    if (walletType) {
-      wallet.wallet(walletType).reload();
-      setupProvider();
-      dispatch(startPostSubscription);
+    if (walletType && walletType !== wallet.WalletType.NONE) {
+      (async () => {
+        await wallet.wallet(walletType).reload();
+        setupProvider(walletType);
+        dispatch(startPostSubscription);
+      })();
     }
   });
 

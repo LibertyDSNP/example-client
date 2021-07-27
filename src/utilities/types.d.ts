@@ -1,8 +1,5 @@
-import {
-  PersonActivityPub,
-  ActivityPub,
-  NoteActivityPub,
-} from "./activityPubTypes";
+import { ActivityContent, ActivityContentNote, ActivityContentPerson } from "@dsnp/sdk/core/activityContent";
+
 
 export type HexString = string;
 export type EncryptedString = string;
@@ -10,8 +7,7 @@ export type URLString = string;
 // ### Feed Data Types ###
 
 // ## Profile ##
-export interface Profile extends PersonActivityPub {
-  walletAddress: HexString;
+export interface Profile extends ActivityContentPerson {
   socialAddress: HexString;
 }
 
@@ -26,7 +22,7 @@ export type NoteAttachment = {
 // ## Feed ##
 export interface FeedItem {
   fromAddress: HexString;
-  content: ActivityPub;
+  content: ActivityContentNote;
   replies?: FeedItem[];
   blockNumber: number;
   hash?: HexString;

@@ -2,11 +2,11 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { HexString, Profile } from "../../utilities/types";
 
 interface profileState {
-  profiles: Profile[];
+  profiles: Record<HexString, Profile>;
 }
 
 const initialState: profileState = {
-  profiles: [],
+  profiles: {},
 };
 
 export const profileSlice = createSlice({
@@ -14,22 +14,16 @@ export const profileSlice = createSlice({
   initialState,
   reducers: {
     upsertProfile: (state, action: PayloadAction<Profile>) => {
-      const newProfile = action.payload;
-      const oldProfile = state.profiles.find(
-        (profile) => profile.socialAddress === newProfile.socialAddress
-      );
-      if (oldProfile)
-        state.profiles.splice(state.profiles.indexOf(oldProfile), 1);
-      state.profiles.push(newProfile);
-      return state;
+      const key = action.payload.socialAddress;
+      const oldProfile = state.profiles[key];
+      const newProfile = oldProfile
+        ? { ...oldProfile, ...action.payload }
+        : action.payload;
+      return { profiles: { ...state.profiles, [key]: newProfile } };
     },
     removeProfile: (state, action: PayloadAction<HexString>) => {
-      const oldProfile = state.profiles.find(
-        (profile) => profile.socialAddress === action.payload
-      );
-      if (oldProfile)
-        state.profiles.splice(state.profiles.indexOf(oldProfile), 1);
-      return state;
+      const { [action.payload]: _, ...newProfiles } = state.profiles;
+      return { profiles: newProfiles };
     },
   },
 });
