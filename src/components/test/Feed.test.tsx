@@ -1,4 +1,5 @@
 import Feed from "../Feed";
+import Post from "../Post";
 import { mount, shallow } from "enzyme";
 import { getPrefabProfile } from "../../test/testProfiles";
 import { getPrefabFeed } from "../../test/testFeeds";
@@ -21,7 +22,6 @@ describe("Feed", () => {
   it("does display new post button when logged in", () => {
     const component = mount(componentWithStore(Feed, store));
     expect(component.find(".Feed__newPostButton").length).not.toBe(0);
-    expect(component).toMatchSnapshot();
   });
 
   it("does not display new post button when not logged in", () => {
@@ -44,9 +44,15 @@ describe("Feed", () => {
   describe("Displays Correct Feed", () => {
     it("Connections Feed", () => {
       const component = mount(componentWithStore(Feed, store));
-      expect(component).toMatchSnapshot();
-      // delete snapshot and input correct toEqual number when graph exists
-      // expect(component.find(Post).length).toEqual(3);
+      expect(component.find(Post).length).toEqual(3);
+
+      const expectedFeedAddresses = [profile.socialAddress].concat(
+        graphs.find((g) => g.socialAddress === profile.socialAddress)
+          ?.following || []
+      );
+      component.find(".ant-card-meta-title").forEach((address) => {
+        expect(expectedFeedAddresses).toContain(address.text());
+      });
     });
 
     it("My Feed", () => {
@@ -57,9 +63,10 @@ describe("Feed", () => {
         );
       });
       button.simulate("click");
-      expect(component).toMatchSnapshot();
-      // delete snapshot and input correct toEqual number when graph exists
-      // expect(component.find(Post).length).toEqual(2);
+      expect(component.find(Post).length).toEqual(2);
+      component.find(".ant-card-meta-title").forEach((address) => {
+        expect(address.text()).toBe(profile.socialAddress);
+      });
     });
 
     it("All Posts", () => {
@@ -70,9 +77,7 @@ describe("Feed", () => {
         );
       });
       button.simulate("click");
-      expect(component).toMatchSnapshot();
-      // delete snapshot and input correct toEqual number when graph exists
-      // expect(component.find(Post).length).toEqual(2);
+      expect(component.find(Post).length).toEqual(4);
     });
   });
 });

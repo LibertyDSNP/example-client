@@ -1,12 +1,6 @@
 import { keccak_256 } from "js-sha3";
 import { randInt } from "@dsnp/test-generators";
-import {
-  ActivityPub,
-  ActivityPubAttachment,
-  NoteActivityPub,
-  PersonActivityPub,
-} from "../utilities/activityPubTypes";
-import { FeedItem, HexString, NoteAttachment } from "../utilities/types";
+import { FeedItem, HexString } from "../utilities/types";
 import { generateSocialAddress, getPrefabSocialAddress } from "./testAddresses";
 import {
   prefabFirstNames,
@@ -14,49 +8,60 @@ import {
   prefabMessages,
   randImage,
 } from "./testhelpers";
+import {
+  createImage,
+  createVideo,
+  ActivityContentNote,
+  ActivityContentAttachment,
+  ActivityContentPerson,
+  ActivityContentImage,
+  ActivityContentVideo,
+} from "@dsnp/sdk/core/activityContent";
 
 /**
- * Generate an image NoteAttachment from a given url.
- * @param url The url to generate the NoteAttachment around
+ * Generate an image attachment from a given url.
+ * @param url The url to generate the attachment around
  */
-export const generateImageAttachment = (url: string): NoteAttachment => {
-  return {
-    mediaType: url.replace(/(^\w+:|^)\/\//, ""), // Regex to scrub protocol from string
-    type: "Image",
-    url: url,
-  };
+export const generateImageAttachment = (url: string): ActivityContentImage => {
+  return createImage(
+    url,
+    url.replace(/(^\w+:|^)\/\//, ""),
+    { algorithm: "" },
+    0,
+    0
+  );
 };
 
 /**
- * Generate a video NoteAttachment from a given url.
- * @param url The url to generate the NoteAttachment around
+ * Generate a video attachment from a given url.
+ * @param url The url to generate the attachment around
  */
-export const generateVideoAttachment = (url: string): NoteAttachment => {
-  return {
-    mediaType: url.replace(/(^\w+:|^)\/\//, ""), // Regex to scrub protocol from string
-    type: "Video",
-    url: url,
-  };
+export const generateVideoAttachment = (url: string): ActivityContentVideo => {
+  return createVideo(
+    url,
+    url.replace(/(^\w+:|^)\/\//, ""),
+    { algorithm: "" },
+    0,
+    0
+  );
 };
 
 /**
  * Generate a Note piece of Content for us in constructing a Feed
  * @param address the HexString socialAddress to associate with making this note
  * @param message The message string to display in the note
- * @param attachment the NoteAttachements for pictures and videos in this Note.
+ * @param attachment the NoteAttachments for pictures and videos in this Note.
  */
 export const generateNote = (
-  address: HexString,
   message: string,
-  attachment?: ActivityPubAttachment[]
-): NoteActivityPub => {
+  attachment?: ActivityContentAttachment[]
+): ActivityContentNote => {
   return {
-    actor: address,
     "@context": "https://www.w3.org/ns/activitystreams",
     content: message,
     attachment: attachment || [],
-    id: "http://localhost:3003/api/announce/" + address,
     type: "Note",
+    published: "17ad9cb8551",
   };
 };
 
@@ -66,21 +71,12 @@ export const generateNote = (
  * @param name the new name of the profile update
  * @param handle the new username of the profile update
  */
-export const generatePerson = (
-  address: HexString,
-  name?: string,
-  handle?: string
-): PersonActivityPub => {
+export const generatePerson = (name?: string): ActivityContentPerson => {
   return {
-    actor: address,
     "@context": "https://www.w3.org/ns/activitystreams",
-    name: name || undefined,
-    handle: handle || undefined,
-    summary: "",
-    url: "",
-    discoverable: true,
-    id: "http://localhost:3003/api/announce/" + address,
+    name: name || "",
     type: "Person",
+    published: "17ad9cb8551",
   };
 };
 
@@ -93,7 +89,8 @@ export const generatePerson = (
  * @param replies? an array of FeedItem replies to this FeedItem
  */
 export const generateFeedItem = (
-  content: ActivityPub,
+  address: HexString,
+  content: ActivityContentNote,
   constTime: boolean = false,
   replies?: FeedItem[]
 ): FeedItem => {
@@ -101,12 +98,11 @@ export const generateFeedItem = (
     timestamp: constTime ? 1608580122 : Math.round(Date.now() / 1000),
     inbox: false,
     topic: "0x" + keccak_256("Announce(string,bytes32,bytes32)"),
-    fromAddress: content.actor,
+    fromAddress: address,
     content: content,
     replies: replies || [],
     blockNumber: 50,
     hash: keccak_256("this is a hash of the feed item"),
-    uri: content.id,
     rawContent: "", // This can be simulated, but it's annoying to do so.
   };
 };
@@ -123,25 +119,22 @@ export const getPrefabFeed = (): FeedItem[] => {
   return [
     // FeedItems that are just Notes
     generateFeedItem(
-      generateNote(address3, "My favorite dessert is Cake"),
+      address3,
+      generateNote("My favorite dessert is Cake"),
       true
     ),
-    generateFeedItem(generateNote(address0, "Going to the mall!"), true),
+    generateFeedItem(address0, generateNote("Going to the mall!"), true),
     // FeedItem note with replies
-    generateFeedItem(generateNote(address0, "Hello World"), true, [
-      generateFeedItem(generateNote(address1, "Hi Monday!"), true),
-      generateFeedItem(generateNote(address2, "Go away"), true, [
-        generateFeedItem(generateNote(address0, "You're mean"), true),
+    generateFeedItem(address0, generateNote("Hello World"), true, [
+      generateFeedItem(address1, generateNote("Hi Monday!"), true),
+      generateFeedItem(address2, generateNote("Go away"), true, [
+        generateFeedItem(address0, generateNote("You're mean"), true),
       ]),
     ]),
-    // FeedItem that is a profile update
-    generateFeedItem(
-      generatePerson(address2, "Grumpy Gills Jr", "Grumps"),
-      true
-    ),
     // FeedItem Note with media
     generateFeedItem(
-      generateNote(address2, "Everyone leave me alone", [
+      address2,
+      generateNote("Everyone leave me alone", [
         generateImageAttachment(
           "https://64.media.tumblr.com/bd8d2127a91f57463c2e753cf837ab6e/014df86f4004efef-ec/s1280x1920/adda1023806b71606f83f484a64daa03bce12c8d.jpg"
         ),
@@ -154,23 +147,20 @@ export const getPrefabFeed = (): FeedItem[] => {
 /**
  * Generate random note content
  */
-export const generateRandomNote = (): NoteActivityPub => {
-  const address = generateSocialAddress();
+export const generateRandomNote = (): ActivityContentNote => {
   const message = getRandomMessage();
   const attachment = getRandomAttachment();
-  return generateNote(address, message, attachment);
+  return generateNote(message, attachment);
 };
 
 /**
  * Generate random profile update content
  */
-export const generateRandomPerson = (): PersonActivityPub => {
-  const address = generateSocialAddress();
+export const generateRandomPerson = (): ActivityContentPerson => {
   const name = getRandomName();
-  const handle = getRandomHandle();
-  if (randInt(5) > 0) return generatePerson(address);
-  if (randInt(5) > 0) return generatePerson(address, name);
-  return generatePerson(address, name, handle);
+  if (randInt(5) > 0) return generatePerson();
+  if (randInt(5) > 0) return generatePerson(name);
+  return generatePerson(name);
 };
 
 /**
@@ -181,7 +171,10 @@ export const generateRandomReplies = (avgReplies: number): FeedItem[] => {
   const replies: FeedItem[] = [];
   const numReplies = randInt(avgReplies * 2 + 1);
   for (let r = 0; r < numReplies; r++) {
-    replies[r] = generateFeedItem(generateRandomNote());
+    replies[r] = generateFeedItem(
+      generateSocialAddress(),
+      generateRandomNote()
+    );
   }
   return replies;
 };
@@ -200,8 +193,9 @@ export const generateRandomFeed = (
   // 1 - Content
   // 2 - Replies if Note
   for (let s = 0; s < size; s++) {
-    const content: NoteActivityPub = generateRandomNote();
+    const content: ActivityContentNote = generateRandomNote();
     feed[s] = generateFeedItem(
+      generateSocialAddress(),
       content,
       false,
       generateRandomReplies(avgReplies)
@@ -214,7 +208,7 @@ const getRandomMessage = (): string => {
   return prefabMessages[randInt(prefabMessages.length)];
 };
 
-const getRandomAttachment = (): NoteAttachment[] => {
+const getRandomAttachment = (): ActivityContentAttachment[] => {
   return [generateImageAttachment(randImage)];
 };
 
@@ -222,10 +216,4 @@ const getRandomName = (): string => {
   const firstName = prefabFirstNames[randInt(prefabFirstNames.length)];
   const lastName = prefabLastNames[randInt(prefabLastNames.length)];
   return firstName + " " + lastName;
-};
-
-const getRandomHandle = (): string => {
-  const firstName = prefabFirstNames[randInt(prefabFirstNames.length)];
-  const lastName = prefabLastNames[randInt(prefabLastNames.length)];
-  return firstName.substring(0, 3) + lastName.substring(0, 3).toLocaleLowerCase;
 };

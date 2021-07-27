@@ -74,7 +74,7 @@ const NewPost = ({ onSuccess, onCancel }: NewPostProps): JSX.Element => {
           avatarSize={"small"}
         />
         <h3 className="NewPost__profileBlockName">
-          {profile?.name || profile?.handle || "Anonymous"}
+          {profile?.name || profile?.socialAddress || "Anonymous"}
         </h3>
       </div>
       <Input.TextArea

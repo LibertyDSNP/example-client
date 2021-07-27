@@ -5,15 +5,22 @@ import { Publication } from "@dsnp/sdk/core/contracts/publisher";
 import { providers } from "ethers";
 import { keccak256 } from "web3-utils";
 import { addFeedItem, clearFeedItems } from "../redux/slices/feedSlice";
+import { upsertProfile } from "../redux/slices/profileSlice";
 import { AnyAction, ThunkDispatch } from "@reduxjs/toolkit";
 import { Store } from "./Storage";
-import { ActivityPub } from "@dsnp/sdk/core/activityPub";
+import {
+  ActivityContent,
+  ActivityContentNote,
+  ActivityContentProfile,
+} from "@dsnp/sdk/core/activityContent";
 import {
   BroadcastAnnouncement,
   AnnouncementType,
   SignedBroadcastAnnouncement,
 } from "@dsnp/sdk/core/announcements";
 import { BatchPublicationCallbackArgs } from "@dsnp/sdk/core/contracts/subscription";
+import { WalletType } from "./wallets/wallet";
+import torusWallet from "./wallets/torus";
 
 interface BatchFileData {
   url: URL;
@@ -53,7 +60,7 @@ export const getProfile = async (
 export const sendPost = async (post: FeedItem): Promise<void> => {
   if (!post.content) return;
 
-  const hash = await storeActivityPub(post.content);
+  const hash = await storeActivityContentactivityContent(post.content);
   const announcement = await buildAndSignAnnouncement(hash);
 
   const batchData = await core.batch.createFile(hash + ".parquet", [
@@ -73,17 +80,28 @@ export const startPostSubscription = (
     handleBatchAnnouncement(dispatch),
     {
       announcementType: core.announcements.AnnouncementType.Broadcast,
+      fromBlock: 0,
     }
   );
 };
 
-export const setupProvider = (): void => {
-  const global: any = window;
-  const eth = global.ethereum;
+export const setupProvider = (walletType: WalletType): void => {
+  let eth;
 
-  if (!eth) {
+  if (walletType === WalletType.TORUS) {
+    eth = torusWallet.getWeb3().currentProvider;
+  } else if (walletType === WalletType.METAMASK) {
+    const global: any = window;
+    eth = global.ethereum;
+
+    if (!eth) {
+      throw new Error(
+        "Could not create provider, because ethereum has not been set"
+      );
+    }
+  } else {
     throw new Error(
-      "Could not create provider, because ethereum has not been set"
+      `Unknown walletType attempting to setup provider: ${walletType}`
     );
   }
 
@@ -99,14 +117,39 @@ const buildPublication = (batchData: BatchFileData): Publication => {
   return {
     announcementType: core.announcements.AnnouncementType.Broadcast,
     fileUrl: batchData.url.toString(),
-    fileHash: "0x" + batchData.hash,
+    fileHash: batchData.hash,
   };
+};
+
+// TODO: move this dispatch code into a callback for subscribe
+const dispatchActivityContent = (
+  dispatch: Dispatch,
+  message: BroadcastAnnouncement,
+  activityContent: ActivityContent,
+  blockNumber: number
+) => {
+  switch (activityContent.type) {
+    case "Note":
+      return dispatchFeedItem(
+        dispatch,
+        message,
+        activityContent as ActivityContentNote,
+        blockNumber
+      );
+    case "Profile":
+      return dispatchProfile(
+        dispatch,
+        message,
+        activityContent as ActivityContentProfile,
+        blockNumber
+      );
+  }
 };
 
 const dispatchFeedItem = (
   dispatch: Dispatch,
   message: BroadcastAnnouncement,
-  activityPub: ActivityPub,
+  activityContent: ActivityContentNote,
   blockNumber: number
 ) => {
   const decoder = new TextDecoder();
@@ -116,14 +159,30 @@ const dispatchFeedItem = (
       fromAddress: decoder.decode((message.fromId as any) as Uint8Array),
       blockNumber: blockNumber,
       hash: decoder.decode((message.contentHash as any) as Uint8Array),
-      timestamp: new Date().getTime(),
+      timestamp: new Date(activityContent.published).getTime(), // TODO: really wrong
       uri: decoder.decode((message.url as any) as Uint8Array),
       content: {
         "@context": "https://www.w3.org/ns/activitystreams",
         type: "Note",
-        actor: "actor",
-        content: activityPub.content || "",
+        published: activityContent.published,
+        content: activityContent.content || "",
       },
+    })
+  );
+};
+
+const dispatchProfile = (
+  dispatch: Dispatch,
+  message: BroadcastAnnouncement,
+  profile: ActivityContentProfile,
+  _blockNumber: number
+) => {
+  const decoder = new TextDecoder();
+
+  dispatch(
+    upsertProfile({
+      ...profile.describes,
+      socialAddress: decoder.decode((message.fromId as any) as Uint8Array),
     })
   );
 };
@@ -141,21 +200,24 @@ const handleBatchAnnouncement = (dispatch: Dispatch) => (
         const url = decoder.decode((message.url as any) as Uint8Array);
         fetch(url)
           .then((res) => res.json())
-          .then((activityPub) =>
-            dispatchFeedItem(
+          .then((activityContent) =>
+            dispatchActivityContent(
               dispatch,
               message,
-              activityPub,
+              activityContent,
               announcement.blockNumber
             )
           )
           .catch((err) => console.log(err));
       })
-    );
+    )
+    .catch((err) => console.log(err));
 };
 
-const storeActivityPub = async (content: ActivityPub): Promise<string> => {
-  const hash = keccak256(core.activityPub.serialize(content));
+const storeActivityContentactivityContent = async (
+  content: ActivityContentNote
+): Promise<string> => {
+  const hash = keccak256(core.activityContent.serialize(content));
 
   await fetch(
     `${process.env.REACT_APP_UPLOAD_HOST}/upload?filename=${encodeURIComponent(
