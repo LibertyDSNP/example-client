@@ -10,7 +10,7 @@ const Profile = (): JSX.Element => {
     (state) => state.user.profile
   );
 
-  const handle = "DemoHandle";
+  const handle = "Hans";
   const profileName = "lovetoeat";
 
   const getClassName = (sectionName: string) => {
