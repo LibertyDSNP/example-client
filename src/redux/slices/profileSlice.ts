@@ -19,12 +19,11 @@ export const profileSlice = createSlice({
       const newProfile = oldProfile
         ? { ...oldProfile, ...action.payload }
         : action.payload;
-      state.profiles = { ...state.profiles, [key]: newProfile };
-      return state;
+      return { profiles: { ...state.profiles, [key]: newProfile } };
     },
     removeProfile: (state, action: PayloadAction<HexString>) => {
-      delete state.profiles[action.payload];
-      return state;
+      const { [action.payload]: _, ...newProfiles } = state.profiles;
+      return { profiles: newProfiles };
     },
   },
 });
