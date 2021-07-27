@@ -57,7 +57,6 @@ export const getPublicAddress = async (
 
 export const getWalletAddress = async (): Promise<HexString> => {
   const { verifier, verifierId } = await getUserInfo();
-  console.log("WALLET ADDR: ", verifier, verifierId);
   const typedVerifier: VerifierTypes = getTypedVerifier(verifier);
   const walletAddressHolder = await getPublicAddress(typedVerifier, verifierId);
   if (!walletAddressHolder) throw new Error("No Wallet Address found for User");
