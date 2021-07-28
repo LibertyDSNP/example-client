@@ -20,6 +20,9 @@ const UserAvatar = ({
   profileAddress,
   avatarSize,
 }: UserAvatarProps): JSX.Element => {
+  // const iconURL =
+  //   "https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/Hans_Ulrich_Obrist_2017.jpg/440px-Hans_Ulrich_Obrist_2017.jpg";
+
   const iconURL =
     icon ||
     (profileAddress && blockies.create({ seed: profileAddress }).toDataURL());
