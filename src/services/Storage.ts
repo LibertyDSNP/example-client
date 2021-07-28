@@ -1,4 +1,4 @@
-import { FeedItem } from "../utilities/types";
+import { FeedItem, HexString } from "../utilities/types";
 import {
   Content,
   WriteStreamCallback,
@@ -11,7 +11,8 @@ import { noteToActivityContentNote } from "../utilities/activityContent";
 
 export const createNote = async (
   note: string,
-  uriList: string[]
+  uriList: string[],
+  fromAddress: HexString
 ): Promise<FeedItem<ActivityContentNote>> => {
   // send content to api
   const activityPubNote: ActivityContentNote = noteToActivityContentNote(
@@ -19,7 +20,7 @@ export const createNote = async (
     uriList
   );
   const newPostFeedItem: FeedItem<ActivityContentNote> = {
-    fromAddress: "",
+    fromAddress: fromAddress,
     content: activityPubNote,
     blockNumber: 0x123,
     timestamp: Math.floor(Math.random() * 999999),

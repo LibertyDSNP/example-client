@@ -4,6 +4,8 @@ import ReplyBlock from "../ReplyBlock";
 import { componentWithStore, createMockStore } from "../../test/testhelpers";
 import { getPrefabFeed } from "../../test/testFeeds";
 import { getPrefabProfile } from "../../test/testProfiles";
+import { waitFor } from "@testing-library/react";
+import * as sdk from "../../services/sdk";
 
 const profile = getPrefabProfile(0);
 const feed = getPrefabFeed();
@@ -25,6 +27,10 @@ const pressEnter = async (component: any) => {
 };
 
 describe("UserAvatar", () => {
+  beforeAll(() => {
+    jest.spyOn(sdk, "sendReply").mockImplementation(() => Promise.resolve());
+  });
+
   const component = mount(
     componentWithStore(ReplyBlock, store, {
       parent: keccak_256("this is a hash of the feed item"),
@@ -51,7 +57,9 @@ describe("UserAvatar", () => {
     it("display new message in feed on enter", async () => {
       await writeReply(component);
       await pressEnter(component);
-      expect(component.find(".ReplyBlock__repliesList")).toBeDefined();
+      await waitFor(() =>
+        expect(component.find(".ReplyBlock__repliesList")).toBeDefined()
+      );
     });
   });
 
@@ -66,8 +74,8 @@ describe("UserAvatar", () => {
     it("clears message value on new message submit", async () => {
       await writeReply(component);
       await pressEnter(component);
-      await expect(component.find("textarea").first().instance().value).toEqual(
-        ""
+      await waitFor(() =>
+        expect(component.find("textarea").first().instance().value).toEqual("")
       );
     });
   });

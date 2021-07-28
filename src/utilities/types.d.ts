@@ -24,7 +24,7 @@ export interface FeedItem<T extends ActivityContent> {
   fromAddress: HexString;
   content: T;
   replies?: FeedItem[];
-  blockNumber: number;
+  blockNumber?: number;
   hash: HexString;
   inbox?: boolean;
   timestamp: number;

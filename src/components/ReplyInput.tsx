@@ -20,7 +20,11 @@ const ReplyInput = ({ parent }: ReplyInputProps): JSX.Element => {
     event.preventDefault();
     if (!profile) return;
     setSaving(true);
-    const newReplyFeedItem = await createNote(replyValue, []);
+    const newReplyFeedItem = await createNote(
+      replyValue,
+      [],
+      profile.socialAddress
+    );
     await sendReply(newReplyFeedItem, parent);
     setReplyValue("");
     setSaving(false);
