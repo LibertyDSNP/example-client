@@ -2,23 +2,17 @@
 @import "theme/typography";
 @import "theme/buttons";
 @import "theme/antd-overrides";
-@import "theme/kss-styleguide-classes";
 @import "./components/scss/Header";
 @import "./components/scss/Login";
 @import "./components/scss/LoginButton";
 @import "components/scss/ProfileBlock";
 @import "./components/scss/Feed";
-@import "components/scss/FromLine";
-@import "./components/scss/NewPost";
-@import "./components/scss/NewPostImageUpload";
 @import "./components/scss/Post";
 @import "./components/scss/PostMedia";
 @import "./components/scss/ConnectionsList";
 @import "./components/scss/ConnectionsListProfiles";
 @import "./components/scss/RelativeTime";
-@import "components/scss/ReplyBlock";
-@import "components/scss/ReplyInput";
-@import "components/scss/Reply";
+@import "./components/scss/PostReply";
 
 .App__content {
   display: flex;

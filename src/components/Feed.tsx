@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import NewPost from "./NewPost";
 import PostList from "./PostList";
 import { Button } from "antd";
 import { useAppSelector } from "../redux/hooks";
@@ -52,12 +51,6 @@ const Feed = (): JSX.Element => {
           >
             New Post
           </Button>
-        )}
-        {isModalOpen && (
-          <NewPost
-            onSuccess={() => setIsModalOpen(false)}
-            onCancel={() => setIsModalOpen(false)}
-          />
         )}
       </div>
       <PostList feedType={feedType} />
