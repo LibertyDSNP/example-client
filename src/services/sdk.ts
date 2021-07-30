@@ -9,7 +9,6 @@ import { upsertProfile } from "../redux/slices/profileSlice";
 import { AnyAction, ThunkDispatch } from "@reduxjs/toolkit";
 import { Store } from "./Storage";
 import {
-  ActivityContent,
   ActivityContentNote,
   ActivityContentProfile,
 } from "@dsnp/sdk/core/activityContent";
@@ -159,7 +158,7 @@ const buildPublication = (
 const dispatchActivityContent = (
   dispatch: Dispatch,
   message: BroadcastAnnouncement,
-  activityContent: ActivityContent,
+  activityContent: ActivityContentNote | ActivityContentProfile,
   blockNumber: number
 ) => {
   switch (activityContent.type) {
@@ -187,15 +186,21 @@ const dispatchFeedItem = (
   blockNumber: number
 ) => {
   const decoder = new TextDecoder();
+
+  if (!content.published) throw new Error("timestamp is required");
+  // new Date(content.published).getTime()
+  const timestamp = Date.parse(content.published);
+
   dispatch(
     addFeedItem({
       fromAddress: decoder.decode((message.fromId as any) as Uint8Array),
       blockNumber: blockNumber,
       hash: decoder.decode((message.contentHash as any) as Uint8Array),
-      timestamp: new Date(content.published).getTime(), // TODO: really wrong
+      timestamp: timestamp,
       uri: decoder.decode((message.url as any) as Uint8Array),
       content: {
         "@context": "https://www.w3.org/ns/activitystreams",
+        mediaType: "text/plain",
         type: "Note",
         published: content.published,
         content: content.content || "",
@@ -218,7 +223,7 @@ const dispatchProfile = (
 
   dispatch(
     upsertProfile({
-      ...profile.describes,
+      ...profile,
       socialAddress: decoder.decode((message.fromId as any) as Uint8Array),
     })
   );
@@ -252,7 +257,7 @@ const handleBatchAnnouncement = (dispatch: Dispatch) => (
 };
 
 const storeActivityContent = async (
-  content: ActivityContent
+  content: ActivityContentNote
 ): Promise<string> => {
   const hash = keccak256(core.activityContent.serialize(content));
 

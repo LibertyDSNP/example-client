@@ -13,23 +13,16 @@ interface PostMediaProps {
 
 const PostMedia = ({ attachment }: PostMediaProps): JSX.Element => {
   const getPostMediaItems = () => {
-    return attachment?.map(
-      (
-        item: {
-          type: string;
-          mediaType: string;
-          url: string | ActivityContentLink;
-        },
-        index: number
-      ) => (
+    return attachment?.map((item, index) => {
+      return (
         <div key={index} className="PostMedia__cover">
           {item.type.toLowerCase() === "image" && (
             <a
-              href={item.url as string}
+              href={item.url[0].href}
               target="_blank"
               rel="noopener noreferrer"
             >
-              <img alt="" className="PostMedia__img" src={item.url as string} />
+              <img alt="" className="PostMedia__img" src={item.url[0].href} />
             </a>
           )}
           {item.type.toLowerCase() === "video" && (
@@ -37,15 +30,15 @@ const PostMedia = ({ attachment }: PostMediaProps): JSX.Element => {
               controls
               playsinline
               className="PostMedia__img"
-              url={item.url as string}
+              url={item.url[0].href}
               width={535}
               height={375}
               muted
             />
           )}
         </div>
-      )
-    );
+      );
+    });
   };
 
   return (

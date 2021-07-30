@@ -9,61 +9,14 @@ import {
   randImage,
 } from "./testhelpers";
 import {
-  createImage,
-  createVideo,
   ActivityContentNote,
   ActivityContentAttachment,
-  ActivityContentPerson,
-  ActivityContentImage,
-  ActivityContentVideo,
+  ActivityContentProfile,
 } from "@dsnp/sdk/core/activityContent";
-
-/**
- * Generate an image attachment from a given url.
- * @param url The url to generate the attachment around
- */
-export const generateImageAttachment = (url: string): ActivityContentImage => {
-  return createImage(
-    url,
-    url.replace(/(^\w+:|^)\/\//, ""),
-    { algorithm: "" },
-    0,
-    0
-  );
-};
-
-/**
- * Generate a video attachment from a given url.
- * @param url The url to generate the attachment around
- */
-export const generateVideoAttachment = (url: string): ActivityContentVideo => {
-  return createVideo(
-    url,
-    url.replace(/(^\w+:|^)\/\//, ""),
-    { algorithm: "" },
-    0,
-    0
-  );
-};
-
-/**
- * Generate a Note piece of Content for us in constructing a Feed
- * @param address the HexString socialAddress to associate with making this note
- * @param message The message string to display in the note
- * @param attachment the NoteAttachments for pictures and videos in this Note.
- */
-export const generateNote = (
-  message: string,
-  attachment?: ActivityContentAttachment[]
-): ActivityContentNote => {
-  return {
-    "@context": "https://www.w3.org/ns/activitystreams",
-    content: message,
-    attachment: attachment || [],
-    type: "Note",
-    published: "17ad9cb8551",
-  };
-};
+import {
+  generateImageAttachment,
+  generateNote,
+} from "@dsnp/sdk/dist/types/generators/activityContentGenerators";
 
 /**
  * Generate a Profile update. The type `Person` is not a `Profile`
@@ -71,11 +24,11 @@ export const generateNote = (
  * @param name the new name of the profile update
  * @param handle the new username of the profile update
  */
-export const generatePerson = (name?: string): ActivityContentPerson => {
+export const generatePerson = (name?: string): ActivityContentProfile => {
   return {
     "@context": "https://www.w3.org/ns/activitystreams",
     name: name || "",
-    type: "Person",
+    type: "Profile",
     published: "17ad9cb8551",
   };
 };
@@ -116,6 +69,13 @@ export const getPrefabFeed = (): FeedItem<ActivityContentNote>[] => {
   const address1 = getPrefabSocialAddress(1);
   const address2 = getPrefabSocialAddress(2);
   const address3 = getPrefabSocialAddress(3);
+
+  const imgAttachment = generateImageAttachment(
+    "https://64.media.tumblr.com/bd8d2127a91f57463c2e753cf837ab6e/014df86f4004efef-ec/s1280x1920/adda1023806b71606f83f484a64daa03bce12c8d.jpg"
+  );
+  const note = generateNote("Everyone leave me alone");
+  note.attachment = [imgAttachment];
+
   return [
     // FeedItems that are just Notes
     generateFeedItem(
@@ -132,15 +92,7 @@ export const getPrefabFeed = (): FeedItem<ActivityContentNote>[] => {
       ]),
     ]),
     // FeedItem Note with media
-    generateFeedItem(
-      address2,
-      generateNote("Everyone leave me alone", [
-        generateImageAttachment(
-          "https://64.media.tumblr.com/bd8d2127a91f57463c2e753cf837ab6e/014df86f4004efef-ec/s1280x1920/adda1023806b71606f83f484a64daa03bce12c8d.jpg"
-        ),
-      ]),
-      true
-    ),
+    generateFeedItem(address2, note, true),
   ];
 };
 
@@ -150,13 +102,15 @@ export const getPrefabFeed = (): FeedItem<ActivityContentNote>[] => {
 export const generateRandomNote = (): ActivityContentNote => {
   const message = getRandomMessage();
   const attachment = getRandomAttachment();
-  return generateNote(message, attachment);
+  const note = generateNote(message);
+  note.attachment = attachment;
+  return note;
 };
 
 /**
  * Generate random profile update content
  */
-export const generateRandomPerson = (): ActivityContentPerson => {
+export const generateRandomPerson = (): ActivityContentProfile => {
   const name = getRandomName();
   if (randInt(5) > 0) return generatePerson();
   if (randInt(5) > 0) return generatePerson(name);

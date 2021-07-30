@@ -55,12 +55,11 @@ const PostList = ({ feedType }: PostListProps): JSX.Element => {
             .slice(0)
             .reverse()
             .map((post, index) => {
-              const namedPost = {
-                ...post,
-                fromAddress: profiles[post.fromAddress]
-                  ? profiles[post.fromAddress].name
-                  : post.fromAddress,
-              };
+              const fromAddress = profiles[post.fromAddress]
+                ? profiles[post.fromAddress].name || ""
+                : post.fromAddress;
+
+              const namedPost: FeedItem = { ...post, fromAddress };
               return <Post key={index} feedItem={namedPost} />;
             })}
         </>
