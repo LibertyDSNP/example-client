@@ -7,7 +7,7 @@
   "dependencies": {
     "@dsnp/contracts": "^0.0.0-5c945f",
     "@dsnp/parquetjs": "^1.1.0",
-    "@dsnp/sdk": "0.0.0-85a1d1",
+    "@dsnp/sdk": "^0.0.0-e6bade",
     "@reduxjs/toolkit": "^1.5.1",
     "@toruslabs/torus-embed": "1.9.2",
     "antd": "^4.13.1",
@@ -20,7 +20,7 @@
     "fs-extra": "^9.1.0",
     "gh-pages": "^3.2.3",
     "mini-css-extract-plugin": "1.3.9",
-    "node-sass-chokidar": "^1.5.0",
+    "node-sass": "5.0.0",
     "npm-run-all": "^4.1.5",
     "postcss": "^8.2.8",
     "postcss-flexbugs-fixes": "5.0.2",
