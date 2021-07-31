@@ -13,10 +13,11 @@ import {
   ActivityContentAttachment,
   ActivityContentProfile,
 } from "@dsnp/sdk/core/activityContent";
-import {
-  generateImageAttachment,
-  generateNote,
-} from "@dsnp/sdk/dist/types/generators/activityContentGenerators";
+
+import { generators } from "@dsnp/sdk";
+const generateImageAttachment =
+  generators.activityContent.generateImageAttachment;
+const generateNote = generators.activityContent.generateNote;
 
 /**
  * Generate a Profile update. The type `Person` is not a `Profile`

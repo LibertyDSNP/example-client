@@ -2,7 +2,8 @@ import { randInt } from "@dsnp/test-generators";
 import { Profile, HexString } from "../utilities/types";
 import { generateSocialAddress, getPrefabSocialAddress } from "./testAddresses";
 import { prefabFirstNames, prefabLastNames } from "./testhelpers";
-import { generateProfile } from "@dsnp/sdk/dist/types/generators/activityContentGenerators";
+import { generators } from "@dsnp/sdk";
+const generateProfile = generators.activityContent.generateProfile;
 
 /**
  * Generate a random Profile using some prefab
