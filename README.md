@@ -1,5 +1,4 @@
-# Fandom Example Client
-This is a fork of [LibertyDSNP/example-client](https://github.com/LibertyDSNP/example-client) for demo purposes.
+# Example Client
 
 ### Note:
 Enzyme is not ready for react 17 yet, so using an unofficial version and installing
@@ -59,7 +58,7 @@ Follow this quick start guide to get up and running. This guide assumes a workin
 * Clone the example-client repository: `git clone git@github.com:LibertyDSNP/example-client.git`
 * Install the correct npm and node version. Recommend using asdf: `asdf install`
 * Install modules: `npm install`
-* Copy `.env.example` to `.env` and edit as needed. 
+* Copy `.env.example` to `.env` and edit as needed.
 * Start up site locally: `npm run start`
 * Visit http://localhost:3000 (or you configured port)
 
