@@ -7,12 +7,15 @@ import {
   ActivityContentHash,
   createImageAttachment,
   createImageLink,
+  createHash,
 } from "@dsnp/sdk/core/activityContent";
 
 const createMediaAttachment = (item: string): ActivityContentAttachment => {
   const extension = path.extname(item).replace(".", "");
   const supportedVideoDomains = /youtu.be|youtube.com|vimeo.com/;
-  const activityContentHashes: Array<ActivityContentHash> = [{ algorithm: "" }];
+
+  const contentHash = createHash(item);
+  const activityContentHashes: Array<ActivityContentHash> = [contentHash];
 
   if (supportedVideoDomains.test(item)) {
     const link = createVideoLink(item, "text/html", activityContentHashes);

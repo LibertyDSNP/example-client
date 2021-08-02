@@ -11,6 +11,9 @@ import { Store } from "./Storage";
 import {
   ActivityContentNote,
   ActivityContentProfile,
+  createNote,
+  isActivityContentNote,
+  isActivityContentProfile,
 } from "@dsnp/sdk/core/activityContent";
 import {
   BroadcastAnnouncement,
@@ -161,21 +164,20 @@ const dispatchActivityContent = (
   activityContent: ActivityContentNote | ActivityContentProfile,
   blockNumber: number
 ) => {
-  switch (activityContent.type) {
-    case "Note":
-      return dispatchFeedItem(
-        dispatch,
-        message,
-        activityContent as ActivityContentNote,
-        blockNumber
-      );
-    case "Profile":
-      return dispatchProfile(
-        dispatch,
-        message,
-        activityContent as ActivityContentProfile,
-        blockNumber
-      );
+  if (isActivityContentNote(activityContent)) {
+    return dispatchFeedItem(
+      dispatch,
+      message,
+      activityContent as ActivityContentNote,
+      blockNumber
+    );
+  } else if (isActivityContentProfile(activityContent)) {
+    return dispatchProfile(
+      dispatch,
+      message,
+      activityContent as ActivityContentProfile,
+      blockNumber
+    );
   }
 };
 
@@ -198,13 +200,7 @@ const dispatchFeedItem = (
       hash: decoder.decode((message.contentHash as any) as Uint8Array),
       timestamp: timestamp,
       uri: decoder.decode((message.url as any) as Uint8Array),
-      content: {
-        "@context": "https://www.w3.org/ns/activitystreams",
-        mediaType: "text/plain",
-        type: "Note",
-        published: content.published,
-        content: content.content || "",
-      },
+      content: createNote(content.content),
       inReplyTo:
         message.announcementType === core.announcements.AnnouncementType.Reply
           ? decoder.decode((message.inReplyTo as any) as Uint8Array)

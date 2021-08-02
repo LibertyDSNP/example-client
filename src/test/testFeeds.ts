@@ -70,12 +70,7 @@ export const getPrefabFeed = (): FeedItem<ActivityContentNote>[] => {
   const address1 = getPrefabSocialAddress(1);
   const address2 = getPrefabSocialAddress(2);
   const address3 = getPrefabSocialAddress(3);
-
-  const imgAttachment = generateImageAttachment(
-    "https://64.media.tumblr.com/bd8d2127a91f57463c2e753cf837ab6e/014df86f4004efef-ec/s1280x1920/adda1023806b71606f83f484a64daa03bce12c8d.jpg"
-  );
-  const note = generateNote("Everyone leave me alone");
-  note.attachment = [imgAttachment];
+  const noteWithAttachment = generateNote("Everyone leave me alone", true);
 
   return [
     // FeedItems that are just Notes
@@ -93,19 +88,17 @@ export const getPrefabFeed = (): FeedItem<ActivityContentNote>[] => {
       ]),
     ]),
     // FeedItem Note with media
-    generateFeedItem(address2, note, true),
+    generateFeedItem(address2, noteWithAttachment, true),
   ];
 };
 
 /**
- * Generate random note content
+ * Generate random note content with an attachment
  */
 export const generateRandomNote = (): ActivityContentNote => {
   const message = getRandomMessage();
   const attachment = getRandomAttachment();
-  const note = generateNote(message);
-  note.attachment = attachment;
-  return note;
+  return generateNote(message, true);
 };
 
 /**
