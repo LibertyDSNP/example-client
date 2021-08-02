@@ -31,7 +31,7 @@ __Testing:__
 ***
 
 ## Example Client Features
-### ProfileBlock
+### Profile
 * Create a new profile
 * Edit your profile
 * See other users' profiles
