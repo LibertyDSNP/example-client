@@ -4,7 +4,7 @@ import "./App.scss";
 import "antd/dist/antd.less";
 import Header from "./components/Header";
 import Feed from "./components/Feed";
-import ProfileBlock from "./components/ProfileBlock";
+import Profile from "./components/Profile";
 import * as wallet from "./services/wallets/wallet";
 import { useAppDispatch, useAppSelector } from "./redux/hooks";
 import { setupProvider, startPostSubscription } from "./services/sdk";
@@ -29,7 +29,7 @@ const App: React.FC = () => {
         <Header />
         <main className="App__content">
           <Feed />
-          <ProfileBlock />
+          <Profile />
         </main>
       </div>
     </Router>

@@ -9,7 +9,7 @@ export type EncryptedString = string;
 export type URLString = string;
 // ### Feed Data Types ###
 
-// ## ProfileBlock ##
+// ## Profile ##
 export interface Profile extends ActivityContentPerson {
   socialAddress: HexString;
 }

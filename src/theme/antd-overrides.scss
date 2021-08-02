@@ -57,7 +57,7 @@
   border-width: 2px 1px 2px 2px;
 }
 
-.ant-btn.ProfileBlock__editButton {
+.ant-btn.Profile__editButton {
   @include button($shadow-green, $green);
   padding: 0 10px;
   font-size: 12px;
@@ -136,14 +136,6 @@ a {
 
 .ant-card-meta-detail > div:not(:last-child) {
   margin-bottom: 0 !important;
-}
-
-.ant-input.PostReply__input {
-  border: none;
-}
-
-.ant-input.PostReply__input:focus {
-  box-shadow: none !important;
 }
 
 .slick-dots {

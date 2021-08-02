@@ -1,4 +1,4 @@
-.ProfileBlock__block {
+.Profile__block {
   background-color: $white;
   padding: 32px;
   display: flex;
@@ -9,18 +9,18 @@
   border-radius: 25px;
 }
 
-.ProfileBlock__personalInfoBlock {
+.Profile__personalInfoBlock {
   display: flex;
   justify-content: space-between;
 }
 
-.ProfileBlock__avatarBlock {
+.Profile__avatarBlock {
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
-.ProfileBlock__personalInfo {
+.Profile__personalInfo {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -28,12 +28,12 @@
   height: 172px;
 }
 
-.ProfileBlock__personalInfoLabel {
+.Profile__personalInfoLabel {
   color: $text-gray;
   line-height: 1;
 }
 
-.ProfileBlock__name {
+.Profile__name {
   @include large-text;
   @include bold-text;
   background: none;
@@ -42,7 +42,7 @@
   margin-bottom: 16px;
 }
 
-.ProfileBlock__handle {
+.Profile__handle {
   @include medium-text;
   @include bold-text;
   background: none;
@@ -51,7 +51,7 @@
   margin-bottom: 16px;
 }
 
-.ProfileBlock__socialAddress {
+.Profile__socialAddress {
   @include small-text;
   @include bold-text;
   background: none;
@@ -59,13 +59,13 @@
   line-height: 1;
 }
 
-.ProfileBlock__editButton {
+.Profile__editButton {
   width: 70px;
   margin-top: 12px;
   text-transform: uppercase;
 }
 
-.ProfileBlock__editing {
+.Profile__editing {
   background-color: $gray;
 
   &:focus {
@@ -73,14 +73,14 @@
   }
 }
 
-.ProfileBlock__loginHeaderText {
+.Profile__loginHeaderText {
   @include large-text;
   font-weight: bold;
   color: $dark-gray;
   line-height: 1.3;
 }
 
-.ProfileBlock__loginTitleText {
+.Profile__loginTitleText {
   @include large-text;
   font-weight: bold;
   color: $dark-gray;

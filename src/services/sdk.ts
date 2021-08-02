@@ -166,6 +166,10 @@ const dispatchFeedItem = (
         type: "Note",
         published: activityContent.published,
         content: activityContent.content || "",
+        attachment: {
+          type: "Image",
+          url: "https://www.industrialempathy.com/img/remote/ZiClJf-1920w.jpg",
+        } as any, // TODO: read images from post instead of mock
       },
     })
   );

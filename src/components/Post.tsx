@@ -13,18 +13,11 @@ interface PostProps {
 const Post = ({ feedItem }: PostProps): JSX.Element => {
   const [showActionsBar, setShowActionsBar] = useState<boolean>(false);
   const noteContent = feedItem.content;
-  // const attachments =
-  //   noteContent.attachment &&
-  //   (Array.isArray(noteContent.attachment)
-  //     ? noteContent.attachment
-  //     : [noteContent.attachment]);
-
-  const attachments: any = [
-    {
-      type: "Image",
-      url: "https://www.industrialempathy.com/img/remote/ZiClJf-1920w.jpg",
-    },
-  ];
+  const attachments =
+    noteContent.attachment &&
+    (Array.isArray(noteContent.attachment)
+      ? noteContent.attachment
+      : [noteContent.attachment]);
 
   return (
     <Card
@@ -57,7 +50,6 @@ const Post = ({ feedItem }: PostProps): JSX.Element => {
           {feedItem.tags && feedItem.tags[0]}
         </div>
       </div>
-      {/*<PostReply />*/}
     </Card>
   );
 };

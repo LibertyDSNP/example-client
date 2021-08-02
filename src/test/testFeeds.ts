@@ -66,7 +66,7 @@ export const generateNote = (
 };
 
 /**
- * Generate a ProfileBlock update. The type `Person` is not a `ProfileBlock`
+ * Generate a Profile update. The type `Person` is not a `Profile`
  * @param address the HexString socialAddress to make this person update around
  * @param name the new name of the profile update
  * @param handle the new username of the profile update
@@ -180,7 +180,7 @@ export const generateRandomReplies = (avgReplies: number): FeedItem[] => {
 };
 
 /**
- * Generate a random feed full of Notes and ProfileBlock updates.
+ * Generate a random feed full of Notes and Profile updates.
  * @param size the size of the feed, default to 4
  * @param avgReplies the average number of replies, default 0
  */
