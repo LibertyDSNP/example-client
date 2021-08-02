@@ -17,17 +17,11 @@ interface PostProps {
 const Post = ({ feedItem }: PostProps): JSX.Element => {
   const [showActionsBar, setShowActionsBar] = useState<boolean>(false);
   const noteContent = feedItem.content;
-  // const attachments =
-  //   noteContent.attachment &&
-  //   (Array.isArray(noteContent.attachment)
-  //     ? noteContent.attachment
-  //     : [noteContent.attachment]);
-  const attachments: any = [
-    {
-      type: "Image",
-      url: "https://www.industrialempathy.com/img/remote/ZiClJf-1920w.jpg",
-    },
-  ];
+  const attachments =
+    noteContent.attachment &&
+    (Array.isArray(noteContent.attachment)
+      ? noteContent.attachment
+      : [noteContent.attachment]);
 
   const profiles: Record<HexString, Profile> = useAppSelector(
     (state) => state.profiles?.profiles || {}
@@ -67,7 +61,6 @@ const Post = ({ feedItem }: PostProps): JSX.Element => {
       <ReplyBlock parent={feedItem.hash} />
         {showActionsBar && <ActionsBar timestamp={feedItem.timestamp} />}
       </div>
-      {/*<PostReply />*/}
     </Card>
   );
 };

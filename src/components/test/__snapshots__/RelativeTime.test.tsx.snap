@@ -4,7 +4,7 @@ exports[`relative time renders hours as expected 1`] = `
 <p
   className="RelativeTime RelativeTime--post"
 >
-  2h •
+  2h
 </p>
 `;
 
@@ -12,7 +12,7 @@ exports[`relative time renders minutes as expected 1`] = `
 <p
   className="RelativeTime RelativeTime--post"
 >
-  1m •
+  1m
 </p>
 `;
 
@@ -20,7 +20,7 @@ exports[`relative time renders seconds as expected 1`] = `
 <p
   className="RelativeTime RelativeTime--post"
 >
-  10s •
+  10s
 </p>
 `;
 
@@ -28,6 +28,6 @@ exports[`relative time renders years as expected 1`] = `
 <p
   className="RelativeTime RelativeTime--post"
 >
-  Nov 18, 2018 •
+  Nov 18, 2018
 </p>
 `;

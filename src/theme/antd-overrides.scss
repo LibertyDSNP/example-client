@@ -57,7 +57,7 @@
   border-width: 2px 1px 2px 2px;
 }
 
-.ant-btn.ProfileBlock__editButton {
+.ant-btn.Profile__editButton {
   @include button($shadow-green, $green);
   padding: 0 10px;
   font-size: 12px;
@@ -138,24 +138,15 @@ a {
   margin-bottom: 0 !important;
 }
 
-.ant-input.ReplyInput__input {
-  border: none;
-}
-
-.ant-input.ReplyInput__input:focus {
-  box-shadow: none !important;
-}
-
 .slick-dots {
-  bottom: -6px !important;
-
+  padding-bottom: 10px;
   &>* {
     height: 15px !important;
 
     button {
       height: 15px !important;
       border-radius: 8px !important;
-      background: $shadow-green !important;
+      border: 1px solid $black !important;
     }
   }
 }
