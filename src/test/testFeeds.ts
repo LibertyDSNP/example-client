@@ -30,7 +30,6 @@ export const generatePerson = (name?: string): ActivityContentProfile => {
     "@context": "https://www.w3.org/ns/activitystreams",
     name: name || "",
     type: "Profile",
-    published: "17ad9cb8551",
   };
 };
 
@@ -97,7 +96,6 @@ export const getPrefabFeed = (): FeedItem<ActivityContentNote>[] => {
  */
 export const generateRandomNote = (): ActivityContentNote => {
   const message = getRandomMessage();
-  const attachment = getRandomAttachment();
   return generateNote(message, true);
 };
 
