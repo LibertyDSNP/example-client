@@ -59,7 +59,10 @@ const PostList = ({ feedType }: PostListProps): JSX.Element => {
                 ? profiles[post.fromAddress].name || ""
                 : post.fromAddress;
 
-              const namedPost: FeedItem = { ...post, fromAddress };
+              const namedPost: FeedItem<ActivityContentNote> = {
+                ...post,
+                fromAddress,
+              };
               return <Post key={index} feedItem={namedPost} />;
             })}
         </>
