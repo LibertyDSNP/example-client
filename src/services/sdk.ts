@@ -178,6 +178,9 @@ const dispatchActivityContent = (
       activityContent as ActivityContentProfile,
       blockNumber
     );
+  } else {
+    //If we add a new type to the union it will error unless it's handled.
+    throw new Error("unknown activity content type");
   }
 };
 
