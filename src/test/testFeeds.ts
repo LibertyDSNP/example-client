@@ -6,17 +6,14 @@ import {
   prefabFirstNames,
   prefabLastNames,
   prefabMessages,
-  randImage,
 } from "./testhelpers";
 import {
   ActivityContentNote,
-  ActivityContentAttachment,
   ActivityContentProfile,
 } from "@dsnp/sdk/core/activityContent";
 
 import { generators } from "@dsnp/sdk";
-const generateImageAttachment =
-  generators.activityContent.generateImageAttachment;
+
 const generateNote = generators.activityContent.generateNote;
 
 /**
