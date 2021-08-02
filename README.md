@@ -1,4 +1,6 @@
-# Example Client
+# Fandom Example Client
+This is a fork of [LibertyDSNP/example-client](https://github.com/LibertyDSNP/example-client) for demo purposes.
+
 ### Note:
 Enzyme is not ready for react 17 yet, so using an unofficial version and installing
 packages with `npm i --legacy-peer-deps` if using node v7.

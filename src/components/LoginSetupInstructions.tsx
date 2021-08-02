@@ -50,11 +50,11 @@ const LoginSetupInstructions = (): JSX.Element => {
                   </code>
                 </li>
                 <li>
-                  Connect to a new Custom RLC.
+                  Connect to a new Custom RPC.
                   <ul>
-                    <li>Connect to a new Custom RLC.</li>
+                    <li>Connect to a new Custom RPC.</li>
                     <li>
-                      Name: <code>???</code>
+                      Name: <code>*determined by user</code>
                     </li>
                     <li>
                       New RPC URL: <code>http://localhost:7545</code>
