@@ -156,10 +156,6 @@ const getRandomMessage = (): string => {
   return prefabMessages[randInt(prefabMessages.length)];
 };
 
-const getRandomAttachment = (): ActivityContentAttachment[] => {
-  return [generateImageAttachment(randImage)];
-};
-
 const getRandomName = (): string => {
   const firstName = prefabFirstNames[randInt(prefabFirstNames.length)];
   const lastName = prefabLastNames[randInt(prefabLastNames.length)];
