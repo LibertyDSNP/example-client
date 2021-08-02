@@ -9,14 +9,18 @@ import { upsertProfile } from "../redux/slices/profileSlice";
 import { AnyAction, ThunkDispatch } from "@reduxjs/toolkit";
 import { Store } from "./Storage";
 import {
-  ActivityContent,
   ActivityContentNote,
   ActivityContentProfile,
+  createNote,
+  isActivityContentNote,
+  isActivityContentProfile,
 } from "@dsnp/sdk/core/activityContent";
 import {
   BroadcastAnnouncement,
   AnnouncementType,
   SignedBroadcastAnnouncement,
+  SignedReplyAnnouncement,
+  ReplyAnnouncement,
 } from "@dsnp/sdk/core/announcements";
 import { BatchPublicationCallbackArgs } from "@dsnp/sdk/core/contracts/subscription";
 import { WalletType } from "./wallets/wallet";
@@ -57,17 +61,47 @@ export const getProfile = async (
   return profile;
 };
 
-export const sendPost = async (post: FeedItem): Promise<void> => {
+export const sendPost = async (
+  post: FeedItem<ActivityContentNote>
+): Promise<void> => {
   if (!post.content) return;
 
-  const hash = await storeActivityContentactivityContent(post.content);
-  const announcement = await buildAndSignAnnouncement(hash);
+  const hash = await storeActivityContent(post.content);
+  const announcement = await buildAndSignPostAnnouncement(hash, post);
 
   const batchData = await core.batch.createFile(hash + ".parquet", [
     announcement,
   ]);
 
-  const publication = buildPublication(batchData);
+  const publication = buildPublication(
+    batchData,
+    core.announcements.AnnouncementType.Broadcast
+  );
+
+  await core.contracts.publisher.publish([publication]);
+};
+
+export const sendReply = async (
+  reply: FeedItem<ActivityContentNote>,
+  inReplyTo: HexString
+): Promise<void> => {
+  if (!reply.content || !inReplyTo) return;
+
+  const hash = await storeActivityContent(reply.content);
+  const announcement = await buildAndSignReplyAnnouncement(
+    hash,
+    reply.fromAddress,
+    inReplyTo
+  );
+
+  const batchData = await core.batch.createFile(hash + ".parquet", [
+    announcement,
+  ]);
+
+  const publication = buildPublication(
+    batchData,
+    core.announcements.AnnouncementType.Reply
+  );
 
   await core.contracts.publisher.publish([publication]);
 };
@@ -79,7 +113,6 @@ export const startPostSubscription = (
   core.contracts.subscription.subscribeToBatchPublications(
     handleBatchAnnouncement(dispatch),
     {
-      announcementType: core.announcements.AnnouncementType.Broadcast,
       fromBlock: 0,
     }
   );
@@ -113,9 +146,12 @@ export const setupProvider = (walletType: WalletType): void => {
   });
 };
 
-const buildPublication = (batchData: BatchFileData): Publication => {
+const buildPublication = (
+  batchData: BatchFileData,
+  type: AnnouncementType.Broadcast | AnnouncementType.Reply
+): Publication => {
   return {
-    announcementType: core.announcements.AnnouncementType.Broadcast,
+    announcementType: type,
     fileUrl: batchData.url.toString(),
     fileHash: batchData.hash,
   };
@@ -125,52 +161,53 @@ const buildPublication = (batchData: BatchFileData): Publication => {
 const dispatchActivityContent = (
   dispatch: Dispatch,
   message: BroadcastAnnouncement,
-  activityContent: ActivityContent,
+  activityContent: ActivityContentNote | ActivityContentProfile,
   blockNumber: number
 ) => {
-  switch (activityContent.type) {
-    case "Note":
-      return dispatchFeedItem(
-        dispatch,
-        message,
-        activityContent as ActivityContentNote,
-        blockNumber
-      );
-    case "Profile":
-      return dispatchProfile(
-        dispatch,
-        message,
-        activityContent as ActivityContentProfile,
-        blockNumber
-      );
+  if (isActivityContentNote(activityContent)) {
+    return dispatchFeedItem(
+      dispatch,
+      message,
+      activityContent as ActivityContentNote,
+      blockNumber
+    );
+  } else if (isActivityContentProfile(activityContent)) {
+    return dispatchProfile(
+      dispatch,
+      message,
+      activityContent as ActivityContentProfile,
+      blockNumber
+    );
+  } else {
+    //If we add a new type to the union it will error unless it's handled.
+    throw new Error("unknown activity content type");
   }
 };
 
 const dispatchFeedItem = (
   dispatch: Dispatch,
-  message: BroadcastAnnouncement,
-  activityContent: ActivityContentNote,
+  message: BroadcastAnnouncement | ReplyAnnouncement,
+  content: ActivityContentNote,
   blockNumber: number
 ) => {
   const decoder = new TextDecoder();
+
+  if (!content.published) throw new Error("timestamp is required");
+  // new Date(content.published).getTime()
+  const timestamp = Date.parse(content.published);
 
   dispatch(
     addFeedItem({
       fromAddress: decoder.decode((message.fromId as any) as Uint8Array),
       blockNumber: blockNumber,
       hash: decoder.decode((message.contentHash as any) as Uint8Array),
-      timestamp: new Date(activityContent.published).getTime(), // TODO: really wrong
+      timestamp: timestamp,
       uri: decoder.decode((message.url as any) as Uint8Array),
-      content: {
-        "@context": "https://www.w3.org/ns/activitystreams",
-        type: "Note",
-        published: activityContent.published,
-        content: activityContent.content || "",
-        attachment: {
-          type: "Image",
-          url: "https://www.industrialempathy.com/img/remote/ZiClJf-1920w.jpg",
-        } as any, // TODO: read images from post instead of mock
-      },
+      content: createNote(content.content),
+      inReplyTo:
+        message.announcementType === core.announcements.AnnouncementType.Reply
+          ? decoder.decode((message.inReplyTo as any) as Uint8Array)
+          : undefined,
     })
   );
 };
@@ -185,7 +222,7 @@ const dispatchProfile = (
 
   dispatch(
     upsertProfile({
-      ...profile.describes,
+      ...profile,
       socialAddress: decoder.decode((message.fromId as any) as Uint8Array),
     })
   );
@@ -218,7 +255,7 @@ const handleBatchAnnouncement = (dispatch: Dispatch) => (
     .catch((err) => console.log(err));
 };
 
-const storeActivityContentactivityContent = async (
+const storeActivityContent = async (
   content: ActivityContentNote
 ): Promise<string> => {
   const hash = keccak256(core.activityContent.serialize(content));
@@ -236,13 +273,28 @@ const storeActivityContentactivityContent = async (
   return hash;
 };
 
-const buildAndSignAnnouncement = async (
-  hash: string
+const buildAndSignPostAnnouncement = async (
+  hash: string,
+  post: FeedItem<ActivityContentNote>
 ): Promise<SignedBroadcastAnnouncement> => ({
   ...core.announcements.createBroadcast(
-    "0x1111",
+    post.fromAddress,
     `${process.env.REACT_APP_UPLOAD_HOST}/${hash}.json`,
     hash
+  ),
+  signature: "0x00000000", // TODO: call out to wallet to get this signed
+});
+
+const buildAndSignReplyAnnouncement = async (
+  hash: string,
+  replyFromAddress: HexString,
+  replyInReplyTo: HexString
+): Promise<SignedReplyAnnouncement> => ({
+  ...core.announcements.createReply(
+    replyFromAddress,
+    `${process.env.REACT_APP_UPLOAD_HOST}/${hash}.json`,
+    hash,
+    replyInReplyTo
   ),
   signature: "0x00000000", // TODO: call out to wallet to get this signed
 });
