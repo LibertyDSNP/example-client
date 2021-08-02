@@ -92,8 +92,8 @@ export const generateFeedItem = (
   address: HexString,
   content: ActivityContentNote,
   constTime: boolean = false,
-  replies?: FeedItem[]
-): FeedItem => {
+  replies?: FeedItem<ActivityContentNote>[]
+): FeedItem<ActivityContentNote> => {
   return {
     timestamp: constTime ? 1608580122 : Math.round(Date.now() / 1000),
     inbox: false,
@@ -111,7 +111,7 @@ export const generateFeedItem = (
  * A prefabricated feed with at least one of every
  * important functionality currently available
  */
-export const getPrefabFeed = (): FeedItem[] => {
+export const getPrefabFeed = (): FeedItem<ActivityContentNote>[] => {
   const address0 = getPrefabSocialAddress(0);
   const address1 = getPrefabSocialAddress(1);
   const address2 = getPrefabSocialAddress(2);
@@ -167,8 +167,10 @@ export const generateRandomPerson = (): ActivityContentPerson => {
  * Generate random replies Array. Only generates depth 0 random replies
  * @param avgReplies the average number of replies
  */
-export const generateRandomReplies = (avgReplies: number): FeedItem[] => {
-  const replies: FeedItem[] = [];
+export const generateRandomReplies = (
+  avgReplies: number
+): FeedItem<ActivityContentNote>[] => {
+  const replies: FeedItem<ActivityContentNote>[] = [];
   const numReplies = randInt(avgReplies * 2 + 1);
   for (let r = 0; r < numReplies; r++) {
     replies[r] = generateFeedItem(
@@ -187,8 +189,8 @@ export const generateRandomReplies = (avgReplies: number): FeedItem[] => {
 export const generateRandomFeed = (
   size: number = 4,
   avgReplies: number = 0
-): FeedItem[] => {
-  const feed: FeedItem[] = [];
+): FeedItem<ActivityContentNote>[] => {
+  const feed: FeedItem<ActivityContentNote>[] = [];
   // For each feed item we need to generate:
   // 1 - Content
   // 2 - Replies if Note

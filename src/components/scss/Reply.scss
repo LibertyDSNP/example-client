@@ -1,0 +1,20 @@
+.Reply__block {
+  display: flex;
+  justify-content: center;
+  padding-bottom: 14px;
+  max-height: 400px;
+}
+
+.Reply__message {
+  align-self: center;
+  background-color: $light-gray;
+  padding: 4px;
+  border-radius: 8px;
+  margin-left: 8px;
+  width: 90%;
+  color: $text-gray;
+}
+
+.Reply__name {
+  font-weight: bold;
+}

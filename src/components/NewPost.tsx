@@ -6,6 +6,7 @@ import NewPostImageUpload from "./NewPostImageUpload";
 import { FeedItem } from "../utilities/types";
 import { createNote } from "../services/Storage";
 import { sendPost } from "../services/sdk";
+import { ActivityContentNote } from "@dsnp/sdk/core/activityContent";
 
 interface NewPostProps {
   onSuccess: () => void;
@@ -35,12 +36,12 @@ const NewPost = ({ onSuccess, onCancel }: NewPostProps): JSX.Element => {
 
   const createPost = async () => {
     if (!profile) return;
-    const newPostFeedItem: FeedItem = await createNote(
-      profile.socialAddress,
+    const newPostFeedItem: FeedItem<ActivityContentNote> = await createNote(
       postMessage,
-      uriList
+      uriList,
+      profile.socialAddress
     );
-    sendPost(newPostFeedItem);
+    await sendPost(newPostFeedItem);
     success();
   };
 

@@ -4,11 +4,14 @@ import { FeedItem } from "../utilities/types";
 import UserAvatar from "./UserAvatar";
 import PostMedia from "./PostMedia";
 import RelativeTime from "./RelativeTime";
-import PostReply from "./PostReply";
-import { ActivityContentImage } from "@dsnp/sdk/core/activityContent";
+import ReplyBlock from "./ReplyBlock";
+import {
+  ActivityContentNote,
+  ActivityContentImage,
+} from "@dsnp/sdk/core/activityContent";
 
 interface PostProps {
-  feedItem: FeedItem;
+  feedItem: FeedItem<ActivityContentNote>;
 }
 
 const Post = ({ feedItem }: PostProps): JSX.Element => {
@@ -36,7 +39,7 @@ const Post = ({ feedItem }: PostProps): JSX.Element => {
       {attachments && (
         <PostMedia attachment={attachments as ActivityContentImage[]} />
       )}
-      <PostReply />
+      <ReplyBlock parent={feedItem.hash} />
     </Card>
   );
 };

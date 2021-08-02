@@ -20,12 +20,12 @@ export type NoteAttachment = {
 };
 
 // ## Feed ##
-export interface FeedItem {
+export interface FeedItem<T extends ActivityContent> {
   fromAddress: HexString;
-  content: ActivityContentNote;
+  content: T;
   replies?: FeedItem[];
-  blockNumber: number;
-  hash?: HexString;
+  blockNumber?: number;
+  hash: HexString;
   inbox?: boolean;
   timestamp: number;
   topic?: HexString;

@@ -15,7 +15,9 @@
 @import "./components/scss/ConnectionsList";
 @import "./components/scss/ConnectionsListProfiles";
 @import "./components/scss/RelativeTime";
-@import "./components/scss/PostReply";
+@import "components/scss/ReplyBlock";
+@import "components/scss/ReplyInput";
+@import "components/scss/Reply";
 
 .App__content {
   display: flex;

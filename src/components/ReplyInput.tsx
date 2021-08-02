@@ -1,8 +1,15 @@
-import React, { useState } from "react";
-import { useAppSelector } from "../redux/hooks";
 import { Input } from "antd";
+import React, { useState } from "react";
+import { createNote } from "../services/Storage";
+import { sendReply } from "../services/sdk";
+import { HexString } from "../utilities/types";
+import { useAppSelector } from "../redux/hooks";
 
-const PostReply = (): JSX.Element => {
+interface ReplyInputProps {
+  parent: HexString;
+}
+
+const ReplyInput = ({ parent }: ReplyInputProps): JSX.Element => {
   const profile = useAppSelector((state) => state.user.profile);
   const [saving, setSaving] = React.useState<boolean>(false);
   const [replyValue, setReplyValue] = useState<string>("");
@@ -13,16 +20,20 @@ const PostReply = (): JSX.Element => {
     event.preventDefault();
     if (!profile) return;
     setSaving(true);
-    //save reply here
-    //not sure how we want to do that
+    const newReplyFeedItem = await createNote(
+      replyValue,
+      [],
+      profile.socialAddress
+    );
+    await sendReply(newReplyFeedItem, parent);
     setReplyValue("");
     setSaving(false);
   };
 
   return (
-    <div className="PostReply__block">
+    <div className="ReplyInput__newReplyBlock">
       <Input.TextArea
-        className="PostReply__input"
+        className="ReplyInput__input"
         placeholder="Reply..."
         value={replyValue}
         onChange={(e) => {
@@ -36,4 +47,4 @@ const PostReply = (): JSX.Element => {
   );
 };
 
-export default PostReply;
+export default ReplyInput;
