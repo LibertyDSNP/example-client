@@ -25,18 +25,21 @@ const Post = ({ feedItem }: PostProps): JSX.Element => {
       <Card.Meta
         className="Post__header"
         avatar={
-          <UserAvatar profileAddress={feedItem.fromId} avatarSize={"medium"} />
+          <UserAvatar
+            profileAddress={feedItem.fromAddress}
+            avatarSize={"medium"}
+          />
         }
-        title={profiles[feedItem.fromId].name || feedItem.fromId}
+        title={feedItem.fromAddress}
         description={
           <div className="Post__description">
-            @{profiles[feedItem.fromId].handle}
+            @mockHandle__{feedItem.fromAddress}
           </div>
         }
       />
       <PostMedia attachment={attachments as ActivityContentAttachment[]} />
       <div className="Post__caption">
-        <ActionsBar published={feedItem.published} />
+        <ActionsBar timestamp={feedItem.timestamp} />
         <div>{noteContent.content}</div>
         <div className="Post__captionTags">
           {feedItem.tags && feedItem.tags[0]}

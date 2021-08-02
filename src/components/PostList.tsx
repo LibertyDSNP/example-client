@@ -1,8 +1,9 @@
 import React from "react";
 import Post from "./Post";
-import { FeedItem, Graph } from "../utilities/types";
+import { FeedItem, Graph, Profile } from "../utilities/types";
 import { useAppSelector } from "../redux/hooks";
 import { DSNPUserId } from "@dsnp/sdk/dist/types/core/identifiers";
+import { ActivityContentNote } from "@dsnp/sdk/core/activityContent";
 import Masonry from "react-masonry-css";
 
 enum FeedTypes {
@@ -45,7 +46,7 @@ const PostList = ({ feedType }: PostListProps): JSX.Element => {
     .slice(0)
     .reverse()
     .map((post, index) => {
-      console.log(post);
+      if (!post.fromAddress) throw new Error(`no fromAddress in post: ${post}`);
       const namedPost: FeedItem = {
         ...post,
         tags: ["#foodee"],
