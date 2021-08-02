@@ -23,13 +23,13 @@ const getRelativeTime = (timestamp: number) => {
   const postTime = new Date(timestamp * 1000);
   const secondsPast = (currentTime.getTime() - postTime.getTime()) / 1000;
   if (secondsPast < 60) {
-    return Math.floor(secondsPast) + "s •";
+    return Math.floor(secondsPast) + "s";
   }
   if (secondsPast < 3600) {
-    return Math.floor(secondsPast / 60) + "m •";
+    return Math.floor(secondsPast / 60) + "m";
   }
   if (secondsPast <= 86400) {
-    return Math.floor(secondsPast / 3600) + "h •";
+    return Math.floor(secondsPast / 3600) + "h";
   }
   if (secondsPast > 86400) {
     const day = postTime.getDate();
@@ -38,7 +38,7 @@ const getRelativeTime = (timestamp: number) => {
       postTime.getFullYear() === currentTime.getFullYear()
         ? ""
         : `, ${postTime.getFullYear()}`;
-    return `${month} ${day}${year} •`;
+    return `${month} ${day}${year}`;
   }
 };
 

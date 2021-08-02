@@ -1,5 +1,8 @@
-import { ActivityContent, ActivityContentNote, ActivityContentPerson } from "@dsnp/sdk/core/activityContent";
-
+import {
+  ActivityContent,
+  ActivityContentNote,
+  ActivityContentPerson,
+} from "@dsnp/sdk/core/activityContent";
 
 export type HexString = string;
 export type EncryptedString = string;
@@ -33,6 +36,7 @@ export interface FeedItem {
   rawContent?: string;
   ddid?: HexString;
   inReplyTo?: HexString;
+  tags?: string[] | undefined;
 }
 
 // ## Graph ##
