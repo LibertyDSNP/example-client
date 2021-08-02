@@ -4,7 +4,7 @@ import { generateSocialAddress, getPrefabSocialAddress } from "./testAddresses";
 import { prefabFirstNames, prefabLastNames } from "./testhelpers";
 
 /**
- * Generate a complete Profile
+ * Generate a complete ProfileBlock
  * @param address the address to use with the profile
  * @param name the name for the profile
  * @param handle the username for the profile
@@ -24,7 +24,7 @@ export const generateProfile = (
 };
 
 /**
- * Generate a random Profile using some prefab
+ * Generate a random ProfileBlock using some prefab
  * names and a generated social address
  */
 export const generateRandomProfile = (): Profile => {

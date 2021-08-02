@@ -57,6 +57,8 @@ const PostList = ({ feedType }: PostListProps): JSX.Element => {
                 fromAddress: profiles[post.fromAddress]
                   ? profiles[post.fromAddress].name
                   : post.fromAddress,
+                timestamp: Math.floor(Math.random() * 999999),
+                tags: ["#foodee"],
               };
               return <Post key={index} feedItem={namedPost} />;
             })}

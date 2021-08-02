@@ -1,5 +1,3 @@
-import { noteToActivityContentNote } from "../utilities/activityContent";
-import { FeedItem, HexString } from "../utilities/types";
 import {
   Content,
   WriteStreamCallback,
@@ -7,26 +5,6 @@ import {
   StoreInterface,
 } from "@dsnp/sdk/core/store";
 import { isFunction, isUint8Array } from "./utilities";
-import { ActivityContentNote } from "@dsnp/sdk/core/activityContent";
-
-export const createNote = async (
-  actor: HexString,
-  note: string,
-  uriList: string[]
-): Promise<FeedItem> => {
-  // send content to api
-  const activityPubNote: ActivityContentNote = noteToActivityContentNote(
-    note,
-    uriList
-  );
-  const newPostFeedItem: FeedItem = {
-    fromAddress: actor,
-    content: activityPubNote,
-    blockNumber: 0x123,
-    timestamp: Math.floor(Math.random() * 999999),
-  };
-  return newPostFeedItem;
-};
 
 export class Store implements StoreInterface {
   put(targetPath: string, _content: Content): Promise<URL> {

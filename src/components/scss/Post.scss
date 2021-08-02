@@ -1,7 +1,30 @@
 .Post__block {
-  width: 50vw;
+  max-width: 500px;
+}
+
+.Post__description {
+  @include small-text;
+  line-height: 1;
+  color: $black
+}
+
+.Post__header {
+  padding: 20px;
+  display: flex;
+  align-items: center
+}
+
+.Post__mediaBlock {
+  position: relative;
 }
 
 .Post__caption {
-  margin: 16px 0;
+  background-color: $dark-gray;
+  font-weight: bold;
+  color: $white;
+  padding: 30px;
+}
+
+.Post__captionTags {
+  @include extra-large-text;
 }

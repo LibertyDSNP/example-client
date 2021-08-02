@@ -1,12 +1,15 @@
-import { ActivityContent, ActivityContentNote, ActivityContentPerson } from "@dsnp/sdk/core/activityContent";
-
+import {
+  ActivityContent,
+  ActivityContentNote,
+  ActivityContentPerson,
+} from "@dsnp/sdk/core/activityContent";
 
 export type HexString = string;
 export type EncryptedString = string;
 export type URLString = string;
 // ### Feed Data Types ###
 
-// ## Profile ##
+// ## ProfileBlock ##
 export interface Profile extends ActivityContentPerson {
   socialAddress: HexString;
 }
@@ -33,6 +36,7 @@ export interface FeedItem {
   rawContent?: string;
   ddid?: HexString;
   inReplyTo?: HexString;
+  tags?: string[] | undefined;
 }
 
 // ## Graph ##
