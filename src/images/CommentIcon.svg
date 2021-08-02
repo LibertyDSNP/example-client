@@ -1,0 +1,17 @@
+<svg id="Group_1303" data-name="Group 1303" xmlns="http://www.w3.org/2000/svg" width="28.115" height="28.544" viewBox="0 0 28.115 28.544">
+  <defs>
+    <style>
+      .cls-1, .cls-2 {
+        fill: #fd9c01;
+      }
+
+      .cls-2 {
+        fill-rule: evenodd;
+      }
+    </style>
+  </defs>
+  <path id="Path_490" data-name="Path 490" class="cls-1" d="M14.057,0A14.057,14.057,0,1,1,9.34,27.3L3.47,28.528a.794.794,0,0,1-.947-.886l.443-4.951A14.055,14.055,0,0,1,14.057,0Zm0,1.591A12.469,12.469,0,0,0,4.4,21.943a.8.8,0,0,1,.174.569l-.38,4.243L9.238,25.7a.794.794,0,0,1,.438.034A12.469,12.469,0,1,0,14.057,1.591Z" transform="translate(0)"/>
+  <path id="Path_491" data-name="Path 491" class="cls-2" d="M87.815,158.23A1.665,1.665,0,1,1,86.15,159.9,1.665,1.665,0,0,1,87.815,158.23Z" transform="translate(-79.403 -145.838)"/>
+  <path id="Path_492" data-name="Path 492" class="cls-2" d="M159.9,158.23a1.665,1.665,0,1,1-1.665,1.665A1.665,1.665,0,0,1,159.9,158.23Z" transform="translate(-145.838 -145.838)"/>
+  <path id="Path_493" data-name="Path 493" class="cls-2" d="M231.975,158.23a1.665,1.665,0,1,1-1.665,1.665,1.665,1.665,0,0,1,1.665-1.665Z" transform="translate(-212.272 -145.838)"/>
+</svg>

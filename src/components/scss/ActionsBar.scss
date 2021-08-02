@@ -1,0 +1,26 @@
+.ActionsBar__block {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: $white;
+  border-radius: 28px;
+  position: absolute;
+  bottom: 10px;
+  width: 90%;
+  margin: 0 5%;
+  padding: 7px 14px;
+}
+
+.ActionsBar__iconList>* {
+  height: 20px;
+  width: auto;
+  padding: 0 12px;
+  border-right: 1px solid $dark-gray;
+}
+
+.ActionsBar__iconList>*:last-child {
+  padding-right: 0;
+  border-right: none;
+}
+
+
