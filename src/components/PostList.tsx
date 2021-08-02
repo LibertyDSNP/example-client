@@ -55,11 +55,15 @@ const PostList = ({ feedType }: PostListProps): JSX.Element => {
             .slice(0)
             .reverse()
             .map((post, index) => {
-              const namedPost = {
+              if (!post.fromAddress)
+                throw new Error(`no fromAddress in post: ${post}`);
+              const fromAddress: string = profiles[post.fromAddress]
+                ? (profiles[post.fromAddress].name as string)
+                : post.fromAddress;
+
+              const namedPost: FeedItem<ActivityContentNote> = {
                 ...post,
-                fromAddress: profiles[post.fromAddress]
-                  ? profiles[post.fromAddress].name
-                  : post.fromAddress,
+                fromAddress,
               };
               return <Post key={index} feedItem={namedPost} />;
             })}

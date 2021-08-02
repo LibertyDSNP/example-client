@@ -9,9 +9,11 @@ import { upsertProfile } from "../redux/slices/profileSlice";
 import { AnyAction, ThunkDispatch } from "@reduxjs/toolkit";
 import { Store } from "./Storage";
 import {
-  ActivityContent,
   ActivityContentNote,
   ActivityContentProfile,
+  createNote,
+  isActivityContentNote,
+  isActivityContentProfile,
 } from "@dsnp/sdk/core/activityContent";
 import {
   BroadcastAnnouncement,
@@ -159,24 +161,26 @@ const buildPublication = (
 const dispatchActivityContent = (
   dispatch: Dispatch,
   message: BroadcastAnnouncement,
-  activityContent: ActivityContent,
+  activityContent: ActivityContentNote | ActivityContentProfile,
   blockNumber: number
 ) => {
-  switch (activityContent.type) {
-    case "Note":
-      return dispatchFeedItem(
-        dispatch,
-        message,
-        activityContent as ActivityContentNote,
-        blockNumber
-      );
-    case "Profile":
-      return dispatchProfile(
-        dispatch,
-        message,
-        activityContent as ActivityContentProfile,
-        blockNumber
-      );
+  if (isActivityContentNote(activityContent)) {
+    return dispatchFeedItem(
+      dispatch,
+      message,
+      activityContent as ActivityContentNote,
+      blockNumber
+    );
+  } else if (isActivityContentProfile(activityContent)) {
+    return dispatchProfile(
+      dispatch,
+      message,
+      activityContent as ActivityContentProfile,
+      blockNumber
+    );
+  } else {
+    //If we add a new type to the union it will error unless it's handled.
+    throw new Error("unknown activity content type");
   }
 };
 
@@ -187,19 +191,19 @@ const dispatchFeedItem = (
   blockNumber: number
 ) => {
   const decoder = new TextDecoder();
+
+  if (!content.published) throw new Error("timestamp is required");
+  // new Date(content.published).getTime()
+  const timestamp = Date.parse(content.published);
+
   dispatch(
     addFeedItem({
       fromAddress: decoder.decode((message.fromId as any) as Uint8Array),
       blockNumber: blockNumber,
       hash: decoder.decode((message.contentHash as any) as Uint8Array),
-      timestamp: new Date(content.published).getTime(), // TODO: really wrong
+      timestamp: timestamp,
       uri: decoder.decode((message.url as any) as Uint8Array),
-      content: {
-        "@context": "https://www.w3.org/ns/activitystreams",
-        type: "Note",
-        published: content.published,
-        content: content.content || "",
-      },
+      content: createNote(content.content),
       inReplyTo:
         message.announcementType === core.announcements.AnnouncementType.Reply
           ? decoder.decode((message.inReplyTo as any) as Uint8Array)
@@ -218,7 +222,7 @@ const dispatchProfile = (
 
   dispatch(
     upsertProfile({
-      ...profile.describes,
+      ...profile,
       socialAddress: decoder.decode((message.fromId as any) as Uint8Array),
     })
   );
@@ -252,7 +256,7 @@ const handleBatchAnnouncement = (dispatch: Dispatch) => (
 };
 
 const storeActivityContent = async (
-  content: ActivityContent
+  content: ActivityContentNote
 ): Promise<string> => {
   const hash = keccak256(core.activityContent.serialize(content));
 

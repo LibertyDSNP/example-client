@@ -1,6 +1,6 @@
 import { generateRandomGraph } from "../test/testGraphs";
-import { generateProfile } from "../test/testProfiles";
 import { Graph, HexString, Profile } from "../utilities/types";
+import { activityContent } from "@dsnp/sdk/generators";
 
 export const createSocialIdentityfromWalletAddress = async (
   walletAddress: HexString
@@ -23,5 +23,5 @@ export const getGraphFromSocialIdentity = async (
 export const getProfileFromSocialIdentity = async (
   socialAddress: HexString
 ): Promise<Profile | null> => {
-  return generateProfile(socialAddress, socialAddress);
+  return { socialAddress, ...activityContent.generateProfile() };
 };

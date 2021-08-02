@@ -1,4 +1,4 @@
-import { ActivityContent, ActivityContentNote, ActivityContentPerson } from "@dsnp/sdk/core/activityContent";
+import { ActivityContentNote, ActivityContentProfile } from "@dsnp/sdk/core/activityContent";
 
 
 export type HexString = string;
@@ -7,7 +7,7 @@ export type URLString = string;
 // ### Feed Data Types ###
 
 // ## Profile ##
-export interface Profile extends ActivityContentPerson {
+export interface Profile extends ActivityContentProfile {
   socialAddress: HexString;
 }
 
