@@ -201,7 +201,7 @@ const dispatchFeedItem = (
   const timestamp = Date.parse(content.published);
 
   const url = "https://www.industrialempathy.com/img/remote/ZiClJf-1920w.jpg";
-  const attachment = [
+  content.attachment = [
     createImageAttachment([
       createImageLink(url, "image/jpeg", [createHash(url)]),
     ]),
@@ -213,7 +213,7 @@ const dispatchFeedItem = (
       hash: decoder.decode((message.contentHash as any) as Uint8Array),
       timestamp: timestamp,
       uri: decoder.decode((message.url as any) as Uint8Array),
-      content: createNote(content.content, { attachment: attachment }),
+      content: content,
       inReplyTo:
         message.announcementType === core.announcements.AnnouncementType.Reply
           ? decoder.decode((message.inReplyTo as any) as Uint8Array)
