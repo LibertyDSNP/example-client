@@ -3,6 +3,7 @@ import Post from "./Post";
 import { FeedItem } from "../utilities/types";
 import { useAppSelector } from "../redux/hooks";
 import { DSNPUserId } from "@dsnp/sdk/dist/types/core/identifiers";
+import { ActivityContentNote } from "@dsnp/sdk/core/activityContent";
 
 enum FeedTypes {
   FEED,
@@ -24,7 +25,7 @@ const PostList = ({ feedType }: PostListProps): JSX.Element => {
   const feed: FeedItem[] = useAppSelector((state) => state.feed.feed).filter(
     (post) => post?.content?.type === "Note" && post?.inReplyTo === undefined
   );
-  let currentFeed: FeedItem[] = [];
+  let currentFeed: FeedItem<ActivityContentNote>[] = [];
 
   if (feedType === FeedTypes.FEED) {
     currentFeed = feed.filter(
@@ -46,6 +47,22 @@ const PostList = ({ feedType }: PostListProps): JSX.Element => {
             .map((post, index) => (
               <Post key={index} feedItem={post} />
             ))}
+            .map((post, index) => {
+              if (!post.fromAddress)
+                throw new Error(`no fromAddress in post: ${post}`);
+
+              const fromAddress: string = profiles[post.fromAddress]
+                ? (profiles[post.fromAddress].name as string)
+                : post.fromAddress;
+
+              const namedPost: FeedItem<ActivityContentNote> = {
+                ...post,
+                fromAddress: fromAddress,
+                timestamp: Math.floor(Math.random() * 999999),
+                tags: ["#foodee"],
+              };
+              return <Post key={index} feedItem={namedPost} />;
+            })}
         </>
       ) : (
         "Empty Feed!"
