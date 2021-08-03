@@ -312,6 +312,7 @@ Promise.all(
         `image/jpg`, [core.activityContent.createHash(account.uri)]),
     ])
     const content = core.activityContent.createNote(`${account.text} \n--from ${account.id}`, { attachment: [attachment]});
+    content.published = Date.now.toString(16)
     const {
       hash: contentHash,
       announcement: noteAnnouncement,
