@@ -14,7 +14,6 @@ import {
   createHash,
   createImageAttachment,
   createImageLink,
-  createNote,
   isActivityContentNote,
   isActivityContentProfile,
 } from "@dsnp/sdk/core/activityContent";
@@ -200,12 +199,6 @@ const dispatchFeedItem = (
   if (!content.published) throw new Error("published time is required");
   const timestamp = Date.parse(content.published);
 
-  const url = "https://www.industrialempathy.com/img/remote/ZiClJf-1920w.jpg";
-  content.attachment = [
-    createImageAttachment([
-      createImageLink(url, "image/jpeg", [createHash(url)]),
-    ]),
-  ];
   dispatch(
     addFeedItem({
       fromAddress: decoder.decode((message.fromId as any) as Uint8Array),
