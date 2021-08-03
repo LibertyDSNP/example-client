@@ -11,7 +11,6 @@ import { Store } from "./Storage";
 import {
   ActivityContentNote,
   ActivityContentProfile,
-  createNote,
   isActivityContentNote,
   isActivityContentProfile,
 } from "@dsnp/sdk/core/activityContent";

@@ -11,40 +11,26 @@ interface PostMediaProps {
 const PostMedia = ({ attachment }: PostMediaProps): JSX.Element => {
   const getPostMediaItems = () => {
     return attachment?.map((item, index) => {
+      const type = item.type.toLowerCase();
       return (
         <div key={index} className="PostMedia__cover">
-          {item.type.toLowerCase() === "image" && (
+          {type === "image" && (
             <a
-              href={item.url[0].href as string}
+              href={item.url[0].href}
               target="_blank"
               rel="noopener noreferrer"
             >
-              <img
-                alt=""
-                className="PostMedia__img"
-                src={item.url[0].href as string}
-              />
+              <img alt="" className="PostMedia__img" src={item.url[0].href} />
             </a>
           )}
-          {item.type.toLowerCase() === "video" && (
+          {(type === "video" || type === "audio") && (
             <ReactPlayer
               controls
               playsinline
               className="PostMedia__img"
-              url={item.url[0].href as string}
+              url={item.url[0].href}
               width={670}
-              height={400}
-              muted
-            />
-          )}
-          {item.type.toLowerCase() === "audio" && (
-            <ReactPlayer
-              controls
-              playsinline
-              className="PostMedia__img"
-              url={item.url[0].href as string}
-              width={670}
-              height={55}
+              height={type === "video" ? 400 : 55}
               muted
             />
           )}

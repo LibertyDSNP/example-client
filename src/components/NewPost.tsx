@@ -1,5 +1,5 @@
-import React, { useEffect } from "react";
-import { Alert, Button, Space, Spin, Modal, Input } from "antd";
+import React from "react";
+import { Button, Space, Spin, Modal, Input } from "antd";
 import { useAppSelector } from "../redux/hooks";
 import UserAvatar from "./UserAvatar";
 import NewPostImageUpload from "./NewPostImageUpload";
