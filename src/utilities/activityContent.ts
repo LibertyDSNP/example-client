@@ -8,6 +8,8 @@ import {
   createImageAttachment,
   createImageLink,
   createHash,
+  createAudioLink,
+  createAudioAttachment,
 } from "@dsnp/sdk/core/activityContent";
 
 const createMediaAttachment = (item: string): ActivityContentAttachment => {
@@ -33,6 +35,18 @@ const createMediaAttachment = (item: string): ActivityContentAttachment => {
       case "mov":
         return createVideoAttachment([
           createVideoLink(item, "video/quicktime", activityContentHashes),
+        ]);
+      case "webm":
+        return createVideoAttachment([
+          createVideoLink(item, "video/webm", activityContentHashes),
+        ]);
+      case "mp3":
+        return createAudioAttachment([
+          createAudioLink(item, "audio/mpeg", activityContentHashes),
+        ]);
+      case "ogg":
+        return createAudioAttachment([
+          createAudioLink(item, "audio/ogg", activityContentHashes),
         ]);
       default:
         return createImageAttachment([

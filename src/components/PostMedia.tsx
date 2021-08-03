@@ -15,11 +15,15 @@ const PostMedia = ({ attachment }: PostMediaProps): JSX.Element => {
         <div key={index} className="PostMedia__cover">
           {item.type.toLowerCase() === "image" && (
             <a
-              href={item.url[0].href}
+              href={item.url[0].href as string}
               target="_blank"
               rel="noopener noreferrer"
             >
-              <img alt="" className="PostMedia__img" src={item.url[0].href} />
+              <img
+                alt=""
+                className="PostMedia__img"
+                src={item.url[0].href as string}
+              />
             </a>
           )}
           {item.type.toLowerCase() === "video" && (
@@ -27,9 +31,20 @@ const PostMedia = ({ attachment }: PostMediaProps): JSX.Element => {
               controls
               playsinline
               className="PostMedia__img"
-              url={item.url[0].href}
-              width={535}
-              height={375}
+              url={item.url[0].href as string}
+              width={670}
+              height={400}
+              muted
+            />
+          )}
+          {item.type.toLowerCase() === "audio" && (
+            <ReactPlayer
+              controls
+              playsinline
+              className="PostMedia__img"
+              url={item.url[0].href as string}
+              width={670}
+              height={55}
               muted
             />
           )}

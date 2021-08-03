@@ -14,7 +14,6 @@ interface NewPostProps {
 }
 
 const NewPost = ({ onSuccess, onCancel }: NewPostProps): JSX.Element => {
-  const [errorMsg, setErrorMsg] = React.useState<string | null>(null);
   const [saving, setSaving] = React.useState<boolean>(false);
   const [uriList, setUriList] = React.useState<string[]>([]);
   const [postMessage, setPostMessage] = React.useState<string>("");
@@ -22,15 +21,8 @@ const NewPost = ({ onSuccess, onCancel }: NewPostProps): JSX.Element => {
 
   const profile = useAppSelector((state) => state.user.profile);
 
-  useEffect(() => {
-    if (postMessage.length > 0 || uriList.length > 0) {
-      setIsValidPost(true);
-    } else setIsValidPost(false);
-  }, [postMessage, uriList]);
-
   const success = () => {
     setSaving(false);
-    setErrorMsg(null);
     onSuccess();
   };
 
@@ -43,6 +35,14 @@ const NewPost = ({ onSuccess, onCancel }: NewPostProps): JSX.Element => {
     );
     await sendPost(newPostFeedItem);
     success();
+  };
+
+  const handleMessageInputChange = (
+    e: React.ChangeEvent<HTMLTextAreaElement>
+  ) => {
+    if (saving) return;
+    e.target.value !== "" ? setIsValidPost(true) : setIsValidPost(false);
+    setPostMessage(e.target.value);
   };
 
   return (
@@ -82,16 +82,9 @@ const NewPost = ({ onSuccess, onCancel }: NewPostProps): JSX.Element => {
         className="NewPost__textArea"
         placeholder="Message"
         value={postMessage || ""}
-        onChange={(e) => {
-          if (saving) return;
-          setErrorMsg(null);
-          setPostMessage(e.target.value);
-        }}
+        onChange={(e) => handleMessageInputChange(e)}
         rows={6}
       />
-      {errorMsg && (
-        <Alert className="NewPost__alert" type="error" message={errorMsg} />
-      )}
       <NewPostImageUpload onNewPostImageUpload={setUriList} />
     </Modal>
   );
