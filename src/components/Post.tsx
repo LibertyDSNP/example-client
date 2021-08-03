@@ -3,11 +3,14 @@ import { Card } from "antd";
 import { FeedItem } from "../utilities/types";
 import UserAvatar from "./UserAvatar";
 import PostMedia from "./PostMedia";
-import { ActivityContentImage } from "@dsnp/sdk/core/activityContent";
+import {
+  ActivityContentImage,
+  ActivityContentNote,
+} from "@dsnp/sdk/core/activityContent";
 import ActionsBar from "./ActionsBar";
 
 interface PostProps {
-  feedItem: FeedItem;
+  feedItem: FeedItem<ActivityContentNote>;
 }
 
 const Post = ({ feedItem }: PostProps): JSX.Element => {

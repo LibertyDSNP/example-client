@@ -263,7 +263,8 @@ Promise.all(
     } = await storeAnnouncement(profile, account.id, wallet);
 
     // create a note
-    const content = core.activityContent.createNote(`Hello from ${account.id}`);
+    const content = core.activityContent.createNote(`Hello from ${account.id}`, true);
+    content.published = Date.now.toString()
     const {
       hash: contentHash,
       announcement: noteAnnouncement,

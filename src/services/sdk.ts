@@ -11,6 +11,9 @@ import { Store } from "./Storage";
 import {
   ActivityContentNote,
   ActivityContentProfile,
+  createHash,
+  createImageAttachment,
+  createImageLink,
   createNote,
   isActivityContentNote,
   isActivityContentProfile,
@@ -180,7 +183,9 @@ const dispatchActivityContent = (
     );
   } else {
     //If we add a new type to the union it will error unless it's handled.
-    throw new Error("unknown activity content type");
+    throw new Error(
+      `unknown activity content type: ${JSON.stringify(activityContent)}`
+    );
   }
 };
 
@@ -192,10 +197,15 @@ const dispatchFeedItem = (
 ) => {
   const decoder = new TextDecoder();
 
-  if (!content.published) throw new Error("timestamp is required");
-  // new Date(content.published).getTime()
+  if (!content.published) throw new Error("published time is required");
   const timestamp = Date.parse(content.published);
 
+  const url = "https://www.industrialempathy.com/img/remote/ZiClJf-1920w.jpg";
+  const attachment = [
+    createImageAttachment([
+      createImageLink(url, "image/jpeg", [createHash(url)]),
+    ]),
+  ];
   dispatch(
     addFeedItem({
       fromAddress: decoder.decode((message.fromId as any) as Uint8Array),
@@ -203,7 +213,7 @@ const dispatchFeedItem = (
       hash: decoder.decode((message.contentHash as any) as Uint8Array),
       timestamp: timestamp,
       uri: decoder.decode((message.url as any) as Uint8Array),
-      content: createNote(content.content),
+      content: createNote(content.content, { attachment: attachment }),
       inReplyTo:
         message.announcementType === core.announcements.AnnouncementType.Reply
           ? decoder.decode((message.inReplyTo as any) as Uint8Array)
