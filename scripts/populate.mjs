@@ -65,7 +65,7 @@ const accounts = [
     id: "0x10005",
     pk: "0x47e179ec197488593b187f80a00eb0da91f1b9d0b13f8733639f19c30a34926a",
     attachment: createVideoAttachment("https://vimeo.com/27732793", "text/html"),
-    text: "WAT. Amirite?",
+    text: "This Vimeo -- WAT. Amirite?",
     name: "Louis Bollen",
   },
   {
@@ -82,7 +82,7 @@ const accounts = [
     pk: "0x92db14e403b83dfe3df233f83dfa3a0d7096f21ca9b0d6d6b8d88b2b4ec1564e",
     name: "An Bai",
     attachment: createVideoAttachment("https://soundcloud.com/sistema-bomb/bemba-y-tablao-sistema-bomb", "text/html"),
-    text: "您所有的基地都属于我们"
+    text: "您所有的基地都属于我们\nHere's a great Soundcloud track"
   },
   {
     address: "0x14dc79964da2c08b23698b3d3cc7ca32193d9955",
@@ -90,7 +90,7 @@ const accounts = [
     pk: "0x4bbbf85ce3377467afe5d46f804f221813b2bb87f24d81f60f1fcdbf7cbf4356",
     name: "Orie Howe",
     attachment: createVideoAttachment("https://www.youtube.com/watch?v=1qpVkh61meM", "text/html"),
-    text: "Go sports team! Dunk the goal!"
+    text: "Go sports team! Dunk the goal! \n Also watch this YouTube video."
   },
   {
     address: "0x23618e81e3f5cdf7f54c3d65f7fbc0abf5b21e8f",
@@ -98,7 +98,7 @@ const accounts = [
     pk: "0xdbda1821b80551c9d65939329250298aa3472ba22feea921c0cf5d620ea67b97",
     name: "Devorah Pettitt",
     attachment: createVideoAttachment("https://filesamples.com/samples/video/mp4/sample_960x540.mp4", "video/mp4"),
-    text: "I strongly favor ${CITY_NAME} ${SPORTS_TEAM}, who are superior at ${SPORTS_BALL}. I fervently desire their continued success."
+    text: "I strongly favor ${CITY_NAME} ${SPORTS_TEAM}, who are superior at ${SPORTS_BALL}. I fervently desire their continued success.\n PS here's an MP4"
   },
   {
     address: "0xa0ee7a142d267c1f36714e4a8f75612f20a79720",
@@ -106,7 +106,7 @@ const accounts = [
     pk: "0x2a871d0798f97d79848a013d4936a73bf4cc922c825d33c1cf7073dff6d409c6",
     name: "Edison Gillis",
     attachment: createVideoAttachment("https://filesamples.com/samples/video/wmv/sample_640x360.wmv", "video/x-ms-wmv"),
-    text: "Test"
+    text: "This is a WMV file"
   },
   {
     address: "0xbcd4042de499d14e55001ccbb24a551f3b954096",
@@ -137,8 +137,9 @@ const accounts = [
     id: "0x1000e",
     pk: "0x47c99abed3324a2707c28affff1267e45918ec8c3f20b8aa892e8b065d2942dd",
     name: "Juan Harrington",
-    attachment: createVideoAttachment("https://www.tiktok.com/@tastinghistory/video/6959274475217095941?lang=en&is_copy_url=1&is_from_webapp=v1", "text/html"),
-    text: "Peppers."
+    attachment: createAudioAttachment("https://archive.org/download/78_the-one-i-love-belongs-to-somebody-else_ella-fitzgerald-albert-von-tilzer-lew-bro_gbia8001485/01%20-%20I%27M%20THE%20LONESOMEST%20GAL%20IN%20TOWN%20-%20ELLA%20FITZGERALD.mp3",
+      "audio/mpeg"),
+    text: "An MP3 featuring my fave, Ella Fitzgerald!"
   },
   {
     address: "0xdf3e18d64bc6a983f673ab319ccae4f1a57c7097",
@@ -146,7 +147,7 @@ const accounts = [
     pk: "0xc526ee95bf44d8fc405a158bb884d9d1238d99f0612e9f33d006bb0789009aaa",
     name: "Srikanth Raghavan",
     attachment: createAudioAttachment("https://stream.thisamericanlife.org/629/P41zu7fBNaTorAhTWbSHpLTmRj2MvvEdKIOiNBT2xOA/629.mp3", "audio/mpeg"),
-    text: "Expect delays."
+    text: "Expect delays.  (MP3)"
   },
   {
     address: "0xcd3b766ccdd6ae721141f452c550ca635964ce71",
@@ -162,7 +163,7 @@ const accounts = [
     pk: "0xea6c44ac03bff858b476bba40716402b03e41b8e97e276d1baec7c37d42484a0",
     name: "Eskil Grímsdóttir",
     attachment: createAudioAttachment("https://archive.org/download/penguin_island_ms_librivox/penguin_island_01_france.ogg", "audio/ogg"),
-    text: "Penguin Island"
+    text: "Penguin Island (OGG-Vorbis)"
   },
   {
     address: "0xbda5747bfd65f08deb54cb465eb87d40e51b197e",

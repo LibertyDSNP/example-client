@@ -22,12 +22,6 @@ describe("activityContent", () => {
         mediaType: "Video",
       },
       {
-        name: "tiktok",
-        uri: "https://www.tiktok.com/@supernicedude/video/6966763008278269189",
-        attachmentType: "text/html",
-        mediaType: "Video",
-      },
-      {
         name: "MP4",
         uri:
           "https://filesamples.com/samples/video/mp4/sample_960x400_ocean_with_audio.mp4",

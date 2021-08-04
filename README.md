@@ -63,19 +63,20 @@ Follow this quick start guide to get up and running. This guide assumes a workin
 * Visit http://localhost:3000 (or you configured port)
 
 ## Development Troubleshooting and FAQ
-* **Transactions are rejected due to bad nonce** - If you've restarted the chain, you probably need to reset your test accounts. In Metamask, click on the **Account** icon from the extension.  Then go to **Settings --> Advanced**, scroll down a little and click Reset. Do this for each connected account.
+* **Transactions rejected due to invalid nonce** - If you've restarted the chain, you probably need to reset your test accounts. In Metamask, click on the **Account** icon from the extension.  Then go to **Settings --> Advanced**, scroll down a little and click **Reset Account**. Do this for each connected account.
 * **Still seeing old events after resetting chain** - If you're running static-server, it needs to be stopped.  Then delete all the batch files it stored with `rm static-server/public/0x*`
 * **How do I restart example-app with an empty chain and no events?** - For best results, in this order, do the following:
     1. Logout of the app from your browser.
-    1. Kill the example-app with ^C
+    1. Kill the example-app with ^C (If you haven't changed the code and just want to delete and recreate all posts, you can skip this step.)
     1. Kill static-server same way
+    1. Delete static-server batch files with `rm static-server/public/0x*`
     1. Go to the contracts repo and kill hardhat node (^C)
     1. Restart hardhat node: `npx hardhat node`
     1. Redeploy the contracts: `npm run deploy:localhost`
     1. Reset your test accounts in Metamask
     1. Restart example-app/static server: `npm run start` from within static-server
-    1. Optionally, rerun populate script from example-app, if you want to quickly populate events: `node script/populate`
-    1. Run example-app: `npm run start`
+    1. Optionally, rerun populate script from example-app, if you want to quickly populate some accounts and events: `node script/populate`
+    1. If you stopped the example-app, restart it: `npm run start`
 
     You should now be able to login to the app, and view and create posts.
 

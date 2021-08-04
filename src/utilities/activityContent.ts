@@ -17,7 +17,7 @@ const createMediaAttachment = (item: string): ActivityContentAttachment => {
 
   const host = new URL(item).host;
 
-  const supportedVideoDomains = /(youtu\.be|youtube\.com|vimeo\.com|tiktok\.com|soundcloud.com)$/;
+  const supportedVideoDomains = /(youtu\.be|youtube\.com|vimeo\.com|soundcloud.com)$/;
 
   const contentHash = createHash(item);
   const activityContentHashes: Array<ActivityContentHash> = [contentHash];
