@@ -18,7 +18,6 @@ const createMediaAttachment = (item: string): ActivityContentAttachment => {
 
   const contentHash = createHash(item);
   const activityContentHashes: Array<ActivityContentHash> = [contentHash];
-
   if (supportedVideoDomains.test(item)) {
     const link = createVideoLink(item, "text/html", activityContentHashes);
     return createVideoAttachment([link]);
@@ -49,9 +48,15 @@ const createMediaAttachment = (item: string): ActivityContentAttachment => {
           createAudioLink(item, "audio/ogg", activityContentHashes),
         ]);
       default:
-        return createImageAttachment([
-          createImageLink(item, `image/${extension}`, activityContentHashes),
-        ]);
+        if (item.includes("soundcloud")) {
+          return createVideoAttachment([
+            createVideoLink(item, `video/${extension}`, activityContentHashes),
+          ]);
+        } else {
+          return createImageAttachment([
+            createImageLink(item, `image/${extension}`, activityContentHashes),
+          ]);
+        }
     }
   }
 };
