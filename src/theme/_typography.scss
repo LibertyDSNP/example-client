@@ -32,7 +32,10 @@
 // Styleguide Base.font-sizes
 
 @mixin extra-large-text {
-  font-size: 34px;
+  font-family: CaslonGraphique;
+  font-size: 52px;
+  font-weight: bold;
+  letter-spacing: 1px;
 }
 
 @mixin large-text {
@@ -44,7 +47,7 @@
 }
 
 @mixin small-text {
-  font-size: 13px;
+  font-size: 12.5px;
 }
 
 @mixin bold-text {

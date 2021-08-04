@@ -1,15 +1,16 @@
 .Feed__block {
   display: flex;
   flex-direction: column;
-  width: 750px;
+  margin: 0 auto;
+  width: 80vw;
+  max-width: 1200px;
   height: fit-content;
-  margin-right: 15px;
 }
 
 .Feed__header {
   display: flex;
+  flex-direction: row-reverse;
   justify-content: space-between;
-  border-bottom: 2px solid $black;
   padding-bottom: 12px;
 }
 
@@ -20,21 +21,17 @@
 }
 
 .Feed__navigationItem {
+
   padding: 0 10px;
   cursor: pointer;
+  border-left: 2px solid $dark-orange;
 }
 
 .Feed__navigationItem:first-child {
   padding-left: 0;
+  border-left: none;
 }
 
 .Feed__navigationItem--active {
-  text-decoration: underline;
-}
-
-.Feed__navigationSpacer {
-  width: 5px;
-  height: 22px;
-  transform: skew(-20deg);
-  background: $green;
+  color: $dark-orange;
 }

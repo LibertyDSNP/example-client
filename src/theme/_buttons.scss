@@ -3,13 +3,13 @@
   box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.16);
   background-image: linear-gradient($light-color, $dark-color);
   border: none;
-  color: $black;
+  color: $dark-gray;
 
   &:hover,
   &:active,
   &:focus {
     background-image: linear-gradient($dark-color, $light-color);
-    color: $black;
+    color: $dark-gray;
     border: none;
   }
 }

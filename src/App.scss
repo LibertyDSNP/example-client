@@ -16,7 +16,11 @@
 
 .App__content {
   display: flex;
-  justify-content: center;
+  flex-direction: column; //TODO: move profile to where it should be
+  justify-content: space-between;
+  height: fit-content;
+  min-height: 90vh;
+  align-items: center;
 }
 
 code {

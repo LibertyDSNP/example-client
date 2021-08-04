@@ -2,14 +2,14 @@
 .ant-btn.Login__logOutButton {
   border-radius: 6px;
   padding: 0 30px;
-  background-color: $black;
+  background-color: $dark-gray;
   color: $white;
-  border-color: $black;
+  border-color: $dark-gray;
 
   &:hover, &:active, &:focus {
-    color: $green;
-    background-color: $black;
-    border-color: $green;
+    color: $dark-orange;
+    background-color: $dark-gray;
+    border-color: $dark-orange;
   }
 }
 
@@ -32,23 +32,23 @@
 }
 
 .ant-btn.ConnectionsList__button {
-  border: solid $black;
-  background: $black;
+  border: solid $dark-gray;
+  background: $dark-gray;
   color: $white;
   border-width: 2px 2px 2px 1px;
   border-radius: 0 8px 8px 0;
   height: auto;
 
   &:focus {
-    border-color: $black;
-    background: $black;
+    border-color: $dark-gray;
+    background: $dark-gray;
     color: $white;
   }
 
   &:hover, &:active {
-    border-color: $black;
+    border-color: $dark-gray;
     background: $white;
-    color: $black;
+    color: $dark-gray;
   }
 }
 
@@ -58,23 +58,23 @@
 }
 
 .ant-btn.Profile__editButton {
-  @include button($shadow-green, $green);
+  @include button($dark-orange, $orange);
   padding: 0 10px;
   font-size: 12px;
   height: 24px;
 }
 
 .ant-btn.ConnectionsList__button--active {
-  color: $black !important;
+  color: $dark-gray !important;
   background: $white !important;
 }
 
 .ant-btn.Feed__newPostButton {
-  @include button($shadow-green, $green);
+  @include button($dark-orange, $orange);
 }
 
 .ant-btn.NewPost__footerBtn {
-  @include button($shadow-green, $green);
+  @include button($dark-orange, $orange);
 }
 
 .ant-input.NewPostImageUpload__urlInput {
@@ -109,7 +109,7 @@
 }
 
 .ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn {
-  color: $shadow-green !important;
+  color: $dark-orange !important;
 }
 
 .ant-tabs-tab-btn:hover,
@@ -118,15 +118,15 @@
 .ant-tabs-tab-remove:focus,
 .ant-tabs-tab-btn:active,
 .ant-tabs-tab-remove:active {
-  color: $shadow-green !important;
+  color: $dark-orange !important;
 }
 
 .ant-tabs-ink-bar {
-  background: $shadow-green !important;
+  background: $dark-orange !important;
 }
 
 a {
-  color: $shadow-green !important;
+  color: $dark-orange !important;
 }
 
 .ant-card.Post__block {
@@ -146,7 +146,7 @@ a {
     button {
       height: 15px !important;
       border-radius: 8px !important;
-      border: 1px solid $black !important;
+      border: 1px solid $dark-gray !important;
     }
   }
 }
