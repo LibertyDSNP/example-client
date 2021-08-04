@@ -14,11 +14,15 @@ import {
 
 const createMediaAttachment = (item: string): ActivityContentAttachment => {
   const extension = path.extname(item).replace(".", "");
-  const supportedVideoDomains = /youtu.be|youtube.com|vimeo.com/;
+
+  const host = new URL(item).host;
+
+  const supportedVideoDomains = /(youtu\.be|youtube\.com|vimeo\.com|tiktok\.com)$/;
 
   const contentHash = createHash(item);
   const activityContentHashes: Array<ActivityContentHash> = [contentHash];
-  if (supportedVideoDomains.test(item)) {
+
+  if (supportedVideoDomains.test(host)) {
     const link = createVideoLink(item, "text/html", activityContentHashes);
     return createVideoAttachment([link]);
   } else {
