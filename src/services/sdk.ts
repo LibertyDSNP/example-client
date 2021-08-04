@@ -191,9 +191,8 @@ const dispatchFeedItem = (
 ) => {
   const decoder = new TextDecoder();
 
-  if (!content.published) throw new Error("timestamp is required");
-  // new Date(content.published).getTime()
-  const timestamp = Date.parse(content.published);
+  const timestamp = content.published ? Date.parse(content.published) : 0;
+
   dispatch(
     addFeedItem({
       fromAddress: decoder.decode((message.fromId as any) as Uint8Array),

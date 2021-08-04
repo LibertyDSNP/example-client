@@ -14,11 +14,15 @@ import {
 
 const createMediaAttachment = (item: string): ActivityContentAttachment => {
   const extension = path.extname(item).replace(".", "");
-  const supportedVideoDomains = /youtu.be|youtube.com|vimeo.com/;
+
+  const host = new URL(item).host;
+
+  const supportedVideoDomains = /(youtu\.be|youtube\.com|vimeo\.com|soundcloud.com)$/;
 
   const contentHash = createHash(item);
   const activityContentHashes: Array<ActivityContentHash> = [contentHash];
-  if (supportedVideoDomains.test(item)) {
+
+  if (supportedVideoDomains.test(host)) {
     const link = createVideoLink(item, "text/html", activityContentHashes);
     return createVideoAttachment([link]);
   } else {
@@ -48,15 +52,9 @@ const createMediaAttachment = (item: string): ActivityContentAttachment => {
           createAudioLink(item, "audio/ogg", activityContentHashes),
         ]);
       default:
-        if (item.includes("soundcloud")) {
-          return createVideoAttachment([
-            createVideoLink(item, `video/${extension}`, activityContentHashes),
-          ]);
-        } else {
-          return createImageAttachment([
-            createImageLink(item, `image/${extension}`, activityContentHashes),
-          ]);
-        }
+        return createImageAttachment([
+          createImageLink(item, `image/${extension}`, activityContentHashes),
+        ]);
     }
   }
 };
