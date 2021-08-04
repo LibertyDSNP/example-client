@@ -15,12 +15,12 @@ describe("activityContent", () => {
         attachmentType: "text/html",
         mediaType: "Video",
       },
-      // {
-      //   name: "soundcloud",
-      //   uri: "https://soundcloud.com/sistema-bomb/bemba-y-tablao-sistema-bomb",
-      //   attachmentType: "text/html",
-      //   mediaType: "Audio",
-      // },
+      {
+        name: "soundcloud",
+        uri: "https://soundcloud.com/sistema-bomb/bemba-y-tablao-sistema-bomb",
+        attachmentType: "text/html",
+        mediaType: "Video",
+      },
       {
         name: "tiktok",
         uri: "https://www.tiktok.com/@supernicedude/video/6966763008278269189",
@@ -34,20 +34,20 @@ describe("activityContent", () => {
         attachmentType: "video/mp4",
         mediaType: "Video",
       },
-      // {
-      //   name: "MP3",
-      //   uri:
-      //     "https://archive.org/download/78_the-one-i-love-belongs-to-somebody-else_ella-fitzgerald-albert-von-tilzer-lew-bro_gbia8001485/01%20-%20I%27M%20THE%20LONESOMEST%20GAL%20IN%20TOWN%20-%20ELLA%20FITZGERALD.mp3",
-      //   attachmentType: "audio/mp3",
-      //   mediaType: "Audio",
-      // },
-      // {
-      //   name: "Ogg-Vorbis",
-      //   uri:
-      //     "https://archive.org/download/penguin_island_ms_librivox/penguin_island_01_france.ogg",
-      //   attachmentType: "audio/ogg",
-      //   mediaType: "Audio",
-      // },
+      {
+        name: "MP3",
+        uri:
+          "https://archive.org/download/78_the-one-i-love-belongs-to-somebody-else_ella-fitzgerald-albert-von-tilzer-lew-bro_gbia8001485/01%20-%20I%27M%20THE%20LONESOMEST%20GAL%20IN%20TOWN%20-%20ELLA%20FITZGERALD.mp3",
+        attachmentType: "audio/mpeg",
+        mediaType: "Audio",
+      },
+      {
+        name: "Ogg-Vorbis",
+        uri:
+          "https://archive.org/download/penguin_island_ms_librivox/penguin_island_01_france.ogg",
+        attachmentType: "audio/ogg",
+        mediaType: "Audio",
+      },
       {
         name: "WebM",
         uri:

@@ -14,7 +14,13 @@ const createImageAttachment = (url) => {
 
 const createVideoAttachment = (url, type) => {
   return core.activityContent.createVideoAttachment([
-    core.activityContent.createVideoLink(url, `${type}`, [core.activityContent.createHash(url)])
+    core.activityContent.createVideoLink(url, type, [core.activityContent.createHash(url)])
+  ])
+}
+
+const createAudioAttachment = (url, type) => {
+  return core.activityContent.createAudioAttachment([
+    core.activityContent.createAudioLink(url, type, [core.activityContent.createHash(url)])
   ])
 }
 
@@ -75,7 +81,7 @@ const accounts = [
     id: "0x10007",
     pk: "0x92db14e403b83dfe3df233f83dfa3a0d7096f21ca9b0d6d6b8d88b2b4ec1564e",
     name: "An Bai",
-    attachment: ("https://s2.best-wallpaper.net/wallpaper/iphone/1407/Little-dog-black-puppy_iphone_640x1136.jpg"),
+    attachment: createVideoAttachment("https://soundcloud.com/sistema-bomb/bemba-y-tablao-sistema-bomb", "text/html"),
     text: "您所有的基地都属于我们"
   },
   {
@@ -139,7 +145,7 @@ const accounts = [
     id: "0x1000f",
     pk: "0xc526ee95bf44d8fc405a158bb884d9d1238d99f0612e9f33d006bb0789009aaa",
     name: "Srikanth Raghavan",
-    attachment: createImageAttachment("http://www.placecage.com/1024/768"),
+    attachment: createAudioAttachment("https://stream.thisamericanlife.org/629/P41zu7fBNaTorAhTWbSHpLTmRj2MvvEdKIOiNBT2xOA/629.mp3", "audio/mpeg"),
     text: "Expect delays."
   },
   {
@@ -155,8 +161,8 @@ const accounts = [
     id: "0x10011",
     pk: "0xea6c44ac03bff858b476bba40716402b03e41b8e97e276d1baec7c37d42484a0",
     name: "Eskil Grímsdóttir",
-    attachment: createImageAttachment("https://mydreamsymbolism.com/wp-content/uploads/2017/11/Dreams-About-Babies-Meaning-and-Interpretation.jpg"),
-    text: "Hola, mundo!"
+    attachment: createAudioAttachment("https://archive.org/download/penguin_island_ms_librivox/penguin_island_01_france.ogg", "audio/ogg"),
+    text: "Penguin Island"
   },
   {
     address: "0xbda5747bfd65f08deb54cb465eb87d40e51b197e",
@@ -314,13 +320,14 @@ Promise.all(
     const wallet = new Wallet(account.pk, provider);
 
     // create profile
-    const profile = core.activityContent.createProfile(account.name);
+    const profile = core.activityContent.createProfile("dsnp://"+ account.id, account.name, account.name);
 
     // create a note
     const content = core.activityContent.createNote(`${account.text} \n--from ${account.id}`, {attachment: [account.attachment]});
     content.published = Date.now.toString(16)
 
     if (testOnly) {
+      console.log(profile)
       console.log("content: ", content)
       console.log("attachment:", content.attachment[0])
     } else {
@@ -352,5 +359,3 @@ Promise.all(
     }
   })
 ).then(() => console.log("All accounts created."));
-
-
