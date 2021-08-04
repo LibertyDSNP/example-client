@@ -1,13 +1,29 @@
-.Header__block {
-  background-color: $white;
-  padding: 0 16px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+.Header__blockOuter {
+  background-color: $orange;
+  border-bottom: 4px solid $white;
   margin-bottom: 16px;
 }
 
+.Header__blockInner {
+  padding: 16px 0;
+  width: 80vw;
+  margin: 0 auto;
+  max-width: 1200px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
 .Header__title {
+  @include extra-large-text;
+  color: $dark-orange;
   margin: 0;
-  font-style: italic;
+  line-height: 1;
+}
+
+.Header__subtitle {
+  @include small-text;
+  color: $dark-gray;
+  margin-bottom: 0;
+  line-height: 1;
 }

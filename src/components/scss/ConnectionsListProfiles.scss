@@ -24,21 +24,21 @@
   &:hover,
   &:active,
   &:focus {
-    color: $black;
-    border-color: $green;
+    color: $dark-gray;
+    border-color: $dark-orange;
     background-color: $light-gray;
   }
 }
 
 .ConnectionsListProfiles__button[name="Follow"] {
-  background-color: $black;
+  background-color: $dark-gray;
   color: $white;
 
   &:hover,
   &:active,
   &:focus {
     color: $white;
-    border-color: $green;
+    border-color: $dark-orange;
     background-color: $dark-gray;
   }
 }

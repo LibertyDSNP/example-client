@@ -1,4 +1,4 @@
-$dark-gray: #404040;
+$light-orange: #fae4d2;
 
 // index.scss is for CSS declarations that aren't specific to a component.
 // In practice, that means this file is used for two things:
@@ -9,5 +9,5 @@ $dark-gray: #404040;
 body {
   margin: 0;
   padding: 0;
-  background-color: $dark-gray !important;
+  background-color: $light-orange !important;
 }

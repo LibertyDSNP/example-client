@@ -16,33 +16,32 @@ const ProfileBlock = (): JSX.Element => {
   const getClassName = (sectionName: string) => {
     return `ProfileBlock__${sectionName}`;
   };
-
   return (
-    <div className="ProfileBlock__block">
+    <div className="Profile__block">
       {userId && (
         <>
-          <div className="ProfileBlock__personalInfoBlock">
-            <div className="ProfileBlock__avatarBlock">
+          <div className="Profile__personalInfoBlock">
+            <div className="Profile__avatarBlock">
               <UserAvatar
                 profileAddress={userId}
                 avatarSize="large"
               />
-              <Button className="ProfileBlock__editButton">edit</Button>
+              <Button className="Profile__editButton">edit</Button>
             </div>
-            <div className="ProfileBlock__personalInfo">
-              <label className="ProfileBlock__personalInfoLabel">NAME</label>
+            <div className="Profile__personalInfo">
+              <label className="Profile__personalInfoLabel">NAME</label>
               <input
                 className={getClassName("name")}
                 value={profileName}
                 disabled={true}
               />
-              <label className="ProfileBlock__personalInfoLabel">HANDLE</label>
+              <label className="Profile__personalInfoLabel">HANDLE</label>
               <input
                 className={getClassName("handle")}
                 value={handle}
                 disabled={true}
               />
-              <label className="ProfileBlock__personalInfoLabel">
+              <label className="Profile__personalInfoLabel">
                 SOCIAL ADDRESS
               </label>
               <input
