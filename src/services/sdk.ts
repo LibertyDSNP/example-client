@@ -11,7 +11,6 @@ import { Store } from "./Storage";
 import {
   ActivityContentNote,
   ActivityContentProfile,
-  createNote,
   isActivityContentNote,
   isActivityContentProfile,
 } from "@dsnp/sdk/core/activityContent";
@@ -195,7 +194,6 @@ const dispatchFeedItem = (
   if (!content.published) throw new Error("timestamp is required");
   // new Date(content.published).getTime()
   const timestamp = Date.parse(content.published);
-
   dispatch(
     addFeedItem({
       fromAddress: decoder.decode((message.fromId as any) as Uint8Array),
@@ -203,7 +201,7 @@ const dispatchFeedItem = (
       hash: decoder.decode((message.contentHash as any) as Uint8Array),
       timestamp: timestamp,
       uri: decoder.decode((message.url as any) as Uint8Array),
-      content: createNote(content.content),
+      content: content,
       inReplyTo:
         message.announcementType === core.announcements.AnnouncementType.Reply
           ? decoder.decode((message.inReplyTo as any) as Uint8Array)
