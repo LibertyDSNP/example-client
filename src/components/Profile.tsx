@@ -16,45 +16,38 @@ const Profile = (): JSX.Element => {
   const getClassName = (sectionName: string) => {
     return `Profile__${sectionName}`;
   };
-
   return (
     <div className="Profile__block">
-      {profile && (
-        <>
-          <div className="Profile__personalInfoBlock">
-            <div className="Profile__avatarBlock">
-              <UserAvatar
-                profileAddress={profile?.socialAddress}
-                avatarSize="large"
-              />
-              <Button className="Profile__editButton">edit</Button>
-            </div>
-            <div className="Profile__personalInfo">
-              <label className="Profile__personalInfoLabel">NAME</label>
-              <input
-                className={getClassName("name")}
-                value={profileName}
-                disabled={true}
-              />
-              <label className="Profile__personalInfoLabel">HANDLE</label>
-              <input
-                className={getClassName("handle")}
-                value={handle}
-                disabled={true}
-              />
-              <label className="Profile__personalInfoLabel">
-                SOCIAL ADDRESS
-              </label>
-              <input
-                className={getClassName("socialAddress")}
-                value={profile?.socialAddress || "Anonymous"}
-                disabled={true}
-              />
-            </div>
-          </div>
-          <ConnectionsList />
-        </>
-      )}
+      <div className="Profile__personalInfoBlock">
+        <div className="Profile__avatarBlock">
+          <UserAvatar
+            profileAddress={profile?.socialAddress}
+            avatarSize="large"
+          />
+          <Button className="Profile__editButton">edit</Button>
+        </div>
+        <div className="Profile__personalInfo">
+          <label className="Profile__personalInfoLabel">NAME</label>
+          <input
+            className={getClassName("name")}
+            value={profileName}
+            disabled={true}
+          />
+          <label className="Profile__personalInfoLabel">HANDLE</label>
+          <input
+            className={getClassName("handle")}
+            value={handle}
+            disabled={true}
+          />
+          <label className="Profile__personalInfoLabel">SOCIAL ADDRESS</label>
+          <input
+            className={getClassName("socialAddress")}
+            value={profile?.socialAddress || "Anonymous"}
+            disabled={true}
+          />
+        </div>
+      </div>
+      <ConnectionsList />
     </div>
   );
 };

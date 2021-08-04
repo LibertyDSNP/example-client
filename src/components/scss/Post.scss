@@ -5,7 +5,7 @@
 .Post__description {
   @include small-text;
   line-height: 1;
-  color: $black
+  color: $dark-gray;
 }
 
 .Post__header {
