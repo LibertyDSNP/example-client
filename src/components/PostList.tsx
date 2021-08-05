@@ -66,7 +66,7 @@ const PostList = ({ feedType }: PostListProps): JSX.Element => {
             })}
         </>
       ) : (
-        "Empty FeedNavigation!"
+        "Empty Feed!"
       )}
     </div>
   );
