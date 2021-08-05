@@ -1,11 +1,11 @@
-import React, { useEffect, useState, useCallback } from "react";
-import { Button } from "antd";
+import React, {useEffect, useState, useCallback} from "react";
+import {Button} from "antd";
 import ConnectionsListProfiles from "./ConnectionsListProfiles";
-import { useAppDispatch, useAppSelector } from "../redux/hooks";
+import {useAppDispatch, useAppSelector} from "../redux/hooks";
 import * as sdk from "../services/sdk";
-import { Graph, HexString, Profile } from "../utilities/types";
-import { upsertProfile } from "../redux/slices/profileSlice";
-import { DSNPUserId } from "@dsnp/sdk/dist/types/core/identifiers";
+import {FeedItem, Graph, HexString, Profile} from "../utilities/types";
+import {upsertProfile} from "../redux/slices/profileSlice";
+import {DSNPUserId} from "@dsnp/sdk/dist/types/core/identifiers";
 
 enum ListStatus {
   CLOSED,
@@ -19,7 +19,7 @@ const ConnectionsList = (): JSX.Element => {
   );
   const graphs: Graph[] = useAppSelector((state) => state.graphs.graphs);
   const graph: Graph | undefined = graphs.find(
-    ({ dsnpUserId }) => dsnpUserId === userId
+    ({dsnpUserId}) => dsnpUserId === userId
   );
   const cachedProfiles: Record<HexString, Profile> = useAppSelector(
     (state) => state.profiles.profiles
@@ -32,6 +32,15 @@ const ConnectionsList = (): JSX.Element => {
   const [followersList, setFollowersList] = useState<Profile[]>([]);
   const [notFollowingList, setNotFollowingList] = useState<Profile[]>([]);
   const dispatch = useAppDispatch();
+
+  const feed: FeedItem[] = useAppSelector(
+    (state) => state.feed.feed
+  );
+  const myPostsCount = feed.filter(
+    (feedItem) =>
+      feedItem.fromAddress === userId &&
+      feedItem.inReplyTo === null
+  ).length;
 
   const getConnectionProfile = async (fromId: DSNPUserId): Promise<Profile> => {
     let userProfile = cachedProfiles[fromId];
@@ -120,7 +129,11 @@ const ConnectionsList = (): JSX.Element => {
   return (
     <div className="ConnectionsList__block">
       <div className="ConnectionsList__buttonBlock">
-        <Button
+        <button className="ConnectionsList__button">
+          <div className="ConnectionsList__buttonCount">{myPostsCount}</div>
+          Posts
+        </button>
+        <button
           className={getClassName(ListStatus.FOLLOWERS)}
           onClick={() => handleClick(ListStatus.FOLLOWERS)}
         >
@@ -128,12 +141,8 @@ const ConnectionsList = (): JSX.Element => {
             {graph?.followers.length}
           </div>
           Followers
-        </Button>
-
-        {selectedListTitle === ListStatus.CLOSED && (
-          <div className="ConnectionsList__buttonSeparator"> </div>
-        )}
-        <Button
+        </button>
+        <button
           className={getClassName(ListStatus.FOLLOWING)}
           onClick={() => handleClick(ListStatus.FOLLOWING)}
         >
@@ -141,7 +150,7 @@ const ConnectionsList = (): JSX.Element => {
             {graph?.following.length}
           </div>
           Following
-        </Button>
+        </button>
       </div>
       <ConnectionsListProfiles
         listStatus={selectedListTitle}
