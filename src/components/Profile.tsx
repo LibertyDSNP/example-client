@@ -19,16 +19,18 @@ const Profile = (): JSX.Element => {
     <div
       className={`Profile__block ${showProfile && "Profile__block--showing"}`}
     >
-      <div className="Profile__headerBlock">
-        <div onClick={() => setShowProfile(!showProfile)}>
-          <img
-            className={`Profile__headerBackArrow ${
-              showProfile && "Profile__headerBackArrow--rotate"
-            }`}
-            src={ArrowIcon}
-            alt="arrow icon"
-          />
-        </div>
+      <div
+        className="Profile__headerBlock"
+        onClick={() => setShowProfile(!showProfile)}
+      >
+        <img
+          className={`Profile__headerBackArrow ${
+            showProfile && "Profile__headerBackArrow--rotate"
+          }`}
+          src={ArrowIcon}
+          alt="arrow icon"
+        />
+
         <div>
           <label className="Profile__personalInfoLabel--white">HANDLE</label>
           <div className="Profile__handle">@{handle}</div>
