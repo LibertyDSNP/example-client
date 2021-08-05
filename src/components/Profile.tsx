@@ -1,66 +1,37 @@
+import React, { useState } from "react";
 import UserAvatar from "./UserAvatar";
 import { Button } from "antd";
 import ConnectionsList from "./ConnectionsList";
-import React from "react";
 import { useAppSelector } from "../redux/hooks";
 import { DSNPUserId } from "@dsnp/sdk/dist/types/core/identifiers";
 import SettingsIcon from "../images/SettingsIcon.svg";
 import ArrowIcon from "../images/ArrowIcon.svg";
 
-const ProfileBlock = (): JSX.Element => {
+const Profile = (): JSX.Element => {
+  const [showProfile, setShowProfile] = useState<boolean>(false);
   const userId: DSNPUserId | undefined = useAppSelector(
     (state) => state.user.id
   );
-
   const handle = "Hans";
   const profileName = "lovetoeat";
 
-  const getClassName = (sectionName: string) => {
-    return `ProfileBlock__${sectionName}`;
-  };
   return (
-    <div className="Profile__block">
-      {userId && (
-        <>
-          <div className="Profile__personalInfoBlock">
-            <div className="Profile__avatarBlock">
-              <UserAvatar
-                profileAddress={userId}
-                avatarSize="large"
-              />
-              <Button className="Profile__editButton">edit</Button>
-            </div>
-            <div className="Profile__personalInfo">
-              <label className="Profile__personalInfoLabel">NAME</label>
-              <input
-                className={getClassName("name")}
-                value={profileName}
-                disabled={true}
-              />
-              <label className="Profile__personalInfoLabel">HANDLE</label>
-              <input
-                className={getClassName("handle")}
-                value={handle}
-                disabled={true}
-              />
-              <label className="Profile__personalInfoLabel">
-                SOCIAL ADDRESS
-              </label>
-              <input
-                className={getClassName("socialAddress")}
-                value={userId || "Anonymous"}
-                disabled={true}
-              />
-            </div>
-          </div>
-          <ConnectionsList />
-        </>
-      )}
+    <div
+      className={`Profile__block ${showProfile && "Profile__block--showing"}`}
+    >
       <div className="Profile__headerBlock">
-        <img className="Profile__headerBackArrow" src={ArrowIcon} />
+        <div onClick={() => setShowProfile(!showProfile)}>
+          <img
+            className={`Profile__headerBackArrow ${
+              showProfile && "Profile__headerBackArrow--rotate"
+            }`}
+            src={ArrowIcon}
+            alt="arrow icon"
+          />
+        </div>
         <div>
           <label className="Profile__personalInfoLabel--white">HANDLE</label>
-          <div className={getClassName("handle")}>@{handle}</div>
+          <div className="Profile__handle">@{handle}</div>
         </div>
       </div>
 
@@ -72,13 +43,18 @@ const ProfileBlock = (): JSX.Element => {
           />
           <div className="Profile__personalInfo">
             <label className="Profile__personalInfoLabel">NAME</label>
-            <div className={getClassName("name")}>{profileName}</div>
+            <div className="Profile__name">{profileName}</div>
           </div>
         </div>
-        <img className="Profile__editButton" src={SettingsIcon} />
+        <img
+          className="Profile__editButton"
+          src={SettingsIcon}
+          alt="settings icon"
+        />
       </div>
       <ConnectionsList />
     </div>
   );
 };
-export default ProfileBlock;
+
+export default Profile;

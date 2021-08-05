@@ -32,7 +32,7 @@
 // Styleguide Base.font-sizes
 
 @mixin extra-large-text {
-  font-family: CaslonGraphique;
+  font-family: CaslonGraphique, serif;
   font-size: 52px;
   font-weight: bold;
   letter-spacing: 1px;

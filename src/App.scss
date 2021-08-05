@@ -13,14 +13,11 @@
 @import "./components/scss/ConnectionsListProfiles";
 @import "./components/scss/RelativeTime";
 @import "./components/scss/ActionsBar";
+@import "./components/scss/PostList";
 
 .App__content {
-  display: flex;
-  flex-direction: column; //TODO: move profile to where it should be
-  justify-content: space-between;
-  height: fit-content;
-  min-height: 90vh;
   align-items: center;
+  position: relative;
 }
 
 code {
