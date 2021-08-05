@@ -31,44 +31,6 @@
   padding: 0 10px;
 }
 
-.ant-btn.ConnectionsList__button {
-  border: solid $dark-gray;
-  background: $dark-gray;
-  color: $white;
-  border-width: 2px 2px 2px 1px;
-  border-radius: 0 8px 8px 0;
-  height: auto;
-
-  &:focus {
-    border-color: $dark-gray;
-    background: $dark-gray;
-    color: $white;
-  }
-
-  &:hover, &:active {
-    border-color: $dark-gray;
-    background: $white;
-    color: $dark-gray;
-  }
-}
-
-.ConnectionsList__buttonBlock .ant-btn:first-child {
-  border-radius: 8px 0 0 8px;
-  border-width: 2px 1px 2px 2px;
-}
-
-.ant-btn.Profile__editButton {
-  @include button($dark-orange, $orange);
-  padding: 0 10px;
-  font-size: 12px;
-  height: 24px;
-}
-
-.ant-btn.ConnectionsList__button--active {
-  color: $dark-gray !important;
-  background: $white !important;
-}
-
 .ant-btn.Feed__newPostButton {
   @include button($dark-orange, $orange);
 }

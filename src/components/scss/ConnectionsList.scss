@@ -1,12 +1,29 @@
 .ConnectionsList__buttonBlock {
   display: flex;
   justify-content: center;
-  margin: 16px 0;
+  background-color: $light-gray;
+  border-radius: 8px;
+  width: min-content;
+  margin: 16px auto;
+  padding: 12px;
 }
 
 .ConnectionsList__button {
-  border-radius: 10px;
   width: 140px;
+  color: $black;
+  height: auto;
+  background: none;
+  border: none;
+  border-right: 2px solid $dark-orange;
+  cursor: pointer;
+}
+
+.ConnectionsList__button:last-child {
+  border-right: none;
+}
+
+.ConnectionsList__button--active {
+  color: $dark-orange;
 }
 
 .ConnectionsList__buttonCount {
