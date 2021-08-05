@@ -46,9 +46,9 @@ __Testing:__
 * React to posts
 * Filter and navigate through the feed
   - My Posts
-  - My Feed
+  - My FeedNavigation
   - A specific user's posts
-  - Main Feed
+  - Main FeedNavigation
 
 #### Note
 The features of the Example Client are subject to change with future versions and as decisions are made on the DSNP SDK.
