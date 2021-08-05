@@ -4,13 +4,16 @@ import { forcePromiseResolve } from "../../test/testhelpers";
 import { componentWithStore, createMockStore } from "../../test/testhelpers";
 import { getPreFabSocialGraph } from "../../test/testGraphs";
 import { getPrefabProfile } from "../../test/testProfiles";
+import { getPrefabFeed } from "../../test/testFeeds";
 
 const profile = getPrefabProfile(0);
 const graphs = getPreFabSocialGraph();
+const feed = getPrefabFeed();
 const store = createMockStore({
   user: { profile: profile },
   profiles: { profiles: [] },
   graphs: { graphs: graphs },
+  feed: { feed: feed },
 });
 
 describe("ConnectionsList", () => {
@@ -26,7 +29,7 @@ describe("ConnectionsList", () => {
       await forcePromiseResolve();
       component.find(".ConnectionsList__button").first().simulate("click");
       expect(component.find("ConnectionsListProfiles").prop("listStatus")).toBe(
-        1
+        0
       );
     });
 
