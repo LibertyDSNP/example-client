@@ -31,7 +31,7 @@ export const generatePerson = (name?: string): ActivityContentProfile => {
 };
 
 /**
- * Generate a FeedItem needed to make a full FeedNavigation
+ * Generate a FeedItem needed to make a full Feed
  * You'll need to generate Content first. Use
  * `generateNote()` or `generatePerson()`.
  * @param content the content to make the FeedItem around
