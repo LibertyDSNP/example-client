@@ -1,9 +1,10 @@
 import UserAvatar from "./UserAvatar";
-import { Button } from "antd";
 import ConnectionsList from "./ConnectionsList";
 import React from "react";
 import { useAppSelector } from "../redux/hooks";
 import * as types from "../utilities/types";
+import SettingsIcon from "../images/SettingsIcon.svg";
+import ArrowIcon from "../images/ArrowIcon.svg";
 
 const Profile = (): JSX.Element => {
   const profile: types.Profile | undefined = useAppSelector(
@@ -18,34 +19,26 @@ const Profile = (): JSX.Element => {
   };
   return (
     <div className="Profile__block">
+      <div className="Profile__headerBlock">
+        <img className="Profile__headerBackArrow" src={ArrowIcon} />
+        <div>
+          <label className="Profile__personalInfoLabel--white">HANDLE</label>
+          <div className={getClassName("handle")}>@{handle}</div>
+        </div>
+      </div>
+
       <div className="Profile__personalInfoBlock">
         <div className="Profile__avatarBlock">
           <UserAvatar
             profileAddress={profile?.socialAddress}
             avatarSize="large"
           />
-          <Button className="Profile__editButton">edit</Button>
+          <div className="Profile__personalInfo">
+            <label className="Profile__personalInfoLabel">NAME</label>
+            <div className={getClassName("name")}>{profileName}</div>
+          </div>
         </div>
-        <div className="Profile__personalInfo">
-          <label className="Profile__personalInfoLabel">NAME</label>
-          <input
-            className={getClassName("name")}
-            value={profileName}
-            disabled={true}
-          />
-          <label className="Profile__personalInfoLabel">HANDLE</label>
-          <input
-            className={getClassName("handle")}
-            value={handle}
-            disabled={true}
-          />
-          <label className="Profile__personalInfoLabel">SOCIAL ADDRESS</label>
-          <input
-            className={getClassName("socialAddress")}
-            value={profile?.socialAddress || "Anonymous"}
-            disabled={true}
-          />
-        </div>
+        <img className="Profile__editButton" src={SettingsIcon} />
       </div>
       <ConnectionsList />
     </div>

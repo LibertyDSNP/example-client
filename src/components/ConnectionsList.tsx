@@ -1,10 +1,10 @@
 import React, { useEffect, useState, useCallback } from "react";
-import { Button } from "antd";
 import ConnectionsListProfiles from "./ConnectionsListProfiles";
 import { useAppDispatch, useAppSelector } from "../redux/hooks";
 import * as sdk from "../services/sdk";
-import { Graph, HexString, Profile } from "../utilities/types";
+import { FeedItem, Graph, HexString, Profile } from "../utilities/types";
 import { upsertProfile } from "../redux/slices/profileSlice";
+import { ActivityContentNote } from "@dsnp/sdk/core/activityContent";
 
 enum ListStatus {
   CLOSED,
@@ -20,6 +20,15 @@ const ConnectionsList = (): JSX.Element => {
   const graph: Graph | undefined = graphs.find(
     ({ socialAddress }) => socialAddress === profile?.socialAddress
   );
+  const feed: FeedItem<ActivityContentNote>[] = useAppSelector(
+    (state) => state.feed.feed
+  );
+  const myPostsCount = feed.filter(
+    (feedItem) =>
+      feedItem.fromAddress === profile?.socialAddress &&
+      feedItem.inReplyTo === null
+  ).length;
+
   const cachedProfiles: Record<HexString, Profile> = useAppSelector(
     (state) => state.profiles.profiles
   );
@@ -122,7 +131,11 @@ const ConnectionsList = (): JSX.Element => {
   return (
     <div className="ConnectionsList__block">
       <div className="ConnectionsList__buttonBlock">
-        <Button
+        <button className="ConnectionsList__button">
+          <div className="ConnectionsList__buttonCount">{myPostsCount}</div>
+          Posts
+        </button>
+        <button
           className={getClassName(ListStatus.FOLLOWERS)}
           onClick={() => handleClick(ListStatus.FOLLOWERS)}
         >
@@ -130,12 +143,8 @@ const ConnectionsList = (): JSX.Element => {
             {graph?.followers.length}
           </div>
           Followers
-        </Button>
-
-        {selectedListTitle === ListStatus.CLOSED && (
-          <div className="ConnectionsList__buttonSeparator"> </div>
-        )}
-        <Button
+        </button>
+        <button
           className={getClassName(ListStatus.FOLLOWING)}
           onClick={() => handleClick(ListStatus.FOLLOWING)}
         >
@@ -143,7 +152,7 @@ const ConnectionsList = (): JSX.Element => {
             {graph?.following.length}
           </div>
           Following
-        </Button>
+        </button>
       </div>
       <ConnectionsListProfiles
         listStatus={selectedListTitle}
