@@ -1,35 +1,26 @@
-import React from "react";
+import React  from "react";
 import ReactPlayer from "react-player";
 import { Carousel } from "antd";
 import { RightOutlined, LeftOutlined } from "@ant-design/icons";
-import {
-  ActivityContentAttachment,
-  ActivityContentImage,
-  ActivityContentVideo,
-  ActivityContentAudio,
-} from "@dsnp/sdk/core/activityContent";
+import { ActivityContentAttachment, ActivityContentVideo,ActivityContentAudio } from "@dsnp/sdk/core/activityContent";
 
 interface PostMediaProps {
-  attachment: ActivityContentAttachment[];
+  attachment: ActivityContentAttachment[] | undefined;
 }
 
 const PostMedia = ({ attachment }: PostMediaProps): JSX.Element => {
   const getPostMediaItems = () => {
-    return attachment.map((item, index) => {
+    return attachment?.map((item, index) => {
       const type = item.type.toLowerCase();
       return (
         <div key={index} className="PostMedia__cover">
           {type === "image" && (
             <a
-              href={(item as ActivityContentImage).url[0].href}
+              href={(item as ActivityContentAttachment).url[0].href}
               target="_blank"
               rel="noopener noreferrer"
             >
-              <img
-                alt={item.name}
-                className="PostMedia__img"
-                src={(item as ActivityContentImage).url[0].href}
-              />
+              <img alt="" className="PostMedia__img" src={item.url[0].href} />
             </a>
           )}
           {(type === "video" || type === "audio") && (
@@ -41,8 +32,8 @@ const PostMedia = ({ attachment }: PostMediaProps): JSX.Element => {
                 (item as ActivityContentVideo | ActivityContentAudio).url[0]
                   .href
               }
-              width={670}
-              height={type === "video" ? 400 : 55}
+              width="100%"
+              height={type === "video" ? "100%" : 55}
               muted
             />
           )}

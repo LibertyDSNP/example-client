@@ -62,7 +62,7 @@ a {
 }
 
 .ant-card.Post__block {
-  margin: 8px 0;
+  margin: 24px 0;
   width: auto;
 }
 
@@ -71,16 +71,22 @@ a {
 }
 
 .slick-dots {
-  padding-bottom: 10px;
+  position: relative !important;
+  padding: 10px 0 0 0 !important;
   &>* {
     height: 15px !important;
 
     button {
       height: 15px !important;
       border-radius: 8px !important;
-      border: 1px solid $dark-gray !important;
+      border: none !important;
+      background: $dark-orange !important;
     }
   }
+}
+
+.slick-dots-bottom {
+  bottom: 0 !important;
 }
 
 .ant-card-body {
