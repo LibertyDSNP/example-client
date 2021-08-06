@@ -3,12 +3,9 @@
   justify-content: space-between;
   align-items: center;
   background-color: $white;
-  border-radius: 28px;
-  position: absolute;
-  bottom: 10px;
-  width: 90%;
-  margin: 0 5%;
   padding: 7px 14px;
+  margin-bottom: 20px;
+  color: $black;
 }
 
 .ActionsBar__iconList>* {

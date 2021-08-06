@@ -1,9 +1,10 @@
 import React from "react";
 import Post from "./Post";
-import { Graph, FeedItem } from "../utilities/types";
+import { FeedItem, Graph, Profile } from "../utilities/types";
 import { useAppSelector } from "../redux/hooks";
 import { DSNPUserId } from "@dsnp/sdk/dist/types/core/identifiers";
 import { ActivityContentNote } from "@dsnp/sdk/core/activityContent";
+import Masonry from "react-masonry-css";
 
 enum FeedTypes {
   FEED,
@@ -26,7 +27,7 @@ const PostList = ({ feedType }: PostListProps): JSX.Element => {
   const feed: FeedItem[] = useAppSelector((state) => state.feed.feed).filter(
     (post) => post?.content?.type === "Note" && post?.inReplyTo === undefined
   );
-  let currentFeed: FeedItem<ActivityContentNote>[] = [];
+  let currentFeed: FeedItem[] = [];
 
   if (feedType === FeedTypes.FEED) {
     const addrSet = userId ? { [userId]: true } : {};
@@ -38,37 +39,31 @@ const PostList = ({ feedType }: PostListProps): JSX.Element => {
     currentFeed = feed;
   }
 
+  currentFeed = currentFeed.sort(function (a, b) {
+    return a.timestamp - b.timestamp;
+  });
+
+  const items = currentFeed
+    .slice(0)
+    .reverse()
+    .map((post, index) => {
+      if (!post.fromAddress) throw new Error(`no fromAddress in post: ${post}`);
+
+      const namedPost: FeedItem = {
+        ...post,
+        tags: ["#foodee"],
+      };
+      return <Post key={index} feedItem={namedPost} />;
+    });
+
   return (
-    <div className="PostList__block">
-      {currentFeed.length > 0 ? (
-        <>
-          {currentFeed
-            .slice(0)
-            .reverse()
-            .map((post, index) => (
-              <Post key={index} feedItem={post} />
-            ))}
-            .map((post, index) => {
-              if (!post.fromAddress)
-                throw new Error(`no fromAddress in post: ${post}`);
-
-              const fromAddress: string = profiles[post.fromAddress]
-                ? (profiles[post.fromAddress].name as string)
-                : post.fromAddress;
-
-              const namedPost: FeedItem<ActivityContentNote> = {
-                ...post,
-                fromAddress: fromAddress,
-                timestamp: Math.floor(Math.random() * 999999),
-                tags: ["#foodee"],
-              };
-              return <Post key={index} feedItem={namedPost} />;
-            })}
-        </>
-      ) : (
-        "Empty Feed!"
-      )}
-    </div>
+    <Masonry
+      breakpointCols={3}
+      className="PostList__block"
+      columnClassName="PostList__blockColumn"
+    >
+      {items}
+    </Masonry>
   );
 };
 export default PostList;
