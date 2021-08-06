@@ -58,7 +58,9 @@ Follow this quick start guide to get up and running. This guide assumes a workin
 * Clone the example-client repository: `git clone git@github.com:LibertyDSNP/example-client.git`
 * Install the correct npm and node version. Recommend using asdf: `asdf install`
 * Install modules: `npm install`
+  * Install Static Server modules `cd ./static-server && npm install`
 * Copy `.env.example` to `.env` and edit as needed.
+* Start the Static Server `cd ./static-server && npm run start`
 * Start up site locally: `npm run start`
 * Visit http://localhost:3000 (or you configured port)
 
