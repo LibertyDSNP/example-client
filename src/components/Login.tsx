@@ -33,15 +33,12 @@ const Login = ({ loginWalletOptions }: LoginProps): JSX.Element => {
       dispatch(userLogin({ profile, walletType }));
       dispatch(upsertGraph(graph));
       session.saveSession({ profile, walletType });
-
       sdk.setupProvider(walletType);
-
-      startLoading(false);
     } catch (error) {
       console.log("Error in login:", error);
+      startLoading(false);
+      setPopoverVisible(false);
     }
-    startLoading(false);
-    setPopoverVisible(false);
   };
 
   const logout = () => {
@@ -69,7 +66,7 @@ const Login = ({ loginWalletOptions }: LoginProps): JSX.Element => {
           setPopoverVisible={setPopoverVisible}
           loginWalletOptions={loginWalletOptions}
           loading={loading}
-          onButtonClick={(wallet: wallet.WalletType) => login(wallet)}
+          onButtonClick={login}
         />
       ) : (
         <>
