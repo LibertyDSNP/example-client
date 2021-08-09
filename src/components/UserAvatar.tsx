@@ -1,6 +1,7 @@
 import React from "react";
 import { Avatar } from "antd";
 import { HexString } from "../utilities/types";
+import * as blockies from "blockies-ts";
 
 const avatarSizeOptions = new Map([
   ["small", 32],
