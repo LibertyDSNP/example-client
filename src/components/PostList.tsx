@@ -38,7 +38,7 @@ const PostList = ({ feedType }: PostListProps): JSX.Element => {
     currentFeed = feed;
   }
 
-  currentFeed = currentFeed.sort(function (a, b) {
+  currentFeed.sort(function (a, b) {
     return a.timestamp - b.timestamp;
   });
 

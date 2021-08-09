@@ -1,4 +1,4 @@
-import React  from "react";
+import React from "react";
 import ReactPlayer from "react-player";
 import { Carousel } from "antd";
 import { RightOutlined, LeftOutlined } from "@ant-design/icons";
