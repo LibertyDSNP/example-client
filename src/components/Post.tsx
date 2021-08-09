@@ -3,10 +3,8 @@ import { Card } from "antd";
 import { FeedItem } from "../utilities/types";
 import UserAvatar from "./UserAvatar";
 import PostMedia from "./PostMedia";
-import RelativeTime from "./RelativeTime";
-import ActionsBar from "./ActionsBar";
 import { ActivityContentAttachment} from "@dsnp/sdk/core/activityContent";
-
+import ActionsBar from "./ActionsBar";
 
 interface PostProps {
   feedItem: FeedItem;
@@ -30,11 +28,11 @@ const Post = ({ feedItem }: PostProps): JSX.Element => {
             avatarSize={"medium"}
           />
         }
-        title={feedItem.fromAddress || "0x123"}
+        title={feedItem.fromAddress}
         description={
-          noteContent.published && (
-            <RelativeTime published={noteContent.published} postStyle={true} />
-          )
+          <div className="Post__description">
+            @mockHandle__{feedItem.fromAddress}
+          </div>
         }
       />
       <PostMedia attachment={attachments as ActivityContentAttachment[]} />

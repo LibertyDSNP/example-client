@@ -31,10 +31,6 @@ const createMediaAttachment = (item: string): ActivityContentAttachment => {
         return createVideoAttachment([
           createVideoLink(item, "video/mp4", activityContentHashes),
         ]);
-      case "wmv":
-        return createVideoAttachment([
-          createVideoLink(item, "video/x-ms-wmv", activityContentHashes),
-        ]);
       case "mov":
         return createVideoAttachment([
           createVideoLink(item, "video/quicktime", activityContentHashes),

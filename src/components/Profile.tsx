@@ -14,6 +14,8 @@ const Profile = (): JSX.Element => {
   );
   const handle = "Hans";
   const profileName = "lovetoeat";
+  const avatar =
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/Hans_Ulrich_Obrist_2017.jpg/440px-Hans_Ulrich_Obrist_2017.jpg";
 
   return (
     <div
@@ -42,6 +44,7 @@ const Profile = (): JSX.Element => {
           <UserAvatar
             profileAddress={userId}
             avatarSize="large"
+            avatarUrl={avatar}
           />
           <div className="Profile__personalInfo">
             <label className="Profile__personalInfoLabel">NAME</label>
