@@ -28,10 +28,10 @@ const Post = ({ feedItem }: PostProps): JSX.Element => {
             avatarSize={"medium"}
           />
         }
-        title={feedItem.fromAddress || "0x123"}
+        title={feedItem.fromAddress}
         description={
           <div className="Post__description">
-            @{feedItem.fromAddress || "handle"}
+            @mockHandle__{feedItem.fromAddress}
           </div>
         }
       />

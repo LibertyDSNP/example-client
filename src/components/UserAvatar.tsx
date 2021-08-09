@@ -1,6 +1,7 @@
 import React from "react";
 import { Avatar } from "antd";
 import { HexString } from "../utilities/types";
+import * as blockies from "blockies-ts";
 
 const avatarSizeOptions = new Map([
   ["small", 32],
@@ -11,14 +12,17 @@ const avatarSizeOptions = new Map([
 interface UserAvatarProps {
   profileAddress: HexString | undefined;
   avatarSize: string;
+  avatarUrl?: string;
 }
 
 const UserAvatar = ({
   profileAddress,
   avatarSize,
+  avatarUrl,
 }: UserAvatarProps): JSX.Element => {
-  const identiconURL =
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/Hans_Ulrich_Obrist_2017.jpg/440px-Hans_Ulrich_Obrist_2017.jpg";
+  const identiconURL = avatarUrl
+    ? avatarUrl
+    : blockies.create({ seed: profileAddress }).toDataURL();
   return (
     <Avatar
       alt={profileAddress || "anonymous"}
