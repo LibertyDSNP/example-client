@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { Card } from "antd";
 import { FeedItem } from "../utilities/types";
 import UserAvatar from "./UserAvatar";
