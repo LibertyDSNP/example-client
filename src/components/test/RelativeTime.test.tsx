@@ -4,7 +4,7 @@ import RelativeTime from "../RelativeTime";
 
 describe("relative time", () => {
   it("renders without crashing", () => {
-    const announcement = { published: Date.now() };
+    const announcement = { published: new Date().toISOString() };
     expect(() => {
       renderer.create(
         <RelativeTime published={announcement.published} postStyle={true} />
@@ -12,30 +12,45 @@ describe("relative time", () => {
     }).not.toThrow();
   });
   it("renders seconds as expected", () => {
-    const announcement = { published: Date.now() / 1000 - 10 };
+    const currentTime = new Date();
+    const announcement = {
+      published: new Date(
+        currentTime.setSeconds(currentTime.getSeconds() - 10)
+      ).toISOString(),
+    };
     const rendered = renderer.create(
       <RelativeTime published={announcement.published} postStyle={true} />
     );
     expect(rendered).toMatchSnapshot();
   });
   it("renders minutes as expected", () => {
-    const announcement = { published: Date.now() / 1000 - 100 };
+    const currentTime = new Date();
+    const announcement = {
+      published: new Date(
+        currentTime.setMinutes(currentTime.getMinutes() - 1)
+      ).toISOString(),
+    };
     const rendered = renderer.create(
       <RelativeTime published={announcement.published} postStyle={true} />
     );
     expect(rendered).toMatchSnapshot();
   });
   it("renders hours as expected", () => {
-    const announcement = { published: Date.now() / 1000 - 10000 };
+    const currentTime = new Date();
+    const announcement = {
+      published: new Date(
+        currentTime.setHours(currentTime.getHours() - 2)
+      ).toISOString(),
+    };
     const rendered = renderer.create(
       <RelativeTime published={announcement.published} postStyle={true} />
     );
     expect(rendered).toMatchSnapshot();
   });
   it("renders years as expected", () => {
-    const date = new Date("2019-11-19");
+    const currentTime = new Date("2018-11-18").toISOString();
     const announcement = {
-      published: +date / 1000 - 31557600,
+      published: currentTime,
     };
     const rendered = renderer.create(
       <RelativeTime published={announcement.published} postStyle={true} />
