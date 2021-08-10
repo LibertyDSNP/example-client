@@ -330,7 +330,7 @@ Promise.all(
 
     // create a note
     const content = core.activityContent.createNote(`${account.text} \n--from ${account.id}`, { attachment: account.attachment });
-    content.published = Date.now.toString(16)
+    content.published = new Date().toISOString();
 
     if (testOnly) {
       console.log(profile)

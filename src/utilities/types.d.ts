@@ -1,5 +1,7 @@
-import { ActivityContentNote, ActivityContentProfile } from "@dsnp/sdk/core/activityContent";
-
+import {
+  ActivityContentNote,
+  ActivityContentProfile,
+} from "@dsnp/sdk/core/activityContent";
 
 export type HexString = string;
 export type EncryptedString = string;
@@ -27,7 +29,7 @@ export interface FeedItem<T extends ActivityContent> {
   blockNumber?: number;
   hash: HexString;
   inbox?: boolean;
-  timestamp: number;
+  published?: string;
   topic?: HexString;
   uri?: URLString | undefined;
   rawContent?: string;

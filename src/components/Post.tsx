@@ -32,7 +32,9 @@ const Post = ({ feedItem }: PostProps): JSX.Element => {
         }
         title={feedItem.fromAddress}
         description={
-          <RelativeTime timestamp={feedItem.timestamp} postStyle={true} />
+          feedItem.published && (
+            <RelativeTime published={feedItem.published} postStyle={true} />
+          )
         }
       />
       <div className="Post__caption">{noteContent.content}</div>

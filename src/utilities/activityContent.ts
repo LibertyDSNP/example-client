@@ -68,7 +68,7 @@ export const noteToActivityContentNote = (
     type: "Note",
     mediaType: "text/plain",
     content: note,
-    published: new Date().getTime().toString(16),
+    published: new Date().toISOString(),
   };
   if (uriList) {
     activityContent["attachment"] = uriList.map(createMediaAttachment);

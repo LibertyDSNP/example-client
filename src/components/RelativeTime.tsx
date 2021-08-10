@@ -1,27 +1,9 @@
 import React from "react";
 
-const getMonthName = (monthNum: number) => {
-  const months = [
-    "Jan",
-    "Feb",
-    "Mar",
-    "Apr",
-    "May",
-    "Jun",
-    "Jul",
-    "Aug",
-    "Sept",
-    "Oct",
-    "Nov",
-    "Dec",
-  ];
-  return months[monthNum];
-};
-
-const getRelativeTime = (timestamp: number) => {
+const getRelativeTime = (postTime: string) => {
+  const timeOfPost = new Date(postTime);
   const currentTime = new Date();
-  const postTime = new Date(timestamp * 1000);
-  const secondsPast = (currentTime.getTime() - postTime.getTime()) / 1000;
+  const secondsPast = (currentTime.getTime() - timeOfPost.getTime()) / 1000;
   if (secondsPast < 60) {
     return Math.floor(secondsPast) + "s •";
   }
@@ -32,28 +14,22 @@ const getRelativeTime = (timestamp: number) => {
     return Math.floor(secondsPast / 3600) + "h •";
   }
   if (secondsPast > 86400) {
-    const day = postTime.getDate();
-    const month = getMonthName(postTime.getMonth());
-    const year =
-      postTime.getFullYear() === currentTime.getFullYear()
-        ? ""
-        : `, ${postTime.getFullYear()}`;
-    return `${month} ${day}${year} •`;
+    return `${timeOfPost.getMonth()} ${timeOfPost.getDay()}${timeOfPost.getFullYear()} •`;
   }
 };
 
 interface RelativeTimeProps {
-  timestamp: number;
+  published: string;
   postStyle: boolean;
 }
 
 const RelativeTime = ({
-  timestamp,
+  published,
   postStyle,
 }: RelativeTimeProps): JSX.Element => {
   return (
     <p className={`RelativeTime ${postStyle ? "RelativeTime--post" : ""}`}>
-      {getRelativeTime(timestamp)}
+      {getRelativeTime(published)}
     </p>
   );
 };
