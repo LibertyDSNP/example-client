@@ -201,14 +201,12 @@ const dispatchFeedItem = (
 ) => {
   const decoder = new TextDecoder();
 
-  const timestamp = content.published ? Date.parse(content.published) : 0;
-
   dispatch(
     addFeedItem({
       fromAddress: decoder.decode((message.fromId as any) as Uint8Array),
       blockNumber: blockNumber,
       hash: decoder.decode((message.contentHash as any) as Uint8Array),
-      timestamp: timestamp,
+      published: content.published,
       uri: decoder.decode((message.url as any) as Uint8Array),
       content: content,
       inReplyTo:

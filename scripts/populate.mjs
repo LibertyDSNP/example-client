@@ -437,7 +437,7 @@ for await (let account of accounts.values()) {
     `${account.text} \n--from ${account.id}`,
     { attachment: account.attachment }
   );
-  content.published = Date.now.toString(16);
+  content.published = new Date().toISOString();
 
   const {
     hash: profileHash,

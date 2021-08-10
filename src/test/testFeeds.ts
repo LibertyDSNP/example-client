@@ -45,7 +45,9 @@ export const generateFeedItem = (
   replies?: FeedItem<ActivityContentNote>[]
 ): FeedItem<ActivityContentNote> => {
   return {
-    timestamp: constTime ? 1608580122 : Math.round(Date.now() / 1000),
+    published: constTime
+      ? new Date("05 October 2020 14:48 UTC").toISOString()
+      : new Date().toISOString(),
     inbox: false,
     topic: "0x" + keccak_256("Announce(string,bytes32,bytes32)"),
     fromAddress: address,

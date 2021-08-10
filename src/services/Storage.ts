@@ -23,7 +23,6 @@ export const createNote = async (
     fromAddress: fromAddress,
     content: activityPubNote,
     blockNumber: 0x123,
-    timestamp: Math.floor(Math.random() * 999999),
     hash: "0x89205A3A3b2A69De6Dbf7f01ED13B2108B2c43e7",
   };
   return newPostFeedItem;
