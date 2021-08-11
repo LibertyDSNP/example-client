@@ -1,7 +1,7 @@
 import { keccak_256 } from "js-sha3";
 import { randInt } from "@dsnp/test-generators";
-import { FeedItem, HexString } from "../utilities/types";
-import { generateSocialAddress, getPrefabSocialAddress } from "./testAddresses";
+import { FeedItem, HexString, Reply } from "../utilities/types";
+import { generateDsnpUserId, getPrefabDsnpUserId } from "./testAddresses";
 import {
   prefabFirstNames,
   prefabLastNames,
@@ -18,7 +18,7 @@ const generateNote = generators.activityContent.generateNote;
 
 /**
  * Generate a Profile update. The type `Person` is not a `Profile`
- * @param address the HexString socialAddress to make this person update around
+ * @param address the HexString dsnpUserId to make this person update around
  * @param name the new name of the profile update
  * @param handle the new username of the profile update
  */
@@ -42,15 +42,15 @@ export const generateFeedItem = (
   address: HexString,
   content: ActivityContentNote,
   constTime: boolean = false,
-  replies?: FeedItem<ActivityContentNote>[]
-): FeedItem<ActivityContentNote> => {
+  replies?: Reply[]
+): FeedItem => {
   return {
-    published: constTime
+    createdAt: constTime
       ? new Date("05 October 2020 14:48 UTC").toISOString()
       : new Date().toISOString(),
     inbox: false,
     topic: "0x" + keccak_256("Announce(string,bytes32,bytes32)"),
-    fromAddress: address,
+    fromId: address,
     content: content,
     replies: replies || [],
     blockNumber: 50,
@@ -63,11 +63,11 @@ export const generateFeedItem = (
  * A prefabricated feed with at least one of every
  * important functionality currently available
  */
-export const getPrefabFeed = (): FeedItem<ActivityContentNote>[] => {
-  const address0 = getPrefabSocialAddress(0);
-  const address1 = getPrefabSocialAddress(1);
-  const address2 = getPrefabSocialAddress(2);
-  const address3 = getPrefabSocialAddress(3);
+export const getPrefabFeed = (): FeedItem[] => {
+  const address0 = getPrefabDsnpUserId(0);
+  const address1 = getPrefabDsnpUserId(1);
+  const address2 = getPrefabDsnpUserId(2);
+  const address3 = getPrefabDsnpUserId(3);
   const noteWithAttachment = generateNote("Everyone leave me alone", true);
 
   return [
@@ -112,16 +112,11 @@ export const generateRandomPerson = (): ActivityContentProfile => {
  * Generate random replies Array. Only generates depth 0 random replies
  * @param avgReplies the average number of replies
  */
-export const generateRandomReplies = (
-  avgReplies: number
-): FeedItem<ActivityContentNote>[] => {
-  const replies: FeedItem<ActivityContentNote>[] = [];
+export const generateRandomReplies = (avgReplies: number): FeedItem[] => {
+  const replies: FeedItem[] = [];
   const numReplies = randInt(avgReplies * 2 + 1);
   for (let r = 0; r < numReplies; r++) {
-    replies[r] = generateFeedItem(
-      generateSocialAddress(),
-      generateRandomNote()
-    );
+    replies[r] = generateFeedItem(generateDsnpUserId(), generateRandomNote());
   }
   return replies;
 };
@@ -134,15 +129,15 @@ export const generateRandomReplies = (
 export const generateRandomFeed = (
   size: number = 4,
   avgReplies: number = 0
-): FeedItem<ActivityContentNote>[] => {
-  const feed: FeedItem<ActivityContentNote>[] = [];
+): FeedItem[] => {
+  const feed: FeedItem[] = [];
   // For each feed item we need to generate:
   // 1 - Content
   // 2 - Replies if Note
   for (let s = 0; s < size; s++) {
     const content: ActivityContentNote = generateRandomNote();
     feed[s] = generateFeedItem(
-      generateSocialAddress(),
+      generateDsnpUserId(),
       content,
       false,
       generateRandomReplies(avgReplies)

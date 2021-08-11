@@ -35,14 +35,11 @@ const ConnectionsListProfiles = ({
       {connectionsList.map((userProfile) => (
         <div
           className="ConnectionsListProfiles__profile"
-          key={userProfile.socialAddress}
+          key={userProfile.fromId}
         >
-          <UserAvatar
-            avatarSize="small"
-            profileAddress={userProfile.socialAddress}
-          />
+          <UserAvatar avatarSize="small" profileAddress={userProfile.fromId} />
           <div className="ConnectionsListProfiles__name">
-            {userProfile.name || userProfile.socialAddress || "Anonymous"}
+            {userProfile.name || userProfile.fromId || "Anonymous"}
           </div>
           <Button
             className="ConnectionsListProfiles__button"

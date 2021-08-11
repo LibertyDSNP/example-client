@@ -6,7 +6,7 @@ import { componentWithStore, createMockStore } from "../../test/testhelpers";
 import { getPreFabSocialGraph } from "../../test/testGraphs";
 import { getPrefabProfile } from "../../test/testProfiles";
 
-const userId = getPrefabProfile(0).socialAddress;
+const userId = getPrefabProfile(0).fromId;
 const feed = getPrefabFeed();
 const graphs = getPreFabSocialGraph();
 const initialState = {
@@ -51,7 +51,7 @@ describe("Feed", () => {
       expect(component.find(Post).length).toEqual(3);
 
       const expectedFeedAddresses = [userId].concat(
-        graphs.find((g) => g.socialAddress === userId)?.following || []
+        graphs.find((g) => g.dsnpUserId === userId)?.following || []
       );
       component.find(".ant-card-meta-title").forEach((address) => {
         expect(expectedFeedAddresses).toContain(address.text());

@@ -12,15 +12,15 @@ import { noteToActivityContentNote } from "../utilities/activityContent";
 export const createNote = async (
   note: string,
   uriList: string[],
-  fromAddress: HexString
-): Promise<FeedItem<ActivityContentNote>> => {
+  fromId: HexString | undefined
+): Promise<FeedItem> => {
   // send content to api
   const activityPubNote: ActivityContentNote = noteToActivityContentNote(
     note,
     uriList
   );
-  const newPostFeedItem: FeedItem<ActivityContentNote> = {
-    fromAddress: fromAddress,
+  const newPostFeedItem: FeedItem = {
+    fromId: fromId,
     content: activityPubNote,
     blockNumber: 0x123,
     hash: "0x89205A3A3b2A69De6Dbf7f01ED13B2108B2c43e7",

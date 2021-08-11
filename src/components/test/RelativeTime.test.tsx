@@ -48,7 +48,7 @@ describe("relative time", () => {
     expect(rendered).toMatchSnapshot();
   });
   it("renders years as expected", () => {
-    const currentTime = new Date("2018-11-18").toISOString();
+    const currentTime = new Date(2018, 11, 18).toISOString();
     const announcement = {
       published: currentTime,
     };

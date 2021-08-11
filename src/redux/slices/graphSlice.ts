@@ -21,7 +21,7 @@ export const graphSlice = createSlice({
     upsertGraph: (state, action: PayloadAction<Graph>) => {
       const newGraph = action.payload;
       const oldGraph = state.graphs.find(
-        (graph) => graph.socialAddress === newGraph.socialAddress
+        (graph) => graph.dsnpUserId === newGraph.dsnpUserId
       );
       if (oldGraph) state.graphs.splice(state.graphs.indexOf(oldGraph), 1);
       state.graphs.push(newGraph);
@@ -29,33 +29,33 @@ export const graphSlice = createSlice({
     },
     removeGraph: (state, action: PayloadAction<HexString>) => {
       const oldGraph = state.graphs.find(
-        (graph) => graph.socialAddress === action.payload
+        (graph) => graph.dsnpUserId === action.payload
       );
       if (oldGraph) state.graphs.splice(state.graphs.indexOf(oldGraph), 1);
       return state;
     },
     follow: (state, action: PayloadAction<AddressHolder>) => {
-      const socialAddress = action.payload.userAddress;
+      const dsnpUserId = action.payload.userAddress;
       const followAddress = action.payload.targetAddress;
       state.graphs
-        .find((graph) => graph.socialAddress === socialAddress)
+        .find((graph) => graph.dsnpUserId === dsnpUserId)
         ?.following.push(followAddress);
       state.graphs
-        .find((graph) => graph.socialAddress === followAddress)
-        ?.followers.push(socialAddress);
+        .find((graph) => graph.dsnpUserId === followAddress)
+        ?.followers.push(dsnpUserId);
       return state;
     },
     unfollow: (state, action: PayloadAction<AddressHolder>) => {
-      const socialAddress = action.payload.userAddress;
+      const dsnpUserId = action.payload.userAddress;
       const unfollowAddress = action.payload.targetAddress;
       const following = state.graphs.find(
-        (graph) => graph.socialAddress === socialAddress
+        (graph) => graph.dsnpUserId === dsnpUserId
       )?.following;
       const followers = state.graphs.find(
-        (graph) => graph.socialAddress === unfollowAddress
+        (graph) => graph.dsnpUserId === unfollowAddress
       )?.followers;
       following?.splice(following.indexOf(unfollowAddress));
-      followers?.splice(followers.indexOf(socialAddress));
+      followers?.splice(followers.indexOf(dsnpUserId));
       return state;
     },
   },

@@ -1,6 +1,6 @@
 import React from "react";
 import Post from "./Post";
-import { FeedItem, Graph } from "../utilities/types";
+import { Graph, HexString, Profile, FeedItem } from "../utilities/types";
 import { useAppSelector } from "../redux/hooks";
 import { ActivityContentNote } from "@dsnp/sdk/core/activityContent";
 import { DSNPUserId } from "@dsnp/sdk/dist/types/core/identifiers";
@@ -21,21 +21,19 @@ const PostList = ({ feedType }: PostListProps): JSX.Element => {
   );
   const graph: Graph[] = useAppSelector((state) => state.graphs.graphs);
   const myGraph: Graph | undefined = graph.find(
-    (graph) => graph.socialAddress === userId
+    (graph) => graph.dsnpUserId === userId
   );
-  const feed: FeedItem<ActivityContentNote>[] = useAppSelector(
-    (state) => state.feed.feed
-  ).filter(
+  const feed: FeedItem[] = useAppSelector((state) => state.feed.feed).filter(
     (post) => post?.content?.type === "Note" && post?.inReplyTo === undefined
   );
-  let currentFeed: FeedItem<ActivityContentNote>[] = [];
+  let currentFeed: FeedItem[] = [];
 
   if (feedType === FeedTypes.FEED) {
     const addrSet = userId ? { [userId]: true } : {};
     myGraph?.following.forEach((addr) => (addrSet[addr] = true));
-    currentFeed = feed.filter((post) => post?.fromAddress in addrSet);
+    currentFeed = feed.filter((post) => post?.fromId in addrSet);
   } else if (feedType === FeedTypes.MY_POSTS) {
-    currentFeed = feed.filter((post) => userId === post?.fromAddress);
+    currentFeed = feed.filter((post) => userId === post?.fromId);
   } else {
     currentFeed = feed;
   }

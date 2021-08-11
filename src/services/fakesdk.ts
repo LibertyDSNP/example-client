@@ -15,13 +15,16 @@ export const getSocialIdentityfromWalletAddress = async (
 };
 
 export const getGraphFromSocialIdentity = async (
-  socialAddress: HexString
+  dsnpUserId: HexString
 ): Promise<Graph | null> => {
-  return generateRandomGraph(socialAddress);
+  return generateRandomGraph(dsnpUserId);
 };
 
 export const getProfileFromSocialIdentity = async (
-  socialAddress: HexString
-): Promise<Profile | null> => {
-  return { socialAddress, ...activityContent.generateProfile() };
+  fromId: HexString
+): Promise<Profile> => {
+  return {
+    fromId,
+    ...activityContent.generateProfile(),
+  } as Profile;
 };

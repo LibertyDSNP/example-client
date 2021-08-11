@@ -2,12 +2,12 @@ import React from "react";
 import { Profile } from "../utilities/types";
 
 interface FromTitleProps {
-  profile: Profile;
+  profile: Partial<Profile>;
 }
 
 export const FromTitle = ({ profile }: FromTitleProps): JSX.Element => {
   const atHandle = profile.handle && "@" + profile.handle;
-  const primary = profile.name || atHandle || profile.socialAddress;
+  const primary = profile.name || atHandle || profile.fromId;
   const secondary = profile.name ? atHandle : undefined;
 
   return (

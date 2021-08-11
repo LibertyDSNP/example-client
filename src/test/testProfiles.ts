@@ -1,20 +1,24 @@
 import { randInt } from "@dsnp/test-generators";
-import { Profile, HexString } from "../utilities/types";
-import { generateSocialAddress, getPrefabSocialAddress } from "./testAddresses";
+import { HexString } from "../utilities/types";
+import { generateDsnpUserId, getPrefabDsnpUserId } from "./testAddresses";
 import { prefabFirstNames, prefabLastNames } from "./testhelpers";
 import { generators } from "@dsnp/sdk";
+import { ActivityContentProfile } from "@dsnp/sdk/core/activityContent";
+import { DSNPUserId } from "@dsnp/sdk/dist/types/core/identifiers";
 const generateProfile = generators.activityContent.generateProfile;
 
 /**
  * Generate a random Profile using some prefab
  * names and a generated social address
  */
-export const generateRandomProfile = (): Profile => {
-  const socialAddress = generateSocialAddress();
+export const generateRandomProfile = (): ActivityContentProfile & {
+  fromId: DSNPUserId;
+} => {
+  const fromId = generateDsnpUserId();
   const firstName = prefabFirstNames[randInt(prefabFirstNames.length)];
   const lastName = prefabLastNames[randInt(prefabLastNames.length)];
   return {
-    socialAddress,
+    fromId,
     ...generateProfile(firstName + " " + lastName),
   };
 };
@@ -24,7 +28,9 @@ export const generateRandomProfile = (): Profile => {
  * to work with other prefab components
  * @param index The index of the profile to grab. `Accepted values: 0-6`
  */
-export const getPrefabProfile = (index: number): Profile => {
+export const getPrefabProfile = (
+  index: number
+): ActivityContentProfile & { fromId: DSNPUserId } => {
   return preFabProfiles[index];
 };
 
@@ -32,43 +38,47 @@ export const getPrefabProfile = (index: number): Profile => {
  * An array of prefabricated profiles meant to
  * work with other prefab components
  */
-export const preFabProfiles: Array<Profile> = [
+export const preFabProfiles: Array<
+  ActivityContentProfile & {
+    fromId: DSNPUserId;
+  }
+> = [
   {
-    socialAddress: getPrefabSocialAddress(0),
+    fromId: getPrefabDsnpUserId(0),
     ...generateProfile("Monday January"),
   },
   {
-    socialAddress: getPrefabSocialAddress(1),
+    fromId: getPrefabDsnpUserId(1),
     ...generateProfile("Tuesday February"),
   },
   {
-    socialAddress: getPrefabSocialAddress(2),
+    fromId: getPrefabDsnpUserId(2),
     ...generateProfile("Wednesday March"),
   },
   {
-    socialAddress: getPrefabSocialAddress(3),
+    fromId: getPrefabDsnpUserId(3),
     ...generateProfile("Thursday April"),
   },
   {
-    socialAddress: getPrefabSocialAddress(4),
+    fromId: getPrefabDsnpUserId(4),
     ...generateProfile("Friday May"),
   },
   {
-    socialAddress: getPrefabSocialAddress(5),
+    fromId: getPrefabDsnpUserId(5),
     ...generateProfile("Saturday June"),
   },
   {
-    socialAddress: getPrefabSocialAddress(6),
+    fromId: getPrefabDsnpUserId(6),
     ...generateProfile("Sunday July"),
   },
 ];
 
 export const getPrefabProfileByAddress = (
   address: HexString
-): Profile | null => {
+): (ActivityContentProfile & { fromId: DSNPUserId }) | null => {
   for (let i = 0; i < preFabProfiles.length; i++) {
     const prefabProfile = preFabProfiles[i];
-    if (prefabProfile.socialAddress === address) {
+    if (prefabProfile.fromId === address) {
       return prefabProfile;
     }
   }

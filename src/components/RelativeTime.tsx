@@ -1,6 +1,7 @@
 import React from "react";
 
 const getMonthName = (monthNum: number) => {
+  monthNum--;
   const months = [
     "Jan",
     "Feb",
@@ -32,9 +33,9 @@ const getRelativeTime = (postTime: string) => {
     return Math.floor(secondsPast / 3600) + "h •";
   }
   if (secondsPast > 86400) {
-    return `${getMonthName(timeOfPost.getMonth())} ${
-      timeOfPost.getDate() + 1
-    }, ${timeOfPost.getFullYear()} •`;
+    return `${getMonthName(
+      timeOfPost.getMonth()
+    )} ${timeOfPost.getDate()}, ${timeOfPost.getFullYear()} •`;
   }
 };
 

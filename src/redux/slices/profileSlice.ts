@@ -14,7 +14,7 @@ export const profileSlice = createSlice({
   initialState,
   reducers: {
     upsertProfile: (state, action: PayloadAction<Profile>) => {
-      const key = action.payload.socialAddress;
+      const key = action.payload.fromId;
       const oldProfile = state.profiles[key];
       const newProfile = oldProfile
         ? { ...oldProfile, ...action.payload }
