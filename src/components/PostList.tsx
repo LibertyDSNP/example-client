@@ -21,7 +21,7 @@ const PostList = ({ feedType }: PostListProps): JSX.Element => {
   );
   const graph: Graph[] = useAppSelector((state) => state.graphs.graphs);
   const myGraph: Graph | undefined = graph.find(
-    (graph) => graph.socialAddress === profile?.socialAddress
+    (graph) => graph.dsnpUserId === profile?.dsnpUserId
   );
   const feed: FeedItem<ActivityContentNote>[] = useAppSelector(
     (state) => state.feed.feed
@@ -34,15 +34,11 @@ const PostList = ({ feedType }: PostListProps): JSX.Element => {
   let currentFeed: FeedItem<ActivityContentNote>[] = [];
 
   if (feedType === FeedTypes.FEED) {
-    const addrSet = profile?.socialAddress
-      ? { [profile.socialAddress]: true }
-      : {};
+    const addrSet = profile?.dsnpUserId ? { [profile.dsnpUserId]: true } : {};
     myGraph?.following.forEach((addr) => (addrSet[addr] = true));
-    currentFeed = feed.filter((post) => post?.fromAddress in addrSet);
+    currentFeed = feed.filter((post) => post?.fromId in addrSet);
   } else if (feedType === FeedTypes.MY_POSTS) {
-    currentFeed = feed.filter(
-      (post) => profile?.socialAddress === post?.fromAddress
-    );
+    currentFeed = feed.filter((post) => profile?.dsnpUserId === post?.fromId);
   } else {
     currentFeed = feed;
   }
@@ -55,15 +51,14 @@ const PostList = ({ feedType }: PostListProps): JSX.Element => {
             .slice(0)
             .reverse()
             .map((post, index) => {
-              if (!post.fromAddress)
-                throw new Error(`no fromAddress in post: ${post}`);
-              const fromAddress: string = profiles[post.fromAddress]
-                ? (profiles[post.fromAddress].name as string)
-                : post.fromAddress;
+              if (!post.fromId) throw new Error(`no fromId in post: ${post}`);
+              const fromId: string = profiles[post.fromId]
+                ? (profiles[post.fromId].name as string)
+                : post.fromId;
 
               const namedPost: FeedItem<ActivityContentNote> = {
                 ...post,
-                fromAddress,
+                fromId,
               };
               return <Post key={index} feedItem={namedPost} />;
             })}

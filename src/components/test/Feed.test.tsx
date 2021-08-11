@@ -46,9 +46,8 @@ describe("Feed", () => {
       const component = mount(componentWithStore(Feed, store));
       expect(component.find(Post).length).toEqual(3);
 
-      const expectedFeedAddresses = [profile.socialAddress].concat(
-        graphs.find((g) => g.socialAddress === profile.socialAddress)
-          ?.following || []
+      const expectedFeedAddresses = [profile.dsnpUserId].concat(
+        graphs.find((g) => g.dsnpUserId === profile.dsnpUserId)?.following || []
       );
       component.find(".ant-card-meta-title").forEach((address) => {
         expect(expectedFeedAddresses).toContain(address.text());
@@ -65,7 +64,7 @@ describe("Feed", () => {
       button.simulate("click");
       expect(component.find(Post).length).toEqual(2);
       component.find(".ant-card-meta-title").forEach((address) => {
-        expect(address.text()).toBe(profile.socialAddress);
+        expect(address.text()).toBe(profile.dsnpUserId);
       });
     });
 

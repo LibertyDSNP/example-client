@@ -50,10 +50,7 @@ const Profile = (): JSX.Element => {
     <>
       <div className="ProfileBlock__personalInfoBlock">
         <div className="ProfileBlock__avatarBlock">
-          <UserAvatar
-            profileAddress={profile?.socialAddress}
-            avatarSize="large"
-          />
+          <UserAvatar profileAddress={profile?.dsnpUserId} avatarSize="large" />
           {isEditing ? (
             <>
               <Button
@@ -98,8 +95,8 @@ const Profile = (): JSX.Element => {
             SOCIAL ADDRESS
           </label>
           <input
-            className={getClassName("socialAddress")}
-            value={profile?.socialAddress || "Anonymous"}
+            className={getClassName("dsnpUserId")}
+            value={profile?.dsnpUserId || "Anonymous"}
             disabled={true}
           />
         </div>

@@ -1,14 +1,14 @@
 import React from "react";
 import { shallow } from "enzyme";
 import UserAvatar from "../UserAvatar";
-import { getPrefabSocialAddress } from "../../test/testAddresses";
+import { getPrefabdsnpUserId } from "../../test/testAddresses";
 
 describe("UserAvatar", () => {
   it("renders without crashing", () => {
     expect(() => {
       shallow(
         <UserAvatar
-          profileAddress={getPrefabSocialAddress(0)}
+          profileAddress={getPrefabdsnpUserId(0)}
           avatarSize="large"
         />
       );

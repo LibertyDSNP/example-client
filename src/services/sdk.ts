@@ -35,27 +35,25 @@ type Dispatch = ThunkDispatch<any, Record<string, any>, AnyAction>;
 export const getSocialIdentity = async (
   walletAddress: HexString
 ): Promise<HexString> => {
-  let socialAddress: HexString = await fakesdk.getSocialIdentityfromWalletAddress(
+  let dsnpUserId: HexString = await fakesdk.getSocialIdentityfromWalletAddress(
     walletAddress
   );
-  if (!socialAddress) {
-    socialAddress = await fakesdk.createSocialIdentityfromWalletAddress(
+  if (!dsnpUserId) {
+    dsnpUserId = await fakesdk.createSocialIdentityfromWalletAddress(
       walletAddress
     );
   }
-  return socialAddress;
+  return dsnpUserId;
 };
 
-export const getGraph = async (socialAddress: HexString): Promise<Graph> => {
-  const graph = await fakesdk.getGraphFromSocialIdentity(socialAddress);
+export const getGraph = async (dsnpUserId: HexString): Promise<Graph> => {
+  const graph = await fakesdk.getGraphFromSocialIdentity(dsnpUserId);
   if (!graph) throw new Error("Invalid Social Identity Address");
   return graph;
 };
 
-export const getProfile = async (
-  socialAddress: HexString
-): Promise<Profile> => {
-  const profile = await fakesdk.getProfileFromSocialIdentity(socialAddress);
+export const getProfile = async (dsnpUserId: HexString): Promise<Profile> => {
+  const profile = await fakesdk.getProfileFromSocialIdentity(dsnpUserId);
   if (!profile) throw new Error("Invalid Social Identity Address");
   return profile;
 };
@@ -89,7 +87,7 @@ export const sendReply = async (
   const hash = await storeActivityContent(reply.content);
   const announcement = await buildAndSignReplyAnnouncement(
     hash,
-    reply.fromAddress,
+    reply.fromId,
     inReplyTo
   );
 
@@ -193,7 +191,7 @@ const dispatchFeedItem = (
 
   dispatch(
     addFeedItem({
-      fromAddress: decoder.decode((message.fromId as any) as Uint8Array),
+      fromId: decoder.decode((message.fromId as any) as Uint8Array),
       blockNumber: blockNumber,
       hash: decoder.decode((message.contentHash as any) as Uint8Array),
       published: content.published,
@@ -218,7 +216,7 @@ const dispatchProfile = (
   dispatch(
     upsertProfile({
       ...profile,
-      socialAddress: decoder.decode((message.fromId as any) as Uint8Array),
+      dsnpUserId: decoder.decode((message.fromId as any) as Uint8Array),
     })
   );
 };
@@ -273,7 +271,7 @@ const buildAndSignPostAnnouncement = async (
   post: FeedItem<ActivityContentNote>
 ): Promise<SignedBroadcastAnnouncement> => ({
   ...core.announcements.createBroadcast(
-    post.fromAddress,
+    post.fromId,
     `${process.env.REACT_APP_UPLOAD_HOST}/${hash}.json`,
     hash
   ),
@@ -282,11 +280,11 @@ const buildAndSignPostAnnouncement = async (
 
 const buildAndSignReplyAnnouncement = async (
   hash: string,
-  replyFromAddress: HexString,
+  replyfromId: HexString,
   replyInReplyTo: HexString
 ): Promise<SignedReplyAnnouncement> => ({
   ...core.announcements.createReply(
-    replyFromAddress,
+    replyfromId,
     `${process.env.REACT_APP_UPLOAD_HOST}/${hash}.json`,
     hash,
     replyInReplyTo

@@ -18,7 +18,7 @@ const ConnectionsList = (): JSX.Element => {
   );
   const graphs: Graph[] = useAppSelector((state) => state.graphs.graphs);
   const graph: Graph | undefined = graphs.find(
-    ({ socialAddress }) => socialAddress === profile?.socialAddress
+    ({ dsnpUserId }) => dsnpUserId === profile?.dsnpUserId
   );
   const cachedProfiles: Record<HexString, Profile> = useAppSelector(
     (state) => state.profiles.profiles
@@ -33,11 +33,11 @@ const ConnectionsList = (): JSX.Element => {
   const dispatch = useAppDispatch();
 
   const getConnectionProfile = async (
-    socialAddress: HexString
+    dsnpUserId: HexString
   ): Promise<Profile> => {
-    let userProfile = cachedProfiles[socialAddress];
+    let userProfile = cachedProfiles[dsnpUserId];
     if (!userProfile) {
-      userProfile = await sdk.getProfile(socialAddress);
+      userProfile = await sdk.getProfile(dsnpUserId);
       stableDispatch(upsertProfile(userProfile));
     }
     return userProfile;
@@ -48,13 +48,13 @@ const ConnectionsList = (): JSX.Element => {
     followers: HexString[]
   ) => {
     const followingProfiles: Profile[] = await Promise.all(
-      (following || []).map((socialAddress: string) =>
-        stableGetConnectionProfile(socialAddress)
+      (following || []).map((dsnpUserId: string) =>
+        stableGetConnectionProfile(dsnpUserId)
       )
     );
     const followersProfiles: Profile[] = await Promise.all(
-      (followers || []).map((socialAddress: string) =>
-        stableGetConnectionProfile(socialAddress)
+      (followers || []).map((dsnpUserId: string) =>
+        stableGetConnectionProfile(dsnpUserId)
       )
     );
     return [followingProfiles, followersProfiles];
@@ -67,7 +67,7 @@ const ConnectionsList = (): JSX.Element => {
     return followersProfiles.filter((userProfile) => {
       return !followingProfiles.find(
         (followingProfile) =>
-          followingProfile.socialAddress === userProfile.socialAddress
+          followingProfile.dsnpUserId === userProfile.dsnpUserId
       );
     });
   };

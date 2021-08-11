@@ -10,7 +10,7 @@ const ProfileBlock = (): JSX.Element => {
   );
   return (
     <div className="ProfileBlock__block">
-      {profile?.socialAddress ? <Profile /> : <LoginSetupInstructions />}
+      {profile?.dsnpUserId ? <Profile /> : <LoginSetupInstructions />}
     </div>
   );
 };

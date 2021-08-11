@@ -1,6 +1,6 @@
 import { randInt } from "@dsnp/test-generators";
 import { Profile, HexString } from "../utilities/types";
-import { generateSocialAddress, getPrefabSocialAddress } from "./testAddresses";
+import { generatedsnpUserId, getPrefabdsnpUserId } from "./testAddresses";
 import { prefabFirstNames, prefabLastNames } from "./testhelpers";
 import { generators } from "@dsnp/sdk";
 const generateProfile = generators.activityContent.generateProfile;
@@ -10,11 +10,11 @@ const generateProfile = generators.activityContent.generateProfile;
  * names and a generated social address
  */
 export const generateRandomProfile = (): Profile => {
-  const socialAddress = generateSocialAddress();
+  const dsnpUserId = generatedsnpUserId();
   const firstName = prefabFirstNames[randInt(prefabFirstNames.length)];
   const lastName = prefabLastNames[randInt(prefabLastNames.length)];
   return {
-    socialAddress,
+    dsnpUserId,
     ...generateProfile(firstName + " " + lastName),
   };
 };
@@ -34,31 +34,31 @@ export const getPrefabProfile = (index: number): Profile => {
  */
 export const preFabProfiles: Array<Profile> = [
   {
-    socialAddress: getPrefabSocialAddress(0),
+    dsnpUserId: getPrefabdsnpUserId(0),
     ...generateProfile("Monday January"),
   },
   {
-    socialAddress: getPrefabSocialAddress(1),
+    dsnpUserId: getPrefabdsnpUserId(1),
     ...generateProfile("Tuesday February"),
   },
   {
-    socialAddress: getPrefabSocialAddress(2),
+    dsnpUserId: getPrefabdsnpUserId(2),
     ...generateProfile("Wednesday March"),
   },
   {
-    socialAddress: getPrefabSocialAddress(3),
+    dsnpUserId: getPrefabdsnpUserId(3),
     ...generateProfile("Thursday April"),
   },
   {
-    socialAddress: getPrefabSocialAddress(4),
+    dsnpUserId: getPrefabdsnpUserId(4),
     ...generateProfile("Friday May"),
   },
   {
-    socialAddress: getPrefabSocialAddress(5),
+    dsnpUserId: getPrefabdsnpUserId(5),
     ...generateProfile("Saturday June"),
   },
   {
-    socialAddress: getPrefabSocialAddress(6),
+    dsnpUserId: getPrefabdsnpUserId(6),
     ...generateProfile("Sunday July"),
   },
 ];
@@ -68,7 +68,7 @@ export const getPrefabProfileByAddress = (
 ): Profile | null => {
   for (let i = 0; i < preFabProfiles.length; i++) {
     const prefabProfile = preFabProfiles[i];
-    if (prefabProfile.socialAddress === address) {
+    if (prefabProfile.dsnpUserId === address) {
       return prefabProfile;
     }
   }

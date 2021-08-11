@@ -10,7 +10,7 @@ export type URLString = string;
 
 // ## Profile ##
 export interface Profile extends ActivityContentProfile {
-  socialAddress: HexString;
+  dsnpUserId: HexString;
 }
 
 // ## Note ##
@@ -23,7 +23,7 @@ export type NoteAttachment = {
 
 // ## Feed ##
 export interface FeedItem<T extends ActivityContent> {
-  fromAddress: HexString;
+  fromId: HexString;
   content: T;
   replies?: FeedItem[];
   blockNumber?: number;
@@ -39,7 +39,7 @@ export interface FeedItem<T extends ActivityContent> {
 
 // ## Graph ##
 export interface Graph {
-  socialAddress: HexString;
+  dsnpUserId: HexString;
   following: HexString[];
   followers: HexString[];
 }

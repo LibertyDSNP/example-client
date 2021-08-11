@@ -28,10 +28,11 @@ const NewPost = ({ onSuccess, onCancel }: NewPostProps): JSX.Element => {
 
   const createPost = async () => {
     if (!profile) return;
+    console.log(profile);
     const newPostFeedItem: FeedItem<ActivityContentNote> = await createNote(
       postMessage,
       uriList,
-      profile.socialAddress
+      profile.dsnpUserId
     );
     await sendPost(newPostFeedItem);
     success();
@@ -70,12 +71,9 @@ const NewPost = ({ onSuccess, onCancel }: NewPostProps): JSX.Element => {
       ]}
     >
       <div className="NewPost__profileBlock">
-        <UserAvatar
-          profileAddress={profile?.socialAddress}
-          avatarSize={"small"}
-        />
+        <UserAvatar profileAddress={profile?.dsnpUserId} avatarSize={"small"} />
         <h3 className="NewPost__profileBlockName">
-          {profile?.name || profile?.socialAddress || "Anonymous"}
+          {profile?.name || profile?.dsnpUserId || "Anonymous"}
         </h3>
       </div>
       <Input.TextArea

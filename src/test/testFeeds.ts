@@ -1,7 +1,7 @@
 import { keccak_256 } from "js-sha3";
 import { randInt } from "@dsnp/test-generators";
 import { FeedItem, HexString } from "../utilities/types";
-import { generateSocialAddress, getPrefabSocialAddress } from "./testAddresses";
+import { generatedsnpUserId, getPrefabdsnpUserId } from "./testAddresses";
 import {
   prefabFirstNames,
   prefabLastNames,
@@ -18,7 +18,7 @@ const generateNote = generators.activityContent.generateNote;
 
 /**
  * Generate a Profile update. The type `Person` is not a `Profile`
- * @param address the HexString socialAddress to make this person update around
+ * @param address the HexString dsnpUserId to make this person update around
  * @param name the new name of the profile update
  * @param handle the new username of the profile update
  */
@@ -50,7 +50,7 @@ export const generateFeedItem = (
       : new Date().toISOString(),
     inbox: false,
     topic: "0x" + keccak_256("Announce(string,bytes32,bytes32)"),
-    fromAddress: address,
+    fromId: address,
     content: content,
     replies: replies || [],
     blockNumber: 50,
@@ -64,10 +64,10 @@ export const generateFeedItem = (
  * important functionality currently available
  */
 export const getPrefabFeed = (): FeedItem<ActivityContentNote>[] => {
-  const address0 = getPrefabSocialAddress(0);
-  const address1 = getPrefabSocialAddress(1);
-  const address2 = getPrefabSocialAddress(2);
-  const address3 = getPrefabSocialAddress(3);
+  const address0 = getPrefabdsnpUserId(0);
+  const address1 = getPrefabdsnpUserId(1);
+  const address2 = getPrefabdsnpUserId(2);
+  const address3 = getPrefabdsnpUserId(3);
   const noteWithAttachment = generateNote("Everyone leave me alone", true);
 
   return [
@@ -118,10 +118,7 @@ export const generateRandomReplies = (
   const replies: FeedItem<ActivityContentNote>[] = [];
   const numReplies = randInt(avgReplies * 2 + 1);
   for (let r = 0; r < numReplies; r++) {
-    replies[r] = generateFeedItem(
-      generateSocialAddress(),
-      generateRandomNote()
-    );
+    replies[r] = generateFeedItem(generatedsnpUserId(), generateRandomNote());
   }
   return replies;
 };
@@ -142,7 +139,7 @@ export const generateRandomFeed = (
   for (let s = 0; s < size; s++) {
     const content: ActivityContentNote = generateRandomNote();
     feed[s] = generateFeedItem(
-      generateSocialAddress(),
+      generatedsnpUserId(),
       content,
       false,
       generateRandomReplies(avgReplies)

@@ -15,6 +15,7 @@ interface PostProps {
 }
 
 const Post = ({ feedItem }: PostProps): JSX.Element => {
+  console.log(feedItem);
   const noteContent = feedItem.content;
   const attachments =
     noteContent.attachment &&
@@ -25,12 +26,9 @@ const Post = ({ feedItem }: PostProps): JSX.Element => {
     <Card key={feedItem.hash} className="Post__block" bordered={false}>
       <Card.Meta
         avatar={
-          <UserAvatar
-            profileAddress={feedItem.fromAddress}
-            avatarSize={"medium"}
-          />
+          <UserAvatar profileAddress={feedItem.fromId} avatarSize={"medium"} />
         }
-        title={feedItem.fromAddress}
+        title={feedItem.fromId}
         description={
           feedItem.published && (
             <RelativeTime published={feedItem.published} postStyle={true} />

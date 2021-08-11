@@ -23,7 +23,7 @@ const ReplyInput = ({ parent }: ReplyInputProps): JSX.Element => {
     const newReplyFeedItem = await createNote(
       replyValue,
       [],
-      profile.socialAddress
+      profile.dsnpUserId
     );
     await sendReply(newReplyFeedItem, parent);
     setReplyValue("");

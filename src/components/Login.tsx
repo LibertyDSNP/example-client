@@ -27,9 +27,9 @@ const Login = ({ loginWalletOptions }: LoginProps): JSX.Element => {
     startLoading(true);
     try {
       const walletAddress = await wallet.wallet(walletType).login();
-      const socialAddress = await sdk.getSocialIdentity(walletAddress);
-      const graph = await sdk.getGraph(socialAddress);
-      const profile = await sdk.getProfile(socialAddress);
+      const dsnpUserId = await sdk.getSocialIdentity(walletAddress);
+      const graph = await sdk.getGraph(dsnpUserId);
+      const profile = await sdk.getProfile(dsnpUserId);
       dispatch(userLogin({ profile, walletType }));
       dispatch(upsertGraph(graph));
       session.saveSession({ profile, walletType });

@@ -20,9 +20,9 @@ const Reply = ({ reply }: ReplyProps): JSX.Element => {
   );
 
   const getReplyProfile = async () => {
-    let userProfile = cachedProfiles[reply.fromAddress];
+    let userProfile = cachedProfiles[reply.fromId];
     if (!userProfile) {
-      userProfile = await sdk.getProfile(reply.fromAddress);
+      userProfile = await sdk.getProfile(reply.fromId);
       dispatch(upsertProfile(userProfile));
     }
     return userProfile;
@@ -36,10 +36,10 @@ const Reply = ({ reply }: ReplyProps): JSX.Element => {
 
   return (
     <div className="Reply__block">
-      <UserAvatar profileAddress={reply.fromAddress} avatarSize="small" />
+      <UserAvatar profileAddress={reply.fromId} avatarSize="small" />
       <div className="Reply__message">
         <div className="Reply__name">
-          {fromProfile?.name || fromProfile?.socialAddress}
+          {fromProfile?.name || fromProfile?.dsnpUserId}
         </div>
         {reply.content.content}
       </div>
