@@ -327,7 +327,6 @@ Promise.all(
 
     // create profile
     const profile = core.activityContent.createProfile("dsnp://"+ account.dsnpUserId, account.name, account.name);
-    console.log(profile);
 
     // create a note
     const content = core.activityContent.createNote(`${account.text} \n--from ${account.dsnpUserId}`, { attachment: account.attachment });
