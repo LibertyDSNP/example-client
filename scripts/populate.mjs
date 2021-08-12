@@ -428,11 +428,9 @@ for await (let account of accounts.values()) {
   account.id = await createRegistration(account.address, account.handle);
 
   // create profile
-  const profile = core.activityContent.createProfile(
-    account.id,
-    account.name,
-    account.name
-  );
+  const profile = core.activityContent.createProfile({
+    name: account.name,
+  });
 
   // create a note
   const content = core.activityContent.createNote(

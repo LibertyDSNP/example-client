@@ -116,7 +116,7 @@ export const startPostSubscription = (
   core.contracts.subscription.subscribeToBatchPublications(
     handleBatchAnnouncement(dispatch),
     {
-      fromBlock: 0,
+      fromBlock: 1,
     }
   );
 
@@ -124,7 +124,7 @@ export const startPostSubscription = (
   core.contracts.subscription.subscribeToRegistryUpdates(
     handleRegistryUpdate(dispatch),
     {
-      fromBlock: 0,
+      fromBlock: 1,
     }
   );
 };
@@ -226,6 +226,7 @@ const dispatchProfile = (
 ) => {
   const decoder = new TextDecoder();
 
+  console.log("profile", profile);
   dispatch(
     upsertProfile({
       ...profile,
@@ -237,11 +238,12 @@ const dispatchProfile = (
 const handleRegistryUpdate = (dispatch: Dispatch) => (
   update: RegistryUpdateLogData
 ) => {
-  console.log("registry update", update);
   dispatch(
     upsertProfile({
       ...createProfile(),
-      socialAddress: update.dsnpUserURI,
+      socialAddress: core.identifiers.convertDSNPUserURIToDSNPUserId(
+        update.dsnpUserURI
+      ),
       handle: update.handle,
     })
   );
@@ -250,7 +252,6 @@ const handleRegistryUpdate = (dispatch: Dispatch) => (
 const handleBatchAnnouncement = (dispatch: Dispatch) => (
   announcement: BatchPublicationLogData
 ) => {
-  console.log("announcement", announcement);
   core.batch
     .openURL((announcement.fileUrl.toString() as any) as URL)
     .then((reader: any) =>
