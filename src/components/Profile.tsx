@@ -10,7 +10,7 @@ const Profile = (): JSX.Element => {
     (state) => state.user.profile
   );
 
-  const handle = "insert_handle_here";
+  const handle = profile?.handle;
   const [newName, setNewName] = useState<string | null>(null);
   const [newHandle, setNewHandle] = useState<string | null>(null);
   const [didEditProfile, setDidEditProfile] = useState<boolean>(false);

@@ -2,6 +2,7 @@ import { FeedItem, Graph, HexString, Profile } from "../utilities/types";
 import * as fakesdk from "./fakesdk";
 import { setConfig, core } from "@dsnp/sdk";
 import { Publication } from "@dsnp/sdk/core/contracts/publisher";
+import { RegistryUpdateLogData } from "@dsnp/sdk/core/contracts/registry";
 import { providers } from "ethers";
 import { keccak256 } from "web3-utils";
 import { addFeedItem, clearFeedItems } from "../redux/slices/feedSlice";
@@ -13,6 +14,7 @@ import {
   ActivityContentProfile,
   isActivityContentNote,
   isActivityContentProfile,
+  createProfile,
 } from "@dsnp/sdk/core/activityContent";
 import {
   BroadcastAnnouncement,
@@ -21,7 +23,7 @@ import {
   SignedReplyAnnouncement,
   ReplyAnnouncement,
 } from "@dsnp/sdk/core/announcements";
-import { BatchPublicationCallbackArgs } from "@dsnp/sdk/core/contracts/subscription";
+import { BatchPublicationLogData } from "@dsnp/sdk/core/contracts/subscription";
 import { WalletType } from "./wallets/wallet";
 import torusWallet from "./wallets/torus";
 
@@ -109,8 +111,18 @@ export const startPostSubscription = (
   dispatch: ThunkDispatch<any, Record<string, any>, AnyAction>
 ): void => {
   dispatch(clearFeedItems());
+
+  // subscribe to all announcements
   core.contracts.subscription.subscribeToBatchPublications(
     handleBatchAnnouncement(dispatch),
+    {
+      fromBlock: 0,
+    }
+  );
+
+  // subscribe to registry events
+  core.contracts.subscription.subscribeToRegistryUpdates(
+    handleRegistryUpdate(dispatch),
     {
       fromBlock: 0,
     }
@@ -177,9 +189,6 @@ const dispatchActivityContent = (
       activityContent as ActivityContentProfile,
       blockNumber
     );
-  } else {
-    //If we add a new type to the union it will error unless it's handled.
-    throw new Error("unknown activity content type");
   }
 };
 
@@ -225,9 +234,23 @@ const dispatchProfile = (
   );
 };
 
-const handleBatchAnnouncement = (dispatch: Dispatch) => (
-  announcement: BatchPublicationCallbackArgs
+const handleRegistryUpdate = (dispatch: Dispatch) => (
+  update: RegistryUpdateLogData
 ) => {
+  console.log("registry update", update);
+  dispatch(
+    upsertProfile({
+      ...createProfile(),
+      socialAddress: update.dsnpUserURI,
+      handle: update.handle,
+    })
+  );
+};
+
+const handleBatchAnnouncement = (dispatch: Dispatch) => (
+  announcement: BatchPublicationLogData
+) => {
+  console.log("announcement", announcement);
   core.batch
     .openURL((announcement.fileUrl.toString() as any) as URL)
     .then((reader: any) =>
