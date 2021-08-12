@@ -7,7 +7,6 @@ import {
   componentWithStore,
   createMockStore,
 } from "../../test/testhelpers";
-import { getPrefabProfile } from "../../test/testProfiles";
 import * as metamask from "../../services/wallets/metamask/metamask";
 import * as sdk from "../../services/sdk";
 

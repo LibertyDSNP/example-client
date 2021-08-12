@@ -11,7 +11,7 @@ enum FeedTypes {
 }
 
 const Feed = (): JSX.Element => {
-  const profile = useAppSelector((state) => state.user.profile);
+  const userId = useAppSelector((state) => state.user.id);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [feedType, setFeedType] = useState<FeedTypes>(FeedTypes.FEED);
 
@@ -45,7 +45,7 @@ const Feed = (): JSX.Element => {
             All Posts
           </div>
         </nav>
-        {profile && (
+        {userId && (
           <Button
             className="Feed__newPostButton"
             onClick={() => setIsModalOpen(true)}

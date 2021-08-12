@@ -8,7 +8,7 @@ dotenv.config();
 
 const createImageAttachment = (url) => {
   return core.activityContent.createImageAttachment([
-    core.activityContent.createImageLink(url, `image/jpg`, [
+    core.activityContent.createImageLink(url, "image/jpg", [
       core.activityContent.createHash(url),
     ]),
   ]);
@@ -146,7 +146,7 @@ const accounts = [
       ),
     ],
     text:
-      "I strongly favor ${CITY_NAME} ${SPORTS_TEAM}, who are superior at ${SPORTS_BALL}. I fervently desire their continued success.\n PS here's an MP4",
+      "I strongly favor {CITY_NAME} {SPORTS_TEAM}, who are superior at {SPORTS_BALL}. I fervently desire their continued success.\n PS here's an MP4",
   },
   {
     address: "0xa0ee7a142d267c1f36714e4a8f75612f20a79720",

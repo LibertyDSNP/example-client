@@ -1,15 +1,19 @@
 import Feed from "../Feed";
 import Post from "../Post";
 import { mount, shallow } from "enzyme";
-import { getPrefabProfile } from "../../test/testProfiles";
 import { getPrefabFeed } from "../../test/testFeeds";
 import { componentWithStore, createMockStore } from "../../test/testhelpers";
 import { getPreFabSocialGraph } from "../../test/testGraphs";
+import { getPrefabProfile } from "../../test/testProfiles";
 
-const profile = getPrefabProfile(0);
+const userId = getPrefabProfile(0).socialAddress;
 const feed = getPrefabFeed();
 const graphs = getPreFabSocialGraph();
-const initialState = { user: { profile }, feed: { feed }, graphs: { graphs } };
+const initialState = {
+  user: { id: userId },
+  feed: { feed },
+  graphs: { graphs },
+};
 const store = createMockStore(initialState);
 
 describe("Feed", () => {
@@ -26,7 +30,7 @@ describe("Feed", () => {
 
   it("does not display new post button when not logged in", () => {
     const initialState = {
-      user: { profile: undefined },
+      user: {},
       feed: { feed },
       graphs: { graphs },
     };
@@ -46,9 +50,8 @@ describe("Feed", () => {
       const component = mount(componentWithStore(Feed, store));
       expect(component.find(Post).length).toEqual(3);
 
-      const expectedFeedAddresses = [profile.socialAddress].concat(
-        graphs.find((g) => g.socialAddress === profile.socialAddress)
-          ?.following || []
+      const expectedFeedAddresses = [userId].concat(
+        graphs.find((g) => g.socialAddress === userId)?.following || []
       );
       component.find(".ant-card-meta-title").forEach((address) => {
         expect(expectedFeedAddresses).toContain(address.text());
@@ -65,7 +68,7 @@ describe("Feed", () => {
       button.simulate("click");
       expect(component.find(Post).length).toEqual(2);
       component.find(".ant-card-meta-title").forEach((address) => {
-        expect(address.text()).toBe(profile.socialAddress);
+        expect(address.text()).toBe(userId);
       });
     });
 
