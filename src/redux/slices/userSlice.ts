@@ -21,7 +21,7 @@ export const userSlice = createSlice({
       ...state,
       ...action.payload,
     }),
-    userLogout: (state) => ({ ...state, walletType: wallet.WalletType.NONE }),
+    userLogout: (_state) => ({ walletType: wallet.WalletType.NONE }),
     userUpdateId: (state, action: PayloadAction<DSNPUserId>) => ({
       ...state,
       id: action.payload,

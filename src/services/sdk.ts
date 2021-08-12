@@ -3,7 +3,7 @@ import * as fakesdk from "./fakesdk";
 import { setConfig, core } from "@dsnp/sdk";
 import { Publication } from "@dsnp/sdk/core/contracts/publisher";
 import { RegistryUpdateLogData } from "@dsnp/sdk/core/contracts/registry";
-import { providers } from "ethers";
+import { providers, utils as ethUtils } from "ethers";
 import { keccak256 } from "web3-utils";
 import { addFeedItem, clearFeedItems } from "../redux/slices/feedSlice";
 import { upsertProfile } from "../redux/slices/profileSlice";
@@ -36,16 +36,17 @@ type Dispatch = ThunkDispatch<any, Record<string, any>, AnyAction>;
 
 export const getSocialIdentity = async (
   walletAddress: HexString
-): Promise<HexString> => {
-  let socialAddress: HexString = await fakesdk.getSocialIdentityfromWalletAddress(
-    walletAddress
+): Promise<HexString | undefined> => {
+  const registrations = await core.contracts.registry.getRegistrationsByWalletAddress(
+    ethUtils.getAddress(walletAddress)
   );
-  if (!socialAddress) {
-    socialAddress = await fakesdk.createSocialIdentityfromWalletAddress(
-      walletAddress
-    );
-  }
-  return socialAddress;
+
+  const userId = registrations.length
+    ? core.identifiers.convertDSNPUserURIToDSNPUserId(
+        registrations[0].dsnpUserURI
+      )
+    : undefined;
+  return userId;
 };
 
 export const getGraph = async (socialAddress: HexString): Promise<Graph> => {
