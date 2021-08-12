@@ -19,7 +19,7 @@ const Login = ({ loginWalletOptions }: LoginProps): JSX.Element => {
   const [popoverVisible, setPopoverVisible] = React.useState<boolean>(false);
 
   const dispatch = useAppDispatch();
-  const profile = useAppSelector((state) => state.user.profile);
+  const userId = useAppSelector((state) => state.user.id);
   const walletType = useAppSelector((state) => state.user.walletType);
 
   const login = async (walletType: wallet.WalletType) => {
@@ -30,7 +30,7 @@ const Login = ({ loginWalletOptions }: LoginProps): JSX.Element => {
       const socialAddress = await sdk.getSocialIdentity(walletAddress);
       const graph = await sdk.getGraph(socialAddress);
       const profile = await sdk.getProfile(socialAddress);
-      dispatch(userLogin({ profile, walletType }));
+      dispatch(userLogin({ id: "0x03ee", walletType }));
       dispatch(upsertGraph(graph));
       session.saveSession({ profile, walletType });
       sdk.setupProvider(walletType);
@@ -60,7 +60,7 @@ const Login = ({ loginWalletOptions }: LoginProps): JSX.Element => {
           onClose={() => setAlertError("")}
         />
       )}
-      {!profile ? (
+      {!userId ? (
         <LoginButton
           popoverVisible={popoverVisible}
           setPopoverVisible={setPopoverVisible}

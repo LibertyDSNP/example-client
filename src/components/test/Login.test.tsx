@@ -68,9 +68,9 @@ describe("Login Component", () => {
   });
 
   describe("is logged in", () => {
-    const profile = getPrefabProfile(0);
+    const id = "0x03f2";
     const walletType = wallet.WalletType.TORUS;
-    const initialState = { user: { profile, walletType } };
+    const initialState = { user: { id, walletType } };
     const store = createMockStore(initialState);
 
     it("renders without crashing", () => {

@@ -226,7 +226,6 @@ const dispatchProfile = (
 ) => {
   const decoder = new TextDecoder();
 
-  console.log("profile", profile);
   dispatch(
     upsertProfile({
       ...profile,

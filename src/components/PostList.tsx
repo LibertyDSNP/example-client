@@ -47,6 +47,15 @@ const PostList = ({ feedType }: PostListProps): JSX.Element => {
     currentFeed = feed;
   }
 
+  // Replace from address with name or handle if available
+  currentFeed = currentFeed.map((post) => ({
+    ...post,
+    fromAddress: profiles[post.fromAddress]
+      ? (profiles[post.fromAddress].name as string) ||
+        (profiles[post.fromAddress].handle as string)
+      : post.fromAddress,
+  }));
+
   return (
     <div className="PostList__block">
       {currentFeed.length > 0 ? (
@@ -54,20 +63,9 @@ const PostList = ({ feedType }: PostListProps): JSX.Element => {
           {currentFeed
             .slice(0)
             .reverse()
-            .map((post, index) => {
-              if (!post.fromAddress)
-                throw new Error(`no fromAddress in post: ${post}`);
-              const fromAddress: string = profiles[post.fromAddress]
-                ? (profiles[post.fromAddress].name as string) ||
-                  (profiles[post.fromAddress].handle as string)
-                : post.fromAddress;
-
-              const namedPost: FeedItem<ActivityContentNote> = {
-                ...post,
-                fromAddress,
-              };
-              return <Post key={index} feedItem={namedPost} />;
-            })}
+            .map((post, index) => (
+              <Post key={index} feedItem={post} />
+            ))}
         </>
       ) : (
         "Empty Feed!"
