@@ -54,7 +54,7 @@ The features of the Example Client are subject to change with future versions an
 
 ***
 ## Project Setup
-Follow this quick start guide to get up and running. This guide assumes a working knowledge of npm and git. Make sure to check out the __CONTRIBUTING.md__ as well.
+Follow this quick start guide to get up and running. This guide assumes a working knowledge of npm and git. Make sure to check out [CONTRIBUTING.md](CONTRIBUTING.md) as well.
 * Clone the example-client repository: `git clone git@github.com:LibertyDSNP/example-client.git`
 * Install the correct npm and node version. Recommend using asdf: `asdf install`
 * Install modules: `npm install`
@@ -85,15 +85,15 @@ Follow this quick start guide to get up and running. This guide assumes a workin
 ## Miscellaneous Information
 
 __Contributing Guide:__
-To contribute to this project please read our __CONTRIBUTING.md__
-This files will provide the details on everything from requesting features, to reporting bugs, to making your own PR requests.
+To contribute to this project please read our [CONTRIBUTING.md](CONTRIBUTING.md) file.
+It provides the details on everything from requesting features, to reporting bugs, to making your own PR requests.
 
 __Style Guide:__
-The layout of this project adheres to a specific style guide that you can find in __STYLING.md__
-This file will provide the details on the many different facets of the look and feel of this project. It is required to adhere to this style guide when making contributions to the project.
+The layout of this project adheres to a specific style guide that you can find in [STYLING.md](STYLING.md).
+This file provides the details on the many different facets of the look and feel of this project. It is required to adhere to this style guide when making contributions to the project.
 
 __Code of Conduct:__
-In all interactions we request everyone review, understand, and follow our [CODE OF CONDUCT](https://www.projectliberty.io/codeOfConduct.html)
+In all interactions we request everyone review, understand, and follow our [CODE OF CONDUCT](https://www.projectliberty.io/codeOfConduct.html).
 
 __Licensing:__
-Before doing anything beyond reading through the project please take a moment to view our __LICENSE.md__
+Before doing anything beyond reading through the project please take a moment to view our [LICENSE](LICENSE).
