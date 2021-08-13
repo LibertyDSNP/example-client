@@ -2,15 +2,15 @@ import React from "react";
 import LoginSetupInstructions from "./LoginSetupInstructions";
 import Profile from "./Profile";
 import { useAppSelector } from "../redux/hooks";
-import * as types from "../utilities/types";
+import { DSNPUserId } from "@dsnp/sdk/dist/types/core/identifiers";
 
 const ProfileBlock = (): JSX.Element => {
-  const profile: types.Profile | undefined = useAppSelector(
-    (state) => state.user.profile
+  const userId: DSNPUserId | undefined = useAppSelector(
+    (state) => state.user.id
   );
   return (
     <div className="ProfileBlock__block">
-      {profile?.socialAddress ? <Profile /> : <LoginSetupInstructions />}
+      {userId ? <Profile /> : <LoginSetupInstructions />}
     </div>
   );
 };

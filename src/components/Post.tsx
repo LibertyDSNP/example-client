@@ -1,6 +1,6 @@
 import React from "react";
 import { Card } from "antd";
-import { FeedItem } from "../utilities/types";
+import { FeedItem, HexString, Profile } from "../utilities/types";
 import UserAvatar from "./UserAvatar";
 import PostMedia from "./PostMedia";
 import RelativeTime from "./RelativeTime";
@@ -9,6 +9,8 @@ import {
   ActivityContentNote,
   ActivityContentImage,
 } from "@dsnp/sdk/core/activityContent";
+import { FromTitle } from "./FromTitle";
+import { useAppSelector } from "../redux/hooks";
 
 interface PostProps {
   feedItem: FeedItem<ActivityContentNote>;
@@ -21,6 +23,15 @@ const Post = ({ feedItem }: PostProps): JSX.Element => {
     (Array.isArray(noteContent.attachment)
       ? noteContent.attachment
       : [noteContent.attachment]);
+
+  const profiles: Record<HexString, Profile> = useAppSelector(
+    (state) => state.profiles?.profiles || {}
+  );
+
+  const profile: Profile = profiles[feedItem.fromAddress] || {
+    socialAddress: feedItem.fromAddress,
+  };
+
   return (
     <Card key={feedItem.hash} className="Post__block" bordered={false}>
       <Card.Meta
@@ -30,7 +41,7 @@ const Post = ({ feedItem }: PostProps): JSX.Element => {
             avatarSize={"medium"}
           />
         }
-        title={feedItem.fromAddress}
+        title={<FromTitle profile={profile} />}
         description={
           <RelativeTime timestamp={feedItem.timestamp} postStyle={true} />
         }

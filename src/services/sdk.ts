@@ -2,7 +2,8 @@ import { FeedItem, Graph, HexString, Profile } from "../utilities/types";
 import * as fakesdk from "./fakesdk";
 import { setConfig, core } from "@dsnp/sdk";
 import { Publication } from "@dsnp/sdk/core/contracts/publisher";
-import { providers } from "ethers";
+import { RegistryUpdateLogData } from "@dsnp/sdk/core/contracts/registry";
+import { providers, utils as ethUtils } from "ethers";
 import { keccak256 } from "web3-utils";
 import { addFeedItem, clearFeedItems } from "../redux/slices/feedSlice";
 import { upsertProfile } from "../redux/slices/profileSlice";
@@ -13,6 +14,7 @@ import {
   ActivityContentProfile,
   isActivityContentNote,
   isActivityContentProfile,
+  createProfile,
 } from "@dsnp/sdk/core/activityContent";
 import {
   BroadcastAnnouncement,
@@ -21,7 +23,7 @@ import {
   SignedReplyAnnouncement,
   ReplyAnnouncement,
 } from "@dsnp/sdk/core/announcements";
-import { BatchPublicationCallbackArgs } from "@dsnp/sdk/core/contracts/subscription";
+import { BatchPublicationLogData } from "@dsnp/sdk/core/contracts/subscription";
 import { WalletType } from "./wallets/wallet";
 import torusWallet from "./wallets/torus";
 
@@ -34,16 +36,17 @@ type Dispatch = ThunkDispatch<any, Record<string, any>, AnyAction>;
 
 export const getSocialIdentity = async (
   walletAddress: HexString
-): Promise<HexString> => {
-  let socialAddress: HexString = await fakesdk.getSocialIdentityfromWalletAddress(
-    walletAddress
+): Promise<HexString | undefined> => {
+  const registrations = await core.contracts.registry.getRegistrationsByWalletAddress(
+    ethUtils.getAddress(walletAddress)
   );
-  if (!socialAddress) {
-    socialAddress = await fakesdk.createSocialIdentityfromWalletAddress(
-      walletAddress
-    );
-  }
-  return socialAddress;
+
+  const userId = registrations.length
+    ? core.identifiers.convertDSNPUserURIToDSNPUserId(
+        registrations[0].dsnpUserURI
+      )
+    : undefined;
+  return userId;
 };
 
 export const getGraph = async (socialAddress: HexString): Promise<Graph> => {
@@ -109,10 +112,20 @@ export const startPostSubscription = (
   dispatch: ThunkDispatch<any, Record<string, any>, AnyAction>
 ): void => {
   dispatch(clearFeedItems());
+
+  // subscribe to all announcements
   core.contracts.subscription.subscribeToBatchPublications(
     handleBatchAnnouncement(dispatch),
     {
-      fromBlock: 0,
+      fromBlock: 1,
+    }
+  );
+
+  // subscribe to registry events
+  core.contracts.subscription.subscribeToRegistryUpdates(
+    handleRegistryUpdate(dispatch),
+    {
+      fromBlock: 1,
     }
   );
 };
@@ -177,9 +190,6 @@ const dispatchActivityContent = (
       activityContent as ActivityContentProfile,
       blockNumber
     );
-  } else {
-    //If we add a new type to the union it will error unless it's handled.
-    throw new Error("unknown activity content type");
   }
 };
 
@@ -225,8 +235,22 @@ const dispatchProfile = (
   );
 };
 
+const handleRegistryUpdate = (dispatch: Dispatch) => (
+  update: RegistryUpdateLogData
+) => {
+  dispatch(
+    upsertProfile({
+      ...createProfile(),
+      socialAddress: core.identifiers.convertDSNPUserURIToDSNPUserId(
+        update.dsnpUserURI
+      ),
+      handle: update.handle,
+    })
+  );
+};
+
 const handleBatchAnnouncement = (dispatch: Dispatch) => (
-  announcement: BatchPublicationCallbackArgs
+  announcement: BatchPublicationLogData
 ) => {
   core.batch
     .openURL((announcement.fileUrl.toString() as any) as URL)

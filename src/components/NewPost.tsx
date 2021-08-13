@@ -3,10 +3,15 @@ import { Button, Space, Spin, Modal, Input } from "antd";
 import { useAppSelector } from "../redux/hooks";
 import UserAvatar from "./UserAvatar";
 import NewPostImageUpload from "./NewPostImageUpload";
-import { FeedItem } from "../utilities/types";
+import { FeedItem, HexString, Profile } from "../utilities/types";
 import { createNote } from "../services/Storage";
 import { sendPost } from "../services/sdk";
-import { ActivityContentNote } from "@dsnp/sdk/core/activityContent";
+import {
+  ActivityContentNote,
+  createProfile,
+} from "@dsnp/sdk/core/activityContent";
+import { FromTitle } from "./FromTitle";
+import { DSNPUserId } from "@dsnp/sdk/dist/types/core/identifiers";
 
 interface NewPostProps {
   onSuccess: () => void;
@@ -19,7 +24,18 @@ const NewPost = ({ onSuccess, onCancel }: NewPostProps): JSX.Element => {
   const [postMessage, setPostMessage] = React.useState<string>("");
   const [isValidPost, setIsValidPost] = React.useState<boolean>(false);
 
-  const profile = useAppSelector((state) => state.user.profile);
+  const userId: DSNPUserId | undefined = useAppSelector(
+    (state) => state.user.id
+  );
+
+  const profiles: Record<HexString, Profile> = useAppSelector(
+    (state) => state.profiles?.profiles || {}
+  );
+
+  const profile = (userId && profiles[userId]) || {
+    ...createProfile(),
+    socialAddress: userId || "",
+  };
 
   const success = () => {
     setSaving(false);
@@ -27,11 +43,11 @@ const NewPost = ({ onSuccess, onCancel }: NewPostProps): JSX.Element => {
   };
 
   const createPost = async () => {
-    if (!profile) return;
+    if (!userId) return;
     const newPostFeedItem: FeedItem<ActivityContentNote> = await createNote(
       postMessage,
       uriList,
-      profile.socialAddress
+      userId
     );
     await sendPost(newPostFeedItem);
     success();
@@ -70,12 +86,9 @@ const NewPost = ({ onSuccess, onCancel }: NewPostProps): JSX.Element => {
       ]}
     >
       <div className="NewPost__profileBlock">
-        <UserAvatar
-          profileAddress={profile?.socialAddress}
-          avatarSize={"small"}
-        />
+        <UserAvatar profileAddress={userId} avatarSize={"small"} />
         <h3 className="NewPost__profileBlockName">
-          {profile?.name || profile?.socialAddress || "Anonymous"}
+          <FromTitle profile={profile}></FromTitle>
         </h3>
       </div>
       <Input.TextArea

@@ -7,7 +7,6 @@ import {
   componentWithStore,
   createMockStore,
 } from "../../test/testhelpers";
-import { getPrefabProfile } from "../../test/testProfiles";
 import * as metamask from "../../services/wallets/metamask/metamask";
 import * as sdk from "../../services/sdk";
 
@@ -24,6 +23,9 @@ beforeAll(async () => {
     .spyOn(metamask, "getWalletAddress")
     .mockImplementation(() => Promise.resolve("0x123"));
   jest.spyOn(sdk, "setupProvider").mockImplementation(jest.fn);
+  jest
+    .spyOn(sdk, "getSocialIdentity")
+    .mockImplementation(() => Promise.resolve("0x034b"));
 });
 
 describe("Login Component", () => {
@@ -68,9 +70,9 @@ describe("Login Component", () => {
   });
 
   describe("is logged in", () => {
-    const profile = getPrefabProfile(0);
+    const id = "0x03f2";
     const walletType = wallet.WalletType.TORUS;
-    const initialState = { user: { profile, walletType } };
+    const initialState = { user: { id, walletType } };
     const store = createMockStore(initialState);
 
     it("renders without crashing", () => {

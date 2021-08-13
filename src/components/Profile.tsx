@@ -4,13 +4,21 @@ import ConnectionsList from "./ConnectionsList";
 import React, { useEffect, useState } from "react";
 import { useAppSelector } from "../redux/hooks";
 import * as types from "../utilities/types";
+import { DSNPUserId } from "@dsnp/sdk/dist/types/core/identifiers";
 
 const Profile = (): JSX.Element => {
-  const profile: types.Profile | undefined = useAppSelector(
-    (state) => state.user.profile
+  const userId: DSNPUserId | undefined = useAppSelector(
+    (state) => state.user.id
+  );
+  const profiles: Record<types.HexString, types.Profile> = useAppSelector(
+    (state) => state.profiles?.profiles || {}
   );
 
-  const handle = "insert_handle_here";
+  const profile: types.Profile | undefined = userId
+    ? profiles[userId]
+    : undefined;
+
+  const handle = profile?.handle;
   const [newName, setNewName] = useState<string | null>(null);
   const [newHandle, setNewHandle] = useState<string | null>(null);
   const [didEditProfile, setDidEditProfile] = useState<boolean>(false);
@@ -26,7 +34,7 @@ const Profile = (): JSX.Element => {
       return;
     }
     setDidEditProfile(false);
-  }, [newName, newHandle, profileName]);
+  }, [newName, newHandle, profileName, handle]);
   const [isEditing, setIsEditing] = useState<boolean>(false);
 
   const getClassName = (sectionName: string) => {

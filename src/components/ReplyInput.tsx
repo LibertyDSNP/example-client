@@ -10,7 +10,7 @@ interface ReplyInputProps {
 }
 
 const ReplyInput = ({ parent }: ReplyInputProps): JSX.Element => {
-  const profile = useAppSelector((state) => state.user.profile);
+  const userId = useAppSelector((state) => state.user.id);
   const [saving, setSaving] = React.useState<boolean>(false);
   const [replyValue, setReplyValue] = useState<string>("");
 
@@ -18,13 +18,9 @@ const ReplyInput = ({ parent }: ReplyInputProps): JSX.Element => {
     event: React.KeyboardEvent<HTMLTextAreaElement>
   ) => {
     event.preventDefault();
-    if (!profile) return;
+    if (!userId) return;
     setSaving(true);
-    const newReplyFeedItem = await createNote(
-      replyValue,
-      [],
-      profile.socialAddress
-    );
+    const newReplyFeedItem = await createNote(replyValue, [], userId);
     await sendReply(newReplyFeedItem, parent);
     setReplyValue("");
     setSaving(false);
