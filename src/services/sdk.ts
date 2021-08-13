@@ -65,9 +65,10 @@ export const getProfile = async (
 
 export const sendPost = async (post: FeedItem): Promise<void> => {
   if (!post.content) return;
-
+  console.log("post.content", post.content);
   const hash = await storeActivityContent(post.content);
   const announcement = await buildAndSignPostAnnouncement(hash, post);
+  console.log(announcement);
 
   const batchData = await core.batch.createFile(hash + ".parquet", [
     announcement,
@@ -90,7 +91,7 @@ export const sendReply = async (
   const hash = await storeActivityContent(reply.content);
   const announcement = await buildAndSignReplyAnnouncement(
     hash,
-    reply.fromAddress,
+    reply.fromId,
     inReplyTo
   );
 
@@ -295,7 +296,7 @@ const buildAndSignPostAnnouncement = async (
   post: FeedItem
 ): Promise<SignedBroadcastAnnouncement> => ({
   ...core.announcements.createBroadcast(
-    post.fromAddress,
+    post.fromId,
     `${process.env.REACT_APP_UPLOAD_HOST}/${hash}.json`,
     hash
   ),
