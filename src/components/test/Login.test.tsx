@@ -23,6 +23,9 @@ beforeAll(async () => {
     .spyOn(metamask, "getWalletAddress")
     .mockImplementation(() => Promise.resolve("0x123"));
   jest.spyOn(sdk, "setupProvider").mockImplementation(jest.fn);
+  jest
+    .spyOn(sdk, "getSocialIdentity")
+    .mockImplementation(() => Promise.resolve("0x034b"));
 });
 
 describe("Login Component", () => {

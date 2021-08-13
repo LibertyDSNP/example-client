@@ -27,16 +27,19 @@ const Login = ({ loginWalletOptions }: LoginProps): JSX.Element => {
     startLoading(true);
     try {
       const walletAddress = await wallet.wallet(walletType).login();
-      const socialAddress = await sdk.getSocialIdentity(walletAddress);
-      const graph = await sdk.getGraph(socialAddress);
-      dispatch(userLogin({ id: "0x03ee", walletType }));
-      dispatch(upsertGraph(graph));
-      session.saveSession({ id: "0x03ee", walletType });
       sdk.setupProvider(walletType);
+      const socialAddress = await sdk.getSocialIdentity(walletAddress);
+      if (socialAddress) {
+        const graph = await sdk.getGraph(socialAddress);
+        dispatch(userLogin({ id: socialAddress, walletType }));
+        dispatch(upsertGraph(graph));
+        session.saveSession({ id: socialAddress, walletType });
+      }
     } catch (error) {
       console.log("Error in login:", error);
-      startLoading(false);
+    } finally {
       setPopoverVisible(false);
+      startLoading(false);
     }
   };
 
