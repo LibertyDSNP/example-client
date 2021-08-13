@@ -9,7 +9,7 @@ import {
   ActivityContentNote,
   ActivityContentImage,
 } from "@dsnp/sdk/core/activityContent";
-import { FromLine } from "./FromLine";
+import { FromTitle } from "./FromTitle";
 import { useAppSelector } from "../redux/hooks";
 
 interface PostProps {
@@ -41,7 +41,7 @@ const Post = ({ feedItem }: PostProps): JSX.Element => {
             avatarSize={"medium"}
           />
         }
-        title={<FromLine profile={profile} />}
+        title={<FromTitle profile={profile} />}
         description={
           <RelativeTime timestamp={feedItem.timestamp} postStyle={true} />
         }

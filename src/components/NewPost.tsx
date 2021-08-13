@@ -10,7 +10,7 @@ import {
   ActivityContentNote,
   createProfile,
 } from "@dsnp/sdk/core/activityContent";
-import { FromLine } from "./FromLine";
+import { FromTitle } from "./FromTitle";
 import { DSNPUserId } from "@dsnp/sdk/dist/types/core/identifiers";
 
 interface NewPostProps {
@@ -88,7 +88,7 @@ const NewPost = ({ onSuccess, onCancel }: NewPostProps): JSX.Element => {
       <div className="NewPost__profileBlock">
         <UserAvatar profileAddress={userId} avatarSize={"small"} />
         <h3 className="NewPost__profileBlockName">
-          <FromLine profile={profile}></FromLine>
+          <FromTitle profile={profile}></FromTitle>
         </h3>
       </div>
       <Input.TextArea
