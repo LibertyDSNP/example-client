@@ -65,7 +65,6 @@ export const getProfile = async (
 
 export const sendPost = async (post: FeedItem): Promise<void> => {
   if (!post.content) return;
-
   const hash = await storeActivityContent(post.content);
   const announcement = await buildAndSignPostAnnouncement(hash, post);
 
@@ -90,7 +89,7 @@ export const sendReply = async (
   const hash = await storeActivityContent(reply.content);
   const announcement = await buildAndSignReplyAnnouncement(
     hash,
-    reply.fromAddress,
+    reply.fromId,
     inReplyTo
   );
 
@@ -295,7 +294,7 @@ const buildAndSignPostAnnouncement = async (
   post: FeedItem
 ): Promise<SignedBroadcastAnnouncement> => ({
   ...core.announcements.createBroadcast(
-    post.fromAddress,
+    post.fromId,
     `${process.env.REACT_APP_UPLOAD_HOST}/${hash}.json`,
     hash
   ),
@@ -304,11 +303,11 @@ const buildAndSignPostAnnouncement = async (
 
 const buildAndSignReplyAnnouncement = async (
   hash: string,
-  replyFromAddress: HexString,
+  replyFromId: HexString,
   replyInReplyTo: HexString
 ): Promise<SignedReplyAnnouncement> => ({
   ...core.announcements.createReply(
-    replyFromAddress,
+    replyFromId,
     `${process.env.REACT_APP_UPLOAD_HOST}/${hash}.json`,
     hash,
     replyInReplyTo

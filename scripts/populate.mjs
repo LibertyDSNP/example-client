@@ -380,7 +380,6 @@ class ServerWriteStream {
  */
 
 setConfig({
-  provider: provider,
   store: new Store(),
 });
 
@@ -435,7 +434,7 @@ for await (let account of accounts.values()) {
 
   // create a note
   const content = core.activityContent.createNote(
-    `${account.text} \n--from ${account.dsnpUserId}`,
+    `${account.text} \n--from ${account.id}`,
     { attachment: account.attachment }
   );
     content.published = new Date().toISOString();
@@ -443,12 +442,12 @@ for await (let account of accounts.values()) {
   const {
     hash: profileHash,
     announcement: profileAnnouncement,
-  } = await storeAnnouncement(profile, account.dsnpUserId, wallet);
+  } = await storeAnnouncement(profile, account.id, wallet);
 
       const {
         hash: contentHash,
         announcement: noteAnnouncement,
-      } = await storeAnnouncement(content, account.dsnpUserId, wallet);
+      } = await storeAnnouncement(content, account.id, wallet);
 
   const hash = web3.keccak256(profileHash + contentHash);
 
