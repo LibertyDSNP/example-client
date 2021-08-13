@@ -9,7 +9,7 @@ interface UserState {
 }
 
 const initialState: UserState = {
-  id: "",
+  id: session.hasSession() ? session.loadSession()?.id : undefined,
   walletType: session.loadSession()?.walletType ?? wallet.WalletType.NONE,
 };
 

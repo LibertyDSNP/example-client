@@ -29,10 +29,9 @@ const Login = ({ loginWalletOptions }: LoginProps): JSX.Element => {
       const walletAddress = await wallet.wallet(walletType).login();
       const socialAddress = await sdk.getSocialIdentity(walletAddress);
       const graph = await sdk.getGraph(socialAddress);
-      const profile = await sdk.getProfile(socialAddress);
       dispatch(userLogin({ id: "0x03ee", walletType }));
       dispatch(upsertGraph(graph));
-      session.saveSession({ profile, walletType });
+      session.saveSession({ id: "0x03ee", walletType });
       sdk.setupProvider(walletType);
     } catch (error) {
       console.log("Error in login:", error);
