@@ -28,12 +28,12 @@ const Login = ({ loginWalletOptions }: LoginProps): JSX.Element => {
     try {
       const walletAddress = await wallet.wallet(walletType).login();
       sdk.setupProvider(walletType);
-      const socialAddress = await sdk.getSocialIdentity(walletAddress);
-      if (socialAddress) {
-        const graph = await sdk.getGraph(socialAddress);
-        dispatch(userLogin({ id: socialAddress, walletType }));
+      const fromId = await sdk.getSocialIdentity(walletAddress);
+      if (fromId) {
+        const graph = await sdk.getGraph(fromId);
+        dispatch(userLogin({ id: fromId, walletType }));
         dispatch(upsertGraph(graph));
-        session.saveSession({ id: socialAddress, walletType });
+        session.saveSession({ id: fromId, walletType });
       }
     } catch (error) {
       console.log("Error in login:", error);

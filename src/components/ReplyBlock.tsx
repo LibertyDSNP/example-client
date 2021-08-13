@@ -1,4 +1,3 @@
-import { ActivityContentNote } from "@dsnp/sdk/core/activityContent";
 import React from "react";
 import { useAppSelector } from "../redux/hooks";
 import { FeedItem, HexString } from "../utilities/types";
@@ -10,11 +9,11 @@ interface ReplyBlockProps {
 }
 
 const ReplyBlock = ({ parent }: ReplyBlockProps): JSX.Element => {
-  const replyFeed: FeedItem<ActivityContentNote>[] = useAppSelector(
+  const replyFeed: FeedItem[] = useAppSelector(
     (state) => state.feed.feed
-  ).filter(
-    (reply) => reply?.content?.type === "Note" && reply?.inReplyTo === parent
-  ) as FeedItem<ActivityContentNote>[];
+  ).filter((reply) => {
+    return reply?.content?.type === "Note" && reply?.inReplyTo === parent;
+  }) as FeedItem[];
 
   return (
     <>

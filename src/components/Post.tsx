@@ -5,45 +5,37 @@ import UserAvatar from "./UserAvatar";
 import PostMedia from "./PostMedia";
 import RelativeTime from "./RelativeTime";
 import ReplyBlock from "./ReplyBlock";
-import {
-  ActivityContentNote,
-  ActivityContentImage,
-} from "@dsnp/sdk/core/activityContent";
+import { ActivityContentImage } from "@dsnp/sdk/core/activityContent";
 import { FromTitle } from "./FromTitle";
 import { useAppSelector } from "../redux/hooks";
 
 interface PostProps {
-  feedItem: FeedItem<ActivityContentNote>;
+  feedItem: FeedItem;
 }
 
 const Post = ({ feedItem }: PostProps): JSX.Element => {
   const noteContent = feedItem.content;
-  const attachments =
-    noteContent.attachment &&
-    (Array.isArray(noteContent.attachment)
-      ? noteContent.attachment
-      : [noteContent.attachment]);
+  const attachments = noteContent.attachment;
 
   const profiles: Record<HexString, Profile> = useAppSelector(
     (state) => state.profiles?.profiles || {}
   );
 
-  const profile: Profile = profiles[feedItem.fromAddress] || {
-    socialAddress: feedItem.fromAddress,
+  const profile: Profile = profiles[feedItem.fromId] || {
+    fromId: feedItem.fromId,
   };
 
   return (
-    <Card key={feedItem.hash} className="Post__block" bordered={false}>
+    <Card key={noteContent.hash} className="Post__block" bordered={false}>
       <Card.Meta
         avatar={
-          <UserAvatar
-            profileAddress={feedItem.fromAddress}
-            avatarSize={"medium"}
-          />
+          <UserAvatar profileAddress={feedItem.fromId} avatarSize={"medium"} />
         }
         title={<FromTitle profile={profile} />}
         description={
-          <RelativeTime timestamp={feedItem.timestamp} postStyle={true} />
+          noteContent.published && (
+            <RelativeTime published={noteContent.published} postStyle={true} />
+          )
         }
       />
       <div className="Post__caption">{noteContent.content}</div>

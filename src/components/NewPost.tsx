@@ -6,10 +6,7 @@ import NewPostImageUpload from "./NewPostImageUpload";
 import { FeedItem, HexString, Profile } from "../utilities/types";
 import { createNote } from "../services/Storage";
 import { sendPost } from "../services/sdk";
-import {
-  ActivityContentNote,
-  createProfile,
-} from "@dsnp/sdk/core/activityContent";
+import { createProfile } from "@dsnp/sdk/core/activityContent";
 import { FromTitle } from "./FromTitle";
 import { DSNPUserId } from "@dsnp/sdk/dist/types/core/identifiers";
 
@@ -34,7 +31,7 @@ const NewPost = ({ onSuccess, onCancel }: NewPostProps): JSX.Element => {
 
   const profile = (userId && profiles[userId]) || {
     ...createProfile(),
-    socialAddress: userId || "",
+    fromId: userId || "",
   };
 
   const success = () => {
@@ -43,8 +40,8 @@ const NewPost = ({ onSuccess, onCancel }: NewPostProps): JSX.Element => {
   };
 
   const createPost = async () => {
-    if (!userId) return;
-    const newPostFeedItem: FeedItem<ActivityContentNote> = await createNote(
+    if (!profile) return;
+    const newPostFeedItem: FeedItem = await createNote(
       postMessage,
       uriList,
       userId

@@ -1,4 +1,4 @@
-import { FeedItem, Graph, HexString, Profile } from "../utilities/types";
+import { FeedItem, Graph, HexString, Profile, Reply } from "../utilities/types";
 import * as fakesdk from "./fakesdk";
 import { setConfig, core } from "@dsnp/sdk";
 import { Publication } from "@dsnp/sdk/core/contracts/publisher";
@@ -63,9 +63,7 @@ export const getProfile = async (
   return profile;
 };
 
-export const sendPost = async (
-  post: FeedItem<ActivityContentNote>
-): Promise<void> => {
+export const sendPost = async (post: FeedItem): Promise<void> => {
   if (!post.content) return;
 
   const hash = await storeActivityContent(post.content);
@@ -84,7 +82,7 @@ export const sendPost = async (
 };
 
 export const sendReply = async (
-  reply: FeedItem<ActivityContentNote>,
+  reply: Reply,
   inReplyTo: HexString
 ): Promise<void> => {
   if (!reply.content || !inReplyTo) return;
@@ -201,14 +199,12 @@ const dispatchFeedItem = (
 ) => {
   const decoder = new TextDecoder();
 
-  const timestamp = content.published ? Date.parse(content.published) : 0;
-
   dispatch(
     addFeedItem({
-      fromAddress: decoder.decode((message.fromId as any) as Uint8Array),
+      fromId: decoder.decode((message.fromId as any) as Uint8Array),
       blockNumber: blockNumber,
       hash: decoder.decode((message.contentHash as any) as Uint8Array),
-      timestamp: timestamp,
+      published: content.published,
       uri: decoder.decode((message.url as any) as Uint8Array),
       content: content,
       inReplyTo:
@@ -230,8 +226,8 @@ const dispatchProfile = (
   dispatch(
     upsertProfile({
       ...profile,
-      socialAddress: decoder.decode((message.fromId as any) as Uint8Array),
-    })
+      fromId: decoder.decode((message.fromId as any) as Uint8Array),
+    } as Profile)
   );
 };
 
@@ -241,11 +237,11 @@ const handleRegistryUpdate = (dispatch: Dispatch) => (
   dispatch(
     upsertProfile({
       ...createProfile(),
-      socialAddress: core.identifiers.convertDSNPUserURIToDSNPUserId(
+      fromId: core.identifiers.convertDSNPUserURIToDSNPUserId(
         update.dsnpUserURI
       ),
       handle: update.handle,
-    })
+    } as Profile)
   );
 };
 
@@ -296,7 +292,7 @@ const storeActivityContent = async (
 
 const buildAndSignPostAnnouncement = async (
   hash: string,
-  post: FeedItem<ActivityContentNote>
+  post: FeedItem
 ): Promise<SignedBroadcastAnnouncement> => ({
   ...core.announcements.createBroadcast(
     post.fromAddress,

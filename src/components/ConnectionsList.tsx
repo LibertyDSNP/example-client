@@ -19,7 +19,7 @@ const ConnectionsList = (): JSX.Element => {
   );
   const graphs: Graph[] = useAppSelector((state) => state.graphs.graphs);
   const graph: Graph | undefined = graphs.find(
-    ({ socialAddress }) => socialAddress === userId
+    ({ dsnpUserId }) => dsnpUserId === userId
   );
   const cachedProfiles: Record<HexString, Profile> = useAppSelector(
     (state) => state.profiles.profiles
@@ -33,12 +33,10 @@ const ConnectionsList = (): JSX.Element => {
   const [notFollowingList, setNotFollowingList] = useState<Profile[]>([]);
   const dispatch = useAppDispatch();
 
-  const getConnectionProfile = async (
-    socialAddress: HexString
-  ): Promise<Profile> => {
-    let userProfile = cachedProfiles[socialAddress];
+  const getConnectionProfile = async (fromId: DSNPUserId): Promise<Profile> => {
+    let userProfile = cachedProfiles[fromId];
     if (!userProfile) {
-      userProfile = await sdk.getProfile(socialAddress);
+      userProfile = await sdk.getProfile(fromId);
       stableDispatch(upsertProfile(userProfile));
     }
     return userProfile;
@@ -49,13 +47,13 @@ const ConnectionsList = (): JSX.Element => {
     followers: HexString[]
   ) => {
     const followingProfiles: Profile[] = await Promise.all(
-      (following || []).map((socialAddress: string) =>
-        stableGetConnectionProfile(socialAddress)
+      (following || []).map((fromId: DSNPUserId) =>
+        stableGetConnectionProfile(fromId)
       )
     );
     const followersProfiles: Profile[] = await Promise.all(
-      (followers || []).map((socialAddress: string) =>
-        stableGetConnectionProfile(socialAddress)
+      (followers || []).map((fromId: DSNPUserId) =>
+        stableGetConnectionProfile(fromId)
       )
     );
     return [followingProfiles, followersProfiles];
@@ -67,8 +65,7 @@ const ConnectionsList = (): JSX.Element => {
   ) => {
     return followersProfiles.filter((userProfile) => {
       return !followingProfiles.find(
-        (followingProfile) =>
-          followingProfile.socialAddress === userProfile.socialAddress
+        (followingProfile) => followingProfile.fromId === userProfile.fromId
       );
     });
   };

@@ -1,4 +1,4 @@
-import { FeedItem, HexString } from "../utilities/types";
+import { FeedItem } from "../utilities/types";
 import {
   Content,
   WriteStreamCallback,
@@ -8,22 +8,22 @@ import {
 import { isFunction, isUint8Array } from "./utilities";
 import { ActivityContentNote } from "@dsnp/sdk/core/activityContent";
 import { noteToActivityContentNote } from "../utilities/activityContent";
+import { DSNPUserId } from "@dsnp/sdk/dist/types/core/identifiers";
 
 export const createNote = async (
   note: string,
   uriList: string[],
-  fromAddress: HexString
-): Promise<FeedItem<ActivityContentNote>> => {
+  fromId: DSNPUserId | undefined
+): Promise<FeedItem> => {
   // send content to api
   const activityPubNote: ActivityContentNote = noteToActivityContentNote(
     note,
     uriList
   );
-  const newPostFeedItem: FeedItem<ActivityContentNote> = {
-    fromAddress: fromAddress,
+  const newPostFeedItem: FeedItem = {
+    fromId: fromId,
     content: activityPubNote,
     blockNumber: 0x123,
-    timestamp: Math.floor(Math.random() * 999999),
     hash: "0x89205A3A3b2A69De6Dbf7f01ED13B2108B2c43e7",
   };
   return newPostFeedItem;

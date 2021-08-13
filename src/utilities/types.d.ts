@@ -1,46 +1,21 @@
-import { ActivityContentNote, ActivityContentProfile } from "@dsnp/sdk/core/activityContent";
+import { ProfileAnnouncement } from "@dsnp/sdk/core/announcements";
+import { ActivityContentProfile } from "@dsnp/sdk/core/activityContent";
 
-
-export type HexString = string;
-export type EncryptedString = string;
-export type URLString = string;
-// ### Feed Data Types ###
-
-// ## Profile ##
-export interface Profile extends ActivityContentProfile {
-  socialAddress: HexString;
-  handle?: string;
-}
-
-// ## Note ##
-export type NoteAttachmentType = "Image" | "Video";
-export type NoteAttachment = {
-  mediaType: string;
-  type: NoteAttachmentType;
-  url: URLString;
-};
-
-// ## Feed ##
-export interface FeedItem<T extends ActivityContent> {
-  fromAddress: HexString;
-  content: T;
-  replies?: FeedItem[];
-  blockNumber?: number;
-  hash: HexString;
-  inbox?: boolean;
-  timestamp: number;
-  topic?: HexString;
-  uri?: URLString | undefined;
-  rawContent?: string;
-  ddid?: HexString;
-  inReplyTo?: HexString;
-}
+export declare type HexString = string;
 
 // ## Graph ##
 export interface Graph {
-  socialAddress: HexString;
+  dsnpUserId: HexString;
   following: HexString[];
   followers: HexString[];
 }
 
-export type SocialGraph = Graph[];
+// ## Profile ##
+export type Profile = ProfileAnnouncement &
+  ActivityContentProfile & { handle: string };
+
+// ## FeedItem ##
+export type FeedItem = BroadcastAnnouncement & ActivityContentNote;
+
+// ## Reply ##
+export type Reply = ReplyAnnouncement & ActivityContentNote;
