@@ -10,20 +10,23 @@ const avatarSizeOptions = new Map([
 ]);
 
 interface UserAvatarProps {
+  icon: string | undefined;
   profileAddress: HexString | undefined;
   avatarSize: string;
 }
 
 const UserAvatar = ({
+  icon,
   profileAddress,
   avatarSize,
 }: UserAvatarProps): JSX.Element => {
-  const identiconURL =
-    profileAddress && blockies.create({ seed: profileAddress }).toDataURL();
+  const iconURL =
+    icon ||
+    (profileAddress && blockies.create({ seed: profileAddress }).toDataURL());
   return (
     <Avatar
       alt={profileAddress || "anonymous"}
-      src={identiconURL}
+      src={iconURL}
       size={avatarSizeOptions.get(avatarSize)}
     />
   );
