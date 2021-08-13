@@ -1,8 +1,7 @@
 import React from "react";
 import Post from "./Post";
-import { Graph, HexString, Profile, FeedItem } from "../utilities/types";
+import { Graph, FeedItem } from "../utilities/types";
 import { useAppSelector } from "../redux/hooks";
-import { ActivityContentNote } from "@dsnp/sdk/core/activityContent";
 import { DSNPUserId } from "@dsnp/sdk/dist/types/core/identifiers";
 
 enum FeedTypes {

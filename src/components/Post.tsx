@@ -5,10 +5,7 @@ import UserAvatar from "./UserAvatar";
 import PostMedia from "./PostMedia";
 import RelativeTime from "./RelativeTime";
 import ReplyBlock from "./ReplyBlock";
-import {
-  ActivityContentNote,
-  ActivityContentImage,
-} from "@dsnp/sdk/core/activityContent";
+import { ActivityContentImage } from "@dsnp/sdk/core/activityContent";
 import { FromTitle } from "./FromTitle";
 import { useAppSelector } from "../redux/hooks";
 
@@ -24,16 +21,12 @@ const Post = ({ feedItem }: PostProps): JSX.Element => {
     (state) => state.profiles?.profiles || {}
   );
 
-  const profile: Profile = profiles[feedItem.fromAddress] || {
-    socialAddress: feedItem.fromAddress,
+  const profile: Profile = profiles[feedItem.fromId] || {
+    fromId: feedItem.fromId,
   };
 
   return (
-    <Card
-      key={noteContent.hash}
-      className="Post__block"
-      bordered={false}
-    >
+    <Card key={noteContent.hash} className="Post__block" bordered={false}>
       <Card.Meta
         avatar={
           <UserAvatar profileAddress={feedItem.fromId} avatarSize={"medium"} />

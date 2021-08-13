@@ -33,7 +33,7 @@ const ConnectionsList = (): JSX.Element => {
   const [notFollowingList, setNotFollowingList] = useState<Profile[]>([]);
   const dispatch = useAppDispatch();
 
-  const getConnectionProfile = async (fromId: HexString): Promise<Profile> => {
+  const getConnectionProfile = async (fromId: DSNPUserId): Promise<Profile> => {
     let userProfile = cachedProfiles[fromId];
     if (!userProfile) {
       userProfile = await sdk.getProfile(fromId);
@@ -47,12 +47,12 @@ const ConnectionsList = (): JSX.Element => {
     followers: HexString[]
   ) => {
     const followingProfiles: Profile[] = await Promise.all(
-      (following || []).map((fromId: string) =>
+      (following || []).map((fromId: DSNPUserId) =>
         stableGetConnectionProfile(fromId)
       )
     );
     const followersProfiles: Profile[] = await Promise.all(
-      (followers || []).map((fromId: string) =>
+      (followers || []).map((fromId: DSNPUserId) =>
         stableGetConnectionProfile(fromId)
       )
     );
