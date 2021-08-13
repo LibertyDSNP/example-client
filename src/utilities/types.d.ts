@@ -9,6 +9,7 @@ export type URLString = string;
 // ## Profile ##
 export interface Profile extends ActivityContentProfile {
   socialAddress: HexString;
+  handle?: string;
 }
 
 // ## Note ##

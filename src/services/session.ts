@@ -1,8 +1,8 @@
-import { Profile } from "../utilities/types";
+import { DSNPUserId } from "@dsnp/sdk/dist/types/core/identifiers";
 import { WalletType } from "./wallets/wallet";
 
 interface SessionData {
-  profile: Profile;
+  id: DSNPUserId | undefined;
   walletType: WalletType;
 }
 

@@ -6,12 +6,13 @@ import { getPreFabSocialGraph } from "../../test/testGraphs";
 import * as wallet from "../../services/wallets/wallet";
 import { waitFor } from "@testing-library/react";
 
+const id = "0x03f2";
 const profile = getPrefabProfile(0);
 const graphs = getPreFabSocialGraph();
 const walletType = wallet.WalletType.TORUS;
 const store = createMockStore({
-  user: { profile, walletType },
-  profiles: { profiles: [profile] },
+  user: { id, walletType },
+  profiles: { profiles: { [id]: profile } },
   graphs: { graphs: graphs },
 });
 
@@ -27,7 +28,7 @@ describe("Profile Block", () => {
   it("displays login prompt when not logged in", () => {
     const store = createMockStore({
       user: { undefined },
-      profiles: { profiles: [profile] },
+      profiles: { profiles: {} },
       graphs: { graphs: graphs },
     });
     const component = mount(componentWithStore(ProfileBlock, store));

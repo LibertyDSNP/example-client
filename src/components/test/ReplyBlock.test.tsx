@@ -3,13 +3,11 @@ import { shallow, mount } from "enzyme";
 import ReplyBlock from "../ReplyBlock";
 import { componentWithStore, createMockStore } from "../../test/testhelpers";
 import { getPrefabFeed } from "../../test/testFeeds";
-import { getPrefabProfile } from "../../test/testProfiles";
 import { waitFor } from "@testing-library/react";
 import * as sdk from "../../services/sdk";
 
-const profile = getPrefabProfile(0);
 const feed = getPrefabFeed();
-const initialState = { user: { profile }, feed: { feed } };
+const initialState = { user: { id: "0x0345" }, feed: { feed } };
 const store = createMockStore(initialState);
 
 const writeReply = async (component: any) => {
@@ -26,7 +24,7 @@ const pressEnter = async (component: any) => {
     .simulate("keydown", { keyCode: 13 });
 };
 
-describe("UserAvatar", () => {
+describe("ReplyBlock", () => {
   beforeAll(() => {
     jest.spyOn(sdk, "sendReply").mockImplementation(() => Promise.resolve());
   });

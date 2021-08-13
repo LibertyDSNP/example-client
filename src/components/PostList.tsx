@@ -1,9 +1,9 @@
 import React from "react";
 import Post from "./Post";
-import { FeedItem, Graph, Profile } from "../utilities/types";
+import { FeedItem, Graph } from "../utilities/types";
 import { useAppSelector } from "../redux/hooks";
-import { HexString } from "@dsnp/sdk/dist/types/types/Strings";
 import { ActivityContentNote } from "@dsnp/sdk/core/activityContent";
+import { DSNPUserId } from "@dsnp/sdk/dist/types/core/identifiers";
 
 enum FeedTypes {
   FEED,
@@ -16,33 +16,26 @@ interface PostListProps {
 }
 
 const PostList = ({ feedType }: PostListProps): JSX.Element => {
-  const profile: Profile | undefined = useAppSelector(
-    (state) => state.user.profile
+  const userId: DSNPUserId | undefined = useAppSelector(
+    (state) => state.user.id
   );
   const graph: Graph[] = useAppSelector((state) => state.graphs.graphs);
   const myGraph: Graph | undefined = graph.find(
-    (graph) => graph.socialAddress === profile?.socialAddress
+    (graph) => graph.socialAddress === userId
   );
   const feed: FeedItem<ActivityContentNote>[] = useAppSelector(
     (state) => state.feed.feed
   ).filter(
     (post) => post?.content?.type === "Note" && post?.inReplyTo === undefined
   );
-  const profiles: Record<HexString, Profile> = useAppSelector(
-    (state) => state.profiles?.profiles || {}
-  );
   let currentFeed: FeedItem<ActivityContentNote>[] = [];
 
   if (feedType === FeedTypes.FEED) {
-    const addrSet = profile?.socialAddress
-      ? { [profile.socialAddress]: true }
-      : {};
+    const addrSet = userId ? { [userId]: true } : {};
     myGraph?.following.forEach((addr) => (addrSet[addr] = true));
     currentFeed = feed.filter((post) => post?.fromAddress in addrSet);
   } else if (feedType === FeedTypes.MY_POSTS) {
-    currentFeed = feed.filter(
-      (post) => profile?.socialAddress === post?.fromAddress
-    );
+    currentFeed = feed.filter((post) => userId === post?.fromAddress);
   } else {
     currentFeed = feed;
   }
@@ -54,19 +47,9 @@ const PostList = ({ feedType }: PostListProps): JSX.Element => {
           {currentFeed
             .slice(0)
             .reverse()
-            .map((post, index) => {
-              if (!post.fromAddress)
-                throw new Error(`no fromAddress in post: ${post}`);
-              const fromAddress: string = profiles[post.fromAddress]
-                ? (profiles[post.fromAddress].name as string)
-                : post.fromAddress;
-
-              const namedPost: FeedItem<ActivityContentNote> = {
-                ...post,
-                fromAddress,
-              };
-              return <Post key={index} feedItem={namedPost} />;
-            })}
+            .map((post, index) => (
+              <Post key={index} feedItem={post} />
+            ))}
         </>
       ) : (
         "Empty Feed!"

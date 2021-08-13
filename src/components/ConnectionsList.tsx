@@ -5,6 +5,7 @@ import { useAppDispatch, useAppSelector } from "../redux/hooks";
 import * as sdk from "../services/sdk";
 import { Graph, HexString, Profile } from "../utilities/types";
 import { upsertProfile } from "../redux/slices/profileSlice";
+import { DSNPUserId } from "@dsnp/sdk/dist/types/core/identifiers";
 
 enum ListStatus {
   CLOSED,
@@ -13,12 +14,12 @@ enum ListStatus {
 }
 
 const ConnectionsList = (): JSX.Element => {
-  const profile: Profile | undefined = useAppSelector(
-    (state) => state.user.profile
+  const userId: DSNPUserId | undefined = useAppSelector(
+    (state) => state.user.id
   );
   const graphs: Graph[] = useAppSelector((state) => state.graphs.graphs);
   const graph: Graph | undefined = graphs.find(
-    ({ socialAddress }) => socialAddress === profile?.socialAddress
+    ({ socialAddress }) => socialAddress === userId
   );
   const cachedProfiles: Record<HexString, Profile> = useAppSelector(
     (state) => state.profiles.profiles
