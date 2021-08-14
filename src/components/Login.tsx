@@ -1,5 +1,5 @@
 import React from "react";
-import { Alert, Badge, Button } from "antd";
+import { Alert, Badge, Button, Popover } from "antd";
 import { WalletOutlined } from "@ant-design/icons";
 import { useAppDispatch, useAppSelector } from "../redux/hooks";
 import { userLogin, userLogout } from "../redux/slices/userSlice";
@@ -7,6 +7,8 @@ import * as sdk from "../services/sdk";
 import * as wallet from "../services/wallets/wallet";
 import * as session from "../services/session";
 import LoginButton from "./LoginButton";
+import Register from "./Register";
+//import { createRegistration } from "@dsnp/sdk";
 
 interface LoginProps {
   loginWalletOptions: wallet.WalletType;
@@ -16,6 +18,10 @@ const Login = ({ loginWalletOptions }: LoginProps): JSX.Element => {
   const [loading, startLoading] = React.useState<boolean>(false);
   const [alertError, setAlertError] = React.useState<string>("");
   const [popoverVisible, setPopoverVisible] = React.useState<boolean>(false);
+  const [
+    registrationVisible,
+    setRegistrationVisible,
+  ] = React.useState<boolean>(false);
 
   const dispatch = useAppDispatch();
   const userId = useAppSelector((state) => state.user.id);
@@ -31,6 +37,8 @@ const Login = ({ loginWalletOptions }: LoginProps): JSX.Element => {
       if (fromId) {
         dispatch(userLogin({ id: fromId, walletType }));
         session.saveSession({ id: fromId, walletType });
+      } else {
+        setRegistrationVisible(true);
       }
     } catch (error) {
       console.log("Error in login:", error);
@@ -49,6 +57,13 @@ const Login = ({ loginWalletOptions }: LoginProps): JSX.Element => {
 
   return (
     <div className="Login__block">
+      {!userId &&
+        <Register
+          loading
+          walletOptions={loginWalletOptions}
+          onButtonClick={() => setRegistrationVisible(false)}
+        >
+      }
       {alertError && (
         <Alert
           className="Login__alert"
@@ -60,13 +75,15 @@ const Login = ({ loginWalletOptions }: LoginProps): JSX.Element => {
         />
       )}
       {!userId ? (
-        <LoginButton
-          popoverVisible={popoverVisible}
-          setPopoverVisible={setPopoverVisible}
-          loginWalletOptions={loginWalletOptions}
-          loading={loading}
-          onButtonClick={login}
-        />
+        <div>
+          <LoginButton
+            popoverVisible={popoverVisible}
+            setPopoverVisible={setPopoverVisible}
+            loginWalletOptions={loginWalletOptions}
+            loading={loading}
+            onButtonClick={login}
+          />
+        </div>
       ) : (
         <>
           <Badge
