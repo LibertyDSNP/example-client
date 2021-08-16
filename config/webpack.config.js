@@ -649,7 +649,7 @@ module.exports = function (webpackEnv) {
         new WorkboxWebpackPlugin.GenerateSW({
           clientsClaim: true,
           exclude: [/\.map$/, /asset-manifest\.json$/],
-          maximumFileSizeToCacheInBytes: 4194304,
+          maximumFileSizeToCacheInBytes: 5194304,
           navigateFallback: paths.publicUrlOrPath + "index.html",
           navigateFallbackDenylist: [
             // Exclude URLs starting with /_, as they're likely an API call
