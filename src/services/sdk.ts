@@ -12,8 +12,8 @@ import { Store } from "./Storage";
 import {
   ActivityContentNote,
   ActivityContentProfile,
-  isActivityContentNote,
-  isActivityContentProfile,
+  isActivityContentNoteType,
+  isActivityContentProfileType,
   createProfile,
 } from "@dsnp/sdk/core/activityContent";
 import {
@@ -173,14 +173,14 @@ const dispatchActivityContent = (
   activityContent: ActivityContentNote | ActivityContentProfile,
   blockNumber: number
 ) => {
-  if (isActivityContentNote(activityContent)) {
+  if (isActivityContentNoteType(activityContent)) {
     return dispatchFeedItem(
       dispatch,
       message,
       activityContent as ActivityContentNote,
       blockNumber
     );
-  } else if (isActivityContentProfile(activityContent)) {
+  } else if (isActivityContentProfileType(activityContent)) {
     return dispatchProfile(
       dispatch,
       message,
