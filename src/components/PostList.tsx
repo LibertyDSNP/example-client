@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Post from "./Post";
 import { FeedItem } from "../utilities/types";
 import { useAppSelector } from "../redux/hooks";
@@ -24,6 +24,7 @@ const PostList = ({ feedType }: PostListProps): JSX.Element => {
   const feed: FeedItem[] = useAppSelector((state) => state.feed.feed).filter(
     (post) => post?.content?.type === "Note" && post?.inReplyTo === undefined
   );
+
   let currentFeed: FeedItem[] = [];
 
   if (feedType === FeedTypes.FEED) {
