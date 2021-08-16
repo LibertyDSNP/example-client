@@ -1,4 +1,4 @@
-import { setConfig, core, createRegistration } from "@dsnp/sdk";
+import { setConfig, core, createRegistration, follow } from "@dsnp/sdk";
 import { providers, Wallet } from "ethers";
 import fetch from "node-fetch";
 import web3 from "web3-utils";
@@ -44,6 +44,7 @@ const accounts = [
         "https://www.dietandi.com/wp-content/uploads/2011/11/Eating-Cereal.jpg"
       ),
     ],
+    follows: [4, 13, 14, 18],
   },
   {
     address: "0x70997970c51812dc3a010c7d01b50e0d17dc79c8",
@@ -56,6 +57,7 @@ const accounts = [
       ),
     ],
     text: "Hot take: Hotdogs aren't a sandwich, they're a taco",
+    follows: [7, 15, 17, 19],
   },
   {
     address: "0x3c44cdddb6a900fa2b585dd299e03d12fa4293bc",
@@ -71,6 +73,7 @@ const accounts = [
       "Sometimes life is like this dark tunnel. You can’t always " +
       "see the light at the end of the tunnel, but if you just " +
       "keep moving, you will come to a better place.",
+    follows: [9, 13, 14, 15, 19],
   },
   {
     address: "0x90f79bf6eb2c4f870365e785982e1f101e93b906",
@@ -83,6 +86,7 @@ const accounts = [
       ),
     ],
     text: "Сухие завтраки - это разновидность салата. Конец истории.",
+    follows: [5, 15, 17],
   },
   {
     address: "0x15d34aaf54267db7d7c367839aaf71a00a2c6a65",
@@ -93,6 +97,7 @@ const accounts = [
     ],
     text: "This Vimeo -- WAT. Amirite?",
     name: "Louis Bollen",
+    follows: [11, 13, 16],
   },
   {
     address: "0x9965507d1a55bcc2695c58ba16fb37d819b0a4dc",
@@ -101,6 +106,7 @@ const accounts = [
     name: "Anderson Penn",
     text:
       "My favorite sea shanty is 'Friggin in the Riggin'. I don't like attachments. That's why I don't have any.",
+    follows: [11, 14, 15, 16, 17],
   },
   {
     address: "0x976ea74026e726554db657fa54763abd0c3a0aa9",
@@ -115,6 +121,7 @@ const accounts = [
     ],
     text:
       "您所有的基地都属于我们\nHere's a great Soundcloud track from Sistema Bomb. They're the Bomb-bomb. QDEP Andrés Flores",
+    follows: [12, 15, 18],
   },
   {
     address: "0x14dc79964da2c08b23698b3d3cc7ca32193d9955",
@@ -135,6 +142,7 @@ const accounts = [
       ),
     ],
     text: "Go sports team! Dunk the goal! \n Here are some ducks. HTH",
+    follows: [2, 7, 14, 15, 17],
   },
   {
     address: "0x23618e81e3f5cdf7f54c3d65f7fbc0abf5b21e8f",
@@ -149,6 +157,7 @@ const accounts = [
     ],
     text:
       "I strongly favor {CITY_NAME} {SPORTS_TEAM}, who are superior at {SPORTS_BALL}. I fervently desire their continued success.\n PS here's an MP4",
+    follows: [11, 14, 15],
   },
   {
     address: "0xa0ee7a142d267c1f36714e4a8f75612f20a79720",
@@ -162,6 +171,7 @@ const accounts = [
       ),
     ],
     text: "This is a WMV file",
+    follows: [14, 16],
   },
   {
     address: "0xbcd4042de499d14e55001ccbb24a551f3b954096",
@@ -184,6 +194,7 @@ const accounts = [
     ],
     text:
       "Will was here...with a bunch of Toucan pics. Toucans are wild animals, and make terrible pets. Please don't buy them or breed them. They belong in the wild.",
+    follows: [5, 7, 9, 10, 11, 13, 15, 16],
   },
   {
     address: "0x71be63f3384f5fb98995898a86b02fb2426c5788",
@@ -196,6 +207,7 @@ const accounts = [
       ),
     ],
     text: "My favorite cartoon is Spongebob",
+    follows: [13, 15, 16],
   },
   {
     address: "0xfabb0ac9d68b0b445fb7357272ff202c5651694a",
@@ -209,6 +221,7 @@ const accounts = [
     ],
     text:
       "The pizza shop down the street is giving out free donuts. Kinda sketchy",
+    follows: [10, 16, 18],
   },
   {
     address: "0x1cbd3b2770909d4e10f157cabc84c7264073c9ec",
@@ -222,6 +235,7 @@ const accounts = [
       ),
     ],
     text: "An MP3 featuring my fave, Ella Fitzgerald!",
+    follows: [14, 15, 16, 19],
   },
   {
     address: "0xdf3e18d64bc6a983f673ab319ccae4f1a57c7097",
@@ -235,6 +249,7 @@ const accounts = [
       ),
     ],
     text: "Expect delays.  (MP3)",
+    follows: [11, 13, 16, 17],
   },
   {
     address: "0xcd3b766ccdd6ae721141f452c550ca635964ce71",
@@ -243,6 +258,7 @@ const accounts = [
     name: "John Mando",
     attachment: [createImageAttachment("http://www.placekitten.com/1024/768")],
     text: "This is the way.",
+    follows: [9, 16, 18],
   },
   {
     address: "0x2546bcd3c84621e976d8185a91a922ae77ecec30",
@@ -256,6 +272,7 @@ const accounts = [
       ),
     ],
     text: "Penguin Island (OGG-Vorbis)",
+    follows: [15, 19],
   },
   {
     address: "0xbda5747bfd65f08deb54cb465eb87d40e51b197e",
@@ -268,6 +285,7 @@ const accounts = [
       ),
     ],
     text: "My favorite cartoon is Spongebob",
+    follows: [8, 12, 13, 14, 15],
   },
   {
     address: "0xdd2fd4581271e230360230f9337d5c0430bf44c0",
@@ -282,6 +300,7 @@ const accounts = [
     text:
       "`Let your plans be dark and impenetrable as night, and when you move, fall like a thunderbolt.`\n" +
       "―Sun Tzu, The Art of War",
+    follows: [6, 17],
   },
   {
     address: "0x8626f6940e2eb28930efb4cef49b2d1f2c9c1199",
@@ -295,6 +314,7 @@ const accounts = [
     ],
     text:
       "Darn it, Jim, I'm a family doctor, not a swearing doctor! For pity's sake Jim, this is prime time!",
+    follows: [2, 11, 14, 16, 17],
   },
 ];
 
@@ -385,6 +405,11 @@ setConfig({
   store: new Store(),
 });
 
+const dsnpIdToURI = (dsnpId) =>
+  core.identifiers.convertBigNumberToDSNPUserURI(
+    core.identifiers.convertDSNPUserIdOrURIToBigNumber(dsnpId)
+  );
+
 const storeAnnouncement = async (content, accountId, signer) => {
   const hash = web3.keccak256(core.activityContent.serialize(content));
 
@@ -431,7 +456,9 @@ const storeAvatar = async (handle) => {
   );
 };
 
-// register each account, and store store profile and note for them.
+/**
+ * Populate all profiles and notes
+ */
 for await (let account of accounts.values()) {
   console.log("Setting up account", account.address);
 
@@ -484,6 +511,44 @@ for await (let account of accounts.values()) {
 
   const publication = {
     announcementType: core.announcements.AnnouncementType.Broadcast,
+    fileUrl: batchData.url.toString(),
+    fileHash: batchData.hash,
+  };
+
+  await core.contracts.publisher.publish([publication], { signer: wallet });
+}
+
+/**
+ * Populate follows
+ */
+for await (let account of accounts.values()) {
+  console.log("Setting up follows", account.address);
+
+  const provider = new providers.JsonRpcProvider(
+    process.env.REACT_APP_CHAIN_HOST
+  );
+
+  const wallet = new Wallet(account.pk, provider);
+  setConfig({
+    signer: wallet,
+    provider: provider,
+  });
+
+  // create follow
+  const follows = await Promise.all(
+    account.follows.map((accountIndex) =>
+      follow(dsnpIdToURI(accounts[accountIndex].id), {
+        currentFromURI: dsnpIdToURI(account.id),
+      })
+    )
+  );
+
+  const hash = web3.keccak256(follows.reduce((m, f) => m + f.signature, ""));
+
+  const batchData = await core.batch.createFile(hash + ".parquet", follows);
+
+  const publication = {
+    announcementType: core.announcements.AnnouncementType.GraphChange,
     fileUrl: batchData.url.toString(),
     fileHash: batchData.hash,
   };

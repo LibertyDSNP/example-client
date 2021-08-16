@@ -1,11 +1,11 @@
-import React, { useEffect, useState, useCallback } from "react";
+import React, { useState } from "react";
 import { Button } from "antd";
 import ConnectionsListProfiles from "./ConnectionsListProfiles";
-import { useAppDispatch, useAppSelector } from "../redux/hooks";
-import * as sdk from "../services/sdk";
-import { Graph, HexString, Profile } from "../utilities/types";
-import { upsertProfile } from "../redux/slices/profileSlice";
+import { useAppSelector } from "../redux/hooks";
+import { HexString, Profile } from "../utilities/types";
 import { DSNPUserId } from "@dsnp/sdk/dist/types/core/identifiers";
+import { createProfile } from "@dsnp/sdk/core/activityContent";
+import { AnnouncementType } from "@dsnp/sdk/core/announcements";
 
 enum ListStatus {
   CLOSED,
@@ -17,91 +17,38 @@ const ConnectionsList = (): JSX.Element => {
   const userId: DSNPUserId | undefined = useAppSelector(
     (state) => state.user.id
   );
-  const graphs: Graph[] = useAppSelector((state) => state.graphs.graphs);
-  const graph: Graph | undefined = graphs.find(
-    ({ dsnpUserId }) => dsnpUserId === userId
+  const follows = useAppSelector(
+    (state) =>
+      (userId !== undefined ? state.graphs.follows[userId] : undefined) || {}
   );
+  const followers = useAppSelector(
+    (state) =>
+      (userId !== undefined ? state.graphs.followed[userId] : undefined) || {}
+  );
+
   const cachedProfiles: Record<HexString, Profile> = useAppSelector(
     (state) => state.profiles.profiles
   );
   const [selectedListTitle, setSelectedListTitle] = useState<ListStatus>(
     ListStatus.CLOSED
   );
-  const [selectedList, setSelectedList] = useState<Profile[]>([]);
-  const [followingList, setFollowingList] = useState<Profile[]>([]);
-  const [followersList, setFollowersList] = useState<Profile[]>([]);
-  const [notFollowingList, setNotFollowingList] = useState<Profile[]>([]);
-  const dispatch = useAppDispatch();
 
-  const getConnectionProfile = async (fromId: DSNPUserId): Promise<Profile> => {
-    let userProfile = cachedProfiles[fromId];
-    if (!userProfile) {
-      userProfile = await sdk.getProfile(fromId);
-      stableDispatch(upsertProfile(userProfile));
-    }
-    return userProfile;
-  };
+  const blankProfile = (userId: DSNPUserId): Profile => ({
+    ...createProfile(),
+    contentHash: "",
+    url: "",
+    announcementType: AnnouncementType.Profile,
+    fromId: userId,
+    handle: "unkown",
+    createdAt: new Date().getTime(),
+  });
 
-  const getUserConnectionsList = async (
-    following: HexString[],
-    followers: HexString[]
-  ) => {
-    const followingProfiles: Profile[] = await Promise.all(
-      (following || []).map((fromId: DSNPUserId) =>
-        stableGetConnectionProfile(fromId)
-      )
-    );
-    const followersProfiles: Profile[] = await Promise.all(
-      (followers || []).map((fromId: DSNPUserId) =>
-        stableGetConnectionProfile(fromId)
-      )
-    );
-    return [followingProfiles, followersProfiles];
-  };
-
-  const getNotFollowingProfiles = (
-    followingProfiles: Profile[],
-    followersProfiles: Profile[]
-  ) => {
-    return followersProfiles.filter((userProfile) => {
-      return !followingProfiles.find(
-        (followingProfile) => followingProfile.fromId === userProfile.fromId
-      );
-    });
-  };
-
-  const stableDispatch = useCallback(dispatch, [dispatch]);
-
-  const stableGetConnectionProfile = useCallback(getConnectionProfile, [
-    cachedProfiles,
-    stableDispatch,
-  ]);
-
-  const stableGetUserConnectionsList = useCallback(getUserConnectionsList, [
-    stableGetConnectionProfile,
-  ]);
-
-  useEffect(() => {
-    if (!graph) return;
-    stableGetUserConnectionsList(graph.following, graph.followers).then(
-      (userRelationships) => {
-        const [followingProfiles, followersProfiles] = userRelationships;
-        setFollowingList(followingProfiles);
-        setFollowersList(followersProfiles);
-        setNotFollowingList(
-          getNotFollowingProfiles(followingProfiles, followersProfiles)
-        );
-      }
-    );
-  }, [stableGetUserConnectionsList, graph]);
-
-  useEffect(() => {
-    if (selectedListTitle === ListStatus.FOLLOWING) {
-      setSelectedList(followingList);
-    } else if (selectedListTitle === ListStatus.FOLLOWERS) {
-      setSelectedList(followersList);
-    } else setSelectedList([]);
-  }, [selectedListTitle, followersList, followingList]);
+  const followingProfiles: Profile[] = Object.keys(follows).map(
+    (userId: DSNPUserId) => cachedProfiles[userId] || blankProfile(userId)
+  );
+  const notFollowingProfiles: Profile[] = Object.keys(cachedProfiles)
+    .filter((id) => !follows[id])
+    .map((userId: DSNPUserId) => cachedProfiles[userId]);
 
   const handleClick = (listTitle: ListStatus) => {
     if (selectedListTitle === listTitle)
@@ -125,7 +72,7 @@ const ConnectionsList = (): JSX.Element => {
           onClick={() => handleClick(ListStatus.FOLLOWERS)}
         >
           <div className="ConnectionsList__buttonCount">
-            {graph?.followers.length}
+            {Object.keys(followers).length}
           </div>
           Followers
         </Button>
@@ -138,15 +85,15 @@ const ConnectionsList = (): JSX.Element => {
           onClick={() => handleClick(ListStatus.FOLLOWING)}
         >
           <div className="ConnectionsList__buttonCount">
-            {graph?.following.length}
+            {Object.keys(follows).length}
           </div>
           Following
         </Button>
       </div>
       <ConnectionsListProfiles
         listStatus={selectedListTitle}
-        connectionsList={selectedList}
-        notFollowingList={notFollowingList}
+        connectionsList={followingProfiles}
+        notFollowingList={notFollowingProfiles}
       />
     </div>
   );

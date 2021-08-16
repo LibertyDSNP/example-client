@@ -1,4 +1,4 @@
-import { FeedItem, Graph, HexString, Profile, Reply } from "../utilities/types";
+import { FeedItem, HexString, Profile, Reply } from "../utilities/types";
 import * as fakesdk from "./fakesdk";
 import { setConfig, core } from "@dsnp/sdk";
 import { Publication } from "@dsnp/sdk/core/contracts/publisher";
@@ -22,10 +22,13 @@ import {
   SignedBroadcastAnnouncement,
   SignedReplyAnnouncement,
   ReplyAnnouncement,
+  GraphChangeAnnouncement,
+  DSNPGraphChangeType,
 } from "@dsnp/sdk/core/announcements";
 import { BatchPublicationLogData } from "@dsnp/sdk/core/contracts/subscription";
 import { WalletType } from "./wallets/wallet";
 import torusWallet from "./wallets/torus";
+import { upsertGraph } from "../redux/slices/graphSlice";
 
 interface BatchFileData {
   url: URL;
@@ -47,12 +50,6 @@ export const getSocialIdentity = async (
       )
     : undefined;
   return userId;
-};
-
-export const getGraph = async (socialAddress: HexString): Promise<Graph> => {
-  const graph = await fakesdk.getGraphFromSocialIdentity(socialAddress);
-  if (!graph) throw new Error("Invalid Social Identity Address");
-  return graph;
 };
 
 export const getProfile = async (
@@ -244,28 +241,73 @@ const handleRegistryUpdate = (dispatch: Dispatch) => (
   );
 };
 
+export const isGraphChangeAnnouncement = (
+  obj: unknown
+): obj is GraphChangeAnnouncement => {
+  return (
+    (obj as Record<string, unknown>)["announcementType"] ===
+    AnnouncementType.GraphChange
+  );
+};
+
+export const isBroadcastAnnouncement = (
+  obj: unknown
+): obj is BroadcastAnnouncement => {
+  const type = (obj as Record<string, unknown>)["announcementType"];
+  return (
+    type === AnnouncementType.Profile ||
+    type === AnnouncementType.Broadcast ||
+    type === AnnouncementType.Reply
+  );
+};
+
+const fetchAndDispatchContent = (
+  dispatch: Dispatch,
+  message: BroadcastAnnouncement,
+  blockNumber: number
+) => {
+  const decoder = new TextDecoder();
+
+  const url = decoder.decode((message.url as any) as Uint8Array);
+  fetch(url)
+    .then((res) => res.json())
+    .then((activityContent) =>
+      dispatchActivityContent(dispatch, message, activityContent, blockNumber)
+    )
+    .catch((err) => console.log(err));
+};
+
+const dispatchGraphChange = (
+  dispatch: Dispatch,
+  graphChange: GraphChangeAnnouncement
+) => {
+  const decoder = new TextDecoder();
+  dispatch(
+    upsertGraph({
+      follower: decoder.decode((graphChange.fromId as any) as Uint8Array),
+      followee: decoder.decode((graphChange.objectId as any) as Uint8Array),
+      unfollow: graphChange.changeType === DSNPGraphChangeType.Unfollow,
+    })
+  );
+};
+
 const handleBatchAnnouncement = (dispatch: Dispatch) => (
-  announcement: BatchPublicationLogData
+  batchAnnouncement: BatchPublicationLogData
 ) => {
   core.batch
-    .openURL((announcement.fileUrl.toString() as any) as URL)
+    .openURL((batchAnnouncement.fileUrl.toString() as any) as URL)
     .then((reader: any) =>
       core.batch.readFile(reader, (announcementRow: AnnouncementType) => {
-        const message = (announcementRow as unknown) as BroadcastAnnouncement;
-        const decoder = new TextDecoder();
-
-        const url = decoder.decode((message.url as any) as Uint8Array);
-        fetch(url)
-          .then((res) => res.json())
-          .then((activityContent) =>
-            dispatchActivityContent(
-              dispatch,
-              message,
-              activityContent,
-              announcement.blockNumber
-            )
-          )
-          .catch((err) => console.log(err));
+        const announcement = announcementRow as unknown;
+        if (isGraphChangeAnnouncement(announcement)) {
+          dispatchGraphChange(dispatch, announcement);
+        } else if (isBroadcastAnnouncement(announcement)) {
+          fetchAndDispatchContent(
+            dispatch,
+            announcement,
+            batchAnnouncement.blockNumber
+          );
+        }
       })
     )
     .catch((err) => console.log(err));

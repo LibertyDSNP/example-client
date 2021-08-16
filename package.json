@@ -7,7 +7,7 @@
   "dependencies": {
     "@dsnp/contracts": "1.0.1",
     "@dsnp/parquetjs": "^1.1.0",
-    "@dsnp/sdk": "2.1.0",
+    "@dsnp/sdk": "file:dsnp-sdk-2.1.0.tgz",
     "@reduxjs/toolkit": "^1.5.1",
     "@toruslabs/torus-embed": "1.9.2",
     "antd": "^4.13.1",
