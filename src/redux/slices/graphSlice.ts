@@ -3,13 +3,13 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { GraphChange } from "../../utilities/types";
 
 interface graphState {
-  follows: Record<DSNPUserId, Record<DSNPUserId, boolean>>;
-  followed: Record<DSNPUserId, Record<DSNPUserId, boolean>>;
+  following: Record<DSNPUserId, Record<DSNPUserId, boolean>>;
+  followers: Record<DSNPUserId, Record<DSNPUserId, boolean>>;
 }
 
 const initialState: graphState = {
-  follows: {},
-  followed: {},
+  following: {},
+  followers: {},
 };
 
 export const graphSlice = createSlice({
@@ -20,27 +20,28 @@ export const graphSlice = createSlice({
       const { follower, followee } = action.payload;
       if (action.payload.unfollow) {
         // unfollow
-        const { [followee]: _a, ...newFollows } = state.follows[follower] || {};
+        const { [followee]: _a, ...newFollows } =
+          state.following[follower] || {};
         const { [follower]: _b, ...newFollowed } =
-          state.followed[followee] || {};
+          state.followers[followee] || {};
         return {
-          follows: { ...state.follows, [follower]: newFollows },
-          followed: { ...state.followed, [followee]: newFollowed },
+          following: { ...state.following, [follower]: newFollows },
+          followers: { ...state.followers, [followee]: newFollowed },
         };
       } else {
         // follow
         return {
-          follows: {
-            ...state.follows,
+          following: {
+            ...state.following,
             [follower]: {
-              ...(state.follows[follower] || {}),
+              ...(state.following[follower] || {}),
               [followee]: true,
             },
           },
-          followed: {
-            ...state.followed,
+          followers: {
+            ...state.followers,
             [followee]: {
-              ...(state.followed[followee] || {}),
+              ...(state.followers[followee] || {}),
               [follower]: true,
             },
           },

@@ -19,7 +19,7 @@ const PostList = ({ feedType }: PostListProps): JSX.Element => {
     (state) => state.user.id
   );
   const myGraph: Record<DSNPUserId, boolean> = useAppSelector(
-    (state) => (userId ? state.graphs.follows[userId] : undefined) || {}
+    (state) => (userId ? state.graphs.following[userId] : undefined) || {}
   );
   const feed: FeedItem[] = useAppSelector((state) => state.feed.feed).filter(
     (post) => post?.content?.type === "Note" && post?.inReplyTo === undefined

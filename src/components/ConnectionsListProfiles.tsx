@@ -7,7 +7,6 @@ import { useAppSelector } from "../redux/hooks";
 import { DSNPUserId } from "@dsnp/sdk/dist/types/core/identifiers";
 import { createProfile } from "@dsnp/sdk/core/activityContent";
 import { AnnouncementType } from "@dsnp/sdk/core/announcements";
-import { connect } from "react-redux";
 
 enum ListStatus {
   CLOSED,
@@ -27,7 +26,7 @@ const ConnectionsListProfiles = ({
   followers,
 }: ConnectionsListProfilesProps): JSX.Element => {
   const userRelationship = (userProfile: Profile) =>
-    following[userProfile.fromId] ? "Unollow" : "Follow";
+    following[userProfile.fromId] ? "Unfollow" : "Follow";
 
   const profiles: Record<HexString, Profile> = useAppSelector(
     (state) => state.profiles?.profiles || {}
@@ -73,7 +72,7 @@ const ConnectionsListProfiles = ({
             {userRelationship(userProfile)}
             <div
               className={
-                listStatus === ListStatus.FOLLOWING
+                userRelationship(userProfile) === "Follow"
                   ? "ConnectionsListProfiles__buttonFollowIcon"
                   : "ConnectionsListProfiles__buttonUnfollowIcon"
               }

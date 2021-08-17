@@ -2,10 +2,7 @@ import React, { useState } from "react";
 import { Button } from "antd";
 import ConnectionsListProfiles from "./ConnectionsListProfiles";
 import { useAppSelector } from "../redux/hooks";
-import { HexString, Profile } from "../utilities/types";
 import { DSNPUserId } from "@dsnp/sdk/dist/types/core/identifiers";
-import { createProfile } from "@dsnp/sdk/core/activityContent";
-import { AnnouncementType } from "@dsnp/sdk/core/announcements";
 
 enum ListStatus {
   CLOSED,
@@ -19,11 +16,11 @@ const ConnectionsList = (): JSX.Element => {
   );
   const following = useAppSelector(
     (state) =>
-      (userId !== undefined ? state.graphs.follows[userId] : undefined) || {}
+      (userId !== undefined ? state.graphs.following[userId] : undefined) || {}
   );
   const followers = useAppSelector(
     (state) =>
-      (userId !== undefined ? state.graphs.followed[userId] : undefined) || {}
+      (userId !== undefined ? state.graphs.followers[userId] : undefined) || {}
   );
 
   const [selectedListTitle, setSelectedListTitle] = useState<ListStatus>(

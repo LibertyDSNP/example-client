@@ -2,13 +2,31 @@ import { DSNPUserId } from "@dsnp/sdk/dist/types/core/identifiers";
 import { HexString } from "../utilities/types";
 import { generateDsnpUserId, getPrefabDsnpUserId } from "./testAddresses";
 
-type SocialGraph = Record<DSNPUserId, Record<DSNPUserId, boolean>>;
+type Graph = Record<DSNPUserId, Record<DSNPUserId, boolean>>;
+
+interface SocialGraph {
+  followers: Graph;
+  following: Graph;
+}
 
 export const generateRandomGraph = (
   dsnpUserId: HexString,
   _size: number = 4
 ): Record<DSNPUserId, boolean> => {
   return {};
+};
+
+const followersFromFollowing = (following: Graph): Graph => {
+  const followers: Record<string, Record<string, boolean>> = {};
+  for (const follower of Object.keys(following)) {
+    for (const followee of Object.keys(following[follower])) {
+      followers[followee] = {
+        ...(followers[followee] || {}),
+        [follower]: true,
+      };
+    }
+  }
+  return followers;
 };
 
 /**
@@ -20,14 +38,16 @@ export const generateRandomSocialGraph = (
   graphSize: number = 4
 ): SocialGraph => {
   // Generate addresses
-  const socialGraph: Record<DSNPUserId, Record<DSNPUserId, boolean>> = {};
+  const following: Record<DSNPUserId, Record<DSNPUserId, boolean>> = {};
   for (let i = 0; i < socialGraphSize; i++) {
     const address: DSNPUserId = generateDsnpUserId();
     const graph = generateRandomGraph(address, graphSize);
-    socialGraph[address] = graph;
+    following[address] = graph;
   }
 
-  return socialGraph;
+  const followers = followersFromFollowing(following);
+
+  return { following, followers };
 };
 
 const adr0 = getPrefabDsnpUserId(0);
@@ -43,7 +63,7 @@ const adr6 = getPrefabDsnpUserId(6);
  */
 
 export const getPreFabSocialGraph = (): SocialGraph => {
-  const socialGraph = {
+  const following = {
     [adr0]: { [adr1]: true, [adr2]: true },
     [adr1]: { [adr0]: true, [adr6]: true },
     [adr2]: {
@@ -60,21 +80,13 @@ export const getPreFabSocialGraph = (): SocialGraph => {
     [adr6]: {},
   };
 
-  return socialGraph;
+  const followers = followersFromFollowing(following);
+
+  return { following, followers };
 };
 /**
  * Returns an empty social graph meant to work with prefabs
  */
 export const getEmptySocialGraph = (): SocialGraph => {
-  const socialGraph = {
-    [adr0]: {},
-    [adr1]: {},
-    [adr2]: {},
-    [adr3]: {},
-    [adr4]: {},
-    [adr5]: {},
-    [adr6]: {},
-  };
-
-  return socialGraph;
+  return { following: {}, followers: {} };
 };
