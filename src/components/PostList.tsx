@@ -3,11 +3,9 @@ import Post from "./Post";
 import { FeedItem, Graph } from "../utilities/types";
 import { useAppSelector } from "../redux/hooks";
 import { DSNPUserId } from "@dsnp/sdk/dist/types/core/identifiers";
-import { HexString } from "@dsnp/sdk/dist/types/types/Strings";
 import {
   ActivityContentHashtag,
   ActivityContentMention,
-  ActivityContentNote,
   ActivityContentTag,
 } from "@dsnp/sdk/core/activityContent";
 import Masonry from "react-masonry-css";
@@ -35,9 +33,6 @@ const PostList = ({ feedType }: PostListProps): JSX.Element => {
   const feed: FeedItem[] = useAppSelector((state) => state.feed.feed).filter(
     (post) => post?.content?.type === "Note" && post?.inReplyTo === undefined
   );
-  const profiles: Record<HexString, Profile> = useAppSelector(
-    (state) => state.profiles?.profiles || {}
-  );
 
   const isAHashTag = (
     tag: ActivityContentTag | ActivityContentMention | undefined
@@ -59,9 +54,7 @@ const PostList = ({ feedType }: PostListProps): JSX.Element => {
     } else return checkTags(tagList);
   };
 
-  const getTagListFromPost = (
-    feedItem: FeedItem<ActivityContentNote>
-  ): Array<string> => {
+  const getTagListFromPost = (feedItem: FeedItem): Array<string> => {
     if (!feedItem.content.tag) return [];
 
     const tagList: Array<ActivityContentTag> = !Array.isArray(
@@ -76,7 +69,7 @@ const PostList = ({ feedType }: PostListProps): JSX.Element => {
     return mapped; // should never be blank
   };
 
-  let currentFeed: FeedItem<ActivityContentNote>[] = [];
+  let currentFeed: FeedItem[] = [];
 
   if (feedType === FeedTypes.FEED) {
     const addrSet = userId ? { [userId]: true } : {};
@@ -104,8 +97,6 @@ const PostList = ({ feedType }: PostListProps): JSX.Element => {
 
       const namedPost: FeedItem = {
         ...post,
-        fromAddress: fromAddress,
-        timestamp: post.timestamp,
         tags: getTagListFromPost(post),
       };
       return <Post key={index} feedItem={namedPost} />;
