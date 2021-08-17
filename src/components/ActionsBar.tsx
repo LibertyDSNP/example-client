@@ -5,13 +5,13 @@ import LikeIcon from "../images/LikeIcon.svg";
 import ConnectIcon from "../images/ConnectIcon.svg";
 
 interface ActionsBarProps {
-  timestamp: number;
+  published: string;
 }
 
-const ActionsBar = ({ timestamp }: ActionsBarProps): JSX.Element => {
+const ActionsBar = ({ published }: ActionsBarProps): JSX.Element => {
   return (
     <div className="ActionsBar__block">
-      <RelativeTime timestamp={timestamp} postStyle={true} />
+      <RelativeTime published={published} postStyle={true} />
       <div className="ActionsBar__iconList">
         <img src={LikeIcon} alt="like icon" />
         <img src={CommentIcon} alt="comments icon" />

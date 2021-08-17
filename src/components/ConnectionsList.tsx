@@ -1,11 +1,10 @@
-import React, {useEffect, useState, useCallback} from "react";
-import {Button} from "antd";
+import React, { useEffect, useState, useCallback } from "react";
 import ConnectionsListProfiles from "./ConnectionsListProfiles";
-import {useAppDispatch, useAppSelector} from "../redux/hooks";
+import { useAppDispatch, useAppSelector } from "../redux/hooks";
 import * as sdk from "../services/sdk";
-import {FeedItem, Graph, HexString, Profile} from "../utilities/types";
-import {upsertProfile} from "../redux/slices/profileSlice";
-import {DSNPUserId} from "@dsnp/sdk/dist/types/core/identifiers";
+import { FeedItem, Graph, HexString, Profile } from "../utilities/types";
+import { upsertProfile } from "../redux/slices/profileSlice";
+import { DSNPUserId } from "@dsnp/sdk/dist/types/core/identifiers";
 
 enum ListStatus {
   CLOSED,
@@ -19,7 +18,7 @@ const ConnectionsList = (): JSX.Element => {
   );
   const graphs: Graph[] = useAppSelector((state) => state.graphs.graphs);
   const graph: Graph | undefined = graphs.find(
-    ({dsnpUserId}) => dsnpUserId === userId
+    ({ dsnpUserId }) => dsnpUserId === userId
   );
   const cachedProfiles: Record<HexString, Profile> = useAppSelector(
     (state) => state.profiles.profiles
@@ -33,13 +32,9 @@ const ConnectionsList = (): JSX.Element => {
   const [notFollowingList, setNotFollowingList] = useState<Profile[]>([]);
   const dispatch = useAppDispatch();
 
-  const feed: FeedItem[] = useAppSelector(
-    (state) => state.feed.feed
-  );
+  const feed: FeedItem[] = useAppSelector((state) => state.feed.feed);
   const myPostsCount = feed.filter(
-    (feedItem) =>
-      feedItem.fromAddress === userId &&
-      feedItem.inReplyTo === null
+    (feedItem) => feedItem.fromAddress === userId && feedItem.inReplyTo === null
   ).length;
 
   const getConnectionProfile = async (fromId: DSNPUserId): Promise<Profile> => {
