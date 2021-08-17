@@ -2,7 +2,12 @@ import React from "react";
 import ReactPlayer from "react-player";
 import { Carousel } from "antd";
 import { RightOutlined, LeftOutlined } from "@ant-design/icons";
-import { ActivityContentAttachment, ActivityContentVideo,ActivityContentAudio } from "@dsnp/sdk/core/activityContent";
+import {
+  ActivityContentImage,
+  ActivityContentAttachment,
+  ActivityContentVideo,
+  ActivityContentAudio,
+} from "@dsnp/sdk/core/activityContent";
 
 interface PostMediaProps {
   attachment: ActivityContentAttachment[] | undefined;

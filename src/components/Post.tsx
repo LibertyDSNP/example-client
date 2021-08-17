@@ -39,7 +39,7 @@ const Post = ({ feedItem }: PostProps): JSX.Element => {
       />
       <PostMedia attachment={attachments as ActivityContentAttachment[]} />
       <div className="Post__caption">
-        <ActionsBar timestamp={feedItem.timestamp} />
+        <ActionsBar published={feedItem.published} />
         <div>{noteContent.content}</div>
         <div className="Post__captionTags">
           {feedItem.tags && feedItem.tags[0]}
