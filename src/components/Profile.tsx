@@ -17,7 +17,7 @@ const Profile = (): JSX.Element => {
     (state) => state.profiles?.profiles || {}
   );
 
-  const handle = profiles[userId]?.handle;
+  const handle = userId && profiles[userId]?.handle;
   const profileName = userId && profiles[userId]?.name;
   const avatar =
     "https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/Hans_Ulrich_Obrist_2017.jpg/440px-Hans_Ulrich_Obrist_2017.jpg";
