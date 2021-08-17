@@ -48,7 +48,7 @@ describe("Feed", () => {
   describe("Displays Correct Feed", () => {
     it("Connections Feed", () => {
       const component = mount(componentWithStore(Feed, store));
-      expect(component.find(Post).length).toEqual(1);
+      expect(component.find(Post).length).toEqual(3);
 
       const expectedFeedAddresses = [userId].concat(
         Object.keys(graphs.following)
