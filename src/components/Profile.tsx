@@ -60,7 +60,7 @@ const Profile = (): JSX.Element => {
         <div className="ProfileBlock__avatarBlock">
           <UserAvatar
             icon={(profile?.icon || [])[0]?.href}
-            profileAddress={profile?.socialAddress}
+            profileAddress={profile?.fromId}
             avatarSize="large"
           />
           {isEditing ? (

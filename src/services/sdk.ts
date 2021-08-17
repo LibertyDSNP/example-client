@@ -52,10 +52,8 @@ export const getSocialIdentity = async (
   return userId;
 };
 
-export const getProfile = async (
-  socialAddress: HexString
-): Promise<Profile> => {
-  const profile = await fakesdk.getProfileFromSocialIdentity(socialAddress);
+export const getProfile = async (fromId: HexString): Promise<Profile> => {
+  const profile = await fakesdk.getProfileFromSocialIdentity(fromId);
   if (!profile) throw new Error("Invalid Social Identity Address");
   return profile;
 };

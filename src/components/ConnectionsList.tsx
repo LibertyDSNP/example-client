@@ -17,7 +17,7 @@ const ConnectionsList = (): JSX.Element => {
   const userId: DSNPUserId | undefined = useAppSelector(
     (state) => state.user.id
   );
-  const follows = useAppSelector(
+  const following = useAppSelector(
     (state) =>
       (userId !== undefined ? state.graphs.follows[userId] : undefined) || {}
   );
@@ -26,29 +26,9 @@ const ConnectionsList = (): JSX.Element => {
       (userId !== undefined ? state.graphs.followed[userId] : undefined) || {}
   );
 
-  const cachedProfiles: Record<HexString, Profile> = useAppSelector(
-    (state) => state.profiles.profiles
-  );
   const [selectedListTitle, setSelectedListTitle] = useState<ListStatus>(
     ListStatus.CLOSED
   );
-
-  const blankProfile = (userId: DSNPUserId): Profile => ({
-    ...createProfile(),
-    contentHash: "",
-    url: "",
-    announcementType: AnnouncementType.Profile,
-    fromId: userId,
-    handle: "unkown",
-    createdAt: new Date().getTime(),
-  });
-
-  const followingProfiles: Profile[] = Object.keys(follows).map(
-    (userId: DSNPUserId) => cachedProfiles[userId] || blankProfile(userId)
-  );
-  const notFollowingProfiles: Profile[] = Object.keys(cachedProfiles)
-    .filter((id) => !follows[id])
-    .map((userId: DSNPUserId) => cachedProfiles[userId]);
 
   const handleClick = (listTitle: ListStatus) => {
     if (selectedListTitle === listTitle)
@@ -85,15 +65,15 @@ const ConnectionsList = (): JSX.Element => {
           onClick={() => handleClick(ListStatus.FOLLOWING)}
         >
           <div className="ConnectionsList__buttonCount">
-            {Object.keys(follows).length}
+            {Object.keys(following).length}
           </div>
           Following
         </Button>
       </div>
       <ConnectionsListProfiles
         listStatus={selectedListTitle}
-        connectionsList={followingProfiles}
-        notFollowingList={notFollowingProfiles}
+        following={following}
+        followers={followers}
       />
     </div>
   );

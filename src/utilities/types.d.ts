@@ -13,7 +13,7 @@ export interface GraphChange {
 
 // ## Profile ##
 export type Profile = ProfileAnnouncement &
-  ActivityContentProfile & { socialAddress: string, handle: string };
+  ActivityContentProfile & { handle: string };
 
 // ## FeedItem ##
 export type FeedItem = BroadcastAnnouncement & ActivityContentNote;
