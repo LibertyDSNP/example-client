@@ -1,4 +1,4 @@
-import React, { useCallback } from "react";
+import React from "react";
 import { Card } from "antd";
 import { FeedItem, Profile } from "../utilities/types";
 import UserAvatar from "./UserAvatar";

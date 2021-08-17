@@ -1,19 +1,24 @@
 import React, { useState } from "react";
 import UserAvatar from "./UserAvatar";
-import { Button } from "antd";
 import ConnectionsList from "./ConnectionsList";
 import { useAppSelector } from "../redux/hooks";
 import { DSNPUserId } from "@dsnp/sdk/dist/types/core/identifiers";
 import SettingsIcon from "../images/SettingsIcon.svg";
 import ArrowIcon from "../images/ArrowIcon.svg";
+import * as types from "../utilities/types";
 
 const Profile = (): JSX.Element => {
   const [showProfile, setShowProfile] = useState<boolean>(false);
   const userId: DSNPUserId | undefined = useAppSelector(
     (state) => state.user.id
   );
-  const handle = "Hans";
-  const profileName = "lovetoeat";
+
+  const profiles: Record<DSNPUserId, types.Profile> = useAppSelector(
+    (state) => state.profiles?.profiles || {}
+  );
+
+  const handle = userId && profiles[userId]?.handle;
+  const profileName = userId && profiles[userId]?.name;
   const avatar =
     "https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/Hans_Ulrich_Obrist_2017.jpg/440px-Hans_Ulrich_Obrist_2017.jpg";
 
@@ -48,7 +53,7 @@ const Profile = (): JSX.Element => {
           />
           <div className="Profile__personalInfo">
             <label className="Profile__personalInfoLabel">NAME</label>
-            <div className="Profile__name">{profileName}</div>
+            <div className="Profile__name">{profileName || userId}</div>
           </div>
         </div>
         <img
