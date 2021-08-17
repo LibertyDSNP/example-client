@@ -12,7 +12,7 @@ const graphs = getPreFabSocialGraph();
 const initialState = {
   user: { id: userId },
   feed: { feed },
-  graphs: { graphs },
+  graphs: graphs,
 };
 const store = createMockStore(initialState);
 
@@ -51,7 +51,7 @@ describe("Feed", () => {
       expect(component.find(Post).length).toEqual(3);
 
       const expectedFeedAddresses = [userId].concat(
-        graphs.find((g) => g.dsnpUserId === userId)?.following || []
+        Object.keys(graphs.following)
       );
       component.find(".ant-card-meta-title").forEach((address) => {
         expect(expectedFeedAddresses).toContain(address.text());

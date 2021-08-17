@@ -13,7 +13,7 @@ const walletType = wallet.WalletType.TORUS;
 const store = createMockStore({
   user: { id, walletType },
   profiles: { profiles: { [id]: profile } },
-  graphs: { graphs: graphs },
+  graphs: graphs,
 });
 
 describe("Profile Block", () => {

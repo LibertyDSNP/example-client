@@ -4,6 +4,9 @@ import { Button } from "antd";
 import { Profile } from "../utilities/types";
 import { HexString } from "@dsnp/sdk/dist/types/types/Strings";
 import { useAppSelector } from "../redux/hooks";
+import { DSNPUserId } from "@dsnp/sdk/dist/types/core/identifiers";
+import { createProfile } from "@dsnp/sdk/core/activityContent";
+import { AnnouncementType } from "@dsnp/sdk/core/announcements";
 
 enum ListStatus {
   CLOSED,
@@ -13,32 +16,39 @@ enum ListStatus {
 
 interface ConnectionsListProfilesProps {
   listStatus: ListStatus;
-  connectionsList: Profile[];
-  notFollowingList: Profile[];
+  following: Record<DSNPUserId, boolean>;
+  followers: Record<DSNPUserId, boolean>;
 }
 
 const ConnectionsListProfiles = ({
   listStatus,
-  connectionsList,
-  notFollowingList,
+  following,
+  followers,
 }: ConnectionsListProfilesProps): JSX.Element => {
-  const userRelationship = (userProfile: Profile) => {
-    const isNotFollowing = notFollowingList.filter(
-      (notFollowingUser) => userProfile === notFollowingUser
-    );
-    if (listStatus === ListStatus.FOLLOWERS && isNotFollowing.length !== 0) {
-      return "Follow";
-    }
-    return "Unfollow";
-  };
+  const userRelationship = (userProfile: Profile) =>
+    following[userProfile.fromId] ? "Unfollow" : "Follow";
 
   const profiles: Record<HexString, Profile> = useAppSelector(
     (state) => state.profiles?.profiles || {}
   );
 
-  const profileIcon = (userProfile: Profile) => {
-    return profiles[userProfile.socialAddress]?.icon?.[0]?.href;
-  };
+  const profileForId = (userId: DSNPUserId): Profile =>
+    profiles[userId] || {
+      ...createProfile({ name: "Annonymous" }),
+      contentHash: "",
+      url: "",
+      announcementType: AnnouncementType.Profile,
+      fromId: userId,
+      handle: "unknown",
+      createdAt: new Date().getTime(),
+    };
+
+  const connectionsList =
+    listStatus === ListStatus.FOLLOWERS
+      ? Object.keys(followers).map(profileForId)
+      : listStatus === ListStatus.FOLLOWING
+      ? Object.keys(following).map(profileForId)
+      : [];
 
   return (
     <>
@@ -48,9 +58,9 @@ const ConnectionsListProfiles = ({
           key={userProfile.fromId}
         >
           <UserAvatar
-            icon={profileIcon(userProfile)}
+            icon={profiles[userProfile.fromId]?.icon?.[0]?.href}
             avatarSize="small"
-            profileAddress={userProfile.socialAddress}
+            profileAddress={userProfile.fromId}
           />
           <div className="ConnectionsListProfiles__name">
             {userProfile.name || userProfile.fromId || "Anonymous"}
@@ -62,7 +72,7 @@ const ConnectionsListProfiles = ({
             {userRelationship(userProfile)}
             <div
               className={
-                listStatus === ListStatus.FOLLOWING
+                userRelationship(userProfile) === "Follow"
                   ? "ConnectionsListProfiles__buttonFollowIcon"
                   : "ConnectionsListProfiles__buttonUnfollowIcon"
               }

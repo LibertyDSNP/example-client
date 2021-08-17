@@ -6,7 +6,6 @@ import { userLogin, userLogout } from "../redux/slices/userSlice";
 import * as sdk from "../services/sdk";
 import * as wallet from "../services/wallets/wallet";
 import * as session from "../services/session";
-import { upsertGraph } from "../redux/slices/graphSlice";
 import LoginButton from "./LoginButton";
 
 interface LoginProps {
@@ -30,9 +29,7 @@ const Login = ({ loginWalletOptions }: LoginProps): JSX.Element => {
       sdk.setupProvider(walletType);
       const fromId = await sdk.getSocialIdentity(walletAddress);
       if (fromId) {
-        const graph = await sdk.getGraph(fromId);
         dispatch(userLogin({ id: fromId, walletType }));
-        dispatch(upsertGraph(graph));
         session.saveSession({ id: fromId, walletType });
       }
     } catch (error) {

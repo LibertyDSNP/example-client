@@ -1,18 +1,32 @@
-import { Graph, HexString } from "../utilities/types";
+import { DSNPUserId } from "@dsnp/sdk/dist/types/core/identifiers";
+import { HexString } from "../utilities/types";
 import { generateDsnpUserId, getPrefabDsnpUserId } from "./testAddresses";
+
+type Graph = Record<DSNPUserId, Record<DSNPUserId, boolean>>;
+
+interface SocialGraph {
+  followers: Graph;
+  following: Graph;
+}
 
 export const generateRandomGraph = (
   dsnpUserId: HexString,
-  size: number = 4
-): Graph => {
-  const following = [...Array(size)].map(() => generateDsnpUserId());
-  const followers = [...Array(size)].map(() => generateDsnpUserId());
+  _size: number = 4
+): Record<DSNPUserId, boolean> => {
+  return {};
+};
 
-  return {
-    dsnpUserId,
-    following,
-    followers,
-  };
+const followersFromFollowing = (following: Graph): Graph => {
+  const followers: Record<string, Record<string, boolean>> = {};
+  for (const follower of Object.keys(following)) {
+    for (const followee of Object.keys(following[follower])) {
+      followers[followee] = {
+        ...(followers[followee] || {}),
+        [follower]: true,
+      };
+    }
+  }
+  return followers;
 };
 
 /**
@@ -22,16 +36,18 @@ export const generateRandomGraph = (
 export const generateRandomSocialGraph = (
   socialGraphSize: number = 4,
   graphSize: number = 4
-): Graph[] => {
+): SocialGraph => {
   // Generate addresses
-  const socialGraph = [];
+  const following: Record<DSNPUserId, Record<DSNPUserId, boolean>> = {};
   for (let i = 0; i < socialGraphSize; i++) {
-    const address = generateDsnpUserId();
+    const address: DSNPUserId = generateDsnpUserId();
     const graph = generateRandomGraph(address, graphSize);
-    socialGraph.push(graph);
+    following[address] = graph;
   }
 
-  return socialGraph;
+  const followers = followersFromFollowing(following);
+
+  return { following, followers };
 };
 
 const adr0 = getPrefabDsnpUserId(0);
@@ -46,60 +62,31 @@ const adr6 = getPrefabDsnpUserId(6);
  * Prefabs are meant to work with other prefab components
  */
 
-export const getPreFabSocialGraph = (): Graph[] => {
-  const socialGraph = [
-    {
-      dsnpUserId: adr0,
-      following: [adr1, adr2],
-      followers: [adr1, adr6],
+export const getPreFabSocialGraph = (): SocialGraph => {
+  const following = {
+    [adr0]: { [adr1]: true, [adr2]: true },
+    [adr1]: { [adr0]: true, [adr6]: true },
+    [adr2]: {
+      [adr0]: true,
+      [adr1]: true,
+      [adr3]: true,
+      [adr4]: true,
+      [adr5]: true,
+      [adr6]: true,
     },
-    {
-      dsnpUserId: adr1,
-      following: [adr0, adr6],
-      followers: [adr0, adr2],
-    },
-    {
-      dsnpUserId: adr2,
-      following: [adr0, adr1, adr3, adr4, adr5, adr6],
-      followers: [],
-    },
-    {
-      dsnpUserId: adr3,
-      following: [adr6],
-      followers: [adr2],
-    },
-    {
-      dsnpUserId: adr4,
-      following: [adr6, adr5],
-      followers: [adr2],
-    },
-    {
-      dsnpUserId: adr5,
-      following: [adr6],
-      followers: [adr2, adr4],
-    },
-    {
-      dsnpUserId: adr6,
-      following: [],
-      followers: [adr0, adr1, adr2, adr3, adr4, adr5],
-    },
-  ];
+    [adr3]: { [adr6]: true },
+    [adr4]: { [adr6]: true, [adr5]: true },
+    [adr5]: { [adr6]: true },
+    [adr6]: {},
+  };
 
-  return socialGraph;
+  const followers = followersFromFollowing(following);
+
+  return { following, followers };
 };
 /**
  * Returns an empty social graph meant to work with prefabs
  */
-export const getEmptySocialGraph = (): Graph[] => {
-  const socialGraph = [
-    { dsnpUserId: adr0, following: [], followers: [] },
-    { dsnpUserId: adr1, following: [], followers: [] },
-    { dsnpUserId: adr2, following: [], followers: [] },
-    { dsnpUserId: adr3, following: [], followers: [] },
-    { dsnpUserId: adr4, following: [], followers: [] },
-    { dsnpUserId: adr5, following: [], followers: [] },
-    { dsnpUserId: adr6, following: [], followers: [] },
-  ];
-
-  return socialGraph;
+export const getEmptySocialGraph = (): SocialGraph => {
+  return { following: {}, followers: {} };
 };
