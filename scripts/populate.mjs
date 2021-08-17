@@ -437,17 +437,17 @@ for await (let account of accounts.values()) {
     `${account.text} \n--from ${account.id}`,
     { attachment: account.attachment }
   );
-    content.published = new Date().toISOString();
+  content.published = new Date().toISOString();
 
   const {
     hash: profileHash,
     announcement: profileAnnouncement,
   } = await storeAnnouncement(profile, account.id, wallet);
 
-      const {
-        hash: contentHash,
-        announcement: noteAnnouncement,
-      } = await storeAnnouncement(content, account.id, wallet);
+  const {
+    hash: contentHash,
+    announcement: noteAnnouncement,
+  } = await storeAnnouncement(content, account.id, wallet);
 
   const hash = web3.keccak256(profileHash + contentHash);
 
