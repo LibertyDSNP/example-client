@@ -259,20 +259,21 @@ export const isBroadcastAnnouncement = (
   );
 };
 
-const fetchAndDispatchContent = (
+const fetchAndDispatchContent = async (
   dispatch: Dispatch,
   message: BroadcastAnnouncement,
   blockNumber: number
 ) => {
   const decoder = new TextDecoder();
 
-  const url = decoder.decode((message.url as any) as Uint8Array);
-  fetch(url)
-    .then((res) => res.json())
-    .then((activityContent) =>
-      dispatchActivityContent(dispatch, message, activityContent, blockNumber)
-    )
-    .catch((err) => console.log(err));
+  try {
+    const url = decoder.decode((message.url as any) as Uint8Array);
+    const res = await fetch(url);
+    const activityContent = await res.json();
+    dispatchActivityContent(dispatch, message, activityContent, blockNumber);
+  } catch (err) {
+    console.log(err);
+  }
 };
 
 const dispatchGraphChange = (

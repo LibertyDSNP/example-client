@@ -27,7 +27,9 @@ const PostList = ({ feedType }: PostListProps): JSX.Element => {
   let currentFeed: FeedItem[] = [];
 
   if (feedType === FeedTypes.FEED) {
-    currentFeed = feed.filter((post) => post?.fromId in myGraph);
+    currentFeed = feed.filter(
+      (post) => post?.fromId === userId || post?.fromId in myGraph
+    );
   } else if (feedType === FeedTypes.MY_POSTS) {
     currentFeed = feed.filter((post) => userId === post?.fromId);
   } else {

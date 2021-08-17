@@ -39,7 +39,7 @@ const ConnectionsListProfiles = ({
       url: "",
       announcementType: AnnouncementType.Profile,
       fromId: userId,
-      handle: "unkown",
+      handle: "unknown",
       createdAt: new Date().getTime(),
     };
 
