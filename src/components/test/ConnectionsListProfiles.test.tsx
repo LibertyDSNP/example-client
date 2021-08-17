@@ -32,7 +32,7 @@ describe("ConnectionsListProfiles", () => {
   it("displays correct follow button", () => {
     const component = mount(
       componentWithStore(ConnectionsListProfiles, createMockStore({}), {
-        listStatus: ListStatus.FOLLOWING,
+        listStatus: ListStatus.FOLLOWERS,
         connectionsList: mockTempUserList,
         notFollowingList: [preFabProfiles[0]],
       })
@@ -51,13 +51,13 @@ describe("ConnectionsListProfiles", () => {
       })
     );
     expect(
-      component.find(".ConnectionsListProfiles__button").at(1).text()
-    ).toContain("Unfollow");
-    expect(
       component.find(".ConnectionsListProfiles__button").at(2).text()
     ).toContain("Unfollow");
     expect(
       component.find(".ConnectionsListProfiles__button").at(3).text()
+    ).toContain("Unfollow");
+    expect(
+      component.find(".ConnectionsListProfiles__button").at(4).text()
     ).toContain("Unfollow");
   });
 });

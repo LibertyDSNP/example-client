@@ -16,7 +16,7 @@ const Reply = ({ reply }: ReplyProps): JSX.Element => {
   );
 
   useEffect(() => {
-    setFromProfile(cachedProfiles[reply.fromAddress]);
+    setFromProfile(cachedProfiles[reply.fromId]);
   }, [cachedProfiles, reply]);
 
   return (
