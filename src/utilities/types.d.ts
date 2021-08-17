@@ -12,7 +12,7 @@ export interface Graph {
 
 // ## Profile ##
 export type Profile = ProfileAnnouncement &
-  ActivityContentProfile & { handle: string };
+  ActivityContentProfile & { socialAddress: string, handle: string };
 
 // ## FeedItem ##
 export type FeedItem = BroadcastAnnouncement & ActivityContentNote;

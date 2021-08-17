@@ -2,6 +2,8 @@ import { setConfig, core, createRegistration } from "@dsnp/sdk";
 import { providers, Wallet } from "ethers";
 import fetch from "node-fetch";
 import web3 from "web3-utils";
+import { createReadStream } from "fs";
+import path from "path";
 
 import dotenv from "dotenv";
 dotenv.config();
@@ -411,6 +413,25 @@ const storeAnnouncement = async (content, accountId, signer) => {
   return { hash, announcement };
 };
 
+const __dirname = path.dirname(new URL(import.meta.url).pathname);
+
+const storeAvatar = async (handle) => {
+  await fetch(
+    `${process.env.REACT_APP_UPLOAD_HOST}/upload?filename=${handle + ".jpg"}`,
+    {
+      method: "POST",
+      body: createReadStream(`${__dirname}/avatars/${handle}.jpg`),
+    }
+  );
+  return core.activityContent.createImageLink(
+    `${process.env.REACT_APP_UPLOAD_HOST}/${handle}.jpg`,
+    "image/jpg",
+    [core.activityContent.createHash("0x123")],
+    { height: 72, width: 72 }
+  );
+};
+
+// register each account, and store store profile and note for them.
 for await (let account of accounts.values()) {
   console.log("Setting up account", account.address);
 
@@ -427,27 +448,32 @@ for await (let account of accounts.values()) {
   // register handle to get dsnp id
   account.id = await createRegistration(account.address, account.handle);
 
+  // store avatar
+  const avatar = await storeAvatar(account.handle);
+
   // create profile
   const profile = core.activityContent.createProfile({
     name: account.name,
+    icon: [avatar],
   });
+  profile.published = Date.now.toString(16);
 
   // create a note
   const content = core.activityContent.createNote(
     `${account.text} \n--from ${account.id}`,
     { attachment: account.attachment }
   );
-    content.published = new Date().toISOString();
+  content.published = new Date().toISOString();
 
   const {
     hash: profileHash,
     announcement: profileAnnouncement,
   } = await storeAnnouncement(profile, account.id, wallet);
 
-      const {
-        hash: contentHash,
-        announcement: noteAnnouncement,
-      } = await storeAnnouncement(content, account.id, wallet);
+  const {
+    hash: contentHash,
+    announcement: noteAnnouncement,
+  } = await storeAnnouncement(content, account.id, wallet);
 
   const hash = web3.keccak256(profileHash + contentHash);
 

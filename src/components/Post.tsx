@@ -29,7 +29,11 @@ const Post = ({ feedItem }: PostProps): JSX.Element => {
     <Card key={noteContent.hash} className="Post__block" bordered={false}>
       <Card.Meta
         avatar={
-          <UserAvatar profileAddress={feedItem.fromId} avatarSize={"medium"} />
+          <UserAvatar
+            icon={profile.icon?.[0]?.href}
+            profileAddress={feedItem.fromAddress}
+            avatarSize={"medium"}
+          />
         }
         title={<FromTitle profile={profile} />}
         description={

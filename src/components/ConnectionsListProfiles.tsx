@@ -2,6 +2,8 @@ import React from "react";
 import UserAvatar from "./UserAvatar";
 import { Button } from "antd";
 import { Profile } from "../utilities/types";
+import { HexString } from "@dsnp/sdk/dist/types/types/Strings";
+import { useAppSelector } from "../redux/hooks";
 
 enum ListStatus {
   CLOSED,
@@ -30,6 +32,14 @@ const ConnectionsListProfiles = ({
     return "Unfollow";
   };
 
+  const profiles: Record<HexString, Profile> = useAppSelector(
+    (state) => state.profiles?.profiles || {}
+  );
+
+  const profileIcon = (userProfile: Profile) => {
+    return profiles[userProfile.socialAddress]?.icon?.[0]?.href;
+  };
+
   return (
     <>
       {connectionsList.map((userProfile) => (
@@ -37,7 +47,11 @@ const ConnectionsListProfiles = ({
           className="ConnectionsListProfiles__profile"
           key={userProfile.fromId}
         >
-          <UserAvatar avatarSize="small" profileAddress={userProfile.fromId} />
+          <UserAvatar
+            icon={profileIcon(userProfile)}
+            avatarSize="small"
+            profileAddress={userProfile.socialAddress}
+          />
           <div className="ConnectionsListProfiles__name">
             {userProfile.name || userProfile.fromId || "Anonymous"}
           </div>

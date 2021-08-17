@@ -83,7 +83,11 @@ const NewPost = ({ onSuccess, onCancel }: NewPostProps): JSX.Element => {
       ]}
     >
       <div className="NewPost__profileBlock">
-        <UserAvatar profileAddress={userId} avatarSize={"small"} />
+        <UserAvatar
+          icon={profile?.icon?.[0]?.href}
+          profileAddress={userId}
+          avatarSize={"small"}
+        />
         <h3 className="NewPost__profileBlockName">
           <FromTitle profile={profile}></FromTitle>
         </h3>
