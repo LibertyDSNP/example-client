@@ -60,10 +60,7 @@ describe("activityContent", () => {
         const res = noteToActivityContentNote("test", [tc.uri]);
         expect(res.mediaType).toEqual("text/plain");
         const att = res.attachment?.pop();
-        expect(att.type).toEqual(tc.mediaType);
-        const url = att.url?.pop();
-        expect(url.type).toEqual("Link");
-        expect(url.mediaType).toEqual(tc.attachmentType);
+        expect(att?.type).toEqual(tc.mediaType);
       });
     });
   });

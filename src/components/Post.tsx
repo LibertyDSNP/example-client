@@ -3,7 +3,7 @@ import { Card } from "antd";
 import { FeedItem } from "../utilities/types";
 import UserAvatar from "./UserAvatar";
 import PostMedia from "./PostMedia";
-import { ActivityContentAttachment} from "@dsnp/sdk/core/activityContent";
+import { ActivityContentAttachment } from "@dsnp/sdk/core/activityContent";
 import ActionsBar from "./ActionsBar";
 
 interface PostProps {
@@ -37,7 +37,7 @@ const Post = ({ feedItem }: PostProps): JSX.Element => {
       />
       <PostMedia attachment={attachments as ActivityContentAttachment[]} />
       <div className="Post__caption">
-        <ActionsBar timestamp={feedItem.timestamp} />
+        <ActionsBar published={feedItem.published} />
         <div>{noteContent.content}</div>
         <div className="Post__captionTags">
           {feedItem.tags && feedItem.tags[0]}

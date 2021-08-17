@@ -1,9 +1,8 @@
 import React from "react";
 import Post from "./Post";
-import { FeedItem, Graph, Profile } from "../utilities/types";
+import { FeedItem, Graph } from "../utilities/types";
 import { useAppSelector } from "../redux/hooks";
 import { DSNPUserId } from "@dsnp/sdk/dist/types/core/identifiers";
-import { ActivityContentNote } from "@dsnp/sdk/core/activityContent";
 import Masonry from "react-masonry-css";
 
 enum FeedTypes {

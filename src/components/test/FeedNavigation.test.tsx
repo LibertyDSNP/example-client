@@ -36,9 +36,8 @@ describe("FeedNavigation", () => {
     it("Connections FeedNavigation", () => {
       expect(component.find(Post).length).toEqual(0);
 
-      const expectedFeedAddresses = [profile.socialAddress].concat(
-        graphs.find((g) => g.socialAddress === profile.socialAddress)
-          ?.following || []
+      const expectedFeedAddresses = [profile.fromId].concat(
+        graphs.find((g) => g.dsnpUserId === profile.fromId)?.following || []
       );
       component.find(".ant-card-meta-title").forEach((address) => {
         expect(expectedFeedAddresses).toContain(address.text());
@@ -54,7 +53,7 @@ describe("FeedNavigation", () => {
       button.simulate("click");
       expect(component.find(Post).length).toEqual(0);
       component.find(".ant-card-meta-title").forEach((address) => {
-        expect(address.text()).toBe(profile.socialAddress);
+        expect(address.text()).toBe(profile.fromId);
       });
     });
 
