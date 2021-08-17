@@ -1,10 +1,12 @@
-import React from "react";
+import React, { useCallback } from "react";
 import { Card } from "antd";
-import { FeedItem } from "../utilities/types";
+import { FeedItem, Profile } from "../utilities/types";
 import UserAvatar from "./UserAvatar";
 import PostMedia from "./PostMedia";
 import { ActivityContentAttachment } from "@dsnp/sdk/core/activityContent";
 import ActionsBar from "./ActionsBar";
+import { DSNPUserId } from "@dsnp/sdk/dist/types/core/identifiers";
+import { useAppSelector } from "../redux/hooks";
 
 interface PostProps {
   feedItem: FeedItem;
@@ -12,26 +14,23 @@ interface PostProps {
 
 const Post = ({ feedItem }: PostProps): JSX.Element => {
   const noteContent = feedItem.content;
-  const attachments =
-    noteContent.attachment &&
-    (Array.isArray(noteContent.attachment)
-      ? noteContent.attachment
-      : [noteContent.attachment]);
+  const attachments = noteContent.attachment;
+
+  const profiles: Record<DSNPUserId, Profile> = useAppSelector(
+    (state) => state.profiles?.profiles || {}
+  );
 
   return (
     <Card key={feedItem.hash} className="Post__block" bordered={false}>
       <Card.Meta
         className="Post__header"
         avatar={
-          <UserAvatar
-            profileAddress={feedItem.fromAddress}
-            avatarSize={"medium"}
-          />
+          <UserAvatar profileAddress={feedItem.fromId} avatarSize={"medium"} />
         }
-        title={feedItem.fromAddress}
+        title={profiles[feedItem.fromId].name || feedItem.fromId}
         description={
           <div className="Post__description">
-            @mockHandle__{feedItem.fromAddress}
+            @{profiles[feedItem.fromId].handle}
           </div>
         }
       />

@@ -45,8 +45,7 @@ const PostList = ({ feedType }: PostListProps): JSX.Element => {
     .slice(0)
     .reverse()
     .map((post, index) => {
-      if (!post.fromAddress) throw new Error(`no fromAddress in post: ${post}`);
-
+      console.log(post);
       const namedPost: FeedItem = {
         ...post,
         tags: ["#foodee"],
