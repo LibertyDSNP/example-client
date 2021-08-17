@@ -42,7 +42,7 @@ const Post = ({ feedItem }: PostProps): JSX.Element => {
         <ActionsBar published={feedItem.published} />
         <div>{noteContent.content}</div>
         <div className="Post__captionTags">
-          {feedItem.tags && feedItem.tags[0]}
+          {feedItem.tags && feedItem.tags.join(", ")}
         </div>
       </div>
     </Card>

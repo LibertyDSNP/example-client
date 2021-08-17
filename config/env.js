@@ -1,5 +1,3 @@
-"use strict";
-
 const fs = require("fs");
 const path = require("path");
 const paths = require("./paths");
@@ -87,6 +85,7 @@ function getClientEnvironment(publicUrl) {
         WDS_SOCKET_HOST: process.env.WDS_SOCKET_HOST,
         WDS_SOCKET_PATH: process.env.WDS_SOCKET_PATH,
         WDS_SOCKET_PORT: process.env.WDS_SOCKET_PORT,
+        APP_DEFAULT_TAGS: process.env.APP_DEFAULT_TAGS,
       }
     );
   // Stringify all values so we can feed into webpack DefinePlugin
