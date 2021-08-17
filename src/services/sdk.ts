@@ -24,11 +24,14 @@ import {
   ReplyAnnouncement,
   GraphChangeAnnouncement,
   DSNPGraphChangeType,
+  SignedProfileAnnouncement,
+  SignedAnnouncement,
 } from "@dsnp/sdk/core/announcements";
 import { BatchPublicationLogData } from "@dsnp/sdk/core/contracts/subscription";
 import { WalletType } from "./wallets/wallet";
 import torusWallet from "./wallets/torus";
 import { upsertGraph } from "../redux/slices/graphSlice";
+import { DSNPUserId } from "@dsnp/sdk/dist/types/core/identifiers";
 
 interface BatchFileData {
   url: URL;
@@ -58,11 +61,10 @@ export const getProfile = async (fromId: HexString): Promise<Profile> => {
   return profile;
 };
 
-export const sendPost = async (post: FeedItem): Promise<void> => {
-  if (!post.content) return;
-  const hash = await storeActivityContent(post.content);
-  const announcement = await buildAndSignPostAnnouncement(hash, post);
-
+const batchAnnouncement = async (
+  hash: HexString,
+  announcement: SignedAnnouncement
+): Promise<void> => {
   const batchData = await core.batch.createFile(hash + ".parquet", [
     announcement,
   ]);
@@ -73,6 +75,14 @@ export const sendPost = async (post: FeedItem): Promise<void> => {
   );
 
   await core.contracts.publisher.publish([publication]);
+};
+
+export const sendPost = async (post: FeedItem): Promise<void> => {
+  if (!post.content) return;
+  const hash = await storeActivityContent(post.content);
+  const announcement = await buildAndSignPostAnnouncement(hash, post);
+
+  await batchAnnouncement(hash, announcement);
 };
 
 export const sendReply = async (
@@ -88,16 +98,17 @@ export const sendReply = async (
     inReplyTo
   );
 
-  const batchData = await core.batch.createFile(hash + ".parquet", [
-    announcement,
-  ]);
+  await batchAnnouncement(hash, announcement);
+};
 
-  const publication = buildPublication(
-    batchData,
-    core.announcements.AnnouncementType.Reply
-  );
+export const saveProfile = async (
+  fromId: DSNPUserId,
+  profile: ActivityContentProfile
+): Promise<void> => {
+  const hash = await storeActivityContent(profile);
+  const announcement = await buildAndSignProfile(fromId, hash);
 
-  await core.contracts.publisher.publish([publication]);
+  await batchAnnouncement(hash, announcement);
 };
 
 export const startPostSubscription = (
@@ -106,8 +117,18 @@ export const startPostSubscription = (
   dispatch(clearFeedItems());
 
   // subscribe to all announcements
+  let blockNumber: number;
+  let blockIndex = 0;
   core.contracts.subscription.subscribeToBatchPublications(
-    handleBatchAnnouncement(dispatch),
+    (announcement: BatchPublicationLogData) => {
+      if (announcement.blockNumber !== blockNumber) {
+        blockNumber = announcement.blockNumber;
+        blockIndex = 0;
+      } else {
+        blockIndex++;
+      }
+      handleBatchAnnouncement(dispatch, announcement, blockIndex);
+    },
     {
       fromBlock: 1,
     }
@@ -166,7 +187,9 @@ const dispatchActivityContent = (
   dispatch: Dispatch,
   message: BroadcastAnnouncement,
   activityContent: ActivityContentNote | ActivityContentProfile,
-  blockNumber: number
+  blockNumber: number,
+  blockIndex: number,
+  batchIndex: number
 ) => {
   if (isActivityContentNoteType(activityContent)) {
     return dispatchFeedItem(
@@ -180,7 +203,9 @@ const dispatchActivityContent = (
       dispatch,
       message,
       activityContent as ActivityContentProfile,
-      blockNumber
+      blockNumber,
+      blockIndex,
+      batchIndex
     );
   }
 };
@@ -213,7 +238,9 @@ const dispatchProfile = (
   dispatch: Dispatch,
   message: BroadcastAnnouncement,
   profile: ActivityContentProfile,
-  _blockNumber: number
+  blockNumber: number,
+  blockIndex: number,
+  batchIndex: number
 ) => {
   const decoder = new TextDecoder();
 
@@ -221,6 +248,9 @@ const dispatchProfile = (
     upsertProfile({
       ...profile,
       fromId: decoder.decode((message.fromId as any) as Uint8Array),
+      blockNumber,
+      blockIndex,
+      batchIndex,
     } as Profile)
   );
 };
@@ -262,7 +292,9 @@ export const isBroadcastAnnouncement = (
 const fetchAndDispatchContent = async (
   dispatch: Dispatch,
   message: BroadcastAnnouncement,
-  blockNumber: number
+  blockNumber: number,
+  blockIndex: number,
+  batchIndex: number
 ) => {
   const decoder = new TextDecoder();
 
@@ -270,7 +302,14 @@ const fetchAndDispatchContent = async (
     const url = decoder.decode((message.url as any) as Uint8Array);
     const res = await fetch(url);
     const activityContent = await res.json();
-    dispatchActivityContent(dispatch, message, activityContent, blockNumber);
+    dispatchActivityContent(
+      dispatch,
+      message,
+      activityContent,
+      blockNumber,
+      blockIndex,
+      batchIndex
+    );
   } catch (err) {
     console.log(err);
   }
@@ -290,9 +329,12 @@ const dispatchGraphChange = (
   );
 };
 
-const handleBatchAnnouncement = (dispatch: Dispatch) => (
-  batchAnnouncement: BatchPublicationLogData
+const handleBatchAnnouncement = (
+  dispatch: Dispatch,
+  batchAnnouncement: BatchPublicationLogData,
+  blockIndex: number
 ) => {
+  let batchIndex = 0;
   core.batch
     .openURL((batchAnnouncement.fileUrl.toString() as any) as URL)
     .then((reader: any) =>
@@ -304,7 +346,9 @@ const handleBatchAnnouncement = (dispatch: Dispatch) => (
           fetchAndDispatchContent(
             dispatch,
             announcement,
-            batchAnnouncement.blockNumber
+            batchAnnouncement.blockNumber,
+            blockIndex,
+            batchIndex++
           );
         }
       })
@@ -313,7 +357,7 @@ const handleBatchAnnouncement = (dispatch: Dispatch) => (
 };
 
 const storeActivityContent = async (
-  content: ActivityContentNote
+  content: ActivityContentNote | ActivityContentProfile
 ): Promise<string> => {
   const hash = keccak256(core.activityContent.serialize(content));
 
@@ -352,6 +396,18 @@ const buildAndSignReplyAnnouncement = async (
     `${process.env.REACT_APP_UPLOAD_HOST}/${hash}.json`,
     hash,
     replyInReplyTo
+  ),
+  signature: "0x00000000", // TODO: call out to wallet to get this signed
+});
+
+const buildAndSignProfile = async (
+  fromId: DSNPUserId,
+  hash: string
+): Promise<SignedProfileAnnouncement> => ({
+  ...core.announcements.createProfile(
+    fromId,
+    `${process.env.REACT_APP_UPLOAD_HOST}/${hash}.json`,
+    hash
   ),
   signature: "0x00000000", // TODO: call out to wallet to get this signed
 });

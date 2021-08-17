@@ -9,6 +9,16 @@ const initialState: profileState = {
   profiles: {},
 };
 
+const latestProfile = (existing: Profile, current: Profile): Profile => {
+  if (!existing || existing.blockNumber === undefined) return current;
+  if (current.blockNumber !== existing.blockNumber) {
+    return current.blockNumber > existing.blockNumber ? current : existing;
+  } else if (current.blockIndex !== existing.blockIndex) {
+    return current.blockIndex > existing.blockIndex ? current : existing;
+  }
+  return current.batchIndex > existing.batchIndex ? current : existing;
+};
+
 export const profileSlice = createSlice({
   name: "profiles",
   initialState,
@@ -19,7 +29,12 @@ export const profileSlice = createSlice({
       const newProfile = oldProfile
         ? { ...oldProfile, ...action.payload }
         : action.payload;
-      return { profiles: { ...state.profiles, [key]: newProfile } };
+      return {
+        profiles: {
+          ...state.profiles,
+          [key]: latestProfile(oldProfile, newProfile),
+        },
+      };
     },
     removeProfile: (state, action: PayloadAction<HexString>) => {
       const { [action.payload]: _, ...newProfiles } = state.profiles;

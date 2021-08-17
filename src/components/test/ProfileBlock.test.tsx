@@ -44,9 +44,6 @@ describe("Profile Block", () => {
       expect(component.find(".ProfileBlock__name").props().disabled).toEqual(
         false
       );
-      expect(component.find(".ProfileBlock__handle").props().disabled).toEqual(
-        false
-      );
     });
   });
 
