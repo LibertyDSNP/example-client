@@ -111,15 +111,15 @@ export const saveProfile = async (
   await batchAnnouncement(hash, announcement);
 };
 
-export const startPostSubscription = (
+export const startSubscriptions = async (
   dispatch: ThunkDispatch<any, Record<string, any>, AnyAction>
-): void => {
+): Promise<Record<string, any>> => {
   dispatch(clearFeedItems());
 
   // subscribe to all announcements
   let blockNumber: number;
   let blockIndex = 0;
-  core.contracts.subscription.subscribeToBatchPublications(
+  const unsubscribeToBatchPublications = core.contracts.subscription.subscribeToBatchPublications(
     (announcement: BatchPublicationLogData) => {
       if (announcement.blockNumber !== blockNumber) {
         blockNumber = announcement.blockNumber;
@@ -135,12 +135,17 @@ export const startPostSubscription = (
   );
 
   // subscribe to registry events
-  core.contracts.subscription.subscribeToRegistryUpdates(
+  const unsubscribeToRegistryUpdate = await core.contracts.subscription.subscribeToRegistryUpdates(
     handleRegistryUpdate(dispatch),
     {
       fromBlock: 1,
     }
   );
+
+  return {
+    unsubscribeToRegistryUpdate,
+    unsubscribeToBatchPublications,
+  };
 };
 
 export const setupProvider = (walletType: WalletType): void => {
