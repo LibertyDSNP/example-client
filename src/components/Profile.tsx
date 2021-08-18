@@ -26,6 +26,7 @@ const Profile = (): JSX.Element => {
   const [didEditProfile, setDidEditProfile] = useState<boolean>(false);
 
   const profileName = profile?.name || "Anonymous";
+
   useEffect(() => {
     if (
       (newName && newName !== profileName) ||
@@ -46,12 +47,6 @@ const Profile = (): JSX.Element => {
 
   const saveEditProfile = async () => {
     setIsEditing(!isEditing);
-    if (userId === undefined || newName === undefined) return;
-    const newProfile = core.activityContent.createProfile({
-      name: newName,
-      icon: profile?.icon,
-    });
-    await saveProfile(userId, newProfile);
   };
 
   const cancelEditProfile = () => {
