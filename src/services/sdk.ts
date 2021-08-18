@@ -263,6 +263,7 @@ const dispatchProfile = (
 const handleRegistryUpdate = (dispatch: Dispatch) => (
   update: RegistryUpdateLogData
 ) => {
+  console.log("update", update);
   dispatch(
     upsertProfile({
       ...createProfile(),

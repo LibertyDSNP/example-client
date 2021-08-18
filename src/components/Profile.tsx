@@ -67,7 +67,7 @@ const Profile = (): JSX.Element => {
         <div className="ProfileBlock__avatarBlock">
           <UserAvatar
             icon={(profile?.icon || [])[0]?.href}
-            profileAddress={profile?.fromId}
+            profileAddress={userId}
             avatarSize="large"
           />
           {isEditing ? (
@@ -115,7 +115,7 @@ const Profile = (): JSX.Element => {
           </label>
           <input
             className="ProfileBlock__dsnpUserId"
-            value={profile?.fromId || "Anonymous"}
+            value={userId || "Anonymous"}
             disabled={true}
           />
         </div>

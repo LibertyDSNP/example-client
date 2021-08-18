@@ -1,8 +1,6 @@
 import React from "react";
 import { Button, Form, Input, Popover } from "antd";
 import { createRegistration } from "@dsnp/sdk";
-import { userLogin } from "../redux/slices/userSlice";
-import * as session from "../services/session";
 
 interface RegisterProps {
   walletAddress: string;
