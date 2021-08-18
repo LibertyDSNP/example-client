@@ -6,9 +6,9 @@ import { DSNPUserId } from "@dsnp/sdk/dist/types/core/identifiers";
 import BlankPost from "./BlankPost";
 
 enum FeedTypes {
-  FEED,
+  MY_FEED,
   MY_POSTS,
-  ALL_POSTS,
+  DISCOVER,
 }
 
 interface PostListProps {
@@ -31,7 +31,7 @@ const PostList = ({ feedType }: PostListProps): JSX.Element => {
 
   let currentFeed: FeedItem[] = [];
 
-  if (feedType === FeedTypes.FEED) {
+  if (feedType === FeedTypes.MY_FEED) {
     currentFeed = feed.filter(
       (post) => post?.fromId === userId || post?.fromId in myGraph
     );

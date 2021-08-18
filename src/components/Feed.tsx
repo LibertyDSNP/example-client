@@ -5,15 +5,15 @@ import { Button } from "antd";
 import { useAppSelector } from "../redux/hooks";
 
 enum FeedTypes {
-  FEED,
+  MY_FEED,
   MY_POSTS,
-  ALL_POSTS,
+  DISCOVER,
 }
 
 const Feed = (): JSX.Element => {
   const userId = useAppSelector((state) => state.user.id);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
-  const [feedType, setFeedType] = useState<FeedTypes>(FeedTypes.FEED);
+  const [feedType, setFeedType] = useState<FeedTypes>(FeedTypes.DISCOVER);
 
   const feedNavClassName = (navItemType: number) =>
     feedType === navItemType
@@ -25,10 +25,17 @@ const Feed = (): JSX.Element => {
       <div className="Feed__header">
         <nav className="Feed__navigation">
           <div
-            className={feedNavClassName(0)}
-            onClick={() => setFeedType(FeedTypes.FEED)}
+            className={feedNavClassName(2)}
+            onClick={() => setFeedType(FeedTypes.DISCOVER)}
           >
-            Feed
+            Discover
+          </div>
+          <div className="Feed__navigationSpacer"></div>
+          <div
+            className={feedNavClassName(0)}
+            onClick={() => setFeedType(FeedTypes.MY_FEED)}
+          >
+            My Feed
           </div>
           <div className="Feed__navigationSpacer"></div>
           <div
@@ -36,13 +43,6 @@ const Feed = (): JSX.Element => {
             onClick={() => setFeedType(FeedTypes.MY_POSTS)}
           >
             My Posts
-          </div>
-          <div className="Feed__navigationSpacer"></div>
-          <div
-            className={feedNavClassName(2)}
-            onClick={() => setFeedType(FeedTypes.ALL_POSTS)}
-          >
-            All Posts
           </div>
         </nav>
         {userId && (
