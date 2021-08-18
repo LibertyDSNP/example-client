@@ -14,7 +14,6 @@ const Feed = (): JSX.Element => {
   const userId = useAppSelector((state) => state.user.id);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [feedType, setFeedType] = useState<FeedTypes>(FeedTypes.FEED);
-  const [showPostSpinner, setShowPostSpinner] = React.useState<boolean>(false);
 
   const feedNavClassName = (navItemType: number) =>
     feedType === navItemType
@@ -58,17 +57,12 @@ const Feed = (): JSX.Element => {
           <NewPost
             onSuccess={() => {
               setIsModalOpen(false);
-              setShowPostSpinner(true);
             }}
             onCancel={() => setIsModalOpen(false)}
           />
         )}
       </div>
-      <PostList
-        feedType={feedType}
-        showPostSpinner={showPostSpinner}
-        setShowPostSpinner={setShowPostSpinner}
-      />
+      <PostList feedType={feedType} />
     </div>
   );
 };

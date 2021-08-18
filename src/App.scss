@@ -1,5 +1,6 @@
 @import "theme/colors";
 @import "theme/typography";
+@import "theme/mixins";
 @import "theme/buttons";
 @import "theme/antd-overrides";
 @import "theme/kss-styleguide-classes";
@@ -12,6 +13,7 @@
 @import "./components/scss/NewPost";
 @import "./components/scss/NewPostImageUpload";
 @import "./components/scss/Post";
+@import "./components/scss/BlankPost";
 @import "./components/scss/PostMedia";
 @import "./components/scss/ConnectionsList";
 @import "./components/scss/ConnectionsListProfiles";
@@ -19,6 +21,7 @@
 @import "components/scss/ReplyBlock";
 @import "components/scss/ReplyInput";
 @import "components/scss/Reply";
+@import "components/scss/BlankReply";
 
 .App__content {
   display: flex;

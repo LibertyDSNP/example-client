@@ -365,7 +365,6 @@ const storeActivityContent = async (
   content: ActivityContentNote | ActivityContentProfile
 ): Promise<string> => {
   const hash = keccak256(core.activityContent.serialize(content));
-
   await fetch(
     `${process.env.REACT_APP_UPLOAD_HOST}/upload?filename=${encodeURIComponent(
       hash + ".json"

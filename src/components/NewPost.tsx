@@ -1,6 +1,6 @@
 import React from "react";
 import { Button, Space, Spin, Modal, Input } from "antd";
-import { useAppSelector } from "../redux/hooks";
+import { useAppDispatch, useAppSelector } from "../redux/hooks";
 import UserAvatar from "./UserAvatar";
 import NewPostImageUpload from "./NewPostImageUpload";
 import { FeedItem, HexString, Profile } from "../utilities/types";
@@ -9,6 +9,7 @@ import { sendPost } from "../services/sdk";
 import { createProfile } from "@dsnp/sdk/core/activityContent";
 import { FromTitle } from "./FromTitle";
 import { DSNPUserId } from "@dsnp/sdk/dist/types/core/identifiers";
+import { postLoading } from "../redux/slices/feedSlice";
 
 interface NewPostProps {
   onSuccess: () => void;
@@ -16,6 +17,7 @@ interface NewPostProps {
 }
 
 const NewPost = ({ onSuccess, onCancel }: NewPostProps): JSX.Element => {
+  const dispatch = useAppDispatch();
   const [saving, setSaving] = React.useState<boolean>(false);
   const [uriList, setUriList] = React.useState<string[]>([]);
   const [postMessage, setPostMessage] = React.useState<string>("");
@@ -47,6 +49,7 @@ const NewPost = ({ onSuccess, onCancel }: NewPostProps): JSX.Element => {
       userId
     );
     await sendPost(newPostFeedItem);
+    dispatch(postLoading(true));
     success();
   };
 

@@ -3,13 +3,15 @@ import React, { useState } from "react";
 import { createNote } from "../services/Storage";
 import { sendReply } from "../services/sdk";
 import { HexString } from "../utilities/types";
-import { useAppSelector } from "../redux/hooks";
+import { useAppDispatch, useAppSelector } from "../redux/hooks";
+import { replyLoading } from "../redux/slices/feedSlice";
 
 interface ReplyInputProps {
   parent: HexString;
 }
 
 const ReplyInput = ({ parent }: ReplyInputProps): JSX.Element => {
+  const dispatch = useAppDispatch();
   const userId = useAppSelector((state) => state.user.id);
   const [saving, setSaving] = React.useState<boolean>(false);
   const [replyValue, setReplyValue] = useState<string>("");
@@ -22,6 +24,7 @@ const ReplyInput = ({ parent }: ReplyInputProps): JSX.Element => {
     setSaving(true);
     const newReplyFeedItem = await createNote(replyValue, [], userId);
     await sendReply(newReplyFeedItem, parent);
+    dispatch(replyLoading({ loading: true, parent: parent }));
     setReplyValue("");
     setSaving(false);
   };

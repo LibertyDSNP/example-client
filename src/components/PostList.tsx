@@ -1,8 +1,9 @@
-import React, { useEffect } from "react";
+import React from "react";
 import Post from "./Post";
 import { FeedItem } from "../utilities/types";
 import { useAppSelector } from "../redux/hooks";
 import { DSNPUserId } from "@dsnp/sdk/dist/types/core/identifiers";
+import BlankPost from "./BlankPost";
 
 enum FeedTypes {
   FEED,
@@ -25,6 +26,8 @@ const PostList = ({ feedType }: PostListProps): JSX.Element => {
     (post) => post?.content?.type === "Note" && post?.inReplyTo === undefined
   );
 
+  const loading: boolean = useAppSelector((state) => state.feed.isPostLoading);
+
   let currentFeed: FeedItem[] = [];
 
   if (feedType === FeedTypes.FEED) {
@@ -39,30 +42,15 @@ const PostList = ({ feedType }: PostListProps): JSX.Element => {
 
   return (
     <div className="PostList__block">
+      {loading && <BlankPost />}
       {currentFeed.length > 0 ? (
         <>
           {currentFeed
             .slice(0)
             .reverse()
-<<<<<<< HEAD
             .map((post, index) => (
               <Post key={index} feedItem={post} />
             ))}
-=======
-            .map((post, index) => {
-              if (!post.fromAddress)
-                throw new Error(`no fromAddress in post: ${post}`);
-              const fromAddress: string = profiles[post.fromAddress]
-                ? (profiles[post.fromAddress].name as string)
-                : post.fromAddress;
-
-              const namedPost: FeedItem<ActivityContentNote> = {
-                ...post,
-                fromAddress,
-              };
-              return <Post key={index} feedItem={namedPost} />;
-            })}
->>>>>>> ba8b109 (wip)
         </>
       ) : (
         "Empty Feed!"

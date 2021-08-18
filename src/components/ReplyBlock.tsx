@@ -3,6 +3,7 @@ import { useAppSelector } from "../redux/hooks";
 import { FeedItem, HexString } from "../utilities/types";
 import Reply from "./Reply";
 import ReplyInput from "./ReplyInput";
+import BlankReply from "./BlankReply";
 
 interface ReplyBlockProps {
   parent: HexString;
@@ -15,13 +16,20 @@ const ReplyBlock = ({ parent }: ReplyBlockProps): JSX.Element => {
     return reply?.content?.type === "Note" && reply?.inReplyTo === parent;
   }) as FeedItem[];
 
+  const loading: any = useAppSelector((state) => state.feed.isReplyLoading);
+
   return (
     <>
-      {replyFeed.length > 0 && (
+      {(parent === loading?.parent || replyFeed.length > 0) && (
         <div className="ReplyBlock__repliesList">
-          {replyFeed.map((reply, index) => (
-            <Reply reply={reply} key={index} />
-          ))}
+          {replyFeed.length > 0 && (
+            <>
+              {replyFeed.map((reply, index) => (
+                <Reply reply={reply} key={index} />
+              ))}
+              {parent === loading?.parent && <BlankReply />}
+            </>
+          )}
         </div>
       )}
       <ReplyInput parent={parent} />

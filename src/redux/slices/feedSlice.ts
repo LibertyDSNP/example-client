@@ -1,12 +1,16 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { FeedItem } from "../../utilities/types";
+import { FeedItem, HexString } from "../../utilities/types";
 
 interface feedState {
   feed: FeedItem[];
+  isPostLoading: boolean;
+  isReplyLoading: { loading: boolean; parent: HexString | undefined };
 }
 
 const initialState: feedState = {
   feed: [],
+  isPostLoading: false,
+  isReplyLoading: { loading: false, parent: undefined },
 };
 
 export const feedSlice = createSlice({
@@ -18,6 +22,8 @@ export const feedSlice = createSlice({
       return {
         ...state,
         feed: [...state.feed, newFeedItem],
+        isPostLoading: false,
+        isReplyLoading: { loading: false, parent: undefined },
       };
     },
     addFeedItems: (state, action: PayloadAction<FeedItem[]>) => {
@@ -33,7 +39,30 @@ export const feedSlice = createSlice({
         feed: [],
       };
     },
+    postLoading: (state, isLoading: PayloadAction<boolean>) => {
+      return {
+        ...state,
+        feed: [...state.feed],
+        isPostLoading: isLoading.payload,
+      };
+    },
+    replyLoading: (state, isLoading: PayloadAction<any>) => {
+      return {
+        ...state,
+        feed: [...state.feed],
+        isReplyLoading: {
+          loading: isLoading.payload.loading,
+          parent: isLoading.payload.parent,
+        },
+      };
+    },
   },
 });
-export const { addFeedItem, addFeedItems, clearFeedItems } = feedSlice.actions;
+export const {
+  addFeedItem,
+  addFeedItems,
+  clearFeedItems,
+  postLoading,
+  replyLoading,
+} = feedSlice.actions;
 export default feedSlice.reducer;

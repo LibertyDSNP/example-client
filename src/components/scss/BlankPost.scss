@@ -1,0 +1,27 @@
+.BlankPost__block {
+  background-color: $light-gray !important;
+  width: 100%;
+  margin-top: 16px !important;
+  border-radius: 10px !important;
+}
+
+.BlankPost__title {
+  @include mock-text(80px);
+}
+
+.BlankPost__description {
+  @include mock-text(40px);
+}
+
+.BlankPost__contentLine1 {
+  @include mock-text(240px);
+  margin-top: 16px;
+}
+
+.BlankPost__contentLine2 {
+  @include mock-text(280px);
+}
+
+.BlankPost__contentLine3 {
+  @include mock-text(200px);
+}
