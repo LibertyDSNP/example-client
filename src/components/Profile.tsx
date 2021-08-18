@@ -46,14 +46,13 @@ const Profile = (): JSX.Element => {
   };
 
   const saveEditProfile = async () => {
-    if (userId !== undefined && newName !== undefined) {
-      const newProfile = core.activityContent.createProfile({
-        name: newName,
-        icon: profile?.icon,
-      });
-      await saveProfile(userId, newProfile);
-    }
     setIsEditing(!isEditing);
+    if (userId === undefined || newName === undefined) return;
+    const newProfile = core.activityContent.createProfile({
+      name: newName,
+      icon: profile?.icon,
+    });
+    await saveProfile(userId, newProfile);
   };
 
   const cancelEditProfile = () => {
