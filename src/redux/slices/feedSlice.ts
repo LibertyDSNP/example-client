@@ -1,10 +1,15 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { FeedItem, HexString } from "../../utilities/types";
 
+interface isReplyLoadingType {
+  loading: boolean;
+  parent: HexString | undefined;
+}
+
 interface feedState {
   feed: FeedItem[];
   isPostLoading: boolean;
-  isReplyLoading: { loading: boolean; parent: HexString | undefined };
+  isReplyLoading: isReplyLoadingType;
 }
 
 const initialState: feedState = {
@@ -46,7 +51,7 @@ export const feedSlice = createSlice({
         isPostLoading: isLoading.payload,
       };
     },
-    replyLoading: (state, isLoading: PayloadAction<any>) => {
+    replyLoading: (state, isLoading: PayloadAction<isReplyLoadingType>) => {
       return {
         ...state,
         feed: [...state.feed],
