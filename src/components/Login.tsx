@@ -7,7 +7,13 @@ import * as sdk from "../services/sdk";
 import * as wallet from "../services/wallets/wallet";
 import * as session from "../services/session";
 import LoginButton from "./LoginButton";
+<<<<<<< HEAD
 import Register from "./Register";
+=======
+import { Registration } from "@dsnp/sdk/core/contracts/registry";
+import RegistrationModal from "./RegistrationModal";
+import { core } from "@dsnp/sdk";
+>>>>>>> registration selection working
 
 interface LoginProps {
   loginWalletOptions: wallet.WalletType;
@@ -17,6 +23,7 @@ const Login = ({ loginWalletOptions }: LoginProps): JSX.Element => {
   const [loading, startLoading] = React.useState<boolean>(false);
   const [alertError, setAlertError] = React.useState<string>("");
   const [popoverVisible, setPopoverVisible] = React.useState<boolean>(false);
+<<<<<<< HEAD
   const [registrationVisible, setRegistrationVisible] = React.useState<boolean>(
     false
   );
@@ -25,6 +32,13 @@ const Login = ({ loginWalletOptions }: LoginProps): JSX.Element => {
   const [walletType, setWalletType] = React.useState<wallet.WalletType>(
     loginWalletOptions || wallet.WalletType.NONE
   );
+=======
+  const [
+    completingRegistration,
+    setCompletingRegistration,
+  ] = React.useState<boolean>(false);
+  const [registrations, setRegistrations] = React.useState<Registration[]>([]);
+>>>>>>> registration selection working
 
   const dispatch = useAppDispatch();
   const userId = useAppSelector((state) => state.user.id);
@@ -50,12 +64,22 @@ const Login = ({ loginWalletOptions }: LoginProps): JSX.Element => {
     try {
       const waddr = await wallet.wallet(walletType).login();
       sdk.setupProvider(walletType);
+<<<<<<< HEAD
       const fromId = await sdk.getSocialIdentity(waddr);
       if (fromId) {
         setLoginAndSession(fromId);
       } else {
         setWalletAddress(waddr);
         setRegistrationVisible(true);
+=======
+      const registrations = await sdk.getSocialIdentities(walletAddress);
+
+      if (registrations.length === 1) {
+        completeRegistration(registrations[0]);
+      } else {
+        setRegistrations(registrations);
+        setCompletingRegistration(true);
+>>>>>>> registration selection working
       }
     } catch (error) {
       resetLoginAndSession(error);
@@ -63,6 +87,15 @@ const Login = ({ loginWalletOptions }: LoginProps): JSX.Element => {
       setPopoverVisible(false);
       startLoading(false);
     }
+  };
+
+  const completeRegistration = (registration: Registration) => {
+    const fromId = core.identifiers.convertDSNPUserURIToDSNPUserId(
+      registration.dsnpUserURI
+    );
+    dispatch(userLogin({ id: fromId, walletType }));
+    session.saveSession({ id: fromId, walletType });
+    setCompletingRegistration(false);
   };
 
   const logout = () => {
@@ -121,6 +154,12 @@ const Login = ({ loginWalletOptions }: LoginProps): JSX.Element => {
             Log Out
           </Button>
         </>
+      )}
+      {completingRegistration && (
+        <RegistrationModal
+          registrations={registrations}
+          onIdResolved={completeRegistration}
+        ></RegistrationModal>
       )}
     </div>
   );
