@@ -55,9 +55,7 @@ const Feed = (): JSX.Element => {
         )}
         {isModalOpen && (
           <NewPost
-            onSuccess={() => {
-              setIsModalOpen(false);
-            }}
+            onSuccess={() => setIsModalOpen(false)}
             onCancel={() => setIsModalOpen(false)}
           />
         )}
