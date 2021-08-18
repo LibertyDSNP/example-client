@@ -14,16 +14,17 @@ const mockUserList = [
   preFabProfiles[1],
   preFabProfiles[2],
   preFabProfiles[3],
+  preFabProfiles[4],
 ];
 
 const profiles = mockUserList.reduce((m, p) => ({ ...m, [p.fromId]: p }), {});
 
 const following = mockUserList
-  .slice(0, 2)
+  .slice(0, 3)
   .reduce((m, p) => ({ ...m, [p.fromId]: true }), {});
 
 const followers = mockUserList
-  .slice(1)
+  .slice(2)
   .reduce((m, p) => ({ ...m, [p.fromId]: true }), {});
 
 const store = {
@@ -68,7 +69,7 @@ describe("ConnectionsListProfiles", () => {
         })
       );
       expect(component.find(".ConnectionsListProfiles__profile").length).toBe(
-        2
+        Object.keys(following).length
       );
       expect(
         component.find(".ConnectionsListProfiles__name").first().text()
@@ -76,6 +77,9 @@ describe("ConnectionsListProfiles", () => {
       expect(
         component.find(".ConnectionsListProfiles__name").at(1).text()
       ).toContain(mockUserList[1].name);
+      expect(
+        component.find(".ConnectionsListProfiles__name").at(2).text()
+      ).toContain(mockUserList[2].name);
     });
 
     it("all connections can be unfollowed", () => {
@@ -92,6 +96,9 @@ describe("ConnectionsListProfiles", () => {
       expect(
         component.find(".ConnectionsListProfiles__button").at(1).text()
       ).toContain("Unfollow");
+      expect(
+        component.find(".ConnectionsListProfiles__button").at(2).text()
+      ).toContain("Unfollow");
     });
   });
 
@@ -105,17 +112,17 @@ describe("ConnectionsListProfiles", () => {
         })
       );
       expect(component.find(".ConnectionsListProfiles__profile").length).toBe(
-        3
+        Object.keys(followers).length
       );
       expect(
         component.find(".ConnectionsListProfiles__name").first().text()
-      ).toContain(mockUserList[1].name);
-      expect(
-        component.find(".ConnectionsListProfiles__name").at(1).text()
       ).toContain(mockUserList[2].name);
       expect(
-        component.find(".ConnectionsListProfiles__name").at(2).text()
+        component.find(".ConnectionsListProfiles__name").at(1).text()
       ).toContain(mockUserList[3].name);
+      expect(
+        component.find(".ConnectionsListProfiles__name").at(2).text()
+      ).toContain(mockUserList[4].name);
     });
 
     it("all followers can be followed or unfollowed depending on status", () => {
