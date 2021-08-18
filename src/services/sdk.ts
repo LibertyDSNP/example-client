@@ -115,6 +115,7 @@ export const startSubscriptions = async (
   dispatch: ThunkDispatch<any, Record<string, any>, AnyAction>
 ): Promise<Record<string, any>> => {
   dispatch(clearFeedItems());
+  console.log("we started our subscription");
 
   // subscribe to all announcements
   let blockNumber: number;
@@ -263,7 +264,6 @@ const dispatchProfile = (
 const handleRegistryUpdate = (dispatch: Dispatch) => (
   update: RegistryUpdateLogData
 ) => {
-  console.log("update", update);
   dispatch(
     upsertProfile({
       ...createProfile(),

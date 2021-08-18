@@ -4,12 +4,12 @@ import { createRegistration } from "@dsnp/sdk";
 
 interface RegisterProps {
   walletAddress: string;
-  onButtonClick: (fromId: string) => void;
+  doSetLoginAndSaveSession: (fromId: string) => void;
 }
 
 const Register = ({
   walletAddress,
-  onButtonClick,
+  doSetLoginAndSaveSession,
 }: RegisterProps): JSX.Element => {
   const [
     createHandleFormVisible,
@@ -20,7 +20,7 @@ const Register = ({
     try {
       const userId = await createRegistration(walletAddress, formValues.handle);
       if (userId) {
-        onButtonClick(userId);
+        doSetLoginAndSaveSession(userId.replace("dsnp://", ""));
       }
       setCreateHandleFormVisible(false);
     } catch (error) {

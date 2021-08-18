@@ -1,10 +1,11 @@
 import React from "react";
-import { Alert, Badge, Button, Popover } from "antd";
+import { Alert, Badge, Button } from "antd";
 import { WalletOutlined } from "@ant-design/icons";
 import { useAppDispatch, useAppSelector } from "../redux/hooks";
 import { userLogin, userLogout } from "../redux/slices/userSlice";
 import * as sdk from "../services/sdk";
 import * as wallet from "../services/wallets/wallet";
+import { WalletType } from "../services/wallets/wallet";
 import * as session from "../services/session";
 import LoginButton from "./LoginButton";
 import Register from "./Register";
@@ -21,15 +22,14 @@ const Login = ({ loginWalletOptions }: LoginProps): JSX.Element => {
     false
   );
   const [walletAddress, setWalletAddress] = React.useState<string>("");
+  const [walletType, setWalletType] = React.useState<wallet.WalletType>(
+    WalletType.NONE
+  );
 
   const dispatch = useAppDispatch();
   const userId = useAppSelector((state) => state.user.id);
-  const walletType = useAppSelector((state) => state.user.walletType);
 
-  const setLoginAndSaveSession = (
-    fromId: string,
-    walletType: wallet.WalletType
-  ) => {
+  const setLoginAndSaveSession = (fromId: string) => {
     dispatch(userLogin({ id: fromId, walletType }));
     session.saveSession({ id: fromId, walletType });
     setRegistrationVisible(false);
@@ -39,12 +39,13 @@ const Login = ({ loginWalletOptions }: LoginProps): JSX.Element => {
     if (loading) return;
     startLoading(true);
     let walletAddress = "";
+    setWalletType(walletType);
     try {
       walletAddress = await wallet.wallet(walletType).login();
       sdk.setupProvider(walletType);
       const fromId = await sdk.getSocialIdentity(walletAddress);
       if (fromId) {
-        setLoginAndSaveSession(fromId, walletType);
+        setLoginAndSaveSession(fromId);
       } else {
         setWalletAddress(walletAddress);
         setRegistrationVisible(true);
@@ -83,13 +84,13 @@ const Login = ({ loginWalletOptions }: LoginProps): JSX.Element => {
             setPopoverVisible={setPopoverVisible}
             loginWalletOptions={loginWalletOptions}
             loading={loading}
-            onButtonClick={login}
+            loginWithWalletType={login}
           />
           {registrationVisible && (
             <Register
               walletAddress={walletAddress}
-              onButtonClick={(newFromId: string) =>
-                setLoginAndSaveSession(newFromId, walletType)
+              doSetLoginAndSaveSession={(newFromId: string) =>
+                setLoginAndSaveSession(newFromId)
               }
             />
           )}
