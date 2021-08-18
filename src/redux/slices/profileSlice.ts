@@ -9,14 +9,16 @@ const initialState: profileState = {
   profiles: {},
 };
 
-const latestProfile = (existing: Profile, current: Profile): Profile => {
-  if (!existing || existing.blockNumber === undefined) return current;
-  if (current.blockNumber !== existing.blockNumber) {
-    return current.blockNumber > existing.blockNumber ? current : existing;
-  } else if (current.blockIndex !== existing.blockIndex) {
-    return current.blockIndex > existing.blockIndex ? current : existing;
+// choose latest profile comparing by blockNumber then blockIndex then batchIndex
+const latestProfile = (a: Profile, b: Profile): Profile => {
+  if (!a || a.blockNumber === undefined) return b;
+  if (!b || b.blockNumber === undefined) return a;
+  if (b.blockNumber !== a.blockNumber) {
+    return b.blockNumber > a.blockNumber ? b : a;
+  } else if (b.blockIndex !== a.blockIndex) {
+    return b.blockIndex > a.blockIndex ? b : a;
   }
-  return current.batchIndex > existing.batchIndex ? current : existing;
+  return b.batchIndex > a.batchIndex ? b : a;
 };
 
 export const profileSlice = createSlice({
