@@ -9,6 +9,18 @@ const initialState: profileState = {
   profiles: {},
 };
 
+// choose latest profile comparing by blockNumber then blockIndex then batchIndex
+const latestProfile = (a: Profile, b: Profile): Profile => {
+  if (!a || a.blockNumber === undefined) return b;
+  if (!b || b.blockNumber === undefined) return a;
+  if (b.blockNumber !== a.blockNumber) {
+    return b.blockNumber > a.blockNumber ? b : a;
+  } else if (b.blockIndex !== a.blockIndex) {
+    return b.blockIndex > a.blockIndex ? b : a;
+  }
+  return b.batchIndex > a.batchIndex ? b : a;
+};
+
 export const profileSlice = createSlice({
   name: "profiles",
   initialState,
@@ -19,7 +31,12 @@ export const profileSlice = createSlice({
       const newProfile = oldProfile
         ? { ...oldProfile, ...action.payload }
         : action.payload;
-      return { profiles: { ...state.profiles, [key]: newProfile } };
+      return {
+        profiles: {
+          ...state.profiles,
+          [key]: latestProfile(oldProfile, newProfile),
+        },
+      };
     },
     removeProfile: (state, action: PayloadAction<HexString>) => {
       const { [action.payload]: _, ...newProfiles } = state.profiles;

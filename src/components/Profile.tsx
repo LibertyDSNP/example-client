@@ -5,6 +5,8 @@ import React, { useEffect, useState } from "react";
 import { useAppSelector } from "../redux/hooks";
 import * as types from "../utilities/types";
 import { DSNPUserId } from "@dsnp/sdk/dist/types/core/identifiers";
+import { saveProfile } from "../services/sdk";
+import { core } from "@dsnp/sdk";
 
 const Profile = (): JSX.Element => {
   const userId: DSNPUserId | undefined = useAppSelector(
@@ -19,8 +21,8 @@ const Profile = (): JSX.Element => {
     : undefined;
 
   const handle = profile?.handle;
-  const [newName, setNewName] = useState<string | null>(null);
-  const [newHandle, setNewHandle] = useState<string | null>(null);
+  const [newName, setNewName] = useState<string | undefined>();
+  const [newHandle, setNewHandle] = useState<string | undefined>();
   const [didEditProfile, setDidEditProfile] = useState<boolean>(false);
 
   const profileName = profile?.name || "Anonymous";
@@ -43,15 +45,20 @@ const Profile = (): JSX.Element => {
       : `ProfileBlock__${sectionName}`;
   };
 
-  const saveEditProfile = () => {
-    //this is where we write to the blockchain
+  const saveEditProfile = async () => {
     setIsEditing(!isEditing);
+    if (userId === undefined || newName === undefined) return;
+    const newProfile = core.activityContent.createProfile({
+      name: newName,
+      icon: profile?.icon,
+    });
+    await saveProfile(userId, newProfile);
   };
 
   const cancelEditProfile = () => {
     setIsEditing(!isEditing);
-    setNewName(null);
-    setNewHandle(null);
+    setNewName(undefined);
+    setNewHandle(undefined);
   };
 
   return (
@@ -98,16 +105,16 @@ const Profile = (): JSX.Element => {
           />
           <label className="ProfileBlock__personalInfoLabel">HANDLE</label>
           <input
-            className={getClassName("handle")}
+            className="ProfileBlock__handle"
             value={newHandle || newHandle === "" ? newHandle : handle}
             onChange={(e) => setNewHandle(e.target.value)}
-            disabled={!isEditing}
+            disabled={true}
           />
           <label className="ProfileBlock__personalInfoLabel">
             SOCIAL ADDRESS
           </label>
           <input
-            className={getClassName("dsnpUserId")}
+            className="ProfileBlock__dsnpUserId"
             value={profile?.fromId || "Anonymous"}
             disabled={true}
           />

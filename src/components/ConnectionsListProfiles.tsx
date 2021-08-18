@@ -34,7 +34,7 @@ const ConnectionsListProfiles = ({
 
   const profileForId = (userId: DSNPUserId): Profile =>
     profiles[userId] || {
-      ...createProfile({ name: "Annonymous" }),
+      ...createProfile({ name: "Anonymous" }),
       contentHash: "",
       url: "",
       announcementType: AnnouncementType.Profile,

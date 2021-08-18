@@ -13,7 +13,7 @@ export interface GraphChange {
 
 // ## Profile ##
 export type Profile = ProfileAnnouncement &
-  ActivityContentProfile & { handle: string };
+  ActivityContentProfile & { handle: string, blockNumber: number, blockIndex: number, batchIndex: number };
 
 // ## FeedItem ##
 export type FeedItem = BroadcastAnnouncement & ActivityContentNote;

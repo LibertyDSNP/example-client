@@ -2,6 +2,12 @@ import { DSNPUserId } from "@dsnp/sdk/dist/types/core/identifiers";
 import { HexString } from "../utilities/types";
 import { generateDsnpUserId, getPrefabDsnpUserId } from "./testAddresses";
 
+/**
+ * Unidirectional lookup of graph realationships.
+ * For example, this structure can store all follow relationships
+ * for all users. The existence of a relationship from account1 to
+ * account2 can be checked with graph[account1]?.[account2].
+ */
 type Graph = Record<DSNPUserId, Record<DSNPUserId, boolean>>;
 
 interface SocialGraph {
@@ -16,6 +22,7 @@ export const generateRandomGraph = (
   return {};
 };
 
+// Invert a map from followers to followees into a map of followees to followers.
 const followersFromFollowing = (following: Graph): Graph => {
   const followers: Record<string, Record<string, boolean>> = {};
   for (const follower of Object.keys(following)) {
