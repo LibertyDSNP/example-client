@@ -337,6 +337,13 @@ const accounts = [
     follows: [2, 11, 14, 16, 17],
     tag: [{type: "Mention", name: "Howard Fergusson"}]
   },
+  {
+    address: "0x8626f6940e2eb28930efb4cef49b2d1f2c9c1199",
+    handle: "anno993200481",
+    pk: "0xdf57089febbacf7ba0bc227dafbffa9fc08a93fdc68e1e42411a14efcf23656e",
+    name: "My Secret Identity",
+    follows: [2, 14],
+  },
 ];
 
 /**
@@ -506,6 +513,7 @@ for await (let account of accounts.values()) {
   });
   profile.published = Date.now.toString(16);
 
+<<<<<<< HEAD
   // create a note
   const content = core.activityContent.createNote(
     `${account.text} \n--from ${account.id}`,
@@ -514,22 +522,39 @@ for await (let account of accounts.values()) {
   content.published = new Date().toISOString();
   if (account.tag) content.tag = account.tag
 
+=======
+>>>>>>> Add second registration to same key in generate script
   const {
     hash: profileHash,
     announcement: profileAnnouncement,
   } = await storeAnnouncement(profile, account.id, wallet);
 
-  const {
-    hash: contentHash,
-    announcement: noteAnnouncement,
-  } = await storeAnnouncement(content, account.id, wallet);
+  let hashText = profileHash;
+  const announcements = [profileAnnouncement];
 
-  const hash = web3.keccak256(profileHash + contentHash);
+  if (account.text) {
+    // create a note
+    const content = core.activityContent.createNote(
+      `${account.text} \n--from ${account.id}`,
+      { attachment: account.attachment }
+    );
+    content.published = new Date().toISOString();
 
-  const batchData = await core.batch.createFile(hash + ".parquet", [
-    profileAnnouncement,
-    noteAnnouncement,
-  ]);
+    const {
+      hash: contentHash,
+      announcement: noteAnnouncement,
+    } = await storeAnnouncement(content, account.id, wallet);
+
+    hashText += contentHash;
+    announcements.push(noteAnnouncement);
+  }
+
+  const hash = web3.keccak256(hashText);
+
+  const batchData = await core.batch.createFile(
+    hash + ".parquet",
+    announcements
+  );
 
   const publication = {
     announcementType: core.announcements.AnnouncementType.Broadcast,
