@@ -30,25 +30,34 @@ const Login = ({ loginWalletOptions }: LoginProps): JSX.Element => {
   const dispatch = useAppDispatch();
   const userId = useAppSelector((state) => state.user.id);
 
-  const setLoginAndSaveSession = (fromId: string) => {
+  const setLoginAndSession = (fromId: string) => {
     dispatch(userLogin({ id: fromId, walletType }));
     session.saveSession({ id: fromId, walletType });
     setRegistrationVisible(false);
   };
 
+  const resetLoginAndSession = (e: Error) => {
+    console.error("start reset");
+    // setAlertError(e.message);
+    // setWalletAddress("");
+    // setWalletType(wallet.WalletType.NONE);
+    // setRegistrationVisible(false);
+    // session.saveSession({ id: undefined, walletType });
+    console.error("end reset");
+  };
+
   const login = async (walletType: wallet.WalletType) => {
     if (loading) return;
     startLoading(true);
-    let walletAddress = "";
     setWalletType(walletType);
     try {
-      walletAddress = await wallet.wallet(walletType).login();
+      const walletAddrLocal = await wallet.wallet(walletType).login();
       sdk.setupProvider(walletType);
-      const fromId = await sdk.getSocialIdentity(walletAddress);
+      const fromId = await sdk.getSocialIdentity(walletAddrLocal);
       if (fromId) {
-        setLoginAndSaveSession(fromId);
+        setLoginAndSession(fromId);
       } else {
-        setWalletAddress(walletAddress);
+        setWalletAddress(walletAddrLocal);
         setRegistrationVisible(true);
       }
     } catch (error) {
@@ -89,9 +98,8 @@ const Login = ({ loginWalletOptions }: LoginProps): JSX.Element => {
           {registrationVisible && (
             <Register
               walletAddress={walletAddress}
-              doSetLoginAndSaveSession={(newFromId: string) =>
-                setLoginAndSaveSession(newFromId)
-              }
+              onSuccess={setLoginAndSession}
+              onFailure={resetLoginAndSession}
             />
           )}
         </div>

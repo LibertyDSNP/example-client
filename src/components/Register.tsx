@@ -4,7 +4,8 @@ import { createRegistration } from "@dsnp/sdk";
 
 interface RegisterProps {
   walletAddress: string;
-  doSetLoginAndSaveSession: (fromId: string) => void;
+  onSuccess: (fromId: string) => void;
+  onFailure: (e: Error) => void;
 }
 
 const Register = (registerOptions: RegisterProps): JSX.Element => {
@@ -15,16 +16,18 @@ const Register = (registerOptions: RegisterProps): JSX.Element => {
 
   const register = async (formValues: { handle: string }) => {
     try {
+      console.log("about to throw");
       const userId = await createRegistration(
-        registerOptions.walletAddress,
-        formValues.handle
+        "0x1234", //registerOptions.walletAddress,
+        "" //formValues.handle
       );
       if (userId) {
-        registerOptions.doSetLoginAndSaveSession(userId.replace("dsnp://", ""));
+        registerOptions.onSuccess(userId.replace("dsnp://", ""));
       }
       setCreateHandleFormVisible(false);
     } catch (error) {
-      console.log("Error in login:", error);
+      console.log("failed here");
+      registerOptions.onFailure(error);
     } finally {
       setCreateHandleFormVisible(false);
     }
