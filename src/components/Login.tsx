@@ -21,9 +21,10 @@ const Login = ({ loginWalletOptions }: LoginProps): JSX.Element => {
   const [registrationVisible, setRegistrationVisible] = React.useState<boolean>(
     false
   );
+
   const [walletAddress, setWalletAddress] = React.useState<string>("");
   const [walletType, setWalletType] = React.useState<wallet.WalletType>(
-    WalletType.NONE
+    loginWalletOptions || wallet.WalletType.NONE
   );
 
   const dispatch = useAppDispatch();
@@ -64,7 +65,6 @@ const Login = ({ loginWalletOptions }: LoginProps): JSX.Element => {
       wallet.wallet(walletType).logout();
     dispatch(userLogout());
   };
-
   return (
     <div className="Login__block">
       {alertError && (

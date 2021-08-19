@@ -7,10 +7,7 @@ interface RegisterProps {
   doSetLoginAndSaveSession: (fromId: string) => void;
 }
 
-const Register = ({
-  walletAddress,
-  doSetLoginAndSaveSession,
-}: RegisterProps): JSX.Element => {
+const Register = (registerOptions: RegisterProps): JSX.Element => {
   const [
     createHandleFormVisible,
     setCreateHandleFormVisible,
@@ -18,9 +15,12 @@ const Register = ({
 
   const register = async (formValues: { handle: string }) => {
     try {
-      const userId = await createRegistration(walletAddress, formValues.handle);
+      const userId = await createRegistration(
+        registerOptions.walletAddress,
+        formValues.handle
+      );
       if (userId) {
-        doSetLoginAndSaveSession(userId.replace("dsnp://", ""));
+        registerOptions.doSetLoginAndSaveSession(userId.replace("dsnp://", ""));
       }
       setCreateHandleFormVisible(false);
     } catch (error) {
@@ -49,8 +49,9 @@ const Register = ({
       onFinish={register}
       onFinishFailed={onFinishFailed}
     >
+      <h3>Welcome!</h3>
+      <p>Please create a handle:</p>
       <Form.Item
-        label="New handle"
         name="handle"
         rules={[
           {
@@ -68,7 +69,7 @@ const Register = ({
         }}
       >
         <Button type="primary" htmlType="submit">
-          Create this handle
+          Choose handle
         </Button>
       </Form.Item>
     </Form>
@@ -79,7 +80,6 @@ const Register = ({
       visible={createHandleFormVisible}
       placement="bottom"
       content={popoverContent}
-      title="Create new handle"
       trigger="hover"
     />
   );
