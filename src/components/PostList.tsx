@@ -1,6 +1,6 @@
 import React from "react";
 import Post from "./Post";
-import { FeedItem, Graph } from "../utilities/types";
+import { FeedItem } from "../utilities/types";
 import { useAppSelector } from "../redux/hooks";
 import { DSNPUserId } from "@dsnp/sdk/dist/types/core/identifiers";
 import {
@@ -16,9 +16,9 @@ enum FeedTypes {
   ALL_POSTS,
 }
 
-const appDefaultTags = (process.env.APP_DEFAULT_TAGS || "restaurant").split(
-  ","
-);
+const appDefaultTags: Array<string> = process.env.APP_DEFAULT_TAGS
+  ? process.env.APP_DEFAULT_TAGS.split(",")
+  : [];
 console.log("appDefaultTags: ", appDefaultTags);
 interface PostListProps {
   feedType: FeedTypes;
@@ -40,6 +40,7 @@ const PostList = ({ feedType }: PostListProps): JSX.Element => {
   ): boolean => !!tag?.name && !("type" in tag);
 
   const checkTags = (tag: ActivityContentHashtag | ActivityContentMention) => {
+    if (!appDefaultTags.length) return true;
     if (!isAHashTag(tag)) return false;
     const res = appDefaultTags.some((dt) => dt === tag.name?.replace("#", ""));
     return res;
@@ -48,13 +49,10 @@ const PostList = ({ feedType }: PostListProps): JSX.Element => {
   const hasAppDefaultTag = (
     tagList: ActivityContentTag | Array<ActivityContentTag> | undefined
   ): boolean => {
+    if (!appDefaultTags.length) return true;
     if (!tagList) return false;
     if (Array.isArray(tagList)) {
-      // return tagList.some((tag) => checkTags(tag));
-      for (const tag of tagList) {
-        if (checkTags(tag)) return true;
-      }
-      return false;
+      return tagList.some((tag) => checkTags(tag));
     } else return checkTags(tagList);
   };
 

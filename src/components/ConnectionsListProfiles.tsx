@@ -57,11 +57,7 @@ const ConnectionsListProfiles = ({
           className="ConnectionsListProfiles__profile"
           key={userProfile.fromId}
         >
-          <UserAvatar
-            icon={profiles[userProfile.fromId]?.icon?.[0]?.href}
-            avatarSize="small"
-            profileAddress={userProfile.fromId}
-          />
+          <UserAvatar avatarSize="small" profileAddress={userProfile.fromId} />
           <div className="ConnectionsListProfiles__name">
             {userProfile.name || userProfile.fromId || "Anonymous"}
           </div>
