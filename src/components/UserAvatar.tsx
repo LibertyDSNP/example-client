@@ -25,6 +25,7 @@ const UserAvatar = ({
     (profileAddress && blockies.create({ seed: profileAddress }).toDataURL());
   return (
     <Avatar
+      className="UserAvatar"
       alt={profileAddress || "anonymous"}
       src={iconURL}
       size={avatarSizeOptions.get(avatarSize)}

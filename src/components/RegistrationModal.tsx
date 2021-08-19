@@ -1,17 +1,23 @@
 import React from "react";
-import { Button, Space, Modal } from "antd";
+import { Button, Popover } from "antd";
 import { useAppSelector } from "../redux/hooks";
 import UserAvatar from "./UserAvatar";
 import { core } from "@dsnp/sdk";
 import * as registry from "@dsnp/sdk/core/contracts/registry";
 import { HexString, Profile } from "../utilities/types";
+import { Registration } from "@dsnp/sdk/core/contracts/registry";
 
 interface RegistrationModalProps {
+  children: JSX.Element;
+  visible: boolean;
   registrations: registry.Registration[];
+  walletAddress: HexString;
   onIdResolved: (id: registry.Registration) => void;
 }
 
 const RegistrationModal = ({
+  children,
+  visible,
   registrations,
   onIdResolved,
 }: RegistrationModalProps): JSX.Element => {
@@ -36,44 +42,50 @@ const RegistrationModal = ({
     ]?.icon?.[0].href;
 
   return (
-    <Modal
-      className="Registration"
-      closable={false}
-      visible={true}
-      width="35%"
-      centered={false}
-      title={"Successful Login!"}
-      footer={[
-        <Space>
-          <Button
-            className="Registration__footerBtn"
-            key="post"
-            type="primary"
-            disabled={!selectedRegistration}
-            onClick={commitRegistration}
-          >
-            Select Handle
-          </Button>
-        </Space>,
-      ]}
+    <Popover
+      placement="bottomRight"
+      visible={visible}
+      content={
+        <div className="RegistrationModal">
+          <h2>Successful Login!</h2>
+          You have multiple handles associated with your account.
+          <h3>Select an account:</h3>
+          <div className="Registration__registrations">
+            {registrations.map((registration: Registration) => (
+              <button
+                className={`Registration__registration${
+                  registration === selectedRegistration
+                    ? " Registration__registration--selected"
+                    : ""
+                }`}
+                onClick={() => setRegistration(registration)}
+              >
+                <UserAvatar
+                  icon={iconForRegistration(registration)}
+                  profileAddress={registration.dsnpUserURI}
+                  avatarSize="small"
+                />
+                {`@${registration.handle}`}
+              </button>
+            ))}
+            ,
+          </div>
+          <div className="Registration__footer">
+            <Button
+              className="Registration__footerBtn"
+              key="post"
+              type="primary"
+              disabled={!selectedRegistration}
+              onClick={commitRegistration}
+            >
+              Select Handle
+            </Button>
+          </div>
+        </div>
+      }
     >
-      <div className="Registration__registrations">
-        {registrations.map((registration) => (
-          <button
-            className="Registration_registration"
-            onClick={() => setRegistration(registration)}
-          >
-            <UserAvatar
-              icon={iconForRegistration(registration)}
-              profileAddress={registration.dsnpUserURI}
-              avatarSize={"small"}
-            />
-            {registration.handle}
-            <span>{registration === selectedRegistration ? "✅" : "◯"}</span>
-          </button>
-        ))}
-      </div>
-    </Modal>
+      {children}
+    </Popover>
   );
 };
 

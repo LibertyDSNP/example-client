@@ -1,0 +1,52 @@
+.RegistrationModal {
+  width: 300px;
+  margin: 0;
+
+  .Registration__registrations {
+    max-height: 50vh;
+    overflow: scroll;
+  }
+
+  .Registration__footer {
+    text-align: center;
+  }
+
+  .ant-btn.Registration__footerBtn {
+    @include button($shadow-green, $green);
+    margin: 1em auto;
+  }
+    
+  .ant-btn.Registration__footerBtn[disabled] {
+    @include button($light-gray, $light-gray);
+    span {
+      color: $gray;
+    }
+  }
+
+  .Registration__registration {
+    border: none;
+    width: 100%;
+    text-align: left;
+    background: none;
+    margin-top: 1em;
+    cursor: pointer;
+    position: relative;
+
+    .UserAvatar {
+      margin-right: .5em;
+    }
+
+    &::after {
+      content: url("img/check_unselected.svg");
+      position: absolute;
+      right: 0;
+      transform: scale(.8,.8);
+    }
+    &.Registration__registration--selected {
+      &::after {
+        content: url("img/check_selected.svg");
+      }
+    }
+  }
+}
+

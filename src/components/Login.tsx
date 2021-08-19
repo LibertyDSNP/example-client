@@ -7,13 +7,10 @@ import * as sdk from "../services/sdk";
 import * as wallet from "../services/wallets/wallet";
 import * as session from "../services/session";
 import LoginButton from "./LoginButton";
-<<<<<<< HEAD
 import Register from "./Register";
-=======
 import { Registration } from "@dsnp/sdk/core/contracts/registry";
 import RegistrationModal from "./RegistrationModal";
 import { core } from "@dsnp/sdk";
->>>>>>> registration selection working
 
 interface LoginProps {
   loginWalletOptions: wallet.WalletType;
@@ -23,7 +20,6 @@ const Login = ({ loginWalletOptions }: LoginProps): JSX.Element => {
   const [loading, startLoading] = React.useState<boolean>(false);
   const [alertError, setAlertError] = React.useState<string>("");
   const [popoverVisible, setPopoverVisible] = React.useState<boolean>(false);
-<<<<<<< HEAD
   const [registrationVisible, setRegistrationVisible] = React.useState<boolean>(
     false
   );
@@ -32,13 +28,7 @@ const Login = ({ loginWalletOptions }: LoginProps): JSX.Element => {
   const [walletType, setWalletType] = React.useState<wallet.WalletType>(
     loginWalletOptions || wallet.WalletType.NONE
   );
-=======
-  const [
-    completingRegistration,
-    setCompletingRegistration,
-  ] = React.useState<boolean>(false);
   const [registrations, setRegistrations] = React.useState<Registration[]>([]);
->>>>>>> registration selection working
 
   const dispatch = useAppDispatch();
   const userId = useAppSelector((state) => state.user.id);
@@ -64,22 +54,14 @@ const Login = ({ loginWalletOptions }: LoginProps): JSX.Element => {
     try {
       const waddr = await wallet.wallet(walletType).login();
       sdk.setupProvider(walletType);
-<<<<<<< HEAD
-      const fromId = await sdk.getSocialIdentity(waddr);
-      if (fromId) {
-        setLoginAndSession(fromId);
-      } else {
-        setWalletAddress(waddr);
-        setRegistrationVisible(true);
-=======
       const registrations = await sdk.getSocialIdentities(walletAddress);
 
       if (registrations.length === 1) {
         completeRegistration(registrations[0]);
       } else {
+        dispatch(userLogin({ walletType: walletType }));
         setRegistrations(registrations);
-        setCompletingRegistration(true);
->>>>>>> registration selection working
+        setRegistrationVisible(true);
       }
     } catch (error) {
       resetLoginAndSession(error);
@@ -95,7 +77,7 @@ const Login = ({ loginWalletOptions }: LoginProps): JSX.Element => {
     );
     dispatch(userLogin({ id: fromId, walletType }));
     session.saveSession({ id: fromId, walletType });
-    setCompletingRegistration(false);
+    setRegistrationVisible(false);
   };
 
   const logout = () => {
@@ -116,51 +98,41 @@ const Login = ({ loginWalletOptions }: LoginProps): JSX.Element => {
           onClose={() => setAlertError("")}
         />
       )}
-      {!userId ? (
-        <div>
-          <LoginButton
-            popoverVisible={popoverVisible}
-            setPopoverVisible={setPopoverVisible}
-            loginWalletOptions={loginWalletOptions}
-            loading={loading}
-            loginWithWalletType={login}
-          />
-          {registrationVisible && (
-            <Register
-              walletAddress={walletAddress}
-              onSuccess={setLoginAndSession}
-              onFailure={resetLoginAndSession}
-            />
-          )}
-        </div>
+      <RegistrationModal
+        visible={registrationVisible}
+        registrations={registrations}
+        onIdResolved={completeRegistration}
+        walletAddress={walletAddress}
+      >
+        <LoginButton
+          popoverVisible={popoverVisible}
+          setPopoverVisible={setPopoverVisible}
+          loginWalletOptions={loginWalletOptions}
+          loading={loading}
+          loginWithWalletType={login}
+        />
+      </RegistrationModal>
       ) : (
-        <>
-          <Badge
-            count={<WalletOutlined style={{ color: "#52C41A" }} />}
-            offset={[-48, 8]}
-          >
-            <img
-              className="Login__walletIcon"
-              src={wallet.wallet(walletType).icon}
-              alt="Wallet Symbol"
-            />
-          </Badge>
+      <>
+        <Badge
+          count={<WalletOutlined style={{ color: "#52C41A" }} />}
+          offset={[-48, 8]}
+        >
+          <img
+            className="Login__walletIcon"
+            src={wallet.wallet(walletType).icon}
+            alt="Wallet Symbol"
+          />
+        </Badge>
 
-          <Button
-            className="Login__logOutButton"
-            aria-label="Logout"
-            onClick={logout}
-          >
-            Log Out
-          </Button>
-        </>
-      )}
-      {completingRegistration && (
-        <RegistrationModal
-          registrations={registrations}
-          onIdResolved={completeRegistration}
-        ></RegistrationModal>
-      )}
+        <Button
+          className="Login__logOutButton"
+          aria-label="Logout"
+          onClick={logout}
+        >
+          Log Out
+        </Button>
+      </>
     </div>
   );
 };
