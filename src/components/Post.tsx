@@ -26,10 +26,10 @@ const Post = ({ feedItem }: PostProps): JSX.Element => {
         avatar={
           <UserAvatar profileAddress={feedItem.fromId} avatarSize={"medium"} />
         }
-        title={feedItem.fromAddress}
+        title={profiles[feedItem.fromId].name || feedItem.fromId}
         description={
           <div className="Post__description">
-            {profiles[feedItem.fromId].name}
+            @{profiles[feedItem.fromId].handle}
           </div>
         }
       />
@@ -38,7 +38,7 @@ const Post = ({ feedItem }: PostProps): JSX.Element => {
         <ActionsBar published={feedItem.published} />
         <div>{noteContent.content}</div>
         <div className="Post__captionTags">
-          {feedItem.tags && feedItem.tags.join(", ")}
+          {feedItem.tags && feedItem.tags.join(", ")}#sushilovers
         </div>
       </div>
     </Card>

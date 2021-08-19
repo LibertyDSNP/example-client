@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import { Button } from "antd";
 import ConnectionsListProfiles from "./ConnectionsListProfiles";
 import { useAppSelector } from "../redux/hooks";
 import { DSNPUserId } from "@dsnp/sdk/dist/types/core/identifiers";
+import { FeedItem } from "../utilities/types";
 
 enum ListStatus {
   CLOSED,
@@ -14,6 +14,12 @@ const ConnectionsList = (): JSX.Element => {
   const userId: DSNPUserId | undefined = useAppSelector(
     (state) => state.user.id
   );
+
+  const feed: FeedItem[] = useAppSelector((state) => state.feed.feed);
+  const myPostsCount = feed.filter(
+    (feedItem) => feedItem.fromAddress === userId && feedItem.inReplyTo === null
+  ).length;
+
   const following = useAppSelector(
     (state) => (userId && state.graphs.following[userId]) || {}
   );
@@ -42,7 +48,11 @@ const ConnectionsList = (): JSX.Element => {
   return (
     <div className="ConnectionsList__block">
       <div className="ConnectionsList__buttonBlock">
-        <Button
+        <button className="ConnectionsList__button">
+          <div className="ConnectionsList__buttonCount">{myPostsCount}</div>
+          Posts
+        </button>
+        <button
           className={getClassName(ListStatus.FOLLOWERS)}
           onClick={() => handleClick(ListStatus.FOLLOWERS)}
         >
@@ -50,12 +60,8 @@ const ConnectionsList = (): JSX.Element => {
             {Object.keys(followers).length}
           </div>
           Followers
-        </Button>
-
-        {selectedListTitle === ListStatus.CLOSED && (
-          <div className="ConnectionsList__buttonSeparator"> </div>
-        )}
-        <Button
+        </button>
+        <button
           className={getClassName(ListStatus.FOLLOWING)}
           onClick={() => handleClick(ListStatus.FOLLOWING)}
         >
@@ -63,7 +69,7 @@ const ConnectionsList = (): JSX.Element => {
             {Object.keys(following).length}
           </div>
           Following
-        </Button>
+        </button>
       </div>
       <ConnectionsListProfiles
         listStatus={selectedListTitle}
