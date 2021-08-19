@@ -35,10 +35,18 @@ const App = (): JSX.Element => {
 
     return () => {
       if (!unsubscribeFunctions) return;
-
-      Object.values(unsubscribeFunctions).forEach((unsubscribe: any) =>
-        unsubscribe()
-      );
+      Object.values(unsubscribeFunctions).forEach(async (unsubscribe: any) => {
+        try {
+          console.log("unsub try: ", unsubscribe);
+          return await unsubscribe();
+        } catch (e) {
+          console.error(
+            "probably here because an unsub is a Promise, not a func: ",
+            e.message
+          );
+          return;
+        }
+      });
     };
   });
 

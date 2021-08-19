@@ -19,21 +19,17 @@ const Post = ({ feedItem }: PostProps): JSX.Element => {
   const profiles: Record<DSNPUserId, Profile> = useAppSelector(
     (state) => state.profiles?.profiles || {}
   );
-
   return (
     <Card key={feedItem.hash} className="Post__block" bordered={false}>
       <Card.Meta
         className="Post__header"
         avatar={
-          <UserAvatar
-            profileAddress={feedItem.fromAddress}
-            avatarSize={"medium"}
-          />
+          <UserAvatar profileAddress={feedItem.fromId} avatarSize={"medium"} />
         }
         title={feedItem.fromAddress}
         description={
           <div className="Post__description">
-            @mockHandle__{feedItem.fromAddress}
+            {profiles[feedItem.fromId].name}
           </div>
         }
       />
