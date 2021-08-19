@@ -119,7 +119,7 @@ export const startSubscriptions = async (
   // subscribe to all announcements
   let blockNumber: number;
   let blockIndex = 0;
-  const unsubscribeToBatchPublications = core.contracts.subscription.subscribeToBatchPublications(
+  const unsubscribeToBatchPublications = await core.contracts.subscription.subscribeToBatchPublications(
     (announcement: BatchPublicationLogData) => {
       if (announcement.blockNumber !== blockNumber) {
         blockNumber = announcement.blockNumber;
