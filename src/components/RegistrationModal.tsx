@@ -50,15 +50,17 @@ const RegistrationModal = ({
           <h2>Successful Login!</h2>
           You have multiple handles associated with your account.
           <h3>Select an account:</h3>
-          <div className="Registration__registrations">
+          <div className="RegistrationModal__registrations">
+            selected registration: {selectedRegistration?.dsnpUserURI};
             {registrations.map((registration: Registration) => (
               <button
-                className={`Registration__registration${
+                className={`RegistrationModal__registration${
                   registration === selectedRegistration
-                    ? " Registration__registration--selected"
+                    ? " RegistrationModal__registration--selected"
                     : ""
                 }`}
                 onClick={() => setRegistration(registration)}
+                key={registration.dsnpUserURI}
               >
                 <UserAvatar
                   icon={iconForRegistration(registration)}
@@ -70,9 +72,9 @@ const RegistrationModal = ({
             ))}
             ,
           </div>
-          <div className="Registration__footer">
+          <div className="RegistrationModal__footer">
             <Button
-              className="Registration__footerBtn"
+              className="RegistrationModal__footerBtn"
               key="post"
               type="primary"
               disabled={!selectedRegistration}

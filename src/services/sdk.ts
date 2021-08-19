@@ -2,11 +2,8 @@ import { FeedItem, HexString, Profile, Reply } from "../utilities/types";
 import * as fakesdk from "./fakesdk";
 import { setConfig, core } from "@dsnp/sdk";
 import { Publication } from "@dsnp/sdk/core/contracts/publisher";
-import {
-  Registration,
-  RegistryUpdateLogData,
-} from "@dsnp/sdk/core/contracts/registry";
-import { providers, utils as ethUtils } from "ethers";
+import { RegistryUpdateLogData } from "@dsnp/sdk/core/contracts/registry";
+import { providers } from "ethers";
 import { keccak256 } from "web3-utils";
 import { addFeedItem, clearFeedItems } from "../redux/slices/feedSlice";
 import { upsertProfile } from "../redux/slices/profileSlice";
