@@ -1,6 +1,5 @@
 import { startSubscriptions } from "./sdk";
 import { core } from "@dsnp/sdk";
-import { flushPromises } from "../test/testhelpers";
 const subscription = core.contracts.subscription;
 
 const mockThunkDispatch = jest.fn;
