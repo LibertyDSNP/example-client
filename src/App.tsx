@@ -7,20 +7,31 @@ import Feed from "./components/Feed";
 import ProfileBlock from "./components/ProfileBlock";
 import * as wallet from "./services/wallets/wallet";
 import { useAppDispatch, useAppSelector } from "./redux/hooks";
-import { setupProvider, startPostSubscription } from "./services/sdk";
+import { setupProvider, startSubscriptions } from "./services/sdk";
 
 const App = (): JSX.Element => {
   const dispatch = useAppDispatch();
 
   const walletType = useAppSelector((state) => state.user.walletType);
   useEffect(() => {
-    if (walletType && walletType !== wallet.WalletType.NONE) {
-      (async () => {
-        await wallet.wallet(walletType).reload();
-        setupProvider(walletType);
-        dispatch(startPostSubscription);
-      })();
-    }
+    if (!walletType) return;
+    if (walletType === wallet.WalletType.NONE) return;
+    let unsubscribeFunctions: Record<string, any>;
+
+    (async () => {
+      await wallet.wallet(walletType).reload();
+      setupProvider(walletType);
+
+      unsubscribeFunctions = await dispatch(startSubscriptions);
+    })();
+
+    return () => {
+      if (!unsubscribeFunctions) return;
+
+      Object.values(unsubscribeFunctions).forEach((unsubscribe: any) =>
+        unsubscribe()
+      );
+    };
   });
 
   return (
