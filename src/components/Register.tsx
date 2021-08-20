@@ -23,7 +23,6 @@ const Register = (registerOptions: RegisterProps): JSX.Element => {
       if (userId) {
         registerOptions.onSuccess(userId.replace("dsnp://", ""));
       }
-      setCreateHandleFormVisible(false);
     } catch (error) {
       registerOptions.onFailure(error);
     } finally {
