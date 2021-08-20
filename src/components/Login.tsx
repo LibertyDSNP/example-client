@@ -5,7 +5,6 @@ import { useAppDispatch, useAppSelector } from "../redux/hooks";
 import { userLogin, userLogout } from "../redux/slices/userSlice";
 import * as sdk from "../services/sdk";
 import * as wallet from "../services/wallets/wallet";
-import { WalletType } from "../services/wallets/wallet";
 import * as session from "../services/session";
 import LoginButton from "./LoginButton";
 import Register from "./Register";
@@ -33,17 +32,13 @@ const Login = ({ loginWalletOptions }: LoginProps): JSX.Element => {
   const setLoginAndSession = (fromId: string) => {
     dispatch(userLogin({ id: fromId, walletType }));
     session.saveSession({ id: fromId, walletType });
-    setRegistrationVisible(false);
   };
 
   const resetLoginAndSession = (e: Error) => {
-    console.error("start reset");
-    // setAlertError(e.message);
-    // setWalletAddress("");
-    // setWalletType(wallet.WalletType.NONE);
-    // setRegistrationVisible(false);
-    // session.saveSession({ id: undefined, walletType });
-    console.error("end reset");
+    setAlertError(e.message);
+    setWalletAddress("");
+    setWalletType(wallet.WalletType.NONE);
+    session.saveSession({ id: undefined, walletType });
   };
 
   const login = async (walletType: wallet.WalletType) => {
@@ -61,7 +56,7 @@ const Login = ({ loginWalletOptions }: LoginProps): JSX.Element => {
         setRegistrationVisible(true);
       }
     } catch (error) {
-      console.error("Error in login:", error);
+      resetLoginAndSession(error);
     } finally {
       setPopoverVisible(false);
       startLoading(false);

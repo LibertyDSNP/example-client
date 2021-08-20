@@ -12,6 +12,7 @@ import * as sdk from "../../services/sdk";
 
 let torusWallet: wallet.Wallet;
 let metamaskWallet: wallet.Wallet;
+
 beforeAll(async () => {
   torusWallet = await wallet.wallet(wallet.WalletType.TORUS);
   jest.spyOn(torus, "logout").mockImplementation(jest.fn);
@@ -74,7 +75,7 @@ describe("Login Component", () => {
       component.find(".LoginButton__loginButton").first().simulate("click");
       component.find(".LoginButton__loginMetamask").first().simulate("click");
       await forcePromiseResolve();
-      expect(metamask.getWalletAddress).toHaveBeenCalled();
+      expect(metamaskWallet.login).toHaveBeenCalled();
     });
   });
 

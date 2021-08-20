@@ -64,7 +64,7 @@ describe("ReplyBlock", () => {
   describe("It adds and clears value correctly", () => {
     it("populates message value", async () => {
       await writeReply(component);
-      expect(component.find("textarea").first().instance().value).toEqual(
+      expect(component.find("textarea").first().text()).toEqual(
         "This is our new reply!"
       );
     });
@@ -73,7 +73,7 @@ describe("ReplyBlock", () => {
       await writeReply(component);
       await pressEnter(component);
       await waitFor(() =>
-        expect(component.find("textarea").first().instance().value).toEqual("")
+        expect(component.find("textarea").first().text()).toEqual("")
       );
     });
   });

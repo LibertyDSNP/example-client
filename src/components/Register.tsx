@@ -16,17 +16,15 @@ const Register = (registerOptions: RegisterProps): JSX.Element => {
 
   const register = async (formValues: { handle: string }) => {
     try {
-      console.log("about to throw");
       const userId = await createRegistration(
-        "0x1234", //registerOptions.walletAddress,
-        "" //formValues.handle
+        registerOptions.walletAddress,
+        formValues.handle
       );
       if (userId) {
         registerOptions.onSuccess(userId.replace("dsnp://", ""));
       }
       setCreateHandleFormVisible(false);
     } catch (error) {
-      console.log("failed here");
       registerOptions.onFailure(error);
     } finally {
       setCreateHandleFormVisible(false);
