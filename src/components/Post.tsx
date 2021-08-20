@@ -26,10 +26,10 @@ const Post = ({ feedItem }: PostProps): JSX.Element => {
         avatar={
           <UserAvatar profileAddress={feedItem.fromId} avatarSize={"medium"} />
         }
-        title={feedItem.fromAddress}
+        title={profiles[feedItem.fromId].name || feedItem.fromId}
         description={
           <div className="Post__description">
-            {profiles[feedItem.fromId].name}
+            @{profiles[feedItem.fromId].handle}
           </div>
         }
       />

@@ -1,11 +1,9 @@
 import React from "react";
-import {Button} from "antd";
-import {useAppSelector} from "../redux/hooks";
 
 enum FeedTypes {
-  FEED,
+  MY_FEED,
   MY_POSTS,
-  ALL_POSTS,
+  DISCOVER,
 }
 
 interface FeedNavigationProps {
@@ -14,11 +12,9 @@ interface FeedNavigationProps {
 }
 
 const FeedNavigation = ({
-                          feedType,
-                          setFeedType,
-                        }: FeedNavigationProps): JSX.Element => {
-  const userId = useAppSelector((state) => state.user.id);
-
+  feedType,
+  setFeedType,
+}: FeedNavigationProps): JSX.Element => {
   const feedNavClassName = (navItemType: number) =>
     feedType === navItemType
       ? "Feed__navigationItem Feed__navigationItem--active"
@@ -30,15 +26,15 @@ const FeedNavigation = ({
         <nav className="Feed__navigation">
           <div
             className={feedNavClassName(2)}
-            onClick={() => setFeedType(FeedTypes.ALL_POSTS)}
+            onClick={() => setFeedType(FeedTypes.DISCOVER)}
           >
-            All Posts
+            Discover
           </div>
           <div
             className={feedNavClassName(0)}
-            onClick={() => setFeedType(FeedTypes.FEED)}
+            onClick={() => setFeedType(FeedTypes.MY_FEED)}
           >
-            Feed
+            My Feed
           </div>
           <div
             className={feedNavClassName(1)}
@@ -47,7 +43,6 @@ const FeedNavigation = ({
             My Posts
           </div>
         </nav>
-        {userId && <Button className="Feed__newPostButton">New Post</Button>}
       </div>
     </div>
   );

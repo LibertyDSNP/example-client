@@ -11,15 +11,15 @@ import {
 import Masonry from "react-masonry-css";
 
 enum FeedTypes {
-  FEED,
+  MY_FEED,
   MY_POSTS,
-  ALL_POSTS,
+  DISCOVER,
 }
 
 const appDefaultTags: Array<string> = process.env.APP_DEFAULT_TAGS
   ? process.env.APP_DEFAULT_TAGS.split(",")
   : [];
-console.log("appDefaultTags: ", appDefaultTags);
+
 interface PostListProps {
   feedType: FeedTypes;
 }
@@ -72,7 +72,7 @@ const PostList = ({ feedType }: PostListProps): JSX.Element => {
 
   let currentFeed: FeedItem[] = [];
 
-  if (feedType === FeedTypes.FEED) {
+  if (feedType === FeedTypes.MY_FEED) {
     currentFeed = feed.filter(
       (post) => post?.fromId === userId || post?.fromId in myGraph
     );
