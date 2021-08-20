@@ -57,7 +57,7 @@ const LoginSetupInstructions = (): JSX.Element => {
                       Name: <code>*determined by user</code>
                     </li>
                     <li>
-                      New RPC URL: <code>http://localhost:7545</code>
+                      New RPC URL: <code>http://localhost:8545</code>
                     </li>
                     <li>
                       ChainID: <code>1337</code>
