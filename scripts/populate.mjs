@@ -45,10 +45,6 @@ const accounts = [
       ),
     ],
     follows: [4, 13, 14, 18],
-    tag: [
-      {name: "cereal"},
-      {name: "salad"},
-    ]
   },
   {
     address: "0x70997970c51812dc3a010c7d01b50e0d17dc79c8",
@@ -62,11 +58,6 @@ const accounts = [
     ],
     text: "Hot take: Hotdogs aren't a sandwich, they're a taco",
     follows: [7, 15, 17, 19],
-    tag: [
-      {name: "#taco"},
-      {name: "#hotdogs"},
-      {name: "this is another hashtag"}
-    ]
   },
   {
     address: "0x3c44cdddb6a900fa2b585dd299e03d12fa4293bc",
@@ -83,7 +74,6 @@ const accounts = [
       "see the light at the end of the tunnel, but if you just " +
       "keep moving, you will come to a better place.",
     follows: [9, 13, 14, 15, 19],
-    tag: {name: "a single tag"},
   },
   {
     address: "0x90f79bf6eb2c4f870365e785982e1f101e93b906",
@@ -97,7 +87,6 @@ const accounts = [
     ],
     text: "Сухие завтраки - это разновидность салата. Конец истории.",
     follows: [5, 15, 17],
-    tag: ["cereal","salad","cухие","салата"]
   },
   {
     address: "0x15d34aaf54267db7d7c367839aaf71a00a2c6a65",
@@ -109,7 +98,6 @@ const accounts = [
     text: "This Vimeo -- WAT. Amirite?",
     name: "Louis Bollen",
     follows: [11, 13, 16],
-    tag: [{name: "not foodblogger"},{name: "shouldn't appear"}]
   },
   {
     address: "0x9965507d1a55bcc2695c58ba16fb37d819b0a4dc",
@@ -119,7 +107,6 @@ const accounts = [
     text:
       "My favorite sea shanty is 'Friggin in the Riggin'. I don't like attachments. That's why I don't have any.",
     follows: [11, 14, 15, 16, 17],
-    tag: {name: "another single tag"},
   },
   {
     address: "0x976ea74026e726554db657fa54763abd0c3a0aa9",
@@ -221,12 +208,6 @@ const accounts = [
     ],
     text: "My favorite cartoon is Spongebob",
     follows: [13, 15, 16],
-    tag: [
-      {name: "spongebob"},
-      {name: "tv"},
-      {name: "cartoons"},
-      {name: ""}
-    ]
   },
   {
     address: "0xfabb0ac9d68b0b445fb7357272ff202c5651694a",
@@ -241,7 +222,6 @@ const accounts = [
     text:
       "The pizza shop down the street is giving out free donuts. Kinda sketchy",
     follows: [10, 16, 18],
-    tag: [{name: "pizza"},{name: "cucina"},{name: "Italian"},{name: "sketch"},{name: "restaurant"}]
   },
   {
     address: "0x1cbd3b2770909d4e10f157cabc84c7264073c9ec",
@@ -304,9 +284,8 @@ const accounts = [
         "https://upload.wikimedia.org/wikipedia/commons/2/20/Baby_2.jpg"
       ),
     ],
-    text: "My second favorite cartoon is Invader Zim",
+    text: "My favorite cartoon is Spongebob",
     follows: [8, 12, 13, 14, 15],
-    tag: {name: "cartoon"}
   },
   {
     address: "0xdd2fd4581271e230360230f9337d5c0430bf44c0",
@@ -336,7 +315,6 @@ const accounts = [
     text:
       "Darn it, Jim, I'm a family doctor, not a swearing doctor! For pity's sake Jim, this is prime time!",
     follows: [2, 11, 14, 16, 17],
-    tag: [{type: "Mention", name: "Howard Fergusson"}]
   },
 ];
 
@@ -513,7 +491,6 @@ for await (let account of accounts.values()) {
     { attachment: account.attachment }
   );
   content.published = new Date().toISOString();
-  if (account.tag) content.tag = account.tag
 
   const {
     hash: profileHash,
