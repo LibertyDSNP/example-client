@@ -3,7 +3,7 @@ import { FeedItem, HexString } from "../../utilities/types";
 
 interface isPostLoadingType {
   loading: boolean;
-  myIdentifier: HexString | undefined;
+  currentUserId: HexString | undefined;
 }
 
 interface isReplyLoadingType {
@@ -19,7 +19,7 @@ interface feedState {
 
 const initialState: feedState = {
   feed: [],
-  isPostLoading: { loading: false, myIdentifier: undefined },
+  isPostLoading: { loading: false, currentUserId: undefined },
   isReplyLoading: { loading: false, parent: undefined },
 };
 
@@ -29,11 +29,13 @@ export const feedSlice = createSlice({
   reducers: {
     addFeedItem: (state, action: PayloadAction<FeedItem>) => {
       const newFeedItem = action.payload;
-      if (state.isPostLoading.myIdentifier === newFeedItem.fromId) {
+      if (state.isPostLoading.currentUserId === newFeedItem.fromId) {
+        // to keep loading from being turned off when some else's post
+        // arrives while waiting for the current user's to appear.
         return {
           ...state,
           feed: [...state.feed, newFeedItem],
-          isPostLoading: { loading: false, myIdentifier: undefined },
+          isPostLoading: { loading: false, currentUserId: undefined },
           isReplyLoading: { loading: false, parent: undefined },
         };
       }
@@ -60,7 +62,7 @@ export const feedSlice = createSlice({
         ...state,
         isPostLoading: {
           loading: isLoading.payload.loading,
-          myIdentifier: isLoading.payload.myIdentifier,
+          currentUserId: isLoading.payload.currentUserId,
         },
       };
     },

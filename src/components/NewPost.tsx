@@ -49,8 +49,7 @@ const NewPost = ({ onSuccess, onCancel }: NewPostProps): JSX.Element => {
       userId
     );
     await sendPost(newPostFeedItem);
-    console.log(newPostFeedItem);
-    dispatch(postLoading({ loading: true, myIdentifier: userId }));
+    dispatch(postLoading({ loading: true, currentUserId: userId }));
     success();
   };
 
