@@ -1,6 +1,11 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { FeedItem, HexString } from "../../utilities/types";
 
+interface isPostLoadingType {
+  loading: boolean;
+  myIdentifier: HexString | undefined;
+}
+
 interface isReplyLoadingType {
   loading: boolean;
   parent: HexString | undefined;
@@ -8,13 +13,13 @@ interface isReplyLoadingType {
 
 interface feedState {
   feed: FeedItem[];
-  isPostLoading: boolean;
+  isPostLoading: isPostLoadingType;
   isReplyLoading: isReplyLoadingType;
 }
 
 const initialState: feedState = {
   feed: [],
-  isPostLoading: false,
+  isPostLoading: { loading: false, myIdentifier: undefined },
   isReplyLoading: { loading: false, parent: undefined },
 };
 
@@ -24,11 +29,17 @@ export const feedSlice = createSlice({
   reducers: {
     addFeedItem: (state, action: PayloadAction<FeedItem>) => {
       const newFeedItem = action.payload;
+      if (state.isPostLoading.myIdentifier === newFeedItem.fromId) {
+        return {
+          ...state,
+          feed: [...state.feed, newFeedItem],
+          isPostLoading: { loading: false, myIdentifier: undefined },
+          isReplyLoading: { loading: false, parent: undefined },
+        };
+      }
       return {
         ...state,
         feed: [...state.feed, newFeedItem],
-        isPostLoading: false,
-        isReplyLoading: { loading: false, parent: undefined },
       };
     },
     addFeedItems: (state, action: PayloadAction<FeedItem[]>) => {
@@ -44,17 +55,18 @@ export const feedSlice = createSlice({
         feed: [],
       };
     },
-    postLoading: (state, isLoading: PayloadAction<boolean>) => {
+    postLoading: (state, isLoading: PayloadAction<isPostLoadingType>) => {
       return {
         ...state,
-        feed: [...state.feed],
-        isPostLoading: isLoading.payload,
+        isPostLoading: {
+          loading: isLoading.payload.loading,
+          myIdentifier: isLoading.payload.myIdentifier,
+        },
       };
     },
     replyLoading: (state, isLoading: PayloadAction<isReplyLoadingType>) => {
       return {
         ...state,
-        feed: [...state.feed],
         isReplyLoading: {
           loading: isLoading.payload.loading,
           parent: isLoading.payload.parent,

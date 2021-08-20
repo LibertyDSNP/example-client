@@ -25,8 +25,9 @@ const PostList = ({ feedType }: PostListProps): JSX.Element => {
   const feed: FeedItem[] = useAppSelector((state) => state.feed.feed).filter(
     (post) => post?.content?.type === "Note" && post?.inReplyTo === undefined
   );
-
-  const loading: boolean = useAppSelector((state) => state.feed.isPostLoading);
+  const loading: boolean = useAppSelector(
+    (state) => state.feed.isPostLoading.loading
+  );
 
   let currentFeed: FeedItem[] = [];
 

@@ -222,7 +222,6 @@ const dispatchFeedItem = (
   blockNumber: number
 ) => {
   const decoder = new TextDecoder();
-
   dispatch(
     addFeedItem({
       fromId: decoder.decode((message.fromId as any) as Uint8Array),
