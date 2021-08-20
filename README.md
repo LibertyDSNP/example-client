@@ -81,6 +81,7 @@ Follow this quick start guide to get up and running. This guide assumes a workin
     1. If you stopped the example-app, restart it: `npm run start`
 
     You should now be able to login to the app, and view and create posts.
+* **How do I connect to some external chain instead of the local dev chain?** - In general, we recommend against connecting to an external chain, because this Example Client is deliberately not scalable: it just reads all of whatever chain it connects to.  That's fine when you're using a local development chain that has only your own posts, but things won't be so pleasant if you connect to a much larger and more active chain.  However, if there is some external chain that you know is small enough for the Example Client to handle, then give it a try.  [The instructions here](https://forums.projectliberty.io/t/testnet-is-now-live/93) might help.
 
 ## Miscellaneous Information
 
