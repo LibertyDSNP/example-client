@@ -12,7 +12,6 @@ import * as sdk from "../../services/sdk";
 
 let torusWallet: wallet.Wallet;
 let metamaskWallet: wallet.Wallet;
-
 beforeAll(async () => {
   torusWallet = await wallet.wallet(wallet.WalletType.TORUS);
   jest.spyOn(torus, "logout").mockImplementation(jest.fn);

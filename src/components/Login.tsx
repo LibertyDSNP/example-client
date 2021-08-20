@@ -30,11 +30,13 @@ const Login = ({ loginWalletOptions }: LoginProps): JSX.Element => {
   const userId = useAppSelector((state) => state.user.id);
 
   const setLoginAndSession = (fromId: string) => {
+    setRegistrationVisible(false);
     dispatch(userLogin({ id: fromId, walletType }));
     session.saveSession({ id: fromId, walletType });
   };
 
   const resetLoginAndSession = (e: Error) => {
+    setRegistrationVisible(false);
     setAlertError(e.message);
     setWalletAddress("");
     setWalletType(wallet.WalletType.NONE);
