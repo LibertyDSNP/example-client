@@ -48,13 +48,13 @@ const Login = ({ loginWalletOptions }: LoginProps): JSX.Element => {
     startLoading(true);
     setWalletType(walletType);
     try {
-      const walletAddrLocal = await wallet.wallet(walletType).login();
+      const waddr = await wallet.wallet(walletType).login();
       sdk.setupProvider(walletType);
-      const fromId = await sdk.getSocialIdentity(walletAddrLocal);
+      const fromId = await sdk.getSocialIdentity(waddr);
       if (fromId) {
         setLoginAndSession(fromId);
       } else {
-        setWalletAddress(walletAddrLocal);
+        setWalletAddress(waddr);
         setRegistrationVisible(true);
       }
     } catch (error) {
