@@ -7,6 +7,8 @@ import * as types from "../utilities/types";
 import { DSNPUserId } from "@dsnp/sdk/dist/types/core/identifiers";
 import { saveProfile } from "../services/sdk";
 import { core } from "@dsnp/sdk";
+import CopyIcon from "../images/Copy_Icon.svg";
+import GreenCheck from "../images/Green_Check.svg";
 
 const Profile = (): JSX.Element => {
   const userId: DSNPUserId | undefined = useAppSelector(
@@ -24,6 +26,7 @@ const Profile = (): JSX.Element => {
   const [newName, setNewName] = useState<string | undefined>();
   const [newHandle, setNewHandle] = useState<string | undefined>();
   const [didEditProfile, setDidEditProfile] = useState<boolean>(false);
+  const [isCopied, setIsCopied] = useState<boolean>(false);
 
   const profileName = profile?.name || "Anonymous";
 
@@ -63,8 +66,8 @@ const Profile = (): JSX.Element => {
 
   return (
     <>
-      <div className="ProfileBlock__personalInfoBlock">
-        <div className="ProfileBlock__avatarBlock">
+      <div className="Profile__personalInfoBlock">
+        <div className="Profile__avatarBlock">
           <UserAvatar
             icon={(profile?.icon || [])[0]?.href}
             profileAddress={userId}
@@ -73,14 +76,14 @@ const Profile = (): JSX.Element => {
           {isEditing ? (
             <>
               <Button
-                className="ProfileBlock__editButton"
+                className="Profile__editButton"
                 onClick={() => saveEditProfile()}
                 disabled={!didEditProfile}
               >
                 save
               </Button>
               <Button
-                className="ProfileBlock__editButton"
+                className="Profile__editButton"
                 onClick={() => cancelEditProfile()}
               >
                 cancel
@@ -88,36 +91,54 @@ const Profile = (): JSX.Element => {
             </>
           ) : (
             <Button
-              className="ProfileBlock__editButton"
+              className="Profile__editButton"
               onClick={() => setIsEditing(!isEditing)}
             >
               edit
             </Button>
           )}
         </div>
-        <div className="ProfileBlock__personalInfo">
-          <label className="ProfileBlock__personalInfoLabel">NAME</label>
+        <div className="Profile__personalInfo">
+          <label className="Profile__personalInfoLabel">NAME</label>
           <input
             className={getClassName("name")}
             value={newName || newName === "" ? newName : profileName}
             onChange={(e) => setNewName(e.target.value)}
             disabled={!isEditing}
           />
-          <label className="ProfileBlock__personalInfoLabel">HANDLE</label>
+          <label className="Profile__personalInfoLabel">HANDLE</label>
           <input
-            className="ProfileBlock__handle"
+            className="Profile__handle"
             value={newHandle || newHandle === "" ? newHandle : handle}
             onChange={(e) => setNewHandle(e.target.value)}
             disabled={true}
           />
-          <label className="ProfileBlock__personalInfoLabel">
-            SOCIAL ADDRESS
-          </label>
-          <input
-            className="ProfileBlock__dsnpUserId"
-            value={userId || "Anonymous"}
-            disabled={true}
-          />
+          <label className="Profile__personalInfoLabel">SOCIAL ADDRESS</label>
+          <div className="Profile__socialAddressCopyBlock">
+            <input
+              className="Profile__dsnpUserId"
+              value={userId || "Anonymous"}
+              disabled={true}
+            />
+            <button
+              className="Profile__copyButton"
+              onClick={() => {
+                navigator.clipboard
+                  .writeText(userId || "Anonymous")
+                  .then(() => console.log("copied address to clipboard"));
+                setIsCopied(true);
+                setTimeout(() => {
+                  setIsCopied(false);
+                }, 2000);
+              }}
+            >
+              {!isCopied ? (
+                <img src={CopyIcon} height={16} alt="copy" />
+              ) : (
+                <img src={GreenCheck} height={16} alt="success" />
+              )}
+            </button>
+          </div>
         </div>
       </div>
       <ConnectionsList />

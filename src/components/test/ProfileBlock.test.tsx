@@ -39,7 +39,7 @@ describe("Profile Block", () => {
 
   it("editable on edit button click", async () => {
     const component = mount(componentWithStore(ProfileBlock, store));
-    component.find(".ProfileBlock__editButton").first().simulate("click");
+    component.find(".Profile__editButton").first().simulate("click");
     await waitFor(() => {
       expect(component.find(".ProfileBlock__name").props().disabled).toEqual(
         false
@@ -50,22 +50,22 @@ describe("Profile Block", () => {
   describe("save button click", () => {
     it("save button disabled when not edited", async () => {
       const component = mount(componentWithStore(ProfileBlock, store));
-      component.find(".ProfileBlock__editButton").first().simulate("click");
+      component.find(".Profile__editButton").first().simulate("click");
       await waitFor(() => {
         expect(
-          component.find(".ProfileBlock__editButton").first().props().disabled
+          component.find(".Profile__editButton").first().props().disabled
         ).toEqual(true);
       });
     });
     it("save button enabled when edited", async () => {
       const component = mount(componentWithStore(ProfileBlock, store));
-      component.find(".ProfileBlock__editButton").first().simulate("click");
+      component.find(".Profile__editButton").first().simulate("click");
       component
         .find(".ProfileBlock__name")
         .simulate("change", { target: { value: "Monday NewLastName" } });
       await waitFor(() => {
         expect(
-          component.find(".ProfileBlock__editButton").first().props().disabled
+          component.find(".Profile__editButton").first().props().disabled
         ).toEqual(false);
       });
     });
@@ -73,7 +73,7 @@ describe("Profile Block", () => {
 
   it("cancels on cancel button click", async () => {
     const component = mount(componentWithStore(ProfileBlock, store));
-    component.find(".ProfileBlock__editButton").first().simulate("click");
+    component.find(".Profile__editButton").first().simulate("click");
     component
       .find(".ProfileBlock__name")
       .simulate("change", { target: { value: "Monday TestLastName" } });
@@ -82,7 +82,7 @@ describe("Profile Block", () => {
         "Monday TestLastName"
       );
     });
-    component.find(".ProfileBlock__editButton").last().simulate("click");
+    component.find(".Profile__editButton").last().simulate("click");
     expect(component.find(".ProfileBlock__name").props().value).toEqual(
       "Monday January"
     );
