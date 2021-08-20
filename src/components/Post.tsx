@@ -31,7 +31,7 @@ const Post = ({ feedItem }: PostProps): JSX.Element => {
         avatar={
           <UserAvatar
             icon={profile.icon?.[0]?.href}
-            profileAddress={feedItem.fromAddress}
+            profileAddress={feedItem.fromId}
             avatarSize={"medium"}
           />
         }

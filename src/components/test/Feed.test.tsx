@@ -11,7 +11,11 @@ const feed = getPrefabFeed();
 const graphs = getPreFabSocialGraph();
 const initialState = {
   user: { id: userId },
-  feed: { feed },
+  feed: {
+    feed: feed,
+    isPostLoading: { loading: false, myIdentifier: undefined },
+    isReplyLoading: { loading: false, parent: undefined },
+  },
   graphs: graphs,
 };
 const store = createMockStore(initialState);
@@ -31,7 +35,11 @@ describe("Feed", () => {
   it("does not display new post button when not logged in", () => {
     const initialState = {
       user: {},
-      feed: { feed },
+      feed: {
+        feed: feed,
+        isPostLoading: { loading: false, myIdentifier: undefined },
+        isReplyLoading: { loading: false, parent: undefined },
+      },
       graphs: { graphs },
     };
     const store = createMockStore(initialState);

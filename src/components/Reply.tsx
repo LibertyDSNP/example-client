@@ -23,7 +23,7 @@ const Reply = ({ reply }: ReplyProps): JSX.Element => {
     <div className="Reply__block">
       <UserAvatar
         icon={fromProfile?.icon?.[0]?.href}
-        profileAddress={reply.fromAddress}
+        profileAddress={reply.fromId}
         avatarSize="small"
       />
       <div className="Reply__message">

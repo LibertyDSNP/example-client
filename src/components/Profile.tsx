@@ -26,6 +26,7 @@ const Profile = (): JSX.Element => {
   const [didEditProfile, setDidEditProfile] = useState<boolean>(false);
 
   const profileName = profile?.name || "Anonymous";
+
   useEffect(() => {
     if (
       (newName && newName !== profileName) ||
