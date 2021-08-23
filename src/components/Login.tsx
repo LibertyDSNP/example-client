@@ -7,6 +7,7 @@ import * as sdk from "../services/sdk";
 import * as wallet from "../services/wallets/wallet";
 import * as session from "../services/session";
 import LoginButton from "./LoginButton";
+import Register from "./Register";
 
 interface LoginProps {
   loginWalletOptions: wallet.WalletType;
@@ -16,24 +17,48 @@ const Login = ({ loginWalletOptions }: LoginProps): JSX.Element => {
   const [loading, startLoading] = React.useState<boolean>(false);
   const [alertError, setAlertError] = React.useState<string>("");
   const [popoverVisible, setPopoverVisible] = React.useState<boolean>(false);
+  const [registrationVisible, setRegistrationVisible] = React.useState<boolean>(
+    false
+  );
+
+  const [walletAddress, setWalletAddress] = React.useState<string>("");
+  const [walletType, setWalletType] = React.useState<wallet.WalletType>(
+    loginWalletOptions || wallet.WalletType.NONE
+  );
 
   const dispatch = useAppDispatch();
   const userId = useAppSelector((state) => state.user.id);
-  const walletType = useAppSelector((state) => state.user.walletType);
+
+  const setLoginAndSession = (fromId: string) => {
+    setRegistrationVisible(false);
+    dispatch(userLogin({ id: fromId, walletType }));
+    session.saveSession({ id: fromId, walletType });
+  };
+
+  const resetLoginAndSession = (e: Error) => {
+    setRegistrationVisible(false);
+    setAlertError(e.message);
+    setWalletAddress("");
+    setWalletType(wallet.WalletType.NONE);
+    session.saveSession({ id: undefined, walletType });
+  };
 
   const login = async (walletType: wallet.WalletType) => {
     if (loading) return;
     startLoading(true);
+    setWalletType(walletType);
     try {
-      const walletAddress = await wallet.wallet(walletType).login();
+      const waddr = await wallet.wallet(walletType).login();
       sdk.setupProvider(walletType);
-      const fromId = await sdk.getSocialIdentity(walletAddress);
+      const fromId = await sdk.getSocialIdentity(waddr);
       if (fromId) {
-        dispatch(userLogin({ id: fromId, walletType }));
-        session.saveSession({ id: fromId, walletType });
+        setLoginAndSession(fromId);
+      } else {
+        setWalletAddress(waddr);
+        setRegistrationVisible(true);
       }
     } catch (error) {
-      console.log("Error in login:", error);
+      resetLoginAndSession(error);
     } finally {
       setPopoverVisible(false);
       startLoading(false);
@@ -46,7 +71,6 @@ const Login = ({ loginWalletOptions }: LoginProps): JSX.Element => {
       wallet.wallet(walletType).logout();
     dispatch(userLogout());
   };
-
   return (
     <div className="Login__block">
       {alertError && (
@@ -60,13 +84,22 @@ const Login = ({ loginWalletOptions }: LoginProps): JSX.Element => {
         />
       )}
       {!userId ? (
-        <LoginButton
-          popoverVisible={popoverVisible}
-          setPopoverVisible={setPopoverVisible}
-          loginWalletOptions={loginWalletOptions}
-          loading={loading}
-          onButtonClick={login}
-        />
+        <div>
+          <LoginButton
+            popoverVisible={popoverVisible}
+            setPopoverVisible={setPopoverVisible}
+            loginWalletOptions={loginWalletOptions}
+            loading={loading}
+            loginWithWalletType={login}
+          />
+          {registrationVisible && (
+            <Register
+              walletAddress={walletAddress}
+              onSuccess={setLoginAndSession}
+              onFailure={resetLoginAndSession}
+            />
+          )}
+        </div>
       ) : (
         <>
           <Badge

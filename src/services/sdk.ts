@@ -119,7 +119,7 @@ export const startSubscriptions = async (
   // subscribe to all announcements
   let blockNumber: number;
   let blockIndex = 0;
-  const unsubscribeToBatchPublications = core.contracts.subscription.subscribeToBatchPublications(
+  const unsubscribeToBatchPublications = await core.contracts.subscription.subscribeToBatchPublications(
     (announcement: BatchPublicationLogData) => {
       if (announcement.blockNumber !== blockNumber) {
         blockNumber = announcement.blockNumber;
@@ -222,7 +222,6 @@ const dispatchFeedItem = (
   blockNumber: number
 ) => {
   const decoder = new TextDecoder();
-
   dispatch(
     addFeedItem({
       fromId: decoder.decode((message.fromId as any) as Uint8Array),
@@ -365,7 +364,6 @@ const storeActivityContent = async (
   content: ActivityContentNote | ActivityContentProfile
 ): Promise<string> => {
   const hash = keccak256(core.activityContent.serialize(content));
-
   await fetch(
     `${process.env.REACT_APP_UPLOAD_HOST}/upload?filename=${encodeURIComponent(
       hash + ".json"

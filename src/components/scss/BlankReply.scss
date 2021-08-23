@@ -1,0 +1,23 @@
+.BlankReply__block {
+  display: flex;
+  justify-content: center;
+  padding-bottom: 14px;
+  max-height: 400px;
+}
+
+.BlankReply__messageBlock {
+  align-self: center;
+  background-color: $light-gray;
+  padding: 4px;
+  border-radius: 8px;
+  margin-left: 8px;
+  width: 90%;
+}
+
+.BlankReply__name {
+  @include mock-text(60px);
+}
+
+.BlankReply__message {
+  @include mock-text(200px);
+}
