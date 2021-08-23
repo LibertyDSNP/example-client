@@ -12,13 +12,13 @@ interface isReplyLoadingType {
 }
 
 interface feedState {
-  feed: FeedItem[];
+  feedItems: FeedItem[];
   isPostLoading: isPostLoadingType;
   isReplyLoading: isReplyLoadingType;
 }
 
 const initialState: feedState = {
-  feed: [],
+  feedItems: [],
   isPostLoading: { loading: false, currentUserId: undefined },
   isReplyLoading: { loading: false, parent: undefined },
 };
@@ -34,27 +34,16 @@ export const feedSlice = createSlice({
         // arrives while waiting for the current user's to appear.
         return {
           ...state,
-          feed: [...state.feed, newFeedItem],
+          feedItems: [...state.feedItems, newFeedItem],
           isPostLoading: { loading: false, currentUserId: undefined },
           isReplyLoading: { loading: false, parent: undefined },
         };
       }
-      return {
-        ...state,
-        feed: [...state.feed, newFeedItem],
-      };
-    },
-    addFeedItems: (state, action: PayloadAction<FeedItem[]>) => {
-      const newFeedItems = action.payload;
-      return {
-        ...state,
-        feed: [...state.feed, ...newFeedItems],
-      };
     },
     clearFeedItems: (state) => {
       return {
         ...state,
-        feed: [],
+        feedItems: [],
       };
     },
     postLoading: (state, isLoading: PayloadAction<isPostLoadingType>) => {
@@ -77,11 +66,12 @@ export const feedSlice = createSlice({
     },
   },
 });
+
 export const {
   addFeedItem,
-  addFeedItems,
   clearFeedItems,
   postLoading,
   replyLoading,
 } = feedSlice.actions;
+
 export default feedSlice.reducer;

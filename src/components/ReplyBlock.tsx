@@ -16,7 +16,7 @@ interface ReplyBlockProps {
 
 const ReplyBlock = ({ parent }: ReplyBlockProps): JSX.Element => {
   const replyFeed: FeedItem[] = useAppSelector(
-    (state) => state.feed.feed
+    (state) => state.feed.feedItems
   ).filter((reply) => {
     return reply?.content?.type === "Note" && reply?.inReplyTo === parent;
   }) as FeedItem[];
