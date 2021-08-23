@@ -64,7 +64,9 @@ const RegistrationModal = ({
       onIdResolved(userURI);
     } catch (error) {
       console.error(error);
-      setRegistrationError(`Error registering: ${error}`);
+      setRegistrationError(
+        `Error registering: ${error.message || error.toString()}`
+      );
     }
   };
 

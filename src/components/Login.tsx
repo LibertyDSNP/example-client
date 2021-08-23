@@ -51,7 +51,7 @@ const Login = ({ loginWalletOptions }: LoginProps): JSX.Element => {
     setWalletType(walletType);
     try {
       const waddr = await wallet.wallet(walletType).login();
-      console.log("Setup provider");
+      setWalletAddress(waddr);
       sdk.setupProvider(walletType);
       const registrations = await sdk.getSocialIdentities(waddr);
 
