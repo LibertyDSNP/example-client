@@ -7,7 +7,7 @@ interface LoginButtonProps {
   setPopoverVisible: any;
   loginWalletOptions: wallet.WalletType;
   loading: boolean;
-  onButtonClick: (wallet: wallet.WalletType) => void;
+  loginWithWalletType: (wallet: wallet.WalletType) => void;
 }
 
 const LoginButton = ({
@@ -15,7 +15,7 @@ const LoginButton = ({
   setPopoverVisible,
   loginWalletOptions,
   loading,
-  onButtonClick,
+  loginWithWalletType,
 }: LoginButtonProps): JSX.Element => {
   const handleVisibleChange = (visible: boolean) => {
     setPopoverVisible(visible);
@@ -31,13 +31,13 @@ const LoginButton = ({
         <div className="LoginButton__loginOptions">
           <Button
             className="LoginButton__loginTorus"
-            onClick={() => onButtonClick(wallet.WalletType.TORUS)}
+            onClick={() => loginWithWalletType(wallet.WalletType.TORUS)}
           >
             Torus
           </Button>
           <Button
             className="LoginButton__loginMetamask"
-            onClick={() => onButtonClick(wallet.WalletType.METAMASK)}
+            onClick={() => loginWithWalletType(wallet.WalletType.METAMASK)}
           >
             MetaMask
           </Button>
@@ -55,7 +55,7 @@ const LoginButton = ({
     <Button
       className="LoginButton__loginButton LoginButton__loginButton--quickStart"
       aria-label="Login"
-      onClick={() => onButtonClick(loginWalletOptions)}
+      onClick={() => loginWithWalletType(loginWalletOptions)}
     >
       Log In With {loginWalletOptions}
       {loading && <Spin className="LoginButton__spinner" size="small" />}

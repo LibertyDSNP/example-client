@@ -11,6 +11,7 @@ import * as metamask from "../../services/wallets/metamask/metamask";
 import * as sdk from "../../services/sdk";
 
 let torusWallet: wallet.Wallet;
+let metamaskWallet: wallet.Wallet;
 beforeAll(async () => {
   torusWallet = await wallet.wallet(wallet.WalletType.TORUS);
   jest.spyOn(torus, "logout").mockImplementation(jest.fn);
@@ -18,6 +19,14 @@ beforeAll(async () => {
   jest
     .spyOn(torusWallet, "login")
     .mockImplementation(() => Promise.resolve("0x123"));
+
+  metamaskWallet = await wallet.wallet(wallet.WalletType.METAMASK);
+
+  jest
+    .spyOn(metamaskWallet, "login")
+    .mockImplementation(() => Promise.resolve("0x456"));
+  jest.spyOn(metamaskWallet, "logout").mockImplementation(jest.fn);
+
   jest.spyOn(metamask, "isInstalled").mockReturnValue(true);
   jest
     .spyOn(metamask, "getWalletAddress")
@@ -65,13 +74,13 @@ describe("Login Component", () => {
       component.find(".LoginButton__loginButton").first().simulate("click");
       component.find(".LoginButton__loginMetamask").first().simulate("click");
       await forcePromiseResolve();
-      expect(metamask.getWalletAddress).toHaveBeenCalled();
+      expect(metamaskWallet.login).toHaveBeenCalled();
     });
   });
 
   describe("is logged in", () => {
     const id = "0x03f2";
-    const walletType = wallet.WalletType.TORUS;
+    const walletType = wallet.WalletType.METAMASK;
     const initialState = { user: { id, walletType } };
     const store = createMockStore(initialState);
 
@@ -85,14 +94,29 @@ describe("Login Component", () => {
       }).not.toThrow();
     });
 
-    it("button triggers logout sequence", () => {
-      const component = mount(
-        componentWithStore(Login, store, {
-          loginWalletOptions: wallet.WalletType.NONE,
-        })
-      );
-      component.find("Button").simulate("click");
-      expect(torus.logout).toHaveBeenCalled();
+    describe("when wallet type is passed to Login", () => {
+      describe("and it is set to Torus", () => {
+        const component = mount(
+          componentWithStore(Login, store, {
+            loginWalletOptions: wallet.WalletType.TORUS,
+          })
+        );
+        it("renders logout and clicking on it calls torus logout", () => {
+          component.find("Button").simulate("click");
+          expect(torus.logout).toHaveBeenCalled();
+        });
+      });
+      describe("and it is set to Metamask", () => {
+        const component = mount(
+          componentWithStore(Login, store, {
+            loginWalletOptions: wallet.WalletType.METAMASK,
+          })
+        );
+        it("renders logout and clicking on it calls metamask logout", () => {
+          component.find("Button").simulate("click");
+          expect(metamaskWallet.logout).toHaveBeenCalled();
+        });
+      });
     });
   });
 });

@@ -1,0 +1,40 @@
+@mixin mock-text($width) {
+  height: 8px;
+  width: $width;
+  margin-bottom: 10px;
+  -webkit-animation: background-color-change 3s infinite;
+  -moz-animation: background-color-change 3s infinite;
+  -o-animation: background-color-change 3s infinite;
+  -ms-animation: background-color-change 3s infinite;
+  animation: background-color-change 3s infinite;
+}
+
+@-webkit-keyframes background-color-change {
+  0% { background-color: $text-gray; }
+  50% { background-color: $gray; }
+  100% { background-color: $text-gray; }
+}
+
+@-moz-keyframes background-color-change {
+  0% { background-color: $text-gray; }
+  50% { background-color: $gray; }
+  100% { background-color: $text-gray; }
+}
+
+@-ms-keyframes background-color-change {
+  0% { background-color: $text-gray; }
+  50% { background-color: $gray; }
+  100% { background-color: $text-gray; }
+}
+
+@-o-keyframes background-color-change {
+  0% { background-color: $text-gray; }
+  50% { background-color: $gray; }
+  100% { background-color: $text-gray; }
+}
+
+@keyframes background-color-change {
+  0% { background-color: $text-gray; }
+  50% { background-color: $gray; }
+  100% { background-color: $text-gray; }
+}
