@@ -15,6 +15,14 @@ interface PostListProps {
   feedType: FeedTypes;
 }
 
+const sortFeed = (feed: FeedItem[]): FeedItem[] => {
+  feed.sort(
+    (firstFeedItem: FeedItem, secondFeedItem: FeedItem) =>
+      secondFeedItem.blockNumber - firstFeedItem.blockNumber
+  );
+  return feed;
+};
+
 const PostList = ({ feedType }: PostListProps): JSX.Element => {
   const userId: DSNPUserId | undefined = useAppSelector(
     (state) => state.user.id
@@ -22,12 +30,17 @@ const PostList = ({ feedType }: PostListProps): JSX.Element => {
   const myGraph: Record<DSNPUserId, boolean> = useAppSelector(
     (state) => (userId ? state.graphs.following[userId] : undefined) || {}
   );
-  const feed: FeedItem[] = useAppSelector((state) => state.feed.feed).filter(
+
+  const initialFeed: FeedItem[] = useAppSelector(
+    (state) => state.feed.feedItems
+  ).filter(
     (post) => post?.content?.type === "Note" && post?.inReplyTo === undefined
   );
   const loading: boolean = useAppSelector(
     (state) => state.feed.isPostLoading.loading
   );
+
+  const feed: FeedItem[] = sortFeed(initialFeed);
 
   let currentFeed: FeedItem[] = [];
 
@@ -46,12 +59,9 @@ const PostList = ({ feedType }: PostListProps): JSX.Element => {
       {loading && <BlankPost />}
       {currentFeed.length > 0 ? (
         <>
-          {currentFeed
-            .slice(0)
-            .reverse()
-            .map((post, index) => (
-              <Post key={index} feedItem={post} />
-            ))}
+          {currentFeed.map((post, index) => (
+            <Post key={index} feedItem={post} />
+          ))}
         </>
       ) : (
         "Empty Feed!"

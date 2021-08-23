@@ -7,12 +7,12 @@ import { getPreFabSocialGraph } from "../../test/testGraphs";
 import { getPrefabProfile } from "../../test/testProfiles";
 
 const userId = getPrefabProfile(0).fromId;
-const feed = getPrefabFeed();
+const feedItems = getPrefabFeed();
 const graphs = getPreFabSocialGraph();
 const initialState = {
   user: { id: userId },
   feed: {
-    feed: feed,
+    feedItems: feedItems,
     isPostLoading: { loading: false, myIdentifier: undefined },
     isReplyLoading: { loading: false, parent: undefined },
   },
@@ -36,7 +36,7 @@ describe("Feed", () => {
     const initialState = {
       user: {},
       feed: {
-        feed: feed,
+        feedItems,
         isPostLoading: { loading: false, myIdentifier: undefined },
         isReplyLoading: { loading: false, parent: undefined },
       },
