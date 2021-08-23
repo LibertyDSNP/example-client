@@ -56,7 +56,7 @@ describe("Feed", () => {
   describe("Displays Correct Feed", () => {
     it("Connections Feed", () => {
       const component = mount(componentWithStore(Feed, store));
-      expect(component.find(Post).length).toEqual(3);
+      expect(component.find(Post).length).toEqual(4);
 
       const expectedFeedAddresses = [userId].concat(
         Object.keys(graphs.following)
@@ -84,11 +84,11 @@ describe("Feed", () => {
       const component = mount(componentWithStore(Feed, store));
       const button = component.findWhere((node) => {
         return (
-          node.hasClass("Feed__navigationItem") && node.text() === "All Posts"
+          node.hasClass("Feed__navigationItem") && node.text() === "My Feed"
         );
       });
       button.simulate("click");
-      expect(component.find(Post).length).toEqual(4);
+      expect(component.find(Post).length).toEqual(3);
     });
   });
 });
