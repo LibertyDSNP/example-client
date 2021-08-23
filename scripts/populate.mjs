@@ -97,7 +97,7 @@ const accounts = [
     ],
     text: "Сухие завтраки - это разновидность салата. Конец истории.",
     follows: [5, 15, 17],
-    tag: ["cereal","salad","cухие","салата"]
+    tag: [{name: "cereal"}, {name: "salad"}, {name: "cухие"}, {name: "салата"}]
   },
   {
     address: "0x15d34aaf54267db7d7c367839aaf71a00a2c6a65",
@@ -225,7 +225,6 @@ const accounts = [
       {name: "spongebob"},
       {name: "tv"},
       {name: "cartoons"},
-      {name: ""}
     ]
   },
   {
@@ -513,6 +512,7 @@ for await (let account of accounts.values()) {
     { attachment: account.attachment }
   );
   content.published = new Date().toISOString();
+  if (account.tag) content.tag = account.tag
 
   const {
     hash: profileHash,
