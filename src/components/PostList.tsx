@@ -67,7 +67,7 @@ const PostList = ({ feedType }: PostListProps): JSX.Element => {
 
     return tagList
       .filter((tag) => tag?.name !== "")
-      .map((tag) => (tag?.name || "").replace("#", ""));
+      .map((tag) => `#${tag?.name || ""}`);
   };
 
   let currentFeed: FeedItem[] = [];

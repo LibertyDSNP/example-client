@@ -1,8 +1,26 @@
 .Login__block {
   display: flex;
+  width: fit-content;
 }
 
-.Login__walletIcon {
-  height: 32px;
-  padding-right: 8px;
+.Login__handle {
+  font-size: 20px;
+  font-weight: bold;
+  color: $dark-gray;
+  line-height: 1.1;
+}
+
+.Login__profileName {
+  font-size: 16px;
+  color: $dark-gray;
+  line-height: 1.1;
+}
+
+.Login__profileInfo {
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: flex-start;
+  padding-left: 15px;
 }

@@ -35,7 +35,7 @@ const getRelativeTime = (postTime: string) => {
   if (secondsPast > 86400) {
     return `${getMonthName(
       timeOfPost.getMonth()
-    )} ${timeOfPost.getDate()}, ${timeOfPost.getFullYear()} •`;
+    )} ${timeOfPost.getDate()}, ${timeOfPost.getFullYear()}`;
   }
 };
 
