@@ -8,7 +8,7 @@ import * as sdk from "./services/sdk";
 import * as hooks from "./redux/hooks";
 
 jest.mock("../src/components/Header", () => () => <div> Header </div>);
-jest.mock("../src/components/Feed", () => () => <div> Feed </div>);
+jest.mock("../src/components/PostList", () => () => <div> Feed </div>);
 jest.mock("../src/components/Profile", () => () => <div> Profile </div>);
 
 describe("App", () => {

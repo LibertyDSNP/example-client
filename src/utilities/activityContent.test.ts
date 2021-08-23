@@ -49,12 +49,6 @@ describe("activityContent", () => {
         attachmentType: "video/webm",
         mediaType: "Video",
       },
-      {
-        name: "Windows Media Video",
-        uri: "https://filesamples.com/samples/video/wmv/sample_640x360.wmv",
-        attachmentType: "video/x-ms-wmv",
-        mediaType: "Video",
-      },
     ].forEach((tc: any) => {
       it(`${tc.name} is correctly typed`, () => {
         const res = noteToActivityContentNote("test", [tc.uri]);
