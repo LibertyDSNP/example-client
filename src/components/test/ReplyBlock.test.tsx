@@ -6,8 +6,8 @@ import { getPrefabFeed } from "../../test/testFeeds";
 import { waitFor } from "@testing-library/react";
 import * as sdk from "../../services/sdk";
 
-const feed = getPrefabFeed();
-const initialState = { user: { id: "0x0345" }, feed: { feed } };
+const feedItems = getPrefabFeed();
+const initialState = { user: { id: "0x0345" }, feed: { feedItems } };
 const store = createMockStore(initialState);
 
 const writeReply = async (component: any) => {
