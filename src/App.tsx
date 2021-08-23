@@ -12,9 +12,9 @@ import { setupProvider, startSubscriptions } from "./services/sdk";
 import PostList from "./components/PostList";
 
 enum FeedTypes {
-  FEED,
+  MY_FEED,
   MY_POSTS,
-  ALL_POSTS,
+  DISCOVER,
 }
 
 const App = (): JSX.Element => {
@@ -50,7 +50,7 @@ const App = (): JSX.Element => {
     };
   });
 
-  const [feedType, setFeedType] = useState<FeedTypes>(FeedTypes.ALL_POSTS);
+  const [feedType, setFeedType] = useState<FeedTypes>(FeedTypes.DISCOVER);
 
   return (
     <Router>
