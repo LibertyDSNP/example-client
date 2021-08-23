@@ -1,5 +1,5 @@
 import React from "react";
-import { Alert, Badge, Button } from "antd";
+import { Badge, Button } from "antd";
 import { WalletOutlined } from "@ant-design/icons";
 import { useAppDispatch, useAppSelector } from "../redux/hooks";
 import { userLogin, userLogout } from "../redux/slices/userSlice";
@@ -7,7 +7,6 @@ import * as sdk from "../services/sdk";
 import * as wallet from "../services/wallets/wallet";
 import * as session from "../services/session";
 import LoginButton from "./LoginButton";
-import Register from "./Register";
 import { Registration } from "@dsnp/sdk/core/contracts/registry";
 import RegistrationModal from "./RegistrationModal";
 import { core } from "@dsnp/sdk";
@@ -18,7 +17,6 @@ interface LoginProps {
 
 const Login = ({ loginWalletOptions }: LoginProps): JSX.Element => {
   const [loading, startLoading] = React.useState<boolean>(false);
-  const [alertError, setAlertError] = React.useState<string>("");
   const [popoverVisible, setPopoverVisible] = React.useState<boolean>(false);
   const [registrationVisible, setRegistrationVisible] = React.useState<boolean>(
     false
@@ -33,15 +31,15 @@ const Login = ({ loginWalletOptions }: LoginProps): JSX.Element => {
   const dispatch = useAppDispatch();
   const userId = useAppSelector((state) => state.user.id);
 
-  const setLoginAndSession = (fromId: string) => {
+  const setLoginAndSession = (fromURI: string) => {
+    const fromId = core.identifiers.convertDSNPUserURIToDSNPUserId(fromURI);
     setRegistrationVisible(false);
     dispatch(userLogin({ id: fromId, walletType }));
     session.saveSession({ id: fromId, walletType });
   };
 
-  const resetLoginAndSession = (e: Error) => {
+  const resetLoginAndSession = () => {
     setRegistrationVisible(false);
-    setAlertError(e.message);
     setWalletAddress("");
     setWalletType(wallet.WalletType.NONE);
     session.saveSession({ id: undefined, walletType });
@@ -53,31 +51,23 @@ const Login = ({ loginWalletOptions }: LoginProps): JSX.Element => {
     setWalletType(walletType);
     try {
       const waddr = await wallet.wallet(walletType).login();
+      console.log("Setup provider");
       sdk.setupProvider(walletType);
-      const registrations = await sdk.getSocialIdentities(walletAddress);
+      const registrations = await sdk.getSocialIdentities(waddr);
 
       if (registrations.length === 1) {
-        completeRegistration(registrations[0]);
+        setLoginAndSession(registrations[0].dsnpUserURI);
       } else {
         dispatch(userLogin({ walletType: walletType }));
         setRegistrations(registrations);
         setRegistrationVisible(true);
       }
     } catch (error) {
-      resetLoginAndSession(error);
+      resetLoginAndSession();
     } finally {
       setPopoverVisible(false);
       startLoading(false);
     }
-  };
-
-  const completeRegistration = (registration: Registration) => {
-    const fromId = core.identifiers.convertDSNPUserURIToDSNPUserId(
-      registration.dsnpUserURI
-    );
-    dispatch(userLogin({ id: fromId, walletType }));
-    session.saveSession({ id: fromId, walletType });
-    setRegistrationVisible(false);
   };
 
   const logout = () => {
@@ -86,53 +76,46 @@ const Login = ({ loginWalletOptions }: LoginProps): JSX.Element => {
       wallet.wallet(walletType).logout();
     dispatch(userLogout());
   };
+
   return (
     <div className="Login__block">
-      {alertError && (
-        <Alert
-          className="Login__alert"
-          type="error"
-          message={alertError}
-          banner
-          closable={true}
-          onClose={() => setAlertError("")}
-        />
-      )}
-      <RegistrationModal
-        visible={registrationVisible}
-        registrations={registrations}
-        onIdResolved={completeRegistration}
-        walletAddress={walletAddress}
-      >
-        <LoginButton
-          popoverVisible={popoverVisible}
-          setPopoverVisible={setPopoverVisible}
-          loginWalletOptions={loginWalletOptions}
-          loading={loading}
-          loginWithWalletType={login}
-        />
-      </RegistrationModal>
-      ) : (
-      <>
-        <Badge
-          count={<WalletOutlined style={{ color: "#52C41A" }} />}
-          offset={[-48, 8]}
+      {!userId ? (
+        <RegistrationModal
+          visible={registrationVisible}
+          registrations={registrations}
+          onIdResolved={setLoginAndSession}
+          walletAddress={walletAddress}
         >
-          <img
-            className="Login__walletIcon"
-            src={wallet.wallet(walletType).icon}
-            alt="Wallet Symbol"
+          <LoginButton
+            popoverVisible={popoverVisible}
+            setPopoverVisible={setPopoverVisible}
+            loginWalletOptions={loginWalletOptions}
+            loading={loading}
+            loginWithWalletType={login}
           />
-        </Badge>
+        </RegistrationModal>
+      ) : (
+        <>
+          <Badge
+            count={<WalletOutlined style={{ color: "#52C41A" }} />}
+            offset={[-48, 8]}
+          >
+            <img
+              className="Login__walletIcon"
+              src={wallet.wallet(walletType).icon}
+              alt="Wallet Symbol"
+            />
+          </Badge>
 
-        <Button
-          className="Login__logOutButton"
-          aria-label="Logout"
-          onClick={logout}
-        >
-          Log Out
-        </Button>
-      </>
+          <Button
+            className="Login__logOutButton"
+            aria-label="Logout"
+            onClick={logout}
+          >
+            Log Out
+          </Button>
+        </>
+      )}
     </div>
   );
 };
