@@ -31,7 +31,9 @@ const PostList = ({ feedType }: PostListProps): JSX.Element => {
     (state) => (userId ? state.graphs.following[userId] : undefined) || {}
   );
 
-  const initialFeed: FeedItem[] = useAppSelector((state) => state.feed.feedItems).filter(
+  const initialFeed: FeedItem[] = useAppSelector(
+    (state) => state.feed.feedItems
+  ).filter(
     (post) => post?.content?.type === "Note" && post?.inReplyTo === undefined
   );
   const loading: boolean = useAppSelector(

@@ -4,8 +4,6 @@ import { componentWithStore, createMockStore } from "../../test/testhelpers";
 import { generateFeedItem, getPrefabFeed } from "../../test/testFeeds";
 import { ActivityContentNote } from "@dsnp/sdk/dist/types/core/activityContent";
 import { FeedItem } from "../../utilities/types";
-import Login from "../Login";
-import * as wallet from "../../services/wallets/wallet";
 import { getPrefabDsnpUserId } from "../../test/testAddresses";
 import { getPrefabProfile } from "../../test/testProfiles";
 import { getPreFabSocialGraph } from "../../test/testGraphs";
@@ -68,7 +66,7 @@ describe("PostList", () => {
       const graphs = getPreFabSocialGraph();
       const userId = getPrefabProfile(0).fromId;
       store = createMockStore({
-        feed: { feedItems: feed, isPostLoading: { loading: false} },
+        feed: { feedItems: feed, isPostLoading: { loading: false } },
         user: { id: userId },
         graphs: graphs,
       });
