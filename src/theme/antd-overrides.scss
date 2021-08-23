@@ -21,6 +21,16 @@
   margin-right: 8px;
 }
 
+.ant-btn.Login__avatarButton {
+  height: 50px;
+  width: 50px;
+  padding: 0;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .ant-btn.ConnectionsListProfiles__button {
   height: 27px;
   width: 100px;
