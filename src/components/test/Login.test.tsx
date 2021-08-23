@@ -84,15 +84,5 @@ describe("Login Component", () => {
         );
       }).not.toThrow();
     });
-
-    it("button triggers logout sequence", () => {
-      const component = mount(
-        componentWithStore(Login, store, {
-          loginWalletOptions: wallet.WalletType.NONE,
-        })
-      );
-      component.find("Button").simulate("click");
-      expect(torus.logout).toHaveBeenCalled();
-    });
   });
 });

@@ -13,15 +13,15 @@ const initialState = { user: { profile }, feed: { feed }, graphs: { graphs } };
 const store = createMockStore(initialState);
 
 enum FeedTypes {
-  FEED,
+  DISCOVER,
   MY_POSTS,
-  ALL_POSTS,
+  MY_FEED,
 }
 
 describe("FeedNavigation", () => {
   const component = mount(
     componentWithStore(FeedNavigation, store, {
-      feedType: FeedTypes.ALL_POSTS,
+      feedType: FeedTypes.MY_FEED,
       setFeedType: jest.fn(),
     })
   );
@@ -35,13 +35,6 @@ describe("FeedNavigation", () => {
   describe("Displays Correct FeedNavigation", () => {
     it("Connections FeedNavigation", () => {
       expect(component.find(Post).length).toEqual(0);
-
-      const expectedFeedAddresses = [profile.fromId].concat(
-        graphs.find((g) => g.dsnpUserId === profile.fromId)?.following || []
-      );
-      component.find(".ant-card-meta-title").forEach((address) => {
-        expect(expectedFeedAddresses).toContain(address.text());
-      });
     });
 
     it("My FeedNavigation", () => {
@@ -60,7 +53,7 @@ describe("FeedNavigation", () => {
     it("All Posts", () => {
       const button = component.findWhere((node) => {
         return (
-          node.hasClass("Feed__navigationItem") && node.text() === "All Posts"
+          node.hasClass("Feed__navigationItem") && node.text() === "Discover"
         );
       });
       button.simulate("click");
