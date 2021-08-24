@@ -19,13 +19,7 @@ const PostHashDropdown = ({
       <Menu.Item
         className="PostHashDropdown__menuItem"
         key="valid"
-        onClick={() => {
-          navigator.clipboard.writeText(hash);
-          setIsCopied(true);
-          setTimeout(() => {
-            setIsCopied(false);
-          }, 3000);
-        }}
+        onClick={() => setIsCopied(true)}
       >
         {isCopied ? (
           <div>
