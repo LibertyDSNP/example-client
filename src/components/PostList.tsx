@@ -24,6 +24,14 @@ interface PostListProps {
   feedType: FeedTypes;
 }
 
+const sortFeed = (feed: FeedItem[]): FeedItem[] => {
+  feed.sort(
+    (firstFeedItem: FeedItem, secondFeedItem: FeedItem) =>
+      secondFeedItem.blockNumber - firstFeedItem.blockNumber
+  );
+  return feed;
+};
+
 const PostList = ({ feedType }: PostListProps): JSX.Element => {
   const userId: DSNPUserId | undefined = useAppSelector(
     (state) => state.user.id
@@ -31,9 +39,15 @@ const PostList = ({ feedType }: PostListProps): JSX.Element => {
   const myGraph: Record<DSNPUserId, boolean> = useAppSelector(
     (state) => (userId ? state.graphs.following[userId] : undefined) || {}
   );
-  const feed: FeedItem[] = useAppSelector((state) => state.feed.feed).filter(
-    (post) => post?.content?.type === "Note" && post?.inReplyTo === undefined
+
+  const initialFeed: FeedItem[] = useAppSelector(
+    (state) => state.feed.feed
+  ).filter(
+    (post: FeedItem) =>
+      post?.content?.type === "Note" && post?.inReplyTo === undefined
   );
+
+  const feed: FeedItem[] = sortFeed(initialFeed);
 
   const isAHashTag = (
     tag: ActivityContentTag | ActivityContentMention | undefined
@@ -65,11 +79,11 @@ const PostList = ({ feedType }: PostListProps): JSX.Element => {
       ? [feedItem.content.tag]
       : feedItem.content.tag;
 
-    tagList
+    const formattedTagList = tagList
       .filter((tag) => tag?.name !== "")
       .map((tag) => (tag?.name || "").replace("#", ""));
 
-    return tagList.map((tag) => "#" + tag?.name);
+    return formattedTagList.map((tag) => "#" + tag);
   };
 
   let currentFeed: FeedItem[] = [];
@@ -84,22 +98,17 @@ const PostList = ({ feedType }: PostListProps): JSX.Element => {
     currentFeed = feed.filter((post) => hasAppDefaultTag(post.content.tag));
   }
 
-  currentFeed.sort(function (a, b) {
-    return a.timestamp - b.timestamp;
+  currentFeed = sortFeed(currentFeed);
+
+  const items = currentFeed.map((post, index) => {
+    if (!post.fromId) throw new Error(`no fromId in post: ${{ post }}`);
+
+    const namedPost: FeedItem = {
+      ...post,
+      tags: getTagListFromPost(post),
+    };
+    return <Post key={index} feedItem={namedPost} />;
   });
-
-  const items = currentFeed
-    .slice(0)
-    .reverse()
-    .map((post, index) => {
-      if (!post.fromId) throw new Error(`no fromId in post: ${{ post }}`);
-
-      const namedPost: FeedItem = {
-        ...post,
-        tags: getTagListFromPost(post),
-      };
-      return <Post key={index} feedItem={namedPost} />;
-    });
 
   return (
     <Masonry
