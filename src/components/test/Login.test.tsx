@@ -33,8 +33,12 @@ beforeAll(async () => {
     .mockImplementation(() => Promise.resolve("0x123"));
   jest.spyOn(sdk, "setupProvider").mockImplementation(jest.fn);
   jest
-    .spyOn(sdk, "getSocialIdentity")
-    .mockImplementation(() => Promise.resolve("0x034b"));
+    .spyOn(sdk, "getSocialIdentities")
+    .mockImplementation(() =>
+      Promise.resolve([
+        { dsnpUserURI: "dsnp://0x034b", contractAddr: "0xabc", handle: "test" },
+      ])
+    );
 });
 
 describe("Login Component", () => {

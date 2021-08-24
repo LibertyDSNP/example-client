@@ -1,0 +1,66 @@
+.RegistrationModal {
+  width: 300px;
+  margin: 0;
+
+  .RegistrationModal__registrations {
+    max-height: 50vh;
+    overflow: scroll;
+  }
+
+  .RegistrationModal__footer {
+    text-align: center;
+  }
+
+  .ant-btn.RegistrationModal__footerBtn {
+    @include button($shadow-green, $green);
+    margin: 1em auto;
+  }
+
+  .ant-btn.RegistrationModal__footerBtn[disabled] {
+    @include button($light-gray, $light-gray);
+    span {
+      color: $gray;
+    }
+  }
+
+  .RegistrationModal__registration {
+    border: none;
+    width: 100%;
+    text-align: left;
+    background: none;
+    margin-top: 1em;
+    cursor: pointer;
+    position: relative;
+
+    .UserAvatar {
+      margin-right: 0.5em;
+    }
+
+    &::after {
+      content: url("img/check_unselected.svg");
+      position: absolute;
+      right: 0;
+      transform: scale(0.8, 0.8);
+    }
+    &.RegistrationModal__registration--selected {
+      &::after {
+        content: url("img/check_selected.svg");
+      }
+    }
+  }
+
+  .RegisrationModal__changeMode {
+    display: block;
+    width: 100%;
+    padding: .5rem 0;
+    border: none;
+    background: none;
+    text-decoration: underline;
+    font-size: 1.1em;
+    cursor: pointer;
+  }
+
+  .ant-alert {
+    margin-bottom: 1em;
+  }
+}

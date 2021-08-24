@@ -45,10 +45,7 @@ const accounts = [
       ),
     ],
     follows: [4, 13, 14, 18],
-    tag: [
-      {name: "cereal"},
-      {name: "salad"},
-    ]
+    tag: [{ name: "cereal" }, { name: "salad" }],
   },
   {
     address: "0x70997970c51812dc3a010c7d01b50e0d17dc79c8",
@@ -63,10 +60,10 @@ const accounts = [
     text: "Hot take: Hotdogs aren't a sandwich, they're a taco",
     follows: [7, 15, 17, 19],
     tag: [
-      {name: "#taco"},
-      {name: "#hotdogs"},
-      {name: "this is another hashtag"}
-    ]
+      { name: "#taco" },
+      { name: "#hotdogs" },
+      { name: "this is another hashtag" },
+    ],
   },
   {
     address: "0x3c44cdddb6a900fa2b585dd299e03d12fa4293bc",
@@ -83,7 +80,7 @@ const accounts = [
       "see the light at the end of the tunnel, but if you just " +
       "keep moving, you will come to a better place.",
     follows: [9, 13, 14, 15, 19],
-    tag: {name: "a single tag"},
+    tag: { name: "a single tag" },
   },
   {
     address: "0x90f79bf6eb2c4f870365e785982e1f101e93b906",
@@ -97,7 +94,12 @@ const accounts = [
     ],
     text: "Сухие завтраки - это разновидность салата. Конец истории.",
     follows: [5, 15, 17],
-    tag: [{name: "cereal"}, {name: "salad"}, {name: "cухие"}, {name: "салата"}]
+    tag: [
+      { name: "cereal" },
+      { name: "salad" },
+      { name: "cухие" },
+      { name: "салата" },
+    ],
   },
   {
     address: "0x15d34aaf54267db7d7c367839aaf71a00a2c6a65",
@@ -109,7 +111,13 @@ const accounts = [
     text: "This Vimeo -- WAT. Amirite?",
     name: "Louis Bollen",
     follows: [11, 13, 16],
-    tag: [{name: "chicken"},{name: "animals"},{name: "funny"},{name: "icanhascheezburger"},{name: "LOL"}]
+    tag: [
+      { name: "chicken" },
+      { name: "animals" },
+      { name: "funny" },
+      { name: "icanhascheezburger" },
+      { name: "LOL" },
+    ],
   },
   {
     address: "0x9965507d1a55bcc2695c58ba16fb37d819b0a4dc",
@@ -119,7 +127,7 @@ const accounts = [
     text:
       "My favorite sea shanty is 'Friggin in the Riggin'. I don't like attachments. That's why I don't have any.",
     follows: [11, 14, 15, 16, 17],
-    tag: {name: "another single tag"},
+    tag: { name: "another single tag" },
   },
   {
     address: "0x976ea74026e726554db657fa54763abd0c3a0aa9",
@@ -221,11 +229,7 @@ const accounts = [
     ],
     text: "My favorite cartoon is Spongebob",
     follows: [13, 15, 16],
-    tag: [
-      {name: "spongebob"},
-      {name: "tv"},
-      {name: "cartoons"},
-    ]
+    tag: [{ name: "spongebob" }, { name: "tv" }, { name: "cartoons" }],
   },
   {
     address: "0xfabb0ac9d68b0b445fb7357272ff202c5651694a",
@@ -240,7 +244,13 @@ const accounts = [
     text:
       "The pizza shop down the street is giving out free donuts. Kinda sketchy",
     follows: [10, 16, 18],
-    tag: [{name: "pizza"},{name: "cucina"},{name: "Italian"},{name: "sketch"},{name: "restaurant"}]
+    tag: [
+      { name: "pizza" },
+      { name: "cucina" },
+      { name: "Italian" },
+      { name: "sketch" },
+      { name: "restaurant" },
+    ],
   },
   {
     address: "0x1cbd3b2770909d4e10f157cabc84c7264073c9ec",
@@ -305,7 +315,7 @@ const accounts = [
     ],
     text: "My second favorite cartoon is Invader Zim",
     follows: [8, 12, 13, 14, 15],
-    tag: {name: "cartoon"}
+    tag: { name: "cartoon" },
   },
   {
     address: "0xdd2fd4581271e230360230f9337d5c0430bf44c0",
@@ -335,7 +345,14 @@ const accounts = [
     text:
       "Darn it, Jim, I'm a family doctor, not a swearing doctor! For pity's sake Jim, this is prime time!",
     follows: [2, 11, 14, 16, 17],
-    tag: [{type: "Mention", name: "Howard Fergusson"}]
+    tag: [{ type: "Mention", name: "Howard Fergusson" }],
+  },
+  {
+    address: "0x8626f6940e2eb28930efb4cef49b2d1f2c9c1199",
+    handle: "anno993200481",
+    pk: "0xdf57089febbacf7ba0bc227dafbffa9fc08a93fdc68e1e42411a14efcf23656e",
+    name: "My Secret Identity",
+    follows: [2, 14],
   },
 ];
 
@@ -512,24 +529,39 @@ for await (let account of accounts.values()) {
     { attachment: account.attachment }
   );
   content.published = new Date().toISOString();
-  if (account.tag) content.tag = account.tag
+  if (account.tag) content.tag = account.tag;
 
   const {
     hash: profileHash,
     announcement: profileAnnouncement,
   } = await storeAnnouncement(profile, account.id, wallet);
 
-  const {
-    hash: contentHash,
-    announcement: noteAnnouncement,
-  } = await storeAnnouncement(content, account.id, wallet);
+  let hashText = profileHash;
+  const announcements = [profileAnnouncement];
 
-  const hash = web3.keccak256(profileHash + contentHash);
+  if (account.text) {
+    // create a note
+    const content = core.activityContent.createNote(
+      `${account.text} \n--from ${account.id}`,
+      { attachment: account.attachment }
+    );
+    content.published = new Date().toISOString();
 
-  const batchData = await core.batch.createFile(hash + ".parquet", [
-    profileAnnouncement,
-    noteAnnouncement,
-  ]);
+    const {
+      hash: contentHash,
+      announcement: noteAnnouncement,
+    } = await storeAnnouncement(content, account.id, wallet);
+
+    hashText += contentHash;
+    announcements.push(noteAnnouncement);
+  }
+
+  const hash = web3.keccak256(hashText);
+
+  const batchData = await core.batch.createFile(
+    hash + ".parquet",
+    announcements
+  );
 
   const publication = {
     announcementType: core.announcements.AnnouncementType.Broadcast,
