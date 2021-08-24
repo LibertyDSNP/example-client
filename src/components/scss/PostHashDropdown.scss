@@ -1,0 +1,33 @@
+.PostHashDropdown__block {
+  position: absolute;
+  top: 24px;
+  right: 24px;
+}
+
+.PostHashDropdown__replyBlock {
+  position: absolute;
+  top: 4px;
+  right: 18px;
+}
+
+.PostHashDropdown__menu {
+  max-width: 220px !important;
+}
+
+.PostHashDropdown__menuItem {
+  max-width: 220px !important;
+}
+
+.PostHashDropdown__menuHash {
+  @include small-text;
+  max-width: 200px !important;
+  hyphens: auto;
+  overflow-wrap: break-word !important;
+  white-space: pre-wrap;
+}
+
+.PostHashDropdown__button {
+  border-radius: 50%;
+  border: 2px solid $shadow-green;
+  cursor: pointer;
+}
