@@ -27,7 +27,7 @@ const newPostLoadingState = (
   state: isPostLoadingType,
   item: FeedItem
 ): isPostLoadingType => {
-  if (!state.loading || state.currentUserId === item.fromId)
+  if (state.loading && state.currentUserId === item.fromId)
     return { loading: false, currentUserId: undefined };
   return state;
 };
@@ -36,8 +36,9 @@ const newReplyLoadingState = (
   state: isReplyLoadingType,
   item: FeedItem
 ): isReplyLoadingType => {
-  if (!state.loading || state.parent === item.parent)
+  if (state.loading && state.parent === item.inReplyTo) {
     return { loading: false, parent: undefined };
+  }
   return state;
 };
 
