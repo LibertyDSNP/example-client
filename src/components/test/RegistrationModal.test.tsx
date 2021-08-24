@@ -6,7 +6,6 @@ import { waitFor } from "@testing-library/react";
 import { Registration } from "@dsnp/sdk/core/contracts/registry";
 import { DSNPUserURI } from "@dsnp/sdk/dist/types/core/identifiers";
 import * as sdk from "../../services/sdk";
-import { FormInstance } from "antd";
 
 const profiles = Array(3)
   .fill(0)
@@ -43,6 +42,7 @@ describe("RegistrationModal", () => {
           },
         })
       );
+      jest.spyOn(global.console, "warn").mockImplementation(jest.fn());
       jest
         .spyOn(sdk, "createNewDSNPRegistration")
         .mockImplementation((_addr, handle) => {
@@ -59,7 +59,22 @@ describe("RegistrationModal", () => {
       expect(component.exists(".RegistrationModal__handleInput")).toBe(true);
     });
 
-    it("Registers new DSNP Id", async () => {
+    it("prevents registration with empty handle", async () => {
+      component
+        .find(".RegistrationModal__createHandle")
+        .first()
+        .simulate("submit");
+
+      await waitFor(() => {
+        expect(
+          component.find(".RegistrationModal__handleInput").first().text()
+        ).toContain("Handle cannot be blank");
+        // this indicates form has not been sumitted
+        expect(registrationSelection).toBe(undefined);
+      });
+    });
+
+    it("registers new DSNP Id", async () => {
       component.find("Input").simulate("change", {
         target: { value: "Joanne" },
       });
