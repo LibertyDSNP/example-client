@@ -1,6 +1,5 @@
 import React from "react";
-import { Alert, Badge, Button } from "antd";
-import { WalletOutlined } from "@ant-design/icons";
+import { Alert, Dropdown, Button } from "antd";
 import { useAppDispatch, useAppSelector } from "../redux/hooks";
 import { userLogin, userLogout } from "../redux/slices/userSlice";
 import * as sdk from "../services/sdk";
@@ -8,6 +7,9 @@ import * as wallet from "../services/wallets/wallet";
 import * as session from "../services/session";
 import LoginButton from "./LoginButton";
 import Register from "./Register";
+import { DSNPUserId } from "@dsnp/sdk/dist/types/core/identifiers";
+import * as types from "../utilities/types";
+import UserAvatar from "./UserAvatar";
 
 interface LoginProps {
   loginWalletOptions: wallet.WalletType;
@@ -65,12 +67,22 @@ const Login = ({ loginWalletOptions }: LoginProps): JSX.Element => {
     }
   };
 
+  const profiles: Record<DSNPUserId, types.Profile> = useAppSelector(
+    (state) => state.profiles?.profiles || {}
+  );
+
+  const handle = userId && profiles[userId]?.handle;
+  const profileName = (userId && profiles[userId]?.name) || userId;
+  const avatar =
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/Hans_Ulrich_Obrist_2017.jpg/440px-Hans_Ulrich_Obrist_2017.jpg";
+
   const logout = () => {
     session.clearSession();
     if (walletType !== wallet.WalletType.NONE)
       wallet.wallet(walletType).logout();
     dispatch(userLogout());
   };
+
   return (
     <div className="Login__block">
       {alertError && (
@@ -102,24 +114,32 @@ const Login = ({ loginWalletOptions }: LoginProps): JSX.Element => {
         </div>
       ) : (
         <>
-          <Badge
-            count={<WalletOutlined style={{ color: "#52C41A" }} />}
-            offset={[-48, 8]}
+          <Dropdown
+            overlay={
+              <>
+                <Button
+                  className="Login__logOutButton"
+                  aria-label="Logout"
+                  onClick={logout}
+                >
+                  Log Out
+                </Button>
+              </>
+            }
+            placement="bottomRight"
           >
-            <img
-              className="Login__walletIcon"
-              src={wallet.wallet(walletType).icon}
-              alt="Wallet Symbol"
-            />
-          </Badge>
-
-          <Button
-            className="Login__logOutButton"
-            aria-label="Logout"
-            onClick={logout}
-          >
-            Log Out
-          </Button>
+            <Button className="Login__avatarButton">
+              <UserAvatar
+                avatarSize="medium"
+                profileAddress={userId}
+                avatarUrl={avatar}
+              />
+            </Button>
+          </Dropdown>
+          <div className="Login__profileInfo">
+            <div className="Login__handle">@{handle}</div>
+            <div className="Login__profileName">{profileName}</div>
+          </div>
         </>
       )}
     </div>

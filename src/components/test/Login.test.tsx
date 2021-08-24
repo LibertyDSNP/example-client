@@ -93,30 +93,5 @@ describe("Login Component", () => {
         );
       }).not.toThrow();
     });
-
-    describe("when wallet type is passed to Login", () => {
-      describe("and it is set to Torus", () => {
-        const component = mount(
-          componentWithStore(Login, store, {
-            loginWalletOptions: wallet.WalletType.TORUS,
-          })
-        );
-        it("renders logout and clicking on it calls torus logout", () => {
-          component.find("Button").simulate("click");
-          expect(torus.logout).toHaveBeenCalled();
-        });
-      });
-      describe("and it is set to Metamask", () => {
-        const component = mount(
-          componentWithStore(Login, store, {
-            loginWalletOptions: wallet.WalletType.METAMASK,
-          })
-        );
-        it("renders logout and clicking on it calls metamask logout", () => {
-          component.find("Button").simulate("click");
-          expect(metamaskWallet.logout).toHaveBeenCalled();
-        });
-      });
-    });
   });
 });
