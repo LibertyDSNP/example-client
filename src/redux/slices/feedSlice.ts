@@ -23,22 +23,36 @@ const initialState: feedState = {
   isReplyLoading: { loading: false, parent: undefined },
 };
 
+const newPostLoadingState = (
+  state: isPostLoadingType,
+  item: FeedItem
+): isPostLoadingType => {
+  if (!state.loading || state.currentUserId === item.fromId)
+    return { loading: false, currentUserId: undefined };
+  return state;
+};
+
+const newReplyLoadingState = (
+  state: isReplyLoadingType,
+  item: FeedItem
+): isReplyLoadingType => {
+  if (!state.loading || state.parent === item.parent)
+    return { loading: false, parent: undefined };
+  return state;
+};
+
 export const feedSlice = createSlice({
   name: "feed",
   initialState,
   reducers: {
     addFeedItem: (state, action: PayloadAction<FeedItem>) => {
       const newFeedItem = action.payload;
-      if (state.isPostLoading.currentUserId === newFeedItem.fromId) {
-        // to keep loading from being turned off when some else's post
-        // arrives while waiting for the current user's to appear.
-        return {
-          ...state,
-          feedItems: [...state.feedItems, newFeedItem],
-          isPostLoading: { loading: false, currentUserId: undefined },
-          isReplyLoading: { loading: false, parent: undefined },
-        };
-      }
+      return {
+        ...state,
+        feedItems: [...state.feedItems, newFeedItem],
+        isPostLoading: newPostLoadingState(state.isPostLoading, newFeedItem),
+        isReplyLoading: newReplyLoadingState(state.isReplyLoading, newFeedItem),
+      };
     },
     clearFeedItems: (state) => {
       return {
