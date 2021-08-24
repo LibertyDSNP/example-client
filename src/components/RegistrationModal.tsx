@@ -2,7 +2,8 @@ import React from "react";
 import { Alert, Button, Form, Input, Popover } from "antd";
 import { useAppSelector } from "../redux/hooks";
 import UserAvatar from "./UserAvatar";
-import { core, createRegistration } from "@dsnp/sdk";
+import { core } from "@dsnp/sdk";
+import * as sdk from "../services/sdk";
 import * as registry from "@dsnp/sdk/core/contracts/registry";
 import { HexString, Profile } from "../utilities/types";
 import { Registration } from "@dsnp/sdk/core/contracts/registry";
@@ -50,18 +51,20 @@ const RegistrationModal = ({
     setIsCreatingRegistration(false);
   }
 
+  // convert registration to uri before calling callback
   const commitRegistration = () => {
     if (!selectedRegistration) return;
     onIdResolved(selectedRegistration.dsnpUserURI);
   };
 
+  // create new DSNP registration
   const register = async (formValues: { handle: string }) => {
     try {
-      const userURI = await createRegistration(
+      const userURI = await sdk.createNewDSNPRegistration(
         walletAddress,
         formValues.handle
       );
-      onIdResolved(userURI);
+      onIdResolved(core.identifiers.convertDSNPUserURIToDSNPUserId(userURI));
     } catch (error) {
       console.error(error);
       setRegistrationError(
@@ -70,10 +73,7 @@ const RegistrationModal = ({
     }
   };
 
-  const onFinishFailed = (errorInfo: any) => {
-    console.error(errorInfo);
-  };
-
+  // Find the profile photo a given DSNP registration
   const iconForRegistration = (
     registration: registry.Registration
   ): string | undefined =>
@@ -81,19 +81,23 @@ const RegistrationModal = ({
       core.identifiers.convertDSNPUserURIToDSNPUserId(registration.dsnpUserURI)
     ]?.icon?.[0].href;
 
+  /**
+   * New Registration Form
+   */
   const registerNewHandleForm = (
     <Form
       name="createHandle"
+      className="RegistrationModal__createHandle"
       initialValues={{
         remember: true,
       }}
       onFinish={register}
-      onFinishFailed={onFinishFailed}
     >
       {registrationError && <Alert message={registrationError} type="error" />}
       <p>Please create a handle:</p>
       <Form.Item
         name="handle"
+        className="RegistrationModal__handleInput"
         rules={[
           {
             required: true,
@@ -126,6 +130,9 @@ const RegistrationModal = ({
     </Form>
   );
 
+  /**
+   * Select Existing Handle UI
+   */
   const selectHandleContent = (
     <div>
       <p>You have multiple handles associated with your account.</p>
@@ -170,6 +177,9 @@ const RegistrationModal = ({
     </div>
   );
 
+  /**
+   * Create a popover with either registration or handle selection UI.
+   */
   return (
     <Popover
       placement="bottomRight"

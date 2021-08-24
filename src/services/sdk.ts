@@ -1,6 +1,6 @@
 import { FeedItem, HexString, Profile, Reply } from "../utilities/types";
 import * as fakesdk from "./fakesdk";
-import { setConfig, core } from "@dsnp/sdk";
+import { setConfig, createRegistration, core } from "@dsnp/sdk";
 import { Publication } from "@dsnp/sdk/core/contracts/publisher";
 import { RegistryUpdateLogData } from "@dsnp/sdk/core/contracts/registry";
 import { providers } from "ethers";
@@ -42,6 +42,8 @@ type Dispatch = ThunkDispatch<any, Record<string, any>, AnyAction>;
 
 export const getSocialIdentities =
   core.contracts.registry.getRegistrationsByWalletAddress;
+
+export const createNewDSNPRegistration = createRegistration;
 
 export const getProfile = async (fromId: HexString): Promise<Profile> => {
   const profile = await fakesdk.getProfileFromSocialIdentity(fromId);

@@ -4,6 +4,9 @@ import { componentWithStore, createMockStore } from "../../test/testhelpers";
 import { getPrefabProfile } from "../../test/testProfiles";
 import { waitFor } from "@testing-library/react";
 import { Registration } from "@dsnp/sdk/core/contracts/registry";
+import { DSNPUserURI } from "@dsnp/sdk/dist/types/core/identifiers";
+import * as sdk from "../../services/sdk";
+import { FormInstance } from "antd";
 
 const profiles = Array(3)
   .fill(0)
@@ -25,22 +28,56 @@ const registrations: Registration[] = profiles.map((p, i) => ({
 }));
 
 describe("RegistrationModal", () => {
-  it("renders without crashing", async () => {
-    await waitFor(() => {
-      expect(() => {
-        mount(
-          componentWithStore(RegistrationModal, store, {
-            visible: true,
-            registrations: registrations,
-          })
-        );
-      }).not.toThrow();
+  describe("when account has no registrations", () => {
+    let component: ReactWrapper;
+    let registrationSelection: DSNPUserURI | undefined;
+    let handleInput: string;
+
+    beforeEach(() => {
+      component = mount(
+        componentWithStore(RegistrationModal, store, {
+          visible: true,
+          registrations: [],
+          onIdResolved: (r: DSNPUserURI) => {
+            registrationSelection = r;
+          },
+        })
+      );
+      jest
+        .spyOn(sdk, "createNewDSNPRegistration")
+        .mockImplementation((_addr, handle) => {
+          handleInput = handle;
+          return Promise.resolve("dsnp://0x424242");
+        });
+    });
+
+    afterEach(() => {
+      component.unmount();
+    });
+
+    it("shows new registration UI", async () => {
+      expect(component.exists(".RegistrationModal__handleInput")).toBe(true);
+    });
+
+    it("Registers new DSNP Id", async () => {
+      component.find("Input").simulate("change", {
+        target: { value: "Joanne" },
+      });
+      component
+        .find(".RegistrationModal__createHandle")
+        .first()
+        .simulate("submit");
+
+      await waitFor(() => {
+        expect(handleInput).toBe("Joanne");
+        expect(registrationSelection).toBe("0x424242");
+      });
     });
   });
 
-  describe("when visible", () => {
+  describe("when account has registrations", () => {
     let component: ReactWrapper;
-    let registrationSelection: Registration | undefined;
+    let registrationSelection: DSNPUserURI | undefined;
 
     beforeEach(() => {
       registrationSelection = undefined;
@@ -48,11 +85,15 @@ describe("RegistrationModal", () => {
         componentWithStore(RegistrationModal, store, {
           visible: true,
           registrations: registrations,
-          onIdResolved: (r: Registration) => {
+          onIdResolved: (r: DSNPUserURI) => {
             registrationSelection = r;
           },
         })
       );
+    });
+
+    afterEach(() => {
+      component.unmount();
     });
 
     it("displays all registrations", async () => {
@@ -112,8 +153,48 @@ describe("RegistrationModal", () => {
         component.find("Button.RegistrationModal__footerBtn").simulate("click");
 
         await waitFor(() => {
-          expect(registrationSelection).toBe(registrations[1]);
+          expect(registrationSelection).toBe(registrations[1].dsnpUserURI);
         });
+      });
+    });
+
+    describe("when create new handle is clicked", () => {
+      beforeEach(() => {
+        component.find({ children: "Create New Handle" }).simulate("click");
+      });
+
+      it("displays create handle form", async () => {
+        await waitFor(() => {
+          expect(
+            component.find(".RegistrationModal__createHandle").first().text()
+          ).toContain("Please create a handle:");
+        });
+      });
+
+      it("permits a new registration", () => {
+        const registerSpy = jest
+          .spyOn(sdk, "createNewDSNPRegistration")
+          .mockImplementation(() => Promise.resolve("dsnp://0x424242"));
+
+        component.find("Input").simulate("change", {
+          target: { value: "Joanne" },
+        });
+        component
+          .find(".RegistrationModal__createHandle")
+          .first()
+          .simulate("submit");
+
+        expect(registerSpy.mock.calls.length).toBe(1);
+      });
+
+      it("select existing handle switches back to handle selection", () => {
+        component
+          .find({ children: "Select Existing Handle" })
+          .simulate("click");
+
+        expect(component.find("RegistrationModal").first().text()).toContain(
+          "Select an account:"
+        );
       });
     });
   });
