@@ -15,18 +15,27 @@ const PostHashDropdown = ({
   const [isCopied, setIsCopied] = useState<boolean>(false);
   const [isVisible, setIsVisible] = useState<boolean>(false);
   const menu = (
-    <Menu onClick={() => setIsVisible(true)} className="PostHashDropdown__menu">
+    <Menu onClick={() => setIsVisible(true)}>
       <Menu.Item
-        className="PostHashDropdown__menuItem"
         key="valid"
-        onClick={() => setIsCopied(true)}
+        onClick={() => {
+          setIsCopied(true);
+          setTimeout(function () {
+            setIsCopied(false);
+          }, 2000);
+        }}
       >
         {isCopied ? (
           <div>
             <CheckCircleOutlined /> Copied!
           </div>
         ) : (
-          <div className="PostHashDropdown__menuHash">Hash: {hash}</div>
+          <div
+            className="PostHashDropdown__menuHash"
+            onClick={() => navigator.clipboard.writeText(hash)}
+          >
+            Hash: {hash}
+          </div>
         )}
       </Menu.Item>
     </Menu>
