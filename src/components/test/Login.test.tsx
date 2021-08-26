@@ -9,6 +9,7 @@ import {
 } from "../../test/testhelpers";
 import * as metamask from "../../services/wallets/metamask/metamask";
 import * as sdk from "../../services/sdk";
+import * as session from "../../services/session";
 
 let torusWallet: wallet.Wallet;
 let metamaskWallet: wallet.Wallet;
@@ -99,18 +100,22 @@ describe("Login Component", () => {
     });
 
     describe("when wallet type is passed to Login", () => {
+      const sessionSpy = jest.spyOn(session, "clearSession");
       describe("and it is set to Torus", () => {
+        initialState.user.walletType = wallet.WalletType.TORUS;
         const component = mount(
           componentWithStore(Login, store, {
             loginWalletOptions: wallet.WalletType.TORUS,
           })
         );
         it("renders logout and clicking on it calls torus logout", () => {
-          component.find("Button").simulate("click");
+          component.find("Button").first().simulate("click");
+          expect(sessionSpy).toHaveBeenCalled();
           expect(torus.logout).toHaveBeenCalled();
         });
       });
       describe("and it is set to Metamask", () => {
+        initialState.user.walletType = wallet.WalletType.METAMASK;
         const component = mount(
           componentWithStore(Login, store, {
             loginWalletOptions: wallet.WalletType.METAMASK,
@@ -118,6 +123,7 @@ describe("Login Component", () => {
         );
         it("renders logout and clicking on it calls metamask logout", () => {
           component.find("Button").simulate("click");
+          expect(sessionSpy).toHaveBeenCalled();
           expect(metamaskWallet.logout).toHaveBeenCalled();
         });
       });
