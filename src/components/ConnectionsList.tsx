@@ -15,7 +15,7 @@ const ConnectionsList = (): JSX.Element => {
     (state) => state.user.id
   );
 
-  const feed: FeedItem[] = useAppSelector((state) => state.feed.feed);
+  const feed: FeedItem[] = useAppSelector((state) => state.feed.feedItems);
   const myPostsCount = feed.filter(
     (feedItem) => feedItem.fromAddress === userId && feedItem.inReplyTo === null
   ).length;

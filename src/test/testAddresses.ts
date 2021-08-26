@@ -21,7 +21,7 @@ export const generateDsnpUserId = (): HexString => {
  */
 export const getPrefabWalletAddress = (index: number): HexString => {
   const regex = /0/gi;
-  const address = "0x" + "CODE0000".replace(regex, index.toString());
+  const address = "0x" + "CADE0000".replace(regex, index.toString());
   return address;
 };
 
@@ -31,6 +31,6 @@ export const getPrefabWalletAddress = (index: number): HexString => {
  */
 export const getPrefabDsnpUserId = (index: number): HexString => {
   const regex = /0/gi;
-  const address = "0x" + "1DCODE0000".replace(regex, index.toString());
+  const address = "0x" + "1DCADE0000".replace(regex, index.toString());
   return address;
 };

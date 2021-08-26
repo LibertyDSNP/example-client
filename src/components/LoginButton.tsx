@@ -1,6 +1,9 @@
 import { Button, Popover, Spin } from "antd";
 import * as wallet from "../services/wallets/wallet";
 import React from "react";
+import { userUpdateWalletType } from "../redux/slices/userSlice";
+import { useAppDispatch } from "../redux/hooks";
+import { upsertSessionWalletType } from "../services/session";
 
 interface LoginButtonProps {
   popoverVisible: boolean;
@@ -21,6 +24,14 @@ const LoginButton = ({
     setPopoverVisible(visible);
   };
 
+  const dispatch = useAppDispatch();
+
+  const setWalletType = (wtype: wallet.WalletType) => {
+    dispatch(userUpdateWalletType(wtype));
+    upsertSessionWalletType(wtype);
+    loginWithWalletType(wtype);
+  };
+
   const HeaderLoginButton = (
     <Popover
       placement="bottomRight"
@@ -31,13 +42,13 @@ const LoginButton = ({
         <div className="LoginButton__loginOptions">
           <Button
             className="LoginButton__loginTorus"
-            onClick={() => loginWithWalletType(wallet.WalletType.TORUS)}
+            onClick={() => setWalletType(wallet.WalletType.TORUS)}
           >
             Torus
           </Button>
           <Button
             className="LoginButton__loginMetamask"
-            onClick={() => loginWithWalletType(wallet.WalletType.METAMASK)}
+            onClick={() => setWalletType(wallet.WalletType.METAMASK)}
           >
             MetaMask
           </Button>

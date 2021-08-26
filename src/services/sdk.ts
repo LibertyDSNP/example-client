@@ -1,9 +1,9 @@
 import { FeedItem, HexString, Profile, Reply } from "../utilities/types";
 import * as fakesdk from "./fakesdk";
-import { setConfig, core } from "@dsnp/sdk";
+import { setConfig, createRegistration, core } from "@dsnp/sdk";
 import { Publication } from "@dsnp/sdk/core/contracts/publisher";
 import { RegistryUpdateLogData } from "@dsnp/sdk/core/contracts/registry";
-import { providers, utils as ethUtils } from "ethers";
+import { providers } from "ethers";
 import { keccak256 } from "web3-utils";
 import { addFeedItem, clearFeedItems } from "../redux/slices/feedSlice";
 import { upsertProfile } from "../redux/slices/profileSlice";
@@ -40,20 +40,10 @@ interface BatchFileData {
 
 type Dispatch = ThunkDispatch<any, Record<string, any>, AnyAction>;
 
-export const getSocialIdentity = async (
-  walletAddress: HexString
-): Promise<HexString | undefined> => {
-  const registrations = await core.contracts.registry.getRegistrationsByWalletAddress(
-    ethUtils.getAddress(walletAddress)
-  );
+export const getSocialIdentities =
+  core.contracts.registry.getRegistrationsByWalletAddress;
 
-  const userId = registrations.length
-    ? core.identifiers.convertDSNPUserURIToDSNPUserId(
-        registrations[0].dsnpUserURI
-      )
-    : undefined;
-  return userId;
-};
+export const createNewDSNPRegistration = createRegistration;
 
 export const getProfile = async (fromId: HexString): Promise<Profile> => {
   const profile = await fakesdk.getProfileFromSocialIdentity(fromId);

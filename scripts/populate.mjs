@@ -284,7 +284,7 @@ const accounts = [
         "https://upload.wikimedia.org/wikipedia/commons/2/20/Baby_2.jpg"
       ),
     ],
-    text: "My favorite cartoon is Spongebob",
+    text: "My second favorite cartoon is Invader Zim",
     follows: [8, 12, 13, 14, 15],
   },
   {
@@ -491,23 +491,39 @@ for await (let account of accounts.values()) {
     { attachment: account.attachment }
   );
   content.published = new Date().toISOString();
+  if (account.tag) content.tag = account.tag;
 
   const {
     hash: profileHash,
     announcement: profileAnnouncement,
   } = await storeAnnouncement(profile, account.id, wallet);
 
-  const {
-    hash: contentHash,
-    announcement: noteAnnouncement,
-  } = await storeAnnouncement(content, account.id, wallet);
+  let hashText = profileHash;
+  const announcements = [profileAnnouncement];
 
-  const hash = web3.keccak256(profileHash + contentHash);
+  if (account.text) {
+    // create a note
+    const content = core.activityContent.createNote(
+      `${account.text} \n--from ${account.id}`,
+      { attachment: account.attachment }
+    );
+    content.published = new Date().toISOString();
 
-  const batchData = await core.batch.createFile(hash + ".parquet", [
-    profileAnnouncement,
-    noteAnnouncement,
-  ]);
+    const {
+      hash: contentHash,
+      announcement: noteAnnouncement,
+    } = await storeAnnouncement(content, account.id, wallet);
+
+    hashText += contentHash;
+    announcements.push(noteAnnouncement);
+  }
+
+  const hash = web3.keccak256(hashText);
+
+  const batchData = await core.batch.createFile(
+    hash + ".parquet",
+    announcements
+  );
 
   const publication = {
     announcementType: core.announcements.AnnouncementType.Broadcast,

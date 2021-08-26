@@ -41,7 +41,7 @@ const PostList = ({ feedType }: PostListProps): JSX.Element => {
   );
 
   const initialFeed: FeedItem[] = useAppSelector(
-    (state) => state.feed.feed
+    (state) => state.feed.feedItems
   ).filter(
     (post: FeedItem) =>
       post?.content?.type === "Note" && post?.inReplyTo === undefined

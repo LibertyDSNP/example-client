@@ -26,7 +26,19 @@ export const userSlice = createSlice({
       ...state,
       id: action.payload,
     }),
+    userUpdateWalletType: (
+      state,
+      action: PayloadAction<wallet.WalletType>
+    ) => ({
+      ...state,
+      walletType: action.payload,
+    }),
   },
 });
-export const { userLogin, userLogout, userUpdateId } = userSlice.actions;
+export const {
+  userLogin,
+  userLogout,
+  userUpdateId,
+  userUpdateWalletType,
+} = userSlice.actions;
 export default userSlice.reducer;
