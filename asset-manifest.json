@@ -1,28 +1,30 @@
 {
   "files": {
-    "main.css": "/example-client/static/css/main.3c0b3368.chunk.css",
-    "main.js": "/example-client/static/js/main.6413630f.chunk.js",
-    "main.js.map": "/example-client/static/js/main.6413630f.chunk.js.map",
+    "main.css": "/example-client/static/css/main.a8a043b1.chunk.css",
+    "main.js": "/example-client/static/js/main.c751b498.chunk.js",
+    "main.js.map": "/example-client/static/js/main.c751b498.chunk.js.map",
     "runtime-main.js": "/example-client/static/js/runtime-main.86f1febe.js",
     "runtime-main.js.map": "/example-client/static/js/runtime-main.86f1febe.js.map",
-    "static/css/2.00598249.chunk.css": "/example-client/static/css/2.00598249.chunk.css",
-    "static/js/2.e877aaa0.chunk.js": "/example-client/static/js/2.e877aaa0.chunk.js",
-    "static/js/2.e877aaa0.chunk.js.map": "/example-client/static/js/2.e877aaa0.chunk.js.map",
+    "static/css/2.581e2bc3.chunk.css": "/example-client/static/css/2.581e2bc3.chunk.css",
+    "static/js/2.0d7c29fb.chunk.js": "/example-client/static/js/2.0d7c29fb.chunk.js",
+    "static/js/2.0d7c29fb.chunk.js.map": "/example-client/static/js/2.0d7c29fb.chunk.js.map",
     "index.html": "/example-client/index.html",
     "service-worker.js": "/example-client/service-worker.js",
     "service-worker.js.map": "/example-client/service-worker.js.map",
-    "static/css/2.00598249.chunk.css.map": "/example-client/static/css/2.00598249.chunk.css.map",
-    "static/css/main.3c0b3368.chunk.css.map": "/example-client/static/css/main.3c0b3368.chunk.css.map",
-    "static/js/2.e877aaa0.chunk.js.LICENSE.txt": "/example-client/static/js/2.e877aaa0.chunk.js.LICENSE.txt",
+    "static/css/2.581e2bc3.chunk.css.map": "/example-client/static/css/2.581e2bc3.chunk.css.map",
+    "static/css/main.a8a043b1.chunk.css.map": "/example-client/static/css/main.a8a043b1.chunk.css.map",
+    "static/js/2.0d7c29fb.chunk.js.LICENSE.txt": "/example-client/static/js/2.0d7c29fb.chunk.js.LICENSE.txt",
     "static/media/Camera.svg": "/example-client/static/media/Camera.a7abe56b.svg",
+    "static/media/check_selected.svg": "/example-client/static/media/check_selected.c4045e25.svg",
+    "static/media/check_unselected.svg": "/example-client/static/media/check_unselected.ce1d490c.svg",
     "workbox-347b9996.js": "/example-client/workbox-347b9996.js",
     "workbox-347b9996.js.map": "/example-client/workbox-347b9996.js.map"
   },
   "entrypoints": [
     "static/js/runtime-main.86f1febe.js",
-    "static/css/2.00598249.chunk.css",
-    "static/js/2.e877aaa0.chunk.js",
-    "static/css/main.3c0b3368.chunk.css",
-    "static/js/main.6413630f.chunk.js"
+    "static/css/2.581e2bc3.chunk.css",
+    "static/js/2.0d7c29fb.chunk.js",
+    "static/css/main.a8a043b1.chunk.css",
+    "static/js/main.c751b498.chunk.js"
   ]
 }
