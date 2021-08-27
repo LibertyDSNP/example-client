@@ -21,8 +21,8 @@ const Profile = (): JSX.Element => {
     : undefined;
 
   const handle = profile?.handle;
-  const [newName, setNewName] = useState<string>("");
-  const [newHandle, setNewHandle] = useState<string>("");
+  const [newName, setNewName] = useState<string | undefined>();
+  const [newHandle, setNewHandle] = useState<string | undefined>();
   const [didEditProfile, setDidEditProfile] = useState<boolean>(false);
 
   const profileName = profile?.name || "Anonymous";
@@ -57,8 +57,8 @@ const Profile = (): JSX.Element => {
 
   const cancelEditProfile = () => {
     setIsEditing(!isEditing);
-    setNewName("");
-    setNewHandle("");
+    setNewName(undefined);
+    setNewHandle(undefined);
   };
 
   return (
@@ -99,14 +99,14 @@ const Profile = (): JSX.Element => {
           <label className="ProfileBlock__personalInfoLabel">NAME</label>
           <input
             className={getClassName("name")}
-            value={newName !== "" ? newName : profileName}
+            value={newName || newName === "" ? newName : profileName}
             onChange={(e) => setNewName(e.target.value)}
             disabled={!isEditing}
           />
           <label className="ProfileBlock__personalInfoLabel">HANDLE</label>
           <input
             className="ProfileBlock__handle"
-            value={newHandle !== "" ? newHandle : handle}
+            value={newHandle || newHandle === "" ? newHandle : handle}
             onChange={(e) => setNewHandle(e.target.value)}
             disabled={true}
           />
