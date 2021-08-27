@@ -63,4 +63,10 @@
   .ant-alert {
     margin-bottom: 1em;
   }
+
+  .RegistrationModal__cancel {
+    display: flex;
+    flex-direction: row-reverse;
+    height: 10px;
+  }
 }

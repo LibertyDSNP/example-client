@@ -75,6 +75,7 @@ const Login = ({ loginWalletOptions }: LoginProps): JSX.Element => {
           visible={registrationVisible}
           registrations={registrations}
           onIdResolved={setUserID}
+          onCancel={logout}
           walletAddress={walletAddress}
         >
           <LoginButton
