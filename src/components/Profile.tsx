@@ -9,9 +9,12 @@ import { saveProfile } from "../services/sdk";
 import { core } from "@dsnp/sdk";
 
 const Profile = (): JSX.Element => {
+  const myId: DSNPUserId | undefined = useAppSelector((state) => state.user.id);
+
   const userId: DSNPUserId | undefined = useAppSelector(
-    (state) => state.user.id
+    (state) => state.user.displayedProfileId
   );
+
   const profiles: Record<types.HexString, types.Profile> = useAppSelector(
     (state) => state.profiles?.profiles || {}
   );
@@ -70,30 +73,31 @@ const Profile = (): JSX.Element => {
             profileAddress={userId}
             avatarSize="large"
           />
-          {isEditing ? (
-            <>
+          {myId === userId &&
+            (isEditing ? (
+              <>
+                <Button
+                  className="ProfileBlock__editButton"
+                  onClick={() => saveEditProfile()}
+                  disabled={!didEditProfile}
+                >
+                  save
+                </Button>
+                <Button
+                  className="ProfileBlock__editButton"
+                  onClick={() => cancelEditProfile()}
+                >
+                  cancel
+                </Button>
+              </>
+            ) : (
               <Button
                 className="ProfileBlock__editButton"
-                onClick={() => saveEditProfile()}
-                disabled={!didEditProfile}
+                onClick={() => setIsEditing(!isEditing)}
               >
-                save
+                edit
               </Button>
-              <Button
-                className="ProfileBlock__editButton"
-                onClick={() => cancelEditProfile()}
-              >
-                cancel
-              </Button>
-            </>
-          ) : (
-            <Button
-              className="ProfileBlock__editButton"
-              onClick={() => setIsEditing(!isEditing)}
-            >
-              edit
-            </Button>
-          )}
+            ))}
         </div>
         <div className="ProfileBlock__personalInfo">
           <label className="ProfileBlock__personalInfoLabel">NAME</label>

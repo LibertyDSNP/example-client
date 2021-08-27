@@ -6,11 +6,15 @@ import { DSNPUserId } from "@dsnp/sdk/dist/types/core/identifiers";
 interface UserState {
   id?: DSNPUserId;
   walletType: wallet.WalletType;
+  displayedProfileId?: DSNPUserId;
 }
 
 const initialState: UserState = {
   id: session.hasSession() ? session.loadSession()?.id : undefined,
   walletType: session.loadSession()?.walletType ?? wallet.WalletType.NONE,
+  displayedProfileId: session.hasSession()
+    ? session.loadSession()?.id
+    : undefined,
 };
 
 export const userSlice = createSlice({
@@ -33,6 +37,13 @@ export const userSlice = createSlice({
       ...state,
       walletType: action.payload,
     }),
+    setDisplayedProfileId: (state, action: PayloadAction<DSNPUserId>) => {
+      console.log(action.payload);
+      return {
+        ...state,
+        displayedProfileId: action.payload,
+      };
+    },
   },
 });
 export const {
@@ -40,5 +51,6 @@ export const {
   userLogout,
   userUpdateId,
   userUpdateWalletType,
+  setDisplayedProfileId,
 } = userSlice.actions;
 export default userSlice.reducer;
