@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Card } from "antd";
 import { FeedItem, HexString, Profile } from "../utilities/types";
 import UserAvatar from "./UserAvatar";
@@ -21,6 +21,8 @@ const Post = ({ feedItem }: PostProps): JSX.Element => {
   const noteContent = feedItem.content;
   const attachments = noteContent.attachment;
 
+  const [isHoveringProfile, setIsHoveringProfile] = useState(false);
+
   const profiles: Record<HexString, Profile> = useAppSelector(
     (state) => state.profiles?.profiles || {}
   );
@@ -31,16 +33,27 @@ const Post = ({ feedItem }: PostProps): JSX.Element => {
 
   return (
     <Card key={feedItem.hash} className="Post__block" bordered={false}>
-      <div onClick={() => dispatch(setDisplayedProfileId(feedItem.fromId))}>
+      <div
+        onClick={() => dispatch(setDisplayedProfileId(feedItem.fromId))}
+        onMouseEnter={() => setIsHoveringProfile(true)}
+        onMouseLeave={() => setIsHoveringProfile(false)}
+        className="Post__metaBlock"
+      >
         <Card.Meta
           avatar={
             <UserAvatar
               icon={profile.icon?.[0]?.href}
               profileAddress={feedItem.fromId}
               avatarSize={"medium"}
+              isHoveringProfile={isHoveringProfile}
             />
           }
-          title={<FromTitle profile={profile} />}
+          title={
+            <FromTitle
+              profile={profile}
+              isHoveringProfile={isHoveringProfile}
+            />
+          }
           description={
             noteContent.published && (
               <RelativeTime
