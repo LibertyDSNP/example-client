@@ -10,6 +10,7 @@ import LoginButton from "./LoginButton";
 import { Registration } from "@dsnp/sdk/core/contracts/registry";
 import RegistrationModal from "./RegistrationModal";
 import { core } from "@dsnp/sdk";
+import ethereum from "../services/wallets/metamask/ethereum";
 
 interface LoginProps {
   loginWalletOptions: wallet.WalletType;
@@ -67,6 +68,10 @@ const Login = ({ loginWalletOptions }: LoginProps): JSX.Element => {
     }
     dispatch(userLogout());
   };
+
+  ethereum?.on("accountsChanged", () => {
+    logout();
+  });
 
   return (
     <div className="Login__block">
