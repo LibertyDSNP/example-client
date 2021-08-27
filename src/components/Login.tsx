@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Badge, Button } from "antd";
 import { WalletOutlined } from "@ant-design/icons";
 import { useAppDispatch, useAppSelector } from "../redux/hooks";
@@ -69,9 +69,9 @@ const Login = ({ loginWalletOptions }: LoginProps): JSX.Element => {
     dispatch(userLogout());
   };
 
-  ethereum?.on("accountsChanged", () => {
-    logout();
-  });
+  useEffect(() => {
+    ethereum?.on("accountsChanged", () => logout());
+  }, []);
 
   return (
     <div className="Login__block">
