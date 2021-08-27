@@ -65,8 +65,8 @@
   }
 
   .RegistrationModal__cancel {
-    display: flex;
-    flex-direction: row-reverse;
-    height: 10px;
+    color: $shadow-green;
+    position: absolute;
+    margin-left: 232px;
   }
 }

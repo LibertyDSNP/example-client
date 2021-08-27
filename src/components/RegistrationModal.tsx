@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Alert, Button, Form, Input, Popover } from "antd";
 import { useAppSelector } from "../redux/hooks";
 import UserAvatar from "./UserAvatar";
@@ -192,9 +192,13 @@ const RegistrationModal = ({
       visible={visible}
       content={
         <div className="RegistrationModal">
-          <a className="RegistrationModal__cancel" onClick={onCancel}>
+          <Button
+            type="link"
+            className="RegistrationModal__cancel"
+            onClick={onCancel}
+          >
             Cancel
-          </a>
+          </Button>
           <h2>Welcome!</h2>
           {isCreatingRegistration ? registerNewHandleForm : selectHandleContent}
         </div>
