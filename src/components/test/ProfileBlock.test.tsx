@@ -8,12 +8,14 @@ import { waitFor } from "@testing-library/react";
 
 const id = "0x03f2";
 const displayedProfileId = id;
+const otherId = "0x1234";
 const profile = getPrefabProfile(0);
+const otherProfile = getPrefabProfile(1);
 const graphs = getPreFabSocialGraph();
 const walletType = wallet.WalletType.TORUS;
 const store = createMockStore({
   user: { id, walletType, displayedProfileId },
-  profiles: { profiles: { [id]: profile } },
+  profiles: { profiles: { [id]: profile, [otherId]: otherProfile } },
   graphs: graphs,
 });
 
@@ -31,7 +33,7 @@ describe("Profile Block", () => {
       user: { undefined },
       profiles: { profiles: {} },
       graphs: { graphs: graphs },
-      displayedProfileId: { undefined },
+      displayedProfileId: undefined,
     });
     const component = mount(componentWithStore(ProfileBlock, store));
     expect(component.find("ProfileBlock").text()).toContain(
@@ -88,5 +90,19 @@ describe("Profile Block", () => {
     expect(component.find(".ProfileBlock__name").props().value).toEqual(
       "Monday January"
     );
+  });
+
+  describe("display other user", () => {
+    const otherUserStore = createMockStore({
+      user: { id, walletType, otherId },
+      profiles: { profiles: { [id]: profile, [otherId]: otherProfile } },
+      graphs: graphs,
+      displayedProfileId: { otherId },
+    });
+
+    it("does not show edit button if other user", async () => {
+      const component = mount(componentWithStore(ProfileBlock, otherUserStore));
+      expect(component.find(".ProfileBlock__editButton")).toEqual({});
+    });
   });
 });

@@ -1,0 +1,237 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Profile Block display other user shows other user's profile 1`] = `
+<Provider
+  store={
+    Object {
+      "clearActions": [Function],
+      "dispatch": [Function],
+      "getActions": [Function],
+      "getState": [Function],
+      "replaceReducer": [Function],
+      "subscribe": [Function],
+    }
+  }
+>
+  <BrowserRouter>
+    <Router
+      history={
+        Object {
+          "action": "POP",
+          "block": [Function],
+          "createHref": [Function],
+          "go": [Function],
+          "goBack": [Function],
+          "goForward": [Function],
+          "length": 1,
+          "listen": [Function],
+          "location": Object {
+            "hash": "",
+            "pathname": "/",
+            "search": "",
+            "state": undefined,
+          },
+          "push": [Function],
+          "replace": [Function],
+        }
+      }
+    >
+      <ProfileBlock>
+        <div
+          className="ProfileBlock__block"
+        >
+          <Profile>
+            <div
+              className="ProfileBlock__personalInfoBlock"
+            >
+              <div
+                className="ProfileBlock__avatarBlock"
+              >
+                <UserAvatar
+                  avatarSize="large"
+                >
+                  <Avatar
+                    alt="anonymous"
+                    className="UserAvatar"
+                    shape="circle"
+                    size={100}
+                  >
+                    <span
+                      className="ant-avatar ant-avatar-circle UserAvatar"
+                      style={
+                        Object {
+                          "fontSize": 18,
+                          "height": 100,
+                          "lineHeight": "100px",
+                          "width": 100,
+                        }
+                      }
+                    >
+                      <ResizeObserver
+                        onResize={[Function]}
+                      >
+                        <span
+                          className="ant-avatar-string"
+                          style={
+                            Object {
+                              "WebkitTransform": "scale(1) translateX(-50%)",
+                              "lineHeight": "100px",
+                              "msTransform": "scale(1) translateX(-50%)",
+                              "transform": "scale(1) translateX(-50%)",
+                            }
+                          }
+                        />
+                      </ResizeObserver>
+                    </span>
+                  </Avatar>
+                </UserAvatar>
+              </div>
+              <div
+                className="ProfileBlock__personalInfo"
+              >
+                <label
+                  className="ProfileBlock__personalInfoLabel"
+                >
+                  NAME
+                </label>
+                <input
+                  className="ProfileBlock__name"
+                  disabled={true}
+                  onChange={[Function]}
+                  value="Anonymous"
+                />
+                <label
+                  className="ProfileBlock__personalInfoLabel"
+                >
+                  HANDLE
+                </label>
+                <input
+                  className="ProfileBlock__handle"
+                  disabled={true}
+                  onChange={[Function]}
+                />
+                <label
+                  className="ProfileBlock__personalInfoLabel"
+                >
+                  SOCIAL ADDRESS
+                </label>
+                <input
+                  className="ProfileBlock__dsnpUserId"
+                  disabled={true}
+                  value="Anonymous"
+                />
+              </div>
+            </div>
+            <ConnectionsList>
+              <div
+                className="ConnectionsList__block"
+              >
+                <div
+                  className="ConnectionsList__buttonBlock"
+                >
+                  <Button
+                    className="ConnectionsList__button"
+                    onClick={[Function]}
+                  >
+                    <Wave>
+                      <button
+                        className="ant-btn ConnectionsList__button"
+                        onClick={[Function]}
+                        type="button"
+                      >
+                        <LoadingIcon
+                          existIcon={false}
+                          loading={false}
+                          prefixCls="ant-btn"
+                        >
+                          <CSSMotion
+                            motionName="ant-btn-loading-icon-motion"
+                            onAppearActive={[Function]}
+                            onAppearStart={[Function]}
+                            onEnterActive={[Function]}
+                            onEnterStart={[Function]}
+                            onLeaveActive={[Function]}
+                            onLeaveStart={[Function]}
+                            removeOnLeave={true}
+                            visible={false}
+                          >
+                            <DomWrapper />
+                          </CSSMotion>
+                        </LoadingIcon>
+                        <div
+                          className="ConnectionsList__buttonCount"
+                          key=".0"
+                        >
+                          0
+                        </div>
+                        <span
+                          key=".1"
+                        >
+                          Followers
+                        </span>
+                      </button>
+                    </Wave>
+                  </Button>
+                  <div
+                    className="ConnectionsList__buttonSeparator"
+                  >
+                     
+                  </div>
+                  <Button
+                    className="ConnectionsList__button"
+                    onClick={[Function]}
+                  >
+                    <Wave>
+                      <button
+                        className="ant-btn ConnectionsList__button"
+                        onClick={[Function]}
+                        type="button"
+                      >
+                        <LoadingIcon
+                          existIcon={false}
+                          loading={false}
+                          prefixCls="ant-btn"
+                        >
+                          <CSSMotion
+                            motionName="ant-btn-loading-icon-motion"
+                            onAppearActive={[Function]}
+                            onAppearStart={[Function]}
+                            onEnterActive={[Function]}
+                            onEnterStart={[Function]}
+                            onLeaveActive={[Function]}
+                            onLeaveStart={[Function]}
+                            removeOnLeave={true}
+                            visible={false}
+                          >
+                            <DomWrapper />
+                          </CSSMotion>
+                        </LoadingIcon>
+                        <div
+                          className="ConnectionsList__buttonCount"
+                          key=".0"
+                        >
+                          0
+                        </div>
+                        <span
+                          key=".1"
+                        >
+                          Following
+                        </span>
+                      </button>
+                    </Wave>
+                  </Button>
+                </div>
+                <ConnectionsListProfiles
+                  followers={Object {}}
+                  following={Object {}}
+                  listStatus={0}
+                />
+              </div>
+            </ConnectionsList>
+          </Profile>
+        </div>
+      </ProfileBlock>
+    </Router>
+  </BrowserRouter>
+</Provider>
+`;
