@@ -16,7 +16,7 @@ interface PostMediaProps {
 const PostMedia = ({ attachment }: PostMediaProps): JSX.Element => {
   const getPostMediaItems = () => {
     return attachment.map((item, index) => {
-      const type = item.type.toLowerCase();
+      const type = item?.type?.toLowerCase();
       return (
         <div key={index} className="PostMedia__cover">
           {type === "image" && (
