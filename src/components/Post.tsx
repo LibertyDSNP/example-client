@@ -45,7 +45,6 @@ const Post = ({ feedItem }: PostProps): JSX.Element => {
               icon={profile.icon?.[0]?.href}
               profileAddress={feedItem.fromId}
               avatarSize={"medium"}
-              isHoveringProfile={isHoveringProfile}
             />
           }
           title={

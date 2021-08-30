@@ -13,21 +13,18 @@ interface UserAvatarProps {
   icon: string | undefined;
   profileAddress: HexString | undefined;
   avatarSize: string;
-  isHoveringProfile?: boolean;
 }
 
 const UserAvatar = ({
   icon,
   profileAddress,
   avatarSize,
-  isHoveringProfile,
 }: UserAvatarProps): JSX.Element => {
   const iconURL =
     icon ||
     (profileAddress && blockies.create({ seed: profileAddress }).toDataURL());
   return (
     <Avatar
-      className={`UserAvatar ${isHoveringProfile && "UserAvatar__active"}`}
       alt={profileAddress || "anonymous"}
       src={iconURL}
       size={avatarSizeOptions.get(avatarSize)}

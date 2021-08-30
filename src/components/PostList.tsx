@@ -9,6 +9,7 @@ enum FeedTypes {
   MY_FEED,
   MY_POSTS,
   DISCOVER,
+  PROFILE_POSTS,
 }
 
 interface PostListProps {

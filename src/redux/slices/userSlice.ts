@@ -25,10 +25,14 @@ export const userSlice = createSlice({
       ...state,
       ...action.payload,
     }),
-    userLogout: (_state) => ({ walletType: wallet.WalletType.NONE }),
+    userLogout: (_state) => ({
+      walletType: wallet.WalletType.NONE,
+      displayedProfileId: undefined,
+    }),
     userUpdateId: (state, action: PayloadAction<DSNPUserId>) => ({
       ...state,
       id: action.payload,
+      displayedProfileId: action.payload,
     }),
     userUpdateWalletType: (
       state,
@@ -37,13 +41,10 @@ export const userSlice = createSlice({
       ...state,
       walletType: action.payload,
     }),
-    setDisplayedProfileId: (state, action: PayloadAction<DSNPUserId>) => {
-      console.log(action.payload);
-      return {
-        ...state,
-        displayedProfileId: action.payload,
-      };
-    },
+    setDisplayedProfileId: (state, action: PayloadAction<DSNPUserId>) => ({
+      ...state,
+      displayedProfileId: action.payload,
+    }),
   },
 });
 export const {
