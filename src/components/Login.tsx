@@ -71,7 +71,7 @@ const Login = ({ loginWalletOptions }: LoginProps): JSX.Element => {
 
   useEffect(() => {
     ethereum?.on("accountsChanged", () => logout());
-  }, []);
+  }, [logout]);
 
   return (
     <div className="Login__block">
