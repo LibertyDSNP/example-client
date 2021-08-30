@@ -8,6 +8,8 @@ import ProfileBlock from "./components/ProfileBlock";
 import * as wallet from "./services/wallets/wallet";
 import { useAppDispatch, useAppSelector } from "./redux/hooks";
 import { setupProvider, startSubscriptions } from "./services/sdk";
+import { userUpdateWalletType } from "./redux/slices/userSlice";
+import { upsertSessionWalletType } from "./services/session";
 
 const App = (): JSX.Element => {
   const dispatch = useAppDispatch();
@@ -19,10 +21,18 @@ const App = (): JSX.Element => {
     let unsubscribeFunctions: Record<string, any>;
 
     (async () => {
-      await wallet.wallet(walletType).reload();
-      setupProvider(walletType);
-
-      unsubscribeFunctions = await dispatch(startSubscriptions);
+      try {
+        await wallet.wallet(walletType).reload();
+        setupProvider(walletType);
+        unsubscribeFunctions = await dispatch(startSubscriptions);
+      } catch (e) {
+        if (e.message.match(/login cancelled/i)) {
+          dispatch(userUpdateWalletType(wallet.WalletType.NONE));
+          upsertSessionWalletType(wallet.WalletType.NONE);
+        } else {
+          console.error(e);
+        }
+      }
     })();
 
     return () => {

@@ -15,6 +15,7 @@ interface RegistrationModalProps {
   registrations: registry.Registration[];
   walletAddress: HexString;
   onIdResolved: (uri: DSNPUserURI) => void;
+  onCancel: () => void;
 }
 
 const RegistrationModal = ({
@@ -23,6 +24,7 @@ const RegistrationModal = ({
   registrations,
   walletAddress,
   onIdResolved,
+  onCancel,
 }: RegistrationModalProps): JSX.Element => {
   const [hasRegistrations, setHasRegistrations] = React.useState<boolean>(
     false
@@ -93,7 +95,11 @@ const RegistrationModal = ({
       }}
       onFinish={register}
     >
-      {registrationError && <Alert message={registrationError} type="error" />}
+      {registrationError && (
+        <>
+          <Alert message={registrationError} type="error" />
+        </>
+      )}
       <p>Please create a handle:</p>
       <Form.Item
         name="handle"
@@ -186,6 +192,13 @@ const RegistrationModal = ({
       visible={visible}
       content={
         <div className="RegistrationModal">
+          <Button
+            type="link"
+            className="RegistrationModal__cancel"
+            onClick={onCancel}
+          >
+            Cancel
+          </Button>
           <h2>Welcome!</h2>
           {isCreatingRegistration ? registerNewHandleForm : selectHandleContent}
         </div>
