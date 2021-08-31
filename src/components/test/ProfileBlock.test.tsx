@@ -93,16 +93,25 @@ describe("Profile Block", () => {
   });
 
   describe("display other user", () => {
+    const displayedProfileId = otherId;
     const otherUserStore = createMockStore({
-      user: { id, walletType, otherId },
-      profiles: { profiles: { [id]: profile, [otherId]: otherProfile } },
+      user: { id, walletType, displayedProfileId },
+      profiles: {
+        profiles: { [id]: profile, [displayedProfileId]: otherProfile },
+      },
       graphs: graphs,
-      displayedProfileId: { otherId },
     });
 
     it("does not show edit button if other user", async () => {
       const component = mount(componentWithStore(ProfileBlock, otherUserStore));
       expect(component.find(".ProfileBlock__editButton")).toEqual({});
+    });
+
+    it("displays correct username", async () => {
+      const component = mount(componentWithStore(ProfileBlock, otherUserStore));
+      expect(component.find(".ProfileBlock__name").props().value).toEqual(
+        "Tuesday February"
+      );
     });
   });
 });
