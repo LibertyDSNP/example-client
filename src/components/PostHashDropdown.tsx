@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Menu, Dropdown } from "antd";
-import { CheckCircleOutlined, EllipsisOutlined } from "@ant-design/icons";
+import { CheckCircleOutlined, CopyOutlined } from "@ant-design/icons";
 import {
   buildDSNPAnnouncementURI,
   DSNPUserId,
@@ -67,7 +67,7 @@ const PostHashDropdown = ({
         className="PostHashDropdown__button"
         onClick={(e) => e.preventDefault()}
       >
-        <EllipsisOutlined />
+        <CopyOutlined /> DSNP URI
       </button>
     </Dropdown>
   );
