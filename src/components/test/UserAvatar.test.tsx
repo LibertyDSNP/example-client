@@ -8,7 +8,7 @@ describe("UserAvatar", () => {
     expect(() => {
       shallow(
         <UserAvatar
-          profileAddress={getPrefabDsnpUserId(0)}
+          profileAddress={getPrefabDsnpUserId(0)?.toString()}
           avatarSize="large"
         />
       );

@@ -1,14 +1,15 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { FeedItem, HexString } from "../../utilities/types";
+import { FeedItem } from "../../utilities/types";
+import { DSNPUserId } from "@dsnp/sdk/dist/types/core/identifiers";
 
 interface isPostLoadingType {
   loading: boolean;
-  currentUserId: HexString | undefined;
+  currentUserId: DSNPUserId | undefined;
 }
 
 interface isReplyLoadingType {
   loading: boolean;
-  parent: HexString | undefined;
+  parent: DSNPUserId | undefined;
 }
 
 interface feedState {

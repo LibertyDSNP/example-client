@@ -66,7 +66,7 @@ const RegistrationModal = ({
         walletAddress,
         formValues.handle
       );
-      onIdResolved(core.identifiers.convertDSNPUserURIToDSNPUserId(userURI));
+      onIdResolved(core.identifiers.convertToDSNPUserId(userURI).toString());
     } catch (error) {
       console.error(error);
       setRegistrationError(
@@ -80,7 +80,7 @@ const RegistrationModal = ({
     registration: registry.Registration
   ): string | undefined =>
     profiles[
-      core.identifiers.convertDSNPUserURIToDSNPUserId(registration.dsnpUserURI)
+      core.identifiers.convertToDSNPUserId(registration.dsnpUserURI).toString()
     ]?.icon?.[0].href;
 
   /**

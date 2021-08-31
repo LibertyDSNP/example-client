@@ -2,7 +2,7 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { HexString, Profile } from "../../utilities/types";
 
 interface profileState {
-  profiles: Record<HexString, Profile>;
+  profiles: Record<string, Profile>;
 }
 
 const initialState: profileState = {
@@ -26,7 +26,7 @@ export const profileSlice = createSlice({
   initialState,
   reducers: {
     upsertProfile: (state, action: PayloadAction<Profile>) => {
-      const key = action.payload.fromId;
+      const key = action.payload.fromId.toString();
       const oldProfile = state.profiles[key];
       const newProfile = oldProfile
         ? { ...oldProfile, ...action.payload }

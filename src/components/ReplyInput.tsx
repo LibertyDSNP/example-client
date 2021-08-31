@@ -2,12 +2,12 @@ import { Input } from "antd";
 import React, { useState } from "react";
 import { createNote } from "../services/Storage";
 import { sendReply } from "../services/sdk";
-import { HexString } from "../utilities/types";
 import { useAppDispatch, useAppSelector } from "../redux/hooks";
 import { replyLoading } from "../redux/slices/feedSlice";
+import { DSNPUserId } from "@dsnp/sdk/dist/types/core/identifiers";
 
 interface ReplyInputProps {
-  parent: HexString;
+  parent: DSNPUserId;
 }
 
 const ReplyInput = ({ parent }: ReplyInputProps): JSX.Element => {

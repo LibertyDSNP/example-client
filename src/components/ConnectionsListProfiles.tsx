@@ -16,8 +16,8 @@ enum ListStatus {
 
 interface ConnectionsListProfilesProps {
   listStatus: ListStatus;
-  following: Record<DSNPUserId, boolean>;
-  followers: Record<DSNPUserId, boolean>;
+  following: Record<string, boolean>;
+  followers: Record<string, boolean>;
 }
 
 const ConnectionsListProfiles = ({
@@ -26,14 +26,14 @@ const ConnectionsListProfiles = ({
   followers,
 }: ConnectionsListProfilesProps): JSX.Element => {
   const userRelationship = (userProfile: Profile) =>
-    following[userProfile.fromId] ? "Unfollow" : "Follow";
+    following[userProfile.fromId.toString()] ? "Unfollow" : "Follow";
 
   const profiles: Record<HexString, Profile> = useAppSelector(
     (state) => state.profiles?.profiles || {}
   );
 
   const profileForId = (userId: DSNPUserId): Profile =>
-    profiles[userId] || {
+    profiles[userId.toString()] || {
       ...createProfile({ name: "Anonymous" }),
       contentHash: "",
       url: "",
@@ -55,10 +55,10 @@ const ConnectionsListProfiles = ({
       {connectionsList.map((userProfile) => (
         <div
           className="ConnectionsListProfiles__profile"
-          key={userProfile.fromId}
+          key={userProfile.fromId.toString()}
         >
           <UserAvatar
-            icon={profiles[userProfile.fromId]?.icon?.[0]?.href}
+            icon={profiles[userProfile.fromId.toString()]?.icon?.[0]?.href}
             avatarSize="small"
             profileAddress={userProfile.fromId}
           />

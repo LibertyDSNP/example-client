@@ -27,8 +27,9 @@ const PostList = ({ feedType }: PostListProps): JSX.Element => {
   const userId: DSNPUserId | undefined = useAppSelector(
     (state) => state.user.id
   );
-  const myGraph: Record<DSNPUserId, boolean> = useAppSelector(
-    (state) => (userId ? state.graphs.following[userId] : undefined) || {}
+  const myGraph: Record<string, boolean> = useAppSelector(
+    (state) =>
+      (userId ? state.graphs.following[userId.toString()] : undefined) || {}
   );
 
   const initialFeed: FeedItem[] = useAppSelector(

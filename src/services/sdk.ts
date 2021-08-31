@@ -31,7 +31,11 @@ import { BatchPublicationLogData } from "@dsnp/sdk/core/contracts/subscription";
 import { WalletType } from "./wallets/wallet";
 import torusWallet from "./wallets/torus";
 import { upsertGraph } from "../redux/slices/graphSlice";
-import { DSNPUserId } from "@dsnp/sdk/dist/types/core/identifiers";
+import {
+  DSNPAnnouncementURI,
+  DSNPUserId,
+  DSNPUserURI,
+} from "@dsnp/sdk/dist/types/core/identifiers";
 
 interface BatchFileData {
   url: URL;
@@ -45,7 +49,7 @@ export const getSocialIdentities =
 
 export const createNewDSNPRegistration = createRegistration;
 
-export const getProfile = async (fromId: HexString): Promise<Profile> => {
+export const getProfile = async (fromId: DSNPUserId): Promise<Profile> => {
   const profile = await fakesdk.getProfileFromSocialIdentity(fromId);
   if (!profile) throw new Error("Invalid Social Identity Address");
   return profile;
@@ -77,7 +81,7 @@ export const sendPost = async (post: FeedItem): Promise<void> => {
 
 export const sendReply = async (
   reply: Reply,
-  inReplyTo: HexString
+  inReplyTo: DSNPUserId
 ): Promise<void> => {
   if (!reply.content || !inReplyTo) return;
 
@@ -237,11 +241,12 @@ const dispatchProfile = (
   batchIndex: number
 ) => {
   const decoder = new TextDecoder();
+  console.log("fromId: ", message.fromId);
 
   dispatch(
     upsertProfile({
       ...profile,
-      fromId: decoder.decode((message.fromId as any) as Uint8Array),
+      fromId: decoder.decode(message.fromId),
       blockNumber,
       blockIndex,
       batchIndex,
@@ -255,9 +260,7 @@ const handleRegistryUpdate = (dispatch: Dispatch) => (
   dispatch(
     upsertProfile({
       ...createProfile(),
-      fromId: core.identifiers.convertDSNPUserURIToDSNPUserId(
-        update.dsnpUserURI
-      ),
+      fromId: core.identifiers.convertToDSNPUserId(update.dsnpUserURI),
       handle: update.handle,
     } as Profile)
   );
@@ -381,8 +384,8 @@ const buildAndSignPostAnnouncement = async (
 
 const buildAndSignReplyAnnouncement = async (
   hash: string,
-  replyFromId: HexString,
-  replyInReplyTo: HexString
+  replyFromId: DSNPUserURI,
+  replyInReplyTo: DSNPAnnouncementURI
 ): Promise<SignedReplyAnnouncement> => ({
   ...core.announcements.createReply(
     replyFromId,

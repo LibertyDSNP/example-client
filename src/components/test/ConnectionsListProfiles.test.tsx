@@ -17,15 +17,18 @@ const mockUserList = [
   preFabProfiles[4],
 ];
 
-const profiles = mockUserList.reduce((m, p) => ({ ...m, [p.fromId]: p }), {});
+const profiles = mockUserList.reduce(
+  (m, p) => ({ ...m, [p.fromId.toString()]: p }),
+  {}
+);
 
 const following = mockUserList
   .slice(0, 3)
-  .reduce((m, p) => ({ ...m, [p.fromId]: true }), {});
+  .reduce((m, p) => ({ ...m, [p.fromId.toString()]: true }), {});
 
 const followers = mockUserList
   .slice(2)
-  .reduce((m, p) => ({ ...m, [p.fromId]: true }), {});
+  .reduce((m, p) => ({ ...m, [p.fromId.toString()]: true }), {});
 
 const store = {
   profiles: { profiles: profiles },

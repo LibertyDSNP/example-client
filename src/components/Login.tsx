@@ -31,7 +31,7 @@ const Login = ({ loginWalletOptions }: LoginProps): JSX.Element => {
   const currentWalletType = useAppSelector((state) => state.user.walletType);
 
   const setUserID = (fromURI: string) => {
-    const fromId = core.identifiers.convertDSNPUserURIToDSNPUserId(fromURI);
+    const fromId = core.identifiers.convertToDSNPUserId(fromURI);
     dispatch(userUpdateId(fromId));
     session.upsertSessionUserId(fromId);
     setRegistrationVisible(false);

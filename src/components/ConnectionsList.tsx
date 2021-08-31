@@ -15,10 +15,10 @@ const ConnectionsList = (): JSX.Element => {
     (state) => state.user.id
   );
   const following = useAppSelector(
-    (state) => (userId && state.graphs.following[userId]) || {}
+    (state) => (userId && state.graphs.following[userId.toString()]) || {}
   );
   const followers = useAppSelector(
-    (state) => (userId && state.graphs.followers[userId]) || {}
+    (state) => (userId && state.graphs.followers[userId.toString()]) || {}
   );
 
   const [selectedListTitle, setSelectedListTitle] = useState<ListStatus>(

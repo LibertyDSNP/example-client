@@ -1,10 +1,9 @@
-import { DSNPUserId } from "@dsnp/sdk/dist/types/core/identifiers";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { GraphChange } from "../../utilities/types";
 
 interface graphState {
-  following: Record<DSNPUserId, Record<DSNPUserId, boolean>>;
-  followers: Record<DSNPUserId, Record<DSNPUserId, boolean>>;
+  following: Record<string, Record<string, boolean>>;
+  followers: Record<string, Record<string, boolean>>;
 }
 
 const initialState: graphState = {
@@ -20,29 +19,29 @@ export const graphSlice = createSlice({
       const { follower, followee } = action.payload;
       if (action.payload.unfollow) {
         // unfollow
-        const { [followee]: _a, ...newFollows } =
-          state.following[follower] || {};
-        const { [follower]: _b, ...newFollowed } =
-          state.followers[followee] || {};
+        const { [followee.toString()]: _a, ...newFollows } =
+          state.following[follower.toString()] || {};
+        const { [follower.toString()]: _b, ...newFollowed } =
+          state.followers[followee.toString()] || {};
         return {
-          following: { ...state.following, [follower]: newFollows },
-          followers: { ...state.followers, [followee]: newFollowed },
+          following: { ...state.following, [follower.toString()]: newFollows },
+          followers: { ...state.followers, [followee.toString()]: newFollowed },
         };
       } else {
         // follow
         return {
           following: {
             ...state.following,
-            [follower]: {
-              ...(state.following[follower] || {}),
-              [followee]: true,
+            [follower.toString()]: {
+              ...(state.following[follower.toString()] || {}),
+              [followee.toString()]: true,
             },
           },
           followers: {
             ...state.followers,
-            [followee]: {
-              ...(state.followers[followee] || {}),
-              [follower]: true,
+            [followee.toString()]: {
+              ...(state.followers[followee.toString()] || {}),
+              [follower.toString()]: true,
             },
           },
         };

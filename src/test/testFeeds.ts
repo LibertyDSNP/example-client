@@ -1,6 +1,6 @@
 import { keccak_256 } from "js-sha3";
 import { randInt } from "@dsnp/test-generators";
-import { FeedItem, HexString, Reply } from "../utilities/types";
+import { FeedItem, Reply } from "../utilities/types";
 import { generateDsnpUserId, getPrefabDsnpUserId } from "./testAddresses";
 import {
   prefabFirstNames,
@@ -13,6 +13,7 @@ import {
 } from "@dsnp/sdk/core/activityContent";
 
 import { generators } from "@dsnp/sdk";
+import { DSNPUserId } from "@dsnp/sdk/dist/types/core/identifiers";
 
 const generateNote = generators.activityContent.generateNote;
 
@@ -39,7 +40,7 @@ export const generatePerson = (name?: string): ActivityContentProfile => {
  * @param replies? an array of FeedItem replies to this FeedItem
  */
 export const generateFeedItem = (
-  address: HexString,
+  address: DSNPUserId,
   content: ActivityContentNote,
   constTime: boolean = false,
   replies?: Reply[]

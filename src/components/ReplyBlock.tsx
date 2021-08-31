@@ -1,17 +1,18 @@
 import React from "react";
 import { useAppSelector } from "../redux/hooks";
-import { FeedItem, HexString } from "../utilities/types";
+import { FeedItem } from "../utilities/types";
 import Reply from "./Reply";
 import ReplyInput from "./ReplyInput";
 import BlankReply from "./BlankReply";
+import { DSNPUserId } from "@dsnp/sdk/dist/types/core/identifiers";
 
 interface isReplyLoadingType {
   loading: boolean;
-  parent: HexString | undefined;
+  parent: DSNPUserId | undefined;
 }
 
 interface ReplyBlockProps {
-  parent: HexString;
+  parent: DSNPUserId;
 }
 
 const ReplyBlock = ({ parent }: ReplyBlockProps): JSX.Element => {

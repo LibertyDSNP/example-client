@@ -31,9 +31,9 @@ const NewPost = ({ onSuccess, onCancel }: NewPostProps): JSX.Element => {
     (state) => state.profiles?.profiles || {}
   );
 
-  const profile = (userId && profiles[userId]) || {
+  const profile = (userId && profiles[userId.toString()]) || {
     ...createProfile(),
-    fromId: userId || "",
+    fromId: userId || undefined,
   };
 
   const success = () => {
@@ -88,7 +88,7 @@ const NewPost = ({ onSuccess, onCancel }: NewPostProps): JSX.Element => {
       <div className="NewPost__profileBlock">
         <UserAvatar
           icon={profile?.icon?.[0]?.href}
-          profileAddress={userId}
+          profileAddress={userId?.toString()}
           avatarSize={"small"}
         />
         <h3 className="NewPost__profileBlockName">

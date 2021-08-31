@@ -13,15 +13,15 @@ const profiles = Array(3)
 const store = createMockStore({
   profiles: {
     profiles: {
-      [profiles[0].fromId]: profiles[0],
-      [profiles[1].fromId]: profiles[1],
-      [profiles[2].fromId]: profiles[2],
+      [profiles[0].fromId.toString()]: profiles[0],
+      [profiles[1].fromId.toString()]: profiles[1],
+      [profiles[2].fromId.toString()]: profiles[2],
     },
   },
 });
 
 const registrations: Registration[] = profiles.map((p, i) => ({
-  dsnpUserURI: p.fromId,
+  dsnpUserURI: p.fromId.toString(16),
   contractAddr: "0x" + Array(5).fill(i).join(""),
   handle: `test_${i}`,
 }));

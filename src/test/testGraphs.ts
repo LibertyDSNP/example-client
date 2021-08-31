@@ -8,7 +8,7 @@ import { generateDsnpUserId, getPrefabDsnpUserId } from "./testAddresses";
  * for all users. The existence of a relationship from account1 to
  * account2 can be checked with graph[account1]?.[account2].
  */
-type Graph = Record<DSNPUserId, Record<DSNPUserId, boolean>>;
+type Graph = Record<string, Record<string, boolean>>;
 
 interface SocialGraph {
   followers: Graph;
@@ -18,7 +18,7 @@ interface SocialGraph {
 export const generateRandomGraph = (
   dsnpUserId: HexString,
   _size: number = 4
-): Record<DSNPUserId, boolean> => {
+): Record<string, boolean> => {
   return {};
 };
 
@@ -26,7 +26,7 @@ export const generateRandomGraph = (
 const followersFromFollowing = (following: Graph): Graph => {
   const followers: Record<string, Record<string, boolean>> = {};
   for (const follower of Object.keys(following)) {
-    for (const followee of Object.keys(following[follower])) {
+    for (const followee of Object.keys(following[follower.toString()])) {
       followers[followee] = {
         ...(followers[followee] || {}),
         [follower]: true,
@@ -45,11 +45,11 @@ export const generateRandomSocialGraph = (
   graphSize: number = 4
 ): SocialGraph => {
   // Generate addresses
-  const following: Record<DSNPUserId, Record<DSNPUserId, boolean>> = {};
+  const following: Record<string, Record<string, boolean>> = {};
   for (let i = 0; i < socialGraphSize; i++) {
     const address: DSNPUserId = generateDsnpUserId();
-    const graph = generateRandomGraph(address, graphSize);
-    following[address] = graph;
+    const graph = generateRandomGraph(address.toString(), graphSize);
+    following[address.toString()] = graph;
   }
 
   const followers = followersFromFollowing(following);
@@ -71,20 +71,20 @@ const adr6 = getPrefabDsnpUserId(6);
 
 export const getPreFabSocialGraph = (): SocialGraph => {
   const following = {
-    [adr0]: { [adr1]: true, [adr2]: true },
-    [adr1]: { [adr0]: true, [adr6]: true },
-    [adr2]: {
-      [adr0]: true,
-      [adr1]: true,
-      [adr3]: true,
-      [adr4]: true,
-      [adr5]: true,
-      [adr6]: true,
+    [adr0.toString()]: { [adr1.toString()]: true, [adr2.toString()]: true },
+    [adr1.toString()]: { [adr0.toString()]: true, [adr6.toString()]: true },
+    [adr2.toString()]: {
+      [adr0.toString()]: true,
+      [adr1.toString()]: true,
+      [adr3.toString()]: true,
+      [adr4.toString()]: true,
+      [adr5.toString()]: true,
+      [adr6.toString()]: true,
     },
-    [adr3]: { [adr6]: true },
-    [adr4]: { [adr6]: true, [adr5]: true },
-    [adr5]: { [adr6]: true },
-    [adr6]: {},
+    [adr3.toString()]: { [adr6.toString()]: true },
+    [adr4.toString()]: { [adr6.toString()]: true, [adr5.toString()]: true },
+    [adr5.toString()]: { [adr6.toString()]: true },
+    [adr6.toString()]: {},
   };
 
   const followers = followersFromFollowing(following);
