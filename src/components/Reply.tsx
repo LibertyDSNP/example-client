@@ -22,7 +22,11 @@ const Reply = ({ reply }: ReplyProps): JSX.Element => {
 
   return (
     <div className="Reply__block">
-      <PostHashDropdown hash={reply.hash} isReply={true} />
+      <PostHashDropdown
+        hash={reply.hash}
+        fromId={reply.fromId}
+        isReply={true}
+      />
       <UserAvatar
         icon={fromProfile?.icon?.[0]?.href}
         profileAddress={reply.fromId}

@@ -63,7 +63,7 @@ const Post = ({ feedItem }: PostProps): JSX.Element => {
           }
         />
       </div>
-      <PostHashDropdown hash={feedItem.hash} />
+      <PostHashDropdown hash={feedItem.hash} fromId={feedItem.fromId} />
       <div className="Post__caption">{noteContent.content}</div>
       {attachments && (
         <PostMedia attachment={attachments as ActivityContentImage[]} />
