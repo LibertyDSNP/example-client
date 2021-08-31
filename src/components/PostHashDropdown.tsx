@@ -1,11 +1,16 @@
 import React, { useState } from "react";
 import { Menu, Dropdown } from "antd";
 import { CheckCircleOutlined, EllipsisOutlined } from "@ant-design/icons";
+import {
+  buildDSNPAnnouncementURI,
+  DSNPUserId,
+  DSNPAnnouncementURI,
+} from "@dsnp/sdk/core/identifiers";
 import { HexString } from "../utilities/types";
 
 interface PostHashDropdownProps {
   hash: HexString;
-  fromId: HexString;
+  fromId: DSNPUserId;
   isReply?: boolean;
 }
 
@@ -17,7 +22,10 @@ const PostHashDropdown = ({
   const [isCopied, setIsCopied] = useState<boolean>(false);
   const [isVisible, setIsVisible] = useState<boolean>(false);
 
-  const announcementURI = "dsnp://" + fromId + "/" + hash;
+  const announcementURI: DSNPAnnouncementURI = buildDSNPAnnouncementURI(
+    fromId,
+    hash
+  );
 
   const menu = (
     <Menu onClick={() => setIsVisible(true)}>
