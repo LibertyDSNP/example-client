@@ -5,15 +5,16 @@ import { getPrefabFeed } from "../../test/testFeeds";
 import { componentWithStore, createMockStore } from "../../test/testhelpers";
 import { getPreFabSocialGraph } from "../../test/testGraphs";
 import { getPrefabProfile } from "../../test/testProfiles";
+import { FeedItem } from "../../utilities/types";
 
 const userId = getPrefabProfile(0).fromId;
-const feedItems = getPrefabFeed();
+const feedItems: FeedItem[] = getPrefabFeed();
 const graphs = getPreFabSocialGraph();
 const initialState = {
   user: { id: userId },
   feed: {
     feedItems: feedItems,
-    isPostLoading: { loading: false, myIdentifier: undefined },
+    isPostLoading: { loading: false, currentUserId: undefined },
     isReplyLoading: { loading: false, parent: undefined },
   },
   graphs: graphs,
@@ -37,7 +38,7 @@ describe("Feed", () => {
       user: {},
       feed: {
         feedItems,
-        isPostLoading: { loading: false, myIdentifier: undefined },
+        isPostLoading: { loading: false, currentUserId: undefined },
         isReplyLoading: { loading: false, parent: undefined },
       },
       graphs: { graphs },
