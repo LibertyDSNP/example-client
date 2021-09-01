@@ -63,9 +63,6 @@ export const graphSlice = createSlice({
       action: PayloadAction<RelationshipStatusUpdate>
     ) => {
       const { follower, followee, status } = action.payload;
-      console.log("Updateing relationship status", action.payload);
-      console.log("following", { ...state.following });
-      console.log("followers", { ...state.followers });
       return {
         following: {
           ...state.following,
