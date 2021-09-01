@@ -8,9 +8,9 @@ import { getPrefabProfile } from "../../test/testProfiles";
 const profile = getPrefabProfile(0);
 const graphs = getPreFabSocialGraph();
 const store = createMockStore({
-  user: { profile: profile },
-  profiles: { profiles: [] },
-  graphs: { graphs: graphs },
+  user: { id: profile.fromId },
+  profiles: [],
+  graphs: graphs,
 });
 
 describe("ConnectionsList", () => {

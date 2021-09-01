@@ -2,6 +2,7 @@ import React from "react";
 import Post from "./Post";
 import { FeedItem } from "../utilities/types";
 import { useAppSelector } from "../redux/hooks";
+import { RelationshipStatus } from "../redux/slices/graphSlice";
 import BlankPost from "./BlankPost";
 
 enum FeedTypes {
@@ -25,7 +26,7 @@ const sortFeed = (feed: FeedItem[]): FeedItem[] => {
 
 const PostList = ({ feedType }: PostListProps): JSX.Element => {
   const userId: string | undefined = useAppSelector((state) => state.user.id);
-  const myGraph: Record<string, boolean> = useAppSelector(
+  const myGraph: Record<string, RelationshipStatus> = useAppSelector(
     (state) => (userId ? state.graphs.following[userId] : undefined) || {}
   );
 

@@ -1,9 +1,20 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { GraphChange } from "../../utilities/types";
 
-interface graphState {
-  following: Record<string, Record<string, boolean>>;
-  followers: Record<string, Record<string, boolean>>;
+export enum RelationshipStatus {
+  ESTABlISHED,
+  UPDATING,
+}
+
+export interface graphState {
+  following: Record<string, Record<string, RelationshipStatus>>;
+  followers: Record<string, Record<string, RelationshipStatus>>;
+}
+
+export interface RelationshipStatusUpdate {
+  follower: string;
+  followee: string;
+  status: RelationshipStatus;
 }
 
 const initialState: graphState = {
@@ -34,20 +45,45 @@ export const graphSlice = createSlice({
             ...state.following,
             [follower]: {
               ...(state.following[follower] || {}),
-              [followee]: true,
+              [followee]: RelationshipStatus.ESTABlISHED,
             },
           },
           followers: {
             ...state.followers,
             [followee]: {
               ...(state.followers[followee] || {}),
-              [follower]: true,
+              [follower]: RelationshipStatus.ESTABlISHED,
             },
           },
         };
       }
     },
+    updateRelationshipStatus: (
+      state,
+      action: PayloadAction<RelationshipStatusUpdate>
+    ) => {
+      const { follower, followee, status } = action.payload;
+      console.log("Updateing relationship status", action.payload);
+      console.log("following", { ...state.following });
+      console.log("followers", { ...state.followers });
+      return {
+        following: {
+          ...state.following,
+          [follower]: {
+            ...(state.following[follower] || {}),
+            [followee]: status,
+          },
+        },
+        followers: {
+          ...state.followers,
+          [followee]: {
+            ...(state.followers[followee] || {}),
+            [follower]: status,
+          },
+        },
+      };
+    },
   },
 });
-export const { upsertGraph } = graphSlice.actions;
+export const { upsertGraph, updateRelationshipStatus } = graphSlice.actions;
 export default graphSlice.reducer;

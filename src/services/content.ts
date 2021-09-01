@@ -116,6 +116,40 @@ export const saveProfile = async (
   await dsnp.batchAnnouncement(`${hash}.parquet`, announcement);
 };
 
+/**
+ * followUser creates and announces a DSNP follow graph change event.
+ * @param fromId DSNP Id of user doing the following
+ * @param followee DSNP Id of the user being followed
+ */
+export const followUser = async (
+  fromId: DSNPUserId,
+  followee: DSNPUserId
+): Promise<void> => {
+  const announcement = await dsnp.buildAndSignFollowAnnouncement(
+    fromId,
+    followee
+  );
+  const hash = core.announcements.serialize(announcement);
+  await dsnp.batchAnnouncement(hash, announcement);
+};
+
+/**
+ * unfollowUser creates and announces a DSNP unfollow graph change event.
+ * @param fromId DSNP Id of user doing the unfollowing
+ * @param followee DSNP Id of the user being unfollowed
+ */
+export const unfollowUser = async (
+  fromId: DSNPUserId,
+  followee: DSNPUserId
+): Promise<void> => {
+  const announcement = await dsnp.buildAndSignUnfollowAnnouncement(
+    fromId,
+    followee
+  );
+  const hash = core.announcements.serialize(announcement);
+  await dsnp.batchAnnouncement(hash, announcement);
+};
+
 //
 // Internal Functions
 //

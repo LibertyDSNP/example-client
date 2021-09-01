@@ -1,5 +1,5 @@
-import { HexString } from "../utilities/types";
-import { generateDsnpUserId, getPrefabDsnpUserId } from "./testAddresses";
+import { RelationshipStatus } from "../redux/slices/graphSlice";
+import { getPrefabDsnpUserId } from "./testAddresses";
 
 /**
  * Unidirectional lookup of graph realationships.
@@ -7,53 +7,25 @@ import { generateDsnpUserId, getPrefabDsnpUserId } from "./testAddresses";
  * for all users. The existence of a relationship from account1 to
  * account2 can be checked with graph[account1]?.[account2].
  */
-type Graph = Record<string, Record<string, boolean>>;
+type Graph = Record<string, Record<string, RelationshipStatus>>;
 
 interface SocialGraph {
   followers: Graph;
   following: Graph;
 }
 
-export const generateRandomGraph = (
-  dsnpUserId: HexString,
-  _size: number = 4
-): Record<string, boolean> => {
-  return {};
-};
-
 // Invert a map from followers to followees into a map of followees to followers.
 const followersFromFollowing = (following: Graph): Graph => {
-  const followers: Record<string, Record<string, boolean>> = {};
+  const followers: Record<string, Record<string, RelationshipStatus>> = {};
   for (const follower of Object.keys(following)) {
     for (const followee of Object.keys(following[follower])) {
       followers[followee] = {
         ...(followers[followee] || {}),
-        [follower]: true,
+        [follower]: RelationshipStatus.ESTABlISHED,
       };
     }
   }
   return followers;
-};
-
-/**
- * Generate a completely randomized social graph
- * @param size The size of the social graph, `default: 4`
- */
-export const generateRandomSocialGraph = (
-  socialGraphSize: number = 4,
-  graphSize: number = 4
-): SocialGraph => {
-  // Generate addresses
-  const following: Record<string, Record<string, boolean>> = {};
-  for (let i = 0; i < socialGraphSize; i++) {
-    const address: string = generateDsnpUserId();
-    const graph = generateRandomGraph(address, graphSize);
-    following[address] = graph;
-  }
-
-  const followers = followersFromFollowing(following);
-
-  return { following, followers };
 };
 
 const adr0 = getPrefabDsnpUserId(0);
@@ -70,19 +42,28 @@ const adr6 = getPrefabDsnpUserId(6);
 
 export const getPreFabSocialGraph = (): SocialGraph => {
   const following = {
-    [adr0]: { [adr1]: true, [adr2]: true },
-    [adr1]: { [adr0]: true, [adr6]: true },
-    [adr2]: {
-      [adr0]: true,
-      [adr1]: true,
-      [adr3]: true,
-      [adr4]: true,
-      [adr5]: true,
-      [adr6]: true,
+    [adr0]: {
+      [adr1]: RelationshipStatus.ESTABlISHED,
+      [adr2]: RelationshipStatus.ESTABlISHED,
     },
-    [adr3]: { [adr6]: true },
-    [adr4]: { [adr6]: true, [adr5]: true },
-    [adr5]: { [adr6]: true },
+    [adr1]: {
+      [adr0]: RelationshipStatus.ESTABlISHED,
+      [adr6]: RelationshipStatus.ESTABlISHED,
+    },
+    [adr2]: {
+      [adr0]: RelationshipStatus.ESTABlISHED,
+      [adr1]: RelationshipStatus.ESTABlISHED,
+      [adr3]: RelationshipStatus.ESTABlISHED,
+      [adr4]: RelationshipStatus.ESTABlISHED,
+      [adr5]: RelationshipStatus.ESTABlISHED,
+      [adr6]: RelationshipStatus.ESTABlISHED,
+    },
+    [adr3]: { [adr6]: RelationshipStatus.ESTABlISHED },
+    [adr4]: {
+      [adr6]: RelationshipStatus.ESTABlISHED,
+      [adr5]: RelationshipStatus.ESTABlISHED,
+    },
+    [adr5]: { [adr6]: RelationshipStatus.ESTABlISHED },
     [adr6]: {},
   };
 
