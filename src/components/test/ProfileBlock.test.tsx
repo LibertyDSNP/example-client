@@ -7,14 +7,14 @@ import * as wallet from "../../services/wallets/wallet";
 import { waitFor } from "@testing-library/react";
 
 const id = "0x03f2";
-const displayedProfileId = id;
+const displayId = id;
 const otherId = "0x1234";
 const profile = getPrefabProfile(0);
 const otherProfile = getPrefabProfile(1);
 const graphs = getPreFabSocialGraph();
 const walletType = wallet.WalletType.TORUS;
 const store = createMockStore({
-  user: { id, walletType, displayedProfileId },
+  user: { id, walletType, displayId },
   profiles: { profiles: { [id]: profile, [otherId]: otherProfile } },
   graphs: graphs,
 });
@@ -33,7 +33,7 @@ describe("Profile Block", () => {
       user: { undefined },
       profiles: { profiles: {} },
       graphs: { graphs: graphs },
-      displayedProfileId: undefined,
+      displayId: undefined,
     });
     const component = mount(componentWithStore(ProfileBlock, store));
     expect(component.find("ProfileBlock").text()).toContain(
@@ -93,11 +93,11 @@ describe("Profile Block", () => {
   });
 
   describe("display other user", () => {
-    const displayedProfileId = otherId;
+    const displayId = otherId;
     const otherUserStore = createMockStore({
-      user: { id, walletType, displayedProfileId },
+      user: { id, walletType, displayId },
       profiles: {
-        profiles: { [id]: profile, [displayedProfileId]: otherProfile },
+        profiles: { [id]: profile, [displayId]: otherProfile },
       },
       graphs: graphs,
     });

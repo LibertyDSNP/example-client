@@ -5,7 +5,7 @@ import { Button } from "antd";
 import { useAppDispatch, useAppSelector } from "../redux/hooks";
 import * as types from "../utilities/types";
 import { ArrowLeftOutlined } from "@ant-design/icons";
-import { setDisplayedProfileId } from "../redux/slices/userSlice";
+import { setDisplayId } from "../redux/slices/userSlice";
 
 enum FeedTypes {
   MY_FEED,
@@ -18,14 +18,12 @@ const Feed = (): JSX.Element => {
   const dispatch = useAppDispatch();
 
   const userId = useAppSelector((state) => state.user.id);
-  const currentProfileId = useAppSelector(
-    (state) => state.user.displayedProfileId
-  );
+  const displayId = useAppSelector((state) => state.user.displayId);
   const profiles: Record<types.HexString, types.Profile> = useAppSelector(
     (state) => state.profiles?.profiles || {}
   );
-  const profile: types.Profile | undefined = currentProfileId
-    ? profiles[currentProfileId]
+  const profile: types.Profile | undefined = displayId
+    ? profiles[displayId]
     : undefined;
 
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
@@ -40,13 +38,11 @@ const Feed = (): JSX.Element => {
     <div className="Feed__block">
       <div className="Feed__header">
         <nav className="Feed__navigation">
-          {currentProfileId !== userId && (
+          {displayId !== userId && (
             <>
               <div
                 className="Feed__backArrow"
-                onClick={() =>
-                  dispatch(setDisplayedProfileId(userId as string))
-                }
+                onClick={() => dispatch(setDisplayId(userId as string))}
               >
                 <ArrowLeftOutlined />
               </div>

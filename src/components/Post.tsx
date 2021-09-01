@@ -8,7 +8,7 @@ import ReplyBlock from "./ReplyBlock";
 import PostHashDropdown from "./PostHashDropdown";
 import { ActivityContentImage } from "@dsnp/sdk/core/activityContent";
 import { FromTitle } from "./FromTitle";
-import { setDisplayedProfileId } from "../redux/slices/userSlice";
+import { setDisplayId } from "../redux/slices/userSlice";
 import { useAppDispatch, useAppSelector } from "../redux/hooks";
 
 interface PostProps {
@@ -34,7 +34,7 @@ const Post = ({ feedItem }: PostProps): JSX.Element => {
   return (
     <Card key={feedItem.hash} className="Post__block" bordered={false}>
       <div
-        onClick={() => dispatch(setDisplayedProfileId(feedItem.fromId))}
+        onClick={() => dispatch(setDisplayId(feedItem.fromId))}
         onMouseEnter={() => setIsHoveringProfile(true)}
         onMouseLeave={() => setIsHoveringProfile(false)}
         className="Post__metaBlock"

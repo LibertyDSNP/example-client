@@ -6,15 +6,12 @@ import { DSNPUserId } from "@dsnp/sdk/dist/types/core/identifiers";
 interface UserState {
   id?: DSNPUserId;
   walletType: wallet.WalletType;
-  displayedProfileId?: DSNPUserId;
+  displayId?: DSNPUserId;
 }
 
 const initialState: UserState = {
   id: session.hasSession() ? session.loadSession()?.id : undefined,
   walletType: session.loadSession()?.walletType ?? wallet.WalletType.NONE,
-  displayedProfileId: session.hasSession()
-    ? session.loadSession()?.id
-    : undefined,
 };
 
 export const userSlice = createSlice({
@@ -27,12 +24,11 @@ export const userSlice = createSlice({
     }),
     userLogout: (_state) => ({
       walletType: wallet.WalletType.NONE,
-      displayedProfileId: undefined,
     }),
     userUpdateId: (state, action: PayloadAction<DSNPUserId>) => ({
       ...state,
       id: action.payload,
-      displayedProfileId: action.payload,
+      displayId: action.payload,
     }),
     userUpdateWalletType: (
       state,
@@ -41,9 +37,9 @@ export const userSlice = createSlice({
       ...state,
       walletType: action.payload,
     }),
-    setDisplayedProfileId: (state, action: PayloadAction<DSNPUserId>) => ({
+    setDisplayId: (state, action: PayloadAction<DSNPUserId>) => ({
       ...state,
-      displayedProfileId: action.payload,
+      displayId: action.payload,
     }),
   },
 });
@@ -52,6 +48,6 @@ export const {
   userLogout,
   userUpdateId,
   userUpdateWalletType,
-  setDisplayedProfileId,
+  setDisplayId,
 } = userSlice.actions;
 export default userSlice.reducer;

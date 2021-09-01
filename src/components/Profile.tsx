@@ -9,18 +9,20 @@ import { saveProfile } from "../services/sdk";
 import { core } from "@dsnp/sdk";
 
 const Profile = (): JSX.Element => {
-  const myId: DSNPUserId | undefined = useAppSelector((state) => state.user.id);
-
   const userId: DSNPUserId | undefined = useAppSelector(
-    (state) => state.user.displayedProfileId
+    (state) => state.user.id
+  );
+
+  const displayId: DSNPUserId | undefined = useAppSelector(
+    (state) => state.user.displayId
   );
 
   const profiles: Record<types.HexString, types.Profile> = useAppSelector(
     (state) => state.profiles?.profiles || {}
   );
 
-  const profile: types.Profile | undefined = userId
-    ? profiles[userId]
+  const profile: types.Profile | undefined = displayId
+    ? profiles[displayId]
     : undefined;
 
   const handle = profile?.handle;
@@ -50,12 +52,12 @@ const Profile = (): JSX.Element => {
 
   const saveEditProfile = async () => {
     setIsEditing(!isEditing);
-    if (userId === undefined || newName === undefined) return;
+    if (displayId === undefined || newName === undefined) return;
     const newProfile = core.activityContent.createProfile({
       name: newName,
       icon: profile?.icon,
     });
-    await saveProfile(userId, newProfile);
+    await saveProfile(displayId, newProfile);
   };
 
   const cancelEditProfile = () => {
@@ -70,10 +72,10 @@ const Profile = (): JSX.Element => {
         <div className="ProfileBlock__avatarBlock">
           <UserAvatar
             icon={(profile?.icon || [])[0]?.href}
-            profileAddress={userId}
+            profileAddress={displayId}
             avatarSize="large"
           />
-          {myId === userId &&
+          {userId === displayId &&
             (isEditing ? (
               <>
                 <Button
@@ -119,7 +121,7 @@ const Profile = (): JSX.Element => {
           </label>
           <input
             className="ProfileBlock__dsnpUserId"
-            value={userId || "Anonymous"}
+            value={displayId || "Anonymous"}
             disabled={true}
           />
         </div>
