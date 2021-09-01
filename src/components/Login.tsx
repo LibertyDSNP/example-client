@@ -11,6 +11,7 @@ import { Registration } from "@dsnp/sdk/core/contracts/registry";
 import RegistrationModal from "./RegistrationModal";
 import { core } from "@dsnp/sdk";
 import ethereum from "../services/wallets/metamask/ethereum";
+import { HexString } from "../utilities/types";
 
 interface LoginProps {
   loginWalletOptions: wallet.WalletType;
@@ -25,6 +26,9 @@ const Login = ({ loginWalletOptions }: LoginProps): JSX.Element => {
 
   const [walletAddress, setWalletAddress] = React.useState<string>("");
   const [registrations, setRegistrations] = React.useState<Registration[]>([]);
+  const [walletType, setWalletType] = React.useState<wallet.WalletType>(
+    wallet.WalletType.NONE
+  );
 
   const dispatch = useAppDispatch();
   const userId = useAppSelector((state) => state.user.id);
@@ -37,20 +41,28 @@ const Login = ({ loginWalletOptions }: LoginProps): JSX.Element => {
     setRegistrationVisible(false);
   };
 
+  const loginWithWalletAddress = async (
+    waddr: HexString,
+    selectedType: wallet.WalletType
+  ) => {
+    setWalletAddress(waddr);
+    sdk.setupProvider(selectedType);
+    const registrations = await sdk.getSocialIdentities(waddr);
+    if (registrations.length === 1) {
+      setUserID(registrations[0].dsnpUserURI);
+    } else {
+      setRegistrations(registrations);
+      setRegistrationVisible(true);
+    }
+  };
+
   const login = async (selectedType: wallet.WalletType) => {
+    setWalletType(selectedType);
     if (loading) return;
     startLoading(true);
     try {
       const waddr = await wallet.wallet(selectedType).login();
-      setWalletAddress(waddr);
-      sdk.setupProvider(selectedType);
-      const registrations = await sdk.getSocialIdentities(waddr);
-      if (registrations.length === 1) {
-        setUserID(registrations[0].dsnpUserURI);
-      } else {
-        setRegistrations(registrations);
-        setRegistrationVisible(true);
-      }
+      await loginWithWalletAddress(waddr, selectedType);
     } catch (error) {
       logout();
     } finally {
@@ -60,18 +72,27 @@ const Login = ({ loginWalletOptions }: LoginProps): JSX.Element => {
   };
 
   const logout = () => {
-    session.clearSession();
     setRegistrationVisible(false);
     setWalletAddress("");
+    if (!userId) return;
+    session.clearSession();
     if (currentWalletType !== wallet.WalletType.NONE) {
       wallet.wallet(currentWalletType).logout();
     }
     dispatch(userLogout());
   };
 
-  useEffect(() => {
-    ethereum?.on("accountsChanged", () => logout());
-  }, [logout]);
+  const handleAccountsChange = async (waddrs: HexString[]) => {
+    logout();
+    if (waddrs[0] && walletType !== wallet.WalletType.NONE) {
+      startLoading(true);
+      await loginWithWalletAddress(waddrs[0], walletType);
+    }
+  };
+
+  ethereum
+    ?.removeAllListeners("accountsChanged")
+    .on("accountsChanged", handleAccountsChange);
 
   return (
     <div className="Login__block">
