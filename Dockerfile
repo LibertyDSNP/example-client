@@ -4,7 +4,13 @@ USER root
 RUN apk --update add bash tini
 
 COPY package.json package-lock.json ./
-RUN npm ci
+RUN npm install
+
+ARG REACT_APP_UPLOAD_HOST=""
+ARG REACT_APP_CHAIN_ID="31337"
+ARG REACT_APP_CHAIN_NAME="Localchain"
+ARG REACT_APP_CHAIN_HOST="http://localhost:8545"
+ARG REACT_APP_TORUS_BUILD_ENV="testing"
 
 COPY src src/
 COPY serve.json serve.json
@@ -15,7 +21,6 @@ COPY bin ./bin/
 COPY public ./public/
 COPY tsconfig.json tsconfig.json
 EXPOSE 8080
-
 
 RUN echo `ls -la`
 
