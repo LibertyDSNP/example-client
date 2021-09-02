@@ -1,13 +1,19 @@
-import { keccak_256 } from "js-sha3";
 import { shallow, mount } from "enzyme";
 import ReplyBlock from "../ReplyBlock";
 import { componentWithStore, createMockStore } from "../../test/testhelpers";
 import { getPrefabFeed } from "../../test/testFeeds";
 import { waitFor } from "@testing-library/react";
 import * as sdk from "../../services/sdk";
+import * as wallet from "../../services/wallets/wallet";
+import { convertToDSNPUserId } from "@dsnp/sdk/core/identifiers";
+import { hash } from "@dsnp/sdk/core/utilities";
 
+const id = convertToDSNPUserId(0x0345);
 const feedItems = getPrefabFeed();
-const initialState = { user: { id: "0x0345" }, feed: { feedItems } };
+const initialState = {
+  user: { id: id, walletType: wallet.WalletType.METAMASK },
+  feed: { feedItems },
+};
 const store = createMockStore(initialState);
 
 const writeReply = async (component: any) => {
@@ -31,7 +37,7 @@ describe("ReplyBlock", () => {
 
   const component = mount(
     componentWithStore(ReplyBlock, store, {
-      parent: keccak_256("this is a hash of the feed item"),
+      parent: hash("this is a hash of the feed item"),
     })
   );
 

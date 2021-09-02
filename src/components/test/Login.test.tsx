@@ -43,7 +43,9 @@ beforeAll(async () => {
 });
 
 describe("Login Component", () => {
-  const store = createMockStore({ user: {} });
+  const store = createMockStore({
+    user: { walletType: wallet.WalletType.NONE },
+  });
   describe("is logged out", () => {
     it("renders without crashing", () => {
       expect(() => {
@@ -70,7 +72,9 @@ describe("Login Component", () => {
     });
 
     it("header button -> metamask login", async () => {
-      const store = createMockStore({ user: {} });
+      const store = createMockStore({
+        user: { walletType: wallet.WalletType.NONE },
+      });
       const component = mount(
         componentWithStore(Login, store, {
           loginWalletOptions: wallet.WalletType.NONE,

@@ -66,7 +66,7 @@ const RegistrationModal = ({
         walletAddress,
         formValues.handle
       );
-      onIdResolved(core.identifiers.convertToDSNPUserId(userURI).toString());
+      onIdResolved(userURI);
     } catch (error) {
       console.error(error);
       setRegistrationError(

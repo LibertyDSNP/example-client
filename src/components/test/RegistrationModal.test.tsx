@@ -4,7 +4,7 @@ import { componentWithStore, createMockStore } from "../../test/testhelpers";
 import { getPrefabProfile } from "../../test/testProfiles";
 import { waitFor } from "@testing-library/react";
 import { Registration } from "@dsnp/sdk/core/contracts/registry";
-import { DSNPUserURI } from "@dsnp/sdk/dist/types/core/identifiers";
+import { convertToDSNPUserURI, DSNPUserURI } from "@dsnp/sdk/core/identifiers";
 import * as sdk from "../../services/sdk";
 
 const profiles = Array(3)
@@ -25,6 +25,8 @@ const registrations: Registration[] = profiles.map((p, i) => ({
   contractAddr: "0x" + Array(5).fill(i).join(""),
   handle: `test_${i}`,
 }));
+
+const registrationSelectionURI = convertToDSNPUserURI(0x424242);
 
 describe("RegistrationModal", () => {
   describe("when account has no registrations", () => {
@@ -47,7 +49,7 @@ describe("RegistrationModal", () => {
         .spyOn(sdk, "createNewDSNPRegistration")
         .mockImplementation((_addr, handle) => {
           handleInput = handle;
-          return Promise.resolve("dsnp://0x424242");
+          return Promise.resolve(registrationSelectionURI);
         });
     });
 
@@ -85,7 +87,7 @@ describe("RegistrationModal", () => {
 
       await waitFor(() => {
         expect(handleInput).toBe("Joanne");
-        expect(registrationSelection).toBe("0x424242");
+        expect(registrationSelection).toBe(registrationSelectionURI);
       });
     });
   });
@@ -189,7 +191,7 @@ describe("RegistrationModal", () => {
       it("permits a new registration", () => {
         const registerSpy = jest
           .spyOn(sdk, "createNewDSNPRegistration")
-          .mockImplementation(() => Promise.resolve("dsnp://0x424242"));
+          .mockImplementation(() => Promise.resolve(registrationSelectionURI));
 
         component.find("Input").simulate("change", {
           target: { value: "Joanne" },

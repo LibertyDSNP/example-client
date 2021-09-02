@@ -35,7 +35,7 @@ beforeAll(async () => {
 describe("LoginSetupInstructions Component", () => {
   describe("login from login guide", () => {
     it("metamask login guide", async () => {
-      const initialState = { user: {} };
+      const initialState = { user: { walletType: wallet.WalletType.METAMASK } };
       const store = createMockStore(initialState);
       const component = mount(
         componentWithStore(Login, store, {
@@ -52,7 +52,7 @@ describe("LoginSetupInstructions Component", () => {
     });
 
     it("torus login guide", async () => {
-      const initialState = { user: {} };
+      const initialState = { user: { walletType: wallet.WalletType.TORUS } };
       const store = createMockStore(initialState);
       const component = mount(
         componentWithStore(Login, store, {
