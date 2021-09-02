@@ -5,7 +5,7 @@ import { getPrefabProfile } from "../../test/testProfiles";
 import { waitFor } from "@testing-library/react";
 import { Registration } from "@dsnp/sdk/core/contracts/registry";
 import { DSNPUserURI } from "@dsnp/sdk/dist/types/core/identifiers";
-import * as sdk from "../../services/sdk";
+import * as dsnp from "../../services/dsnp";
 
 const profiles = Array(3)
   .fill(0)
@@ -44,7 +44,7 @@ describe("RegistrationModal", () => {
       );
       jest.spyOn(global.console, "warn").mockImplementation(jest.fn());
       jest
-        .spyOn(sdk, "createNewDSNPRegistration")
+        .spyOn(dsnp, "createNewDSNPRegistration")
         .mockImplementation((_addr, handle) => {
           handleInput = handle;
           return Promise.resolve("dsnp://0x424242");
@@ -188,7 +188,7 @@ describe("RegistrationModal", () => {
 
       it("permits a new registration", () => {
         const registerSpy = jest
-          .spyOn(sdk, "createNewDSNPRegistration")
+          .spyOn(dsnp, "createNewDSNPRegistration")
           .mockImplementation(() => Promise.resolve("dsnp://0x424242"));
 
         component.find("Input").simulate("change", {

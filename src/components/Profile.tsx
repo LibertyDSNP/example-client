@@ -5,7 +5,7 @@ import React, { useEffect, useState } from "react";
 import { useAppSelector } from "../redux/hooks";
 import * as types from "../utilities/types";
 import { DSNPUserId } from "@dsnp/sdk/dist/types/core/identifiers";
-import { saveProfile } from "../services/sdk";
+import { saveProfile } from "../services/content";
 import { core } from "@dsnp/sdk";
 
 const Profile = (): JSX.Element => {

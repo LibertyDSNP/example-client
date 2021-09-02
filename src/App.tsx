@@ -7,7 +7,8 @@ import Feed from "./components/Feed";
 import ProfileBlock from "./components/ProfileBlock";
 import * as wallet from "./services/wallets/wallet";
 import { useAppDispatch, useAppSelector } from "./redux/hooks";
-import { setupProvider, startSubscriptions } from "./services/sdk";
+import { setupProvider } from "./services/dsnp";
+import { startSubscriptions } from "./services/content";
 import { userUpdateWalletType } from "./redux/slices/userSlice";
 import { upsertSessionWalletType } from "./services/session";
 

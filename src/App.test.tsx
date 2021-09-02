@@ -4,8 +4,10 @@ import * as wallet from "../src/services/wallets/wallet";
 
 import { mount } from "enzyme";
 import { componentWithStore, createMockStore } from "./test/testhelpers";
-import * as sdk from "./services/sdk";
+import * as dsnp from "./services/dsnp";
+import * as content from "./services/content";
 import * as hooks from "./redux/hooks";
+import { UnsubscribeFunction } from "@dsnp/sdk/dist/types/core/contracts/utilities";
 
 jest.mock("../src/components/Header", () => () => <div> Header </div>);
 jest.mock("../src/components/Feed", () => () => <div> Feed </div>);
@@ -19,10 +21,10 @@ describe("App", () => {
     .spyOn(wallet, "wallet")
     .mockReturnValue({ reload: jest.fn().mockResolvedValue(null) } as any);
 
-  jest.spyOn(sdk, "setupProvider").mockReturnValue(undefined);
+  jest.spyOn(dsnp, "setupProvider").mockReturnValue(undefined);
 
   describe("useEffect", () => {
-    let unsubscribeFnc: unknown;
+    let unsubscribeFnc: UnsubscribeFunction;
     let component: any;
 
     beforeEach(async () => {
@@ -30,8 +32,9 @@ describe("App", () => {
       unsubscribeFnc = jest.fn();
 
       jest.spyOn(React, "useEffect").mockImplementation((cb) => cb());
-      jest.spyOn(sdk, "startSubscriptions");
-      jest.spyOn(sdk, "setupProvider").mockReturnValue(undefined);
+      jest
+        .spyOn(content, "startSubscriptions")
+        .mockReturnValue(Promise.resolve(unsubscribeFnc));
       jest.spyOn(hooks, "useAppDispatch").mockReturnValue(dispatch);
 
       dispatch.mockResolvedValue({ unsubscribeFnc });

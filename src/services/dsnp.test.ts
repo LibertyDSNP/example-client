@@ -1,10 +1,8 @@
-import { startSubscriptions } from "./sdk";
+import { startSubscriptions } from "./dsnp";
 import { core } from "@dsnp/sdk";
 const subscription = core.contracts.subscription;
 
-const mockThunkDispatch = jest.fn;
-
-describe("sdk.ts", () => {
+describe("dsnp.ts", () => {
   describe("startSubscriptions", () => {
     it("works", async () => {
       let caught = "";
@@ -16,7 +14,7 @@ describe("sdk.ts", () => {
         .spyOn(subscription, "subscribeToRegistryUpdates")
         .mockImplementation(async () => jest.fn);
 
-      const res = await startSubscriptions(mockThunkDispatch);
+      const res = await startSubscriptions(jest.fn(), jest.fn());
       const unsub = () =>
         Object.values(res).forEach(async (u) => {
           try {
