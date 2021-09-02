@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { Button } from "antd";
 import ConnectionsListProfiles from "./ConnectionsListProfiles";
 import { useAppSelector } from "../redux/hooks";
-import { DSNPUserId } from "@dsnp/sdk/dist/types/core/identifiers";
 
 enum ListStatus {
   CLOSED,
@@ -11,9 +10,7 @@ enum ListStatus {
 }
 
 const ConnectionsList = (): JSX.Element => {
-  const userId: DSNPUserId | undefined = useAppSelector(
-    (state) => state.user.id
-  );
+  const userId: string | undefined = useAppSelector((state) => state.user.id);
   const following = useAppSelector(
     (state) => (userId && state.graphs.following[userId]) || {}
   );

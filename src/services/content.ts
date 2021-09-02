@@ -1,4 +1,4 @@
-import { FeedItem, Profile, Reply } from "../utilities/types";
+import { FeedItem, Reply } from "../utilities/types";
 import { core } from "@dsnp/sdk";
 import { RegistryUpdateLogData } from "@dsnp/sdk/core/contracts/registry";
 import { addFeedItem, clearFeedItems } from "../redux/slices/feedSlice";
@@ -170,18 +170,17 @@ const dispatchFeedItem = (
   content: ActivityContentNote,
   blockNumber: number
 ) => {
-  const decoder = new TextDecoder();
   dispatch(
     addFeedItem({
-      fromId: decoder.decode((message.fromId as any) as Uint8Array),
+      fromId: message.fromId.toString(),
       blockNumber: blockNumber,
-      hash: decoder.decode((message.contentHash as any) as Uint8Array),
+      hash: message.contentHash,
       published: content.published,
-      uri: decoder.decode((message.url as any) as Uint8Array),
+      uri: message.url,
       content: content,
       inReplyTo:
         message.announcementType === core.announcements.AnnouncementType.Reply
-          ? decoder.decode((message.inReplyTo as any) as Uint8Array)
+          ? message.inReplyTo
           : undefined,
     })
   );
@@ -204,16 +203,14 @@ const dispatchProfile = (
   blockIndex: number,
   batchIndex: number
 ) => {
-  const decoder = new TextDecoder();
-
   dispatch(
     upsertProfile({
       ...profile,
-      fromId: decoder.decode((message.fromId as any) as Uint8Array),
+      fromId: message.fromId.toString(),
       blockNumber,
       blockIndex,
       batchIndex,
-    } as Profile)
+    })
   );
 };
 
@@ -221,18 +218,25 @@ const dispatchProfile = (
  * handleRegistryUpdate dispatches a profile update for the handle when a registry update is made.
  * @param dispatch function used to dispatch to store
  * @param update registry log message containg DSNP uri and handle
+ * @param blockNumber number of block containing the publication
+ * @param blockIndex index of log message (relative to other DSNP logs) within the block
  */
 const handleRegistryUpdate = (dispatch: Dispatch) => (
-  update: RegistryUpdateLogData
+  update: RegistryUpdateLogData,
+  blockNumber: number,
+  blockIndex: number
 ) => {
   dispatch(
     upsertProfile({
       ...createProfile(),
-      fromId: core.identifiers.convertDSNPUserURIToDSNPUserId(
-        update.dsnpUserURI
-      ),
+      fromId: core.identifiers
+        .convertToDSNPUserId(update.dsnpUserURI)
+        .toString(),
       handle: update.handle,
-    } as Profile)
+      blockNumber,
+      blockIndex,
+      batchIndex: 0,
+    })
   );
 };
 
@@ -253,11 +257,8 @@ const fetchAndDispatchContent = async (
   blockIndex: number,
   batchIndex: number
 ) => {
-  const decoder = new TextDecoder();
-
   try {
-    const url = decoder.decode((message.url as any) as Uint8Array);
-    const res = await fetch(url);
+    const res = await fetch(message.url);
     const activityContent = await res.json();
     dispatchActivityContent(
       dispatch,
@@ -281,11 +282,10 @@ const dispatchGraphChange = (
   dispatch: Dispatch,
   graphChange: GraphChangeAnnouncement
 ) => {
-  const decoder = new TextDecoder();
   dispatch(
     upsertGraph({
-      follower: decoder.decode((graphChange.fromId as any) as Uint8Array),
-      followee: decoder.decode((graphChange.objectId as any) as Uint8Array),
+      follower: graphChange.fromId.toString(),
+      followee: graphChange.objectId.toString(),
       unfollow: graphChange.changeType === DSNPGraphChangeType.Unfollow,
     })
   );
@@ -329,7 +329,7 @@ const handleBatchAnnouncement = (dispatch: Dispatch) => (
 const storeActivityContent = async (
   content: ActivityContentNote | ActivityContentProfile
 ): Promise<string> => {
-  const hash = keccak256(core.activityContent.serialize(content));
+  const hash = keccak256(JSON.stringify(content));
   await fetch(
     `${process.env.REACT_APP_UPLOAD_HOST}/upload?filename=${encodeURIComponent(
       hash + ".json"

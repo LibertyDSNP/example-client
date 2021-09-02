@@ -37,7 +37,7 @@ beforeAll(async () => {
     .spyOn(dsnp, "getSocialIdentities")
     .mockImplementation(() =>
       Promise.resolve([
-        { dsnpUserURI: "dsnp://0x034b", contractAddr: "0xabc", handle: "test" },
+        { dsnpUserURI: "dsnp://4242", contractAddr: "0xabc", handle: "test" },
       ])
     );
 });

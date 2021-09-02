@@ -8,13 +8,12 @@ import {
 import { isFunction, isUint8Array } from "./utilities";
 import { ActivityContentNote } from "@dsnp/sdk/core/activityContent";
 import { noteToActivityContentNote } from "../utilities/activityContent";
-import { DSNPUserId } from "@dsnp/sdk/dist/types/core/identifiers";
 import { buildBaseUploadHostUrl } from "../utilities/buildBaseUploadHostUrl";
 
 export const createNote = async (
   note: string,
   uriList: string[],
-  fromId: DSNPUserId | undefined
+  fromId: string
 ): Promise<FeedItem> => {
   // send content to api
   const activityPubNote: ActivityContentNote = noteToActivityContentNote(
@@ -22,7 +21,7 @@ export const createNote = async (
     uriList
   );
   const newPostFeedItem: Partial<FeedItem> = {
-    fromId: fromId,
+    fromId: BigInt(fromId),
     content: activityPubNote,
   };
   return newPostFeedItem;

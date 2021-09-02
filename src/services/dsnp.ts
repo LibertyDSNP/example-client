@@ -27,7 +27,11 @@ import { UnsubscribeFunction } from "@dsnp/sdk/dist/types/core/contracts/utiliti
 // Parameter types
 //
 
-type RegistryUpdateHandler = (update: RegistryUpdateLogData) => void;
+type RegistryUpdateHandler = (
+  update: RegistryUpdateLogData,
+  blockNumber: number,
+  blockIndex: number
+) => void;
 
 type BatchAnnouncementHandler = (
   announcment: BatchPublicationLogData,
@@ -35,7 +39,7 @@ type BatchAnnouncementHandler = (
 ) => void;
 
 type AnnouncementRowHandler = (
-  announcementRow: AnnouncementType,
+  announcementRow: SignedAnnouncement,
   batchIndex: number
 ) => void;
 
@@ -110,26 +114,35 @@ export const startSubscriptions = async (
   batchHandler: BatchAnnouncementHandler,
   registryHandler: RegistryUpdateHandler
 ): Promise<UnsubscribeFunction> => {
-  let blockNumber: number;
-  let blockIndex = 0;
-
   // subscribe to all announcements
+  let batchBlockNumber: number;
+  let batchBlockIndex = 0;
   const unsubscribeToBatchPublications = await core.contracts.subscription.subscribeToBatchPublications(
     (announcement: BatchPublicationLogData) => {
-      if (announcement.blockNumber !== blockNumber) {
-        blockNumber = announcement.blockNumber;
-        blockIndex = 0;
+      if (announcement.blockNumber !== batchBlockNumber) {
+        batchBlockNumber = announcement.blockNumber;
+        batchBlockIndex = 0;
       } else {
-        blockIndex++;
+        batchBlockIndex++;
       }
-      batchHandler(announcement, blockIndex);
+      batchHandler(announcement, batchBlockIndex);
     },
     { fromBlock: 1 }
   );
 
   // subscribe to registry events
+  let registryBlockNumber: number;
+  let registryBlockIndex = 0;
   const unsubscribeToRegistryUpdate = await core.contracts.subscription.subscribeToRegistryUpdates(
-    registryHandler,
+    (announcement: RegistryUpdateLogData) => {
+      if (announcement.blockNumber !== registryBlockNumber) {
+        registryBlockNumber = announcement.blockNumber;
+        registryBlockIndex = 0;
+      } else {
+        registryBlockIndex++;
+      }
+      registryHandler(announcement, registryBlockNumber, registryBlockIndex);
+    },
     { fromBlock: 1 }
   );
 
@@ -154,7 +167,7 @@ export const readBatchFile = async (
   const reader = await core.batch.openURL(
     (batchAnnouncement.fileUrl.toString() as any) as URL
   );
-  await core.batch.readFile(reader, (announcementRow: AnnouncementType) =>
+  await core.batch.readFile(reader, (announcementRow: SignedAnnouncement) =>
     rowHandler(announcementRow, batchIndex++)
   );
 };
@@ -225,7 +238,11 @@ export const buildAndSignPostAnnouncement = async (
   hash: string
 ): Promise<SignedBroadcastAnnouncement> =>
   core.announcements.sign(
-    core.announcements.createBroadcast(fromId, url, hash)
+    core.announcements.createBroadcast(
+      core.identifiers.convertToDSNPUserURI(fromId),
+      url,
+      hash
+    )
   );
 
 /**
@@ -262,4 +279,10 @@ export const buildAndSignProfile = async (
   url: string,
   hash: string
 ): Promise<SignedProfileAnnouncement> =>
-  core.announcements.sign(core.announcements.createProfile(fromId, url, hash));
+  core.announcements.sign(
+    core.announcements.createProfile(
+      core.identifiers.convertToDSNPUserURI(fromId),
+      url,
+      hash
+    )
+  );

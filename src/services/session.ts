@@ -2,7 +2,7 @@ import { DSNPUserId } from "@dsnp/sdk/dist/types/core/identifiers";
 import { WalletType } from "./wallets/wallet";
 
 interface SessionData {
-  id: DSNPUserId | undefined;
+  id: string | undefined;
   walletType: WalletType;
 }
 
@@ -38,7 +38,7 @@ export const upsertSessionUserId = (newId: DSNPUserId): void => {
     id: undefined,
     walletType: WalletType.NONE,
   };
-  saveSession({ ...curSession, id: newId });
+  saveSession({ ...curSession, id: newId.toString() });
 };
 
 export const hasSession = (): boolean => !!sessionStorage.getItem("session");

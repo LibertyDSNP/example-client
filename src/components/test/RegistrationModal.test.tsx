@@ -47,7 +47,7 @@ describe("RegistrationModal", () => {
         .spyOn(dsnp, "createNewDSNPRegistration")
         .mockImplementation((_addr, handle) => {
           handleInput = handle;
-          return Promise.resolve("dsnp://0x424242");
+          return Promise.resolve("dsnp://424242");
         });
     });
 
@@ -85,7 +85,7 @@ describe("RegistrationModal", () => {
 
       await waitFor(() => {
         expect(handleInput).toBe("Joanne");
-        expect(registrationSelection).toBe("0x424242");
+        expect(registrationSelection).toBe("424242");
       });
     });
   });
@@ -189,7 +189,7 @@ describe("RegistrationModal", () => {
       it("permits a new registration", () => {
         const registerSpy = jest
           .spyOn(dsnp, "createNewDSNPRegistration")
-          .mockImplementation(() => Promise.resolve("dsnp://0x424242"));
+          .mockImplementation(() => Promise.resolve("dsnp://424242"));
 
         component.find("Input").simulate("change", {
           target: { value: "Joanne" },

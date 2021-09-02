@@ -6,14 +6,24 @@ export declare type HexString = string;
 
 // ## GraphChange ##
 export interface GraphChange {
-  followee: DSNPUserId;
-  follower: DSNPUserId;
+  followee: string;
+  follower: string;
   unfollow: boolean;
 }
 
 // ## Profile ##
-export type Profile = ProfileAnnouncement &
-  ActivityContentProfile & { handle: string, blockNumber: number, blockIndex: number, batchIndex: number };
+export type Profile = {
+  fromId: string;
+  contentHash?: HexString;
+  url?: string;
+  summary?: string;
+  icon?: Array<ActivityContentImageLink>;
+  name?: string;
+  handle?: string;
+  blockNumber: number;
+  blockIndex: number;
+  batchIndex: number;
+};
 
 // ## FeedItem ##
 export type FeedItem = BroadcastAnnouncement & ActivityContentNote;

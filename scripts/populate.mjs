@@ -443,13 +443,8 @@ setConfig({
   store: new Store(),
 });
 
-const dsnpIdToURI = (dsnpId) =>
-  core.identifiers.convertBigNumberToDSNPUserURI(
-    core.identifiers.convertDSNPUserIdOrURIToBigNumber(dsnpId)
-  );
-
 const storeAnnouncement = async (content, accountId, signer) => {
-  const hash = web3.keccak256(core.activityContent.serialize(content));
+  const hash = web3.keccak256(JSON.stringify(content));
 
   // store note content
   await fetch(
@@ -591,8 +586,8 @@ for await (let account of accounts.values()) {
   // create follow
   const follows = await Promise.all(
     account.follows.map((accountIndex) =>
-      follow(dsnpIdToURI(accounts[accountIndex].id), {
-        currentFromURI: dsnpIdToURI(account.id),
+      follow(core.identifiers.convertToDSNPUserURI(accounts[accountIndex].id), {
+        currentFromURI: core.identifiers.convertToDSNPUserURI(account.id),
       })
     )
   );

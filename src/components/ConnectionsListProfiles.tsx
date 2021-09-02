@@ -4,7 +4,6 @@ import { Button } from "antd";
 import { Profile } from "../utilities/types";
 import { HexString } from "@dsnp/sdk/dist/types/types/Strings";
 import { useAppSelector } from "../redux/hooks";
-import { DSNPUserId } from "@dsnp/sdk/dist/types/core/identifiers";
 import { createProfile } from "@dsnp/sdk/core/activityContent";
 import { AnnouncementType } from "@dsnp/sdk/core/announcements";
 
@@ -16,8 +15,8 @@ enum ListStatus {
 
 interface ConnectionsListProfilesProps {
   listStatus: ListStatus;
-  following: Record<DSNPUserId, boolean>;
-  followers: Record<DSNPUserId, boolean>;
+  following: Record<string, boolean>;
+  followers: Record<string, boolean>;
 }
 
 const ConnectionsListProfiles = ({
@@ -32,7 +31,7 @@ const ConnectionsListProfiles = ({
     (state) => state.profiles?.profiles || {}
   );
 
-  const profileForId = (userId: DSNPUserId): Profile =>
+  const profileForId = (userId: string): Profile =>
     profiles[userId] || {
       ...createProfile({ name: "Anonymous" }),
       contentHash: "",

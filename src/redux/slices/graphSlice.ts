@@ -1,10 +1,9 @@
-import { DSNPUserId } from "@dsnp/sdk/dist/types/core/identifiers";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { GraphChange } from "../../utilities/types";
 
 interface graphState {
-  following: Record<DSNPUserId, Record<DSNPUserId, boolean>>;
-  followers: Record<DSNPUserId, Record<DSNPUserId, boolean>>;
+  following: Record<string, Record<string, boolean>>;
+  followers: Record<string, Record<string, boolean>>;
 }
 
 const initialState: graphState = {
