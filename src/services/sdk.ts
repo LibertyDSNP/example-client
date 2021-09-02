@@ -242,7 +242,7 @@ const dispatchProfile = (
   dispatch(
     upsertProfile({
       ...profile,
-      fromId: message.fromId,
+      fromId: message.fromId.toString(),
       blockNumber,
       blockIndex,
       batchIndex,
@@ -256,9 +256,11 @@ const handleRegistryUpdate = (dispatch: Dispatch) => (
   dispatch(
     upsertProfile({
       ...createProfile(),
-      fromId: core.identifiers.convertToDSNPUserId(update.dsnpUserURI),
+      fromId: core.identifiers
+        .convertToDSNPUserId(update.dsnpUserURI)
+        .toString(),
       handle: update.handle,
-    } as Profile)
+    })
   );
 };
 

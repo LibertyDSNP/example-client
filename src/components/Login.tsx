@@ -11,6 +11,7 @@ import { Registration } from "@dsnp/sdk/core/contracts/registry";
 import RegistrationModal from "./RegistrationModal";
 import { core } from "@dsnp/sdk";
 import ethereum from "../services/wallets/metamask/ethereum";
+import { DSNPUserId } from "@dsnp/sdk/core/identifiers";
 
 interface LoginProps {
   loginWalletOptions: wallet.WalletType;
@@ -27,11 +28,13 @@ const Login = ({ loginWalletOptions }: LoginProps): JSX.Element => {
   const [registrations, setRegistrations] = React.useState<Registration[]>([]);
 
   const dispatch = useAppDispatch();
-  const userId = useAppSelector((state) => state.user.id);
-  const currentWalletType = useAppSelector((state) => state.user.walletType);
+  const userId: string | undefined = useAppSelector((state) => state.user.id);
+  const currentWalletType: wallet.WalletType = useAppSelector(
+    (state) => state.user.walletType
+  );
 
   const setUserID = (fromURI: string) => {
-    const fromId = core.identifiers.convertToDSNPUserId(fromURI);
+    const fromId: DSNPUserId = core.identifiers.convertToDSNPUserId(fromURI);
     dispatch(userUpdateId(fromId));
     session.upsertSessionUserId(fromId);
     setRegistrationVisible(false);
