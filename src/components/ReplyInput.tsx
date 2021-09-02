@@ -5,6 +5,7 @@ import { sendReply } from "../services/sdk";
 import { useAppDispatch, useAppSelector } from "../redux/hooks";
 import { replyLoading } from "../redux/slices/feedSlice";
 import { DSNPUserId } from "@dsnp/sdk/dist/types/core/identifiers";
+import { convertToDSNPUserURI } from "@dsnp/sdk/core/identifiers";
 
 interface ReplyInputProps {
   parent: DSNPUserId;
@@ -23,7 +24,8 @@ const ReplyInput = ({ parent }: ReplyInputProps): JSX.Element => {
     if (!userId) return;
     setSaving(true);
     const newReplyFeedItem = await createNote(replyValue, [], userId);
-    await sendReply(newReplyFeedItem, parent);
+    const parentURI = convertToDSNPUserURI(parent);
+    await sendReply(newReplyFeedItem, parentURI);
     dispatch(replyLoading({ loading: true, parent: parent }));
     setReplyValue("");
     setSaving(false);

@@ -58,7 +58,7 @@ describe("Feed", () => {
       const component = mount(componentWithStore(Feed, store));
       expect(component.find(Post).length).toEqual(4);
 
-      const expectedFeedAddresses = [userId].concat(
+      const expectedFeedAddresses = [userId.toString()].concat(
         Object.keys(graphs.following)
       );
       component.find(".ant-card-meta-title").forEach((address) => {

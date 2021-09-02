@@ -45,9 +45,9 @@ const ConnectionsListProfiles = ({
 
   const connectionsList =
     listStatus === ListStatus.FOLLOWERS
-      ? Object.keys(followers).map(profileForId)
+      ? Object.keys(followers).map((userId) => profileForId(BigInt(userId)))
       : listStatus === ListStatus.FOLLOWING
-      ? Object.keys(following).map(profileForId)
+      ? Object.keys(following).map((userId) => profileForId(BigInt(userId)))
       : [];
 
   return (
@@ -60,7 +60,7 @@ const ConnectionsListProfiles = ({
           <UserAvatar
             icon={profiles[userProfile.fromId.toString()]?.icon?.[0]?.href}
             avatarSize="small"
-            profileAddress={userProfile.fromId}
+            profileAddress={userProfile.fromId.toString()}
           />
           <div className="ConnectionsListProfiles__name">
             {userProfile.name || userProfile.fromId || "Anonymous"}

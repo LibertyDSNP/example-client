@@ -4,7 +4,7 @@ import ConnectionsList from "./ConnectionsList";
 import React, { useEffect, useState } from "react";
 import { useAppSelector } from "../redux/hooks";
 import * as types from "../utilities/types";
-import { DSNPUserId } from "@dsnp/sdk/dist/types/core/identifiers";
+import { convertToDSNPUserURI, DSNPUserId } from "@dsnp/sdk/core/identifiers";
 import { saveProfile } from "../services/sdk";
 import { core } from "@dsnp/sdk";
 
@@ -52,7 +52,8 @@ const Profile = (): JSX.Element => {
       name: newName,
       icon: profile?.icon,
     });
-    await saveProfile(userId, newProfile);
+    const userURI = convertToDSNPUserURI(userId);
+    await saveProfile(userURI, newProfile);
   };
 
   const cancelEditProfile = () => {

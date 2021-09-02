@@ -4,7 +4,6 @@ import { setConfig, createRegistration, core } from "@dsnp/sdk";
 import { Publication } from "@dsnp/sdk/core/contracts/publisher";
 import { RegistryUpdateLogData } from "@dsnp/sdk/core/contracts/registry";
 import { providers } from "ethers";
-import { keccak256 } from "web3-utils";
 import { addFeedItem, clearFeedItems } from "../redux/slices/feedSlice";
 import { upsertProfile } from "../redux/slices/profileSlice";
 import { AnyAction, ThunkDispatch } from "@reduxjs/toolkit";
@@ -35,7 +34,7 @@ import {
   DSNPAnnouncementURI,
   DSNPUserId,
   DSNPUserURI,
-} from "@dsnp/sdk/dist/types/core/identifiers";
+} from "@dsnp/sdk/core/identifiers";
 
 interface BatchFileData {
   url: URL;
@@ -81,7 +80,7 @@ export const sendPost = async (post: FeedItem): Promise<void> => {
 
 export const sendReply = async (
   reply: Reply,
-  inReplyTo: DSNPUserId
+  inReplyTo: DSNPUserURI
 ): Promise<void> => {
   if (!reply.content || !inReplyTo) return;
 
@@ -96,11 +95,11 @@ export const sendReply = async (
 };
 
 export const saveProfile = async (
-  fromId: DSNPUserId,
+  fromURI: DSNPUserURI,
   profile: ActivityContentProfile
 ): Promise<void> => {
   const hash = await storeActivityContent(profile);
-  const announcement = await buildAndSignProfile(fromId, hash);
+  const announcement = await buildAndSignProfile(fromURI, hash);
 
   await batchAnnouncement(hash, announcement);
 };
@@ -240,17 +239,14 @@ const dispatchProfile = (
   blockIndex: number,
   batchIndex: number
 ) => {
-  const decoder = new TextDecoder();
-  console.log("fromId: ", message.fromId);
-
   dispatch(
     upsertProfile({
       ...profile,
-      fromId: decoder.decode(message.fromId),
+      fromId: message.fromId,
       blockNumber,
       blockIndex,
       batchIndex,
-    } as Profile)
+    })
   );
 };
 
@@ -335,8 +331,8 @@ const handleBatchAnnouncement = (
   core.batch
     .openURL((batchAnnouncement.fileUrl.toString() as any) as URL)
     .then((reader: any) =>
-      core.batch.readFile(reader, (announcementRow: AnnouncementType) => {
-        const announcement = announcementRow as unknown;
+      core.batch.readFile(reader, (announcementRow: SignedAnnouncement) => {
+        const announcement = announcementRow;
         if (isGraphChangeAnnouncement(announcement)) {
           dispatchGraphChange(dispatch, announcement);
         } else if (isBroadcastAnnouncement(announcement)) {
@@ -356,7 +352,8 @@ const handleBatchAnnouncement = (
 const storeActivityContent = async (
   content: ActivityContentNote | ActivityContentProfile
 ): Promise<string> => {
-  const hash = keccak256(core.activityContent.serialize(content));
+  const hash = core.utilities.hash(JSON.stringify(content));
+
   await fetch(
     `${process.env.REACT_APP_UPLOAD_HOST}/upload?filename=${encodeURIComponent(
       hash + ".json"
@@ -397,11 +394,11 @@ const buildAndSignReplyAnnouncement = async (
 });
 
 const buildAndSignProfile = async (
-  fromId: DSNPUserId,
+  fromURI: DSNPUserURI,
   hash: string
 ): Promise<SignedProfileAnnouncement> => ({
   ...core.announcements.createProfile(
-    fromId,
+    fromURI,
     `${process.env.REACT_APP_UPLOAD_HOST}/${hash}.json`,
     hash
   ),
