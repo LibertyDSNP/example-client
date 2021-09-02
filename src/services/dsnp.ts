@@ -223,10 +223,10 @@ export const buildAndSignPostAnnouncement = async (
   fromId: DSNPUserId,
   url: string,
   hash: string
-): Promise<SignedBroadcastAnnouncement> => ({
-  ...core.announcements.createBroadcast(fromId, url, hash),
-  signature: "0x00000000", // TODO: call out to wallet to get this signed
-});
+): Promise<SignedBroadcastAnnouncement> =>
+  core.announcements.sign(
+    core.announcements.createBroadcast(fromId, url, hash)
+  );
 
 /**
  * Creates a signed reply announcement.
@@ -243,10 +243,10 @@ export const buildAndSignReplyAnnouncement = async (
   inReplyTo: HexString,
   url: string,
   hash: string
-): Promise<SignedReplyAnnouncement> => ({
-  ...core.announcements.createReply(fromId, url, hash, inReplyTo),
-  signature: "0x00000000", // TODO: call out to wallet to get this signed
-});
+): Promise<SignedReplyAnnouncement> =>
+  core.announcements.sign(
+    core.announcements.createReply(fromId, url, hash, inReplyTo)
+  );
 
 /**
  * Creates a signed profile announcement.
@@ -261,7 +261,5 @@ export const buildAndSignProfile = async (
   fromId: DSNPUserId,
   url: string,
   hash: string
-): Promise<SignedProfileAnnouncement> => ({
-  ...core.announcements.createProfile(fromId, url, hash),
-  signature: "0x00000000", // TODO: call out to wallet to get this signed
-});
+): Promise<SignedProfileAnnouncement> =>
+  core.announcements.sign(core.announcements.createProfile(fromId, url, hash));
