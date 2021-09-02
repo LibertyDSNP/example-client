@@ -9,6 +9,7 @@ import { addFeedItem, clearFeedItems } from "../redux/slices/feedSlice";
 import { upsertProfile } from "../redux/slices/profileSlice";
 import { AnyAction, ThunkDispatch } from "@reduxjs/toolkit";
 import { Store } from "./Storage";
+import { buildBaseUploadHostUrl } from "../utilities/buildBaseUploadHostUrl";
 import {
   ActivityContentNote,
   ActivityContentProfile,
@@ -355,7 +356,7 @@ const storeActivityContent = async (
 ): Promise<string> => {
   const hash = keccak256(core.activityContent.serialize(content));
   await fetch(
-    `${process.env.REACT_APP_UPLOAD_HOST}/upload?filename=${encodeURIComponent(
+    `${buildBaseUploadHostUrl(false)}/upload?filename=${encodeURIComponent(
       hash + ".json"
     )}`,
     {
@@ -373,7 +374,7 @@ const buildAndSignPostAnnouncement = async (
 ): Promise<SignedBroadcastAnnouncement> => ({
   ...core.announcements.createBroadcast(
     post.fromId,
-    `${process.env.REACT_APP_UPLOAD_HOST}/${hash}.json`,
+    `${buildBaseUploadHostUrl(true)}/${hash}.json`,
     hash
   ),
   signature: "0x00000000", // TODO: call out to wallet to get this signed
@@ -386,7 +387,7 @@ const buildAndSignReplyAnnouncement = async (
 ): Promise<SignedReplyAnnouncement> => ({
   ...core.announcements.createReply(
     replyFromId,
-    `${process.env.REACT_APP_UPLOAD_HOST}/${hash}.json`,
+    `${buildBaseUploadHostUrl(true)}/${hash}.json`,
     hash,
     replyInReplyTo
   ),
@@ -399,7 +400,7 @@ const buildAndSignProfile = async (
 ): Promise<SignedProfileAnnouncement> => ({
   ...core.announcements.createProfile(
     fromId,
-    `${process.env.REACT_APP_UPLOAD_HOST}/${hash}.json`,
+    `${buildBaseUploadHostUrl(true)}/${hash}.json`,
     hash
   ),
   signature: "0x00000000", // TODO: call out to wallet to get this signed

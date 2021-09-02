@@ -9,6 +9,7 @@ import { isFunction, isUint8Array } from "./utilities";
 import { ActivityContentNote } from "@dsnp/sdk/core/activityContent";
 import { noteToActivityContentNote } from "../utilities/activityContent";
 import { DSNPUserId } from "@dsnp/sdk/dist/types/core/identifiers";
+import { buildBaseUploadHostUrl } from "../utilities/buildBaseUploadHostUrl";
 
 export const createNote = async (
   note: string,
@@ -30,7 +31,7 @@ export const createNote = async (
 export class Store implements StoreInterface {
   put(targetPath: string, _content: Content): Promise<URL> {
     return Promise.resolve(
-      new URL(`${process.env.REACT_APP_UPLOAD_HOST}/${targetPath}`)
+      new URL(`${buildBaseUploadHostUrl(true)}/${targetPath}`)
     );
   }
 
@@ -40,7 +41,7 @@ export class Store implements StoreInterface {
   ): Promise<URL> {
     const ws = new ServerWriteStream(targetPath);
     await doWriteToStream(ws);
-    return new URL(`${process.env.REACT_APP_UPLOAD_HOST}/${targetPath}`);
+    return new URL(`${buildBaseUploadHostUrl(true)}/${targetPath}`);
   }
 }
 
@@ -99,9 +100,9 @@ class ServerWriteStream implements WriteStream {
     }
 
     fetch(
-      `${
-        process.env.REACT_APP_UPLOAD_HOST
-      }/upload?filename=${encodeURIComponent(this.targetPath)}`,
+      `${buildBaseUploadHostUrl(false)}/upload?filename=${encodeURIComponent(
+        this.targetPath
+      )}`,
       {
         method: "POST",
         mode: "cors",
