@@ -1,16 +1,12 @@
 import React from "react";
 import UserAvatar from "./UserAvatar";
-import { Button, Spin } from "antd";
 import { Profile } from "../utilities/types";
 import { HexString } from "@dsnp/sdk/dist/types/types/Strings";
-import { useAppDispatch, useAppSelector } from "../redux/hooks";
+import { useAppSelector } from "../redux/hooks";
 import { createProfile } from "@dsnp/sdk/core/activityContent";
 import { AnnouncementType } from "@dsnp/sdk/core/announcements";
-import { followUser, unfollowUser } from "../services/content";
-import {
-  updateRelationshipStatus,
-  RelationshipStatus,
-} from "../redux/slices/graphSlice";
+import { RelationshipStatus } from "../redux/slices/graphSlice";
+import GraphChangeButton from "./GraphChangeButton";
 
 enum ListStatus {
   CLOSED,
@@ -31,21 +27,6 @@ const ConnectionsListProfiles = ({
   following,
   followers,
 }: ConnectionsListProfilesProps): JSX.Element => {
-  const dispatch = useAppDispatch();
-
-  const isFollowing = (userProfile: Profile): boolean =>
-    userProfile.fromId in following;
-
-  const isFollowingUpdating = (userProfile: Profile): boolean =>
-    following[userProfile.fromId] === RelationshipStatus.UPDATING;
-
-  const userRelationship = (profile: Profile): string =>
-    isFollowingUpdating(profile)
-      ? "updating"
-      : isFollowing(profile)
-      ? "Unfollow"
-      : "Follow";
-
   const profiles: Record<HexString, Profile> = useAppSelector(
     (state) => state.profiles?.profiles || {}
   );
@@ -68,57 +49,23 @@ const ConnectionsListProfiles = ({
       ? Object.keys(following).map(profileForId)
       : [];
 
-  const changeGraphState = async (profile: Profile) => {
-    if (isFollowing(profile)) {
-      await unfollowUser(BigInt(userId), BigInt(profile.fromId));
-    } else {
-      await followUser(BigInt(userId), BigInt(profile.fromId));
-    }
-    dispatch(
-      updateRelationshipStatus({
-        follower: userId,
-        followee: profile.fromId,
-        status: RelationshipStatus.UPDATING,
-      })
-    );
-  };
-
   return (
     <>
-      {connectionsList.map((userProfile) => (
-        <div
-          className="ConnectionsListProfiles__profile"
-          key={userProfile.fromId}
-        >
+      {connectionsList.map((profile) => (
+        <div className="ConnectionsListProfiles__profile" key={profile.fromId}>
           <UserAvatar
-            icon={profiles[userProfile.fromId]?.icon?.[0]?.href}
+            icon={profiles[profile.fromId]?.icon?.[0]?.href}
             avatarSize="small"
-            profileAddress={userProfile.fromId}
+            profileAddress={profile.fromId}
           />
           <div className="ConnectionsListProfiles__name">
-            {userProfile.name || userProfile.fromId || "Anonymous"}
+            {profile.name || profile.fromId || "Anonymous"}
           </div>
-          <Button
-            className="ConnectionsListProfiles__button"
-            name={userRelationship(userProfile)}
-            onClick={() => changeGraphState(userProfile)}
-            disabled={isFollowingUpdating(userProfile)}
-          >
-            {userRelationship(userProfile)}
-            {isFollowingUpdating(userProfile) ? (
-              <Spin></Spin>
-            ) : (
-              <div
-                className={
-                  userRelationship(userProfile) === "Follow"
-                    ? "ConnectionsListProfiles__buttonFollowIcon"
-                    : "ConnectionsListProfiles__buttonUnfollowIcon"
-                }
-              >
-                &#10005;
-              </div>
-            )}
-          </Button>
+          <GraphChangeButton
+            userId={userId}
+            profile={profile}
+            following={following}
+          ></GraphChangeButton>
         </div>
       ))}
     </>
