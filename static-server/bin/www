@@ -5,7 +5,6 @@
  */
 
 var app = require("../app");
-console.log("are we here");
 var debug = require("debug")("static-server:server");
 var http = require("http");
 
