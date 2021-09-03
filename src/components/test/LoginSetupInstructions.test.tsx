@@ -5,7 +5,7 @@ import Login from "../Login";
 import * as wallet from "../../services/wallets/wallet";
 import * as metamask from "../../services/wallets/metamask/metamask";
 import * as torus from "../../services/wallets/torus/torus";
-import * as sdk from "../../services/sdk";
+import * as dsnp from "../../services/dsnp";
 
 let metamaskWallet: wallet.Wallet;
 let torusWallet: wallet.Wallet;
@@ -22,9 +22,9 @@ beforeAll(async () => {
   jest
     .spyOn(metamaskWallet, "login")
     .mockImplementation(() => Promise.resolve("0x123"));
-  jest.spyOn(sdk, "setupProvider").mockImplementation(jest.fn);
+  jest.spyOn(dsnp, "setupProvider").mockImplementation(jest.fn);
   jest
-    .spyOn(sdk, "getSocialIdentities")
+    .spyOn(dsnp, "getSocialIdentities")
     .mockImplementation(() =>
       Promise.resolve([
         { dsnpUserURI: "dsnp://0x034b", contractAddr: "0xabc", handle: "test" },

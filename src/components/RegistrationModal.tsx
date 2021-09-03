@@ -3,7 +3,7 @@ import { Alert, Button, Form, Input, Popover } from "antd";
 import { useAppSelector } from "../redux/hooks";
 import UserAvatar from "./UserAvatar";
 import { core } from "@dsnp/sdk";
-import * as sdk from "../services/sdk";
+import * as dsnp from "../services/dsnp";
 import * as registry from "@dsnp/sdk/core/contracts/registry";
 import { HexString, Profile } from "../utilities/types";
 import { Registration } from "@dsnp/sdk/core/contracts/registry";
@@ -70,7 +70,7 @@ const RegistrationModal = ({
   // create new DSNP registration
   const register = async (formValues: { handle: string }) => {
     try {
-      const userURI = await sdk.createNewDSNPRegistration(
+      const userURI = await dsnp.createNewDSNPRegistration(
         walletAddress,
         formValues.handle
       );

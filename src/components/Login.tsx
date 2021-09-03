@@ -3,7 +3,7 @@ import { Badge, Button } from "antd";
 import { WalletOutlined } from "@ant-design/icons";
 import { useAppDispatch, useAppSelector } from "../redux/hooks";
 import { userLogout, userUpdateId } from "../redux/slices/userSlice";
-import * as sdk from "../services/sdk";
+import * as dsnp from "../services/dsnp";
 import * as wallet from "../services/wallets/wallet";
 import * as session from "../services/session";
 import LoginButton from "./LoginButton";
@@ -44,8 +44,8 @@ const Login = ({ isPrimary, loginWalletOptions }: LoginProps): JSX.Element => {
     selectedType: wallet.WalletType
   ) => {
     setWalletAddress(waddr);
-    sdk.setupProvider(selectedType);
-    const registrations = await sdk.getSocialIdentities(waddr);
+    dsnp.setupProvider(selectedType);
+    const registrations = await dsnp.getSocialIdentities(waddr);
     if (registrations.length === 1) {
       setUserID(registrations[0].dsnpUserURI);
     } else {

@@ -4,7 +4,7 @@ import ReplyBlock from "../ReplyBlock";
 import { componentWithStore, createMockStore } from "../../test/testhelpers";
 import { getPrefabFeed } from "../../test/testFeeds";
 import { waitFor } from "@testing-library/react";
-import * as sdk from "../../services/sdk";
+import * as content from "../../services/content";
 
 const feedItems = getPrefabFeed();
 const initialState = { user: { id: "0x0345" }, feed: { feedItems } };
@@ -26,7 +26,9 @@ const pressEnter = async (component: any) => {
 
 describe("ReplyBlock", () => {
   beforeAll(() => {
-    jest.spyOn(sdk, "sendReply").mockImplementation(() => Promise.resolve());
+    jest
+      .spyOn(content, "sendReply")
+      .mockImplementation(() => Promise.resolve());
   });
 
   const component = mount(

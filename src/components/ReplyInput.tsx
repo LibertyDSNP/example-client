@@ -1,7 +1,7 @@
 import { Input } from "antd";
 import React, { useState } from "react";
 import { createNote } from "../services/Storage";
-import { sendReply } from "../services/sdk";
+import { sendReply } from "../services/content";
 import { HexString } from "../utilities/types";
 import { useAppDispatch, useAppSelector } from "../redux/hooks";
 import { replyLoading } from "../redux/slices/feedSlice";

@@ -5,7 +5,7 @@ import UserAvatar from "./UserAvatar";
 import NewPostImageUpload from "./NewPostImageUpload";
 import { FeedItem, HexString, Profile } from "../utilities/types";
 import { createNote } from "../services/Storage";
-import { sendPost } from "../services/sdk";
+import { sendPost } from "../services/content";
 import { createProfile } from "@dsnp/sdk/core/activityContent";
 import { FromTitle } from "./FromTitle";
 import { DSNPUserId } from "@dsnp/sdk/dist/types/core/identifiers";
