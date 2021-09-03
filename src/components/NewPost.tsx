@@ -39,7 +39,7 @@ const NewPost = ({ onSuccess, onCancel }: NewPostProps): JSX.Element => {
   };
 
   const createPost = async () => {
-    if (!userId || !profile) return;
+    if (!userId) return;
     const newPostFeedItem: FeedItem = await createNote(
       postMessage,
       uriList,
