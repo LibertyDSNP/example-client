@@ -7,7 +7,7 @@ import { componentWithStore, createMockStore } from "./test/testhelpers";
 import * as dsnp from "./services/dsnp";
 import * as content from "./services/content";
 import * as hooks from "./redux/hooks";
-import { UnsubscribeFunction } from "@dsnp/sdk/dist/types/core/contracts/utilities";
+import { UnsubscribeFunction } from "./services/dsnp";
 
 jest.mock("../src/components/Header", () => () => <div> Header </div>);
 jest.mock("../src/components/Feed", () => () => <div> Feed </div>);

@@ -8,13 +8,12 @@ import {
 import { isFunction, isUint8Array } from "./utilities";
 import { ActivityContentNote } from "@dsnp/sdk/core/activityContent";
 import { noteToActivityContentNote } from "../utilities/activityContent";
-import { DSNPUserId } from "@dsnp/sdk/dist/types/core/identifiers";
 import { buildBaseUploadHostUrl } from "../utilities/buildBaseUploadHostUrl";
 
 export const createNote = async (
   note: string,
   uriList: string[],
-  fromId: DSNPUserId | undefined
+  fromId: string
 ): Promise<FeedItem> => {
   // send content to api
   const activityPubNote: ActivityContentNote = noteToActivityContentNote(
@@ -22,7 +21,7 @@ export const createNote = async (
     uriList
   );
   const newPostFeedItem: Partial<FeedItem> = {
-    fromId: fromId,
+    fromId: BigInt(fromId),
     content: activityPubNote,
   };
   return newPostFeedItem;
@@ -31,7 +30,7 @@ export const createNote = async (
 export class Store implements StoreInterface {
   put(targetPath: string, _content: Content): Promise<URL> {
     return Promise.resolve(
-      new URL(`${buildBaseUploadHostUrl(true)}/${targetPath}`)
+      new URL(`${buildBaseUploadHostUrl()}/${targetPath}`)
     );
   }
 
@@ -41,7 +40,7 @@ export class Store implements StoreInterface {
   ): Promise<URL> {
     const ws = new ServerWriteStream(targetPath);
     await doWriteToStream(ws);
-    return new URL(`${buildBaseUploadHostUrl(true)}/${targetPath}`);
+    return new URL(`${buildBaseUploadHostUrl()}/${targetPath}`);
   }
 }
 
@@ -100,7 +99,7 @@ class ServerWriteStream implements WriteStream {
     }
 
     fetch(
-      `${buildBaseUploadHostUrl(false)}/upload?filename=${encodeURIComponent(
+      `${buildBaseUploadHostUrl()}/upload?filename=${encodeURIComponent(
         this.targetPath
       )}`,
       {

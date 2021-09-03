@@ -1,5 +1,3 @@
-export const buildBaseUploadHostUrl = (qualifiedUrl: boolean): string => {
-  return qualifiedUrl
-    ? `${window.location.host}/${process.env.REACT_APP_UPLOAD_HOST}`
-    : `${process.env.REACT_APP_UPLOAD_HOST}`;
+export const buildBaseUploadHostUrl = (): string => {
+  return process.env.REACT_APP_UPLOAD_HOST || window.location.host;
 };

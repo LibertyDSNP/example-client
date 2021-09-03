@@ -4,13 +4,14 @@ import * as session from "../../services/session";
 import { DSNPUserId } from "@dsnp/sdk/dist/types/core/identifiers";
 
 interface UserState {
-  id?: DSNPUserId;
+  id?: string;
   walletType: wallet.WalletType;
-  displayId?: DSNPUserId;
+  displayId?: string;
 }
 
 const initialState: UserState = {
   id: session.hasSession() ? session.loadSession()?.id : undefined,
+  displayId: session.hasSession() ? session.loadSession()?.id : undefined,
   walletType: session.loadSession()?.walletType ?? wallet.WalletType.NONE,
 };
 
@@ -27,8 +28,8 @@ export const userSlice = createSlice({
     }),
     userUpdateId: (state, action: PayloadAction<DSNPUserId>) => ({
       ...state,
-      id: action.payload,
-      displayId: action.payload,
+      id: action.payload.toString(),
+      displayId: action.payload.toString(),
     }),
     userUpdateWalletType: (
       state,
@@ -39,7 +40,7 @@ export const userSlice = createSlice({
     }),
     setDisplayId: (state, action: PayloadAction<DSNPUserId>) => ({
       ...state,
-      displayId: action.payload,
+      displayId: action.payload.toString(),
     }),
   },
 });

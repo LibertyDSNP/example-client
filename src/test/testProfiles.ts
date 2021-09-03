@@ -4,7 +4,6 @@ import { generateDsnpUserId, getPrefabDsnpUserId } from "./testAddresses";
 import { prefabFirstNames, prefabLastNames } from "./testhelpers";
 import { generators } from "@dsnp/sdk";
 import { ActivityContentProfile } from "@dsnp/sdk/core/activityContent";
-import { DSNPUserId } from "@dsnp/sdk/dist/types/core/identifiers";
 const generateProfile = generators.activityContent.generateProfile;
 
 /**
@@ -12,7 +11,7 @@ const generateProfile = generators.activityContent.generateProfile;
  * names and a generated social address
  */
 export const generateRandomProfile = (): ActivityContentProfile & {
-  fromId: DSNPUserId;
+  fromId: string;
 } => {
   const fromId = generateDsnpUserId();
   const firstName = prefabFirstNames[randInt(prefabFirstNames.length)];
@@ -30,7 +29,7 @@ export const generateRandomProfile = (): ActivityContentProfile & {
  */
 export const getPrefabProfile = (
   index: number
-): ActivityContentProfile & { fromId: DSNPUserId } => {
+): ActivityContentProfile & { fromId: string } => {
   return preFabProfiles[index];
 };
 
@@ -40,7 +39,7 @@ export const getPrefabProfile = (
  */
 export const preFabProfiles: Array<
   ActivityContentProfile & {
-    fromId: DSNPUserId;
+    fromId: string;
   }
 > = [
   {
@@ -75,7 +74,7 @@ export const preFabProfiles: Array<
 
 export const getPrefabProfileByAddress = (
   address: HexString
-): (ActivityContentProfile & { fromId: DSNPUserId }) | null => {
+): (ActivityContentProfile & { fromId: string }) | null => {
   for (let i = 0; i < preFabProfiles.length; i++) {
     const prefabProfile = preFabProfiles[i];
     if (prefabProfile.fromId === address) {

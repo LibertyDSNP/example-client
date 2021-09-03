@@ -2,6 +2,9 @@
   "globals": {
     "JSX": true
   },
+  "env": {
+    "es2020": true
+  },
   "plugins": ["jest", "prettier", "react-hooks"],
   "parser": "@typescript-eslint/parser",
   "parserOptions": {

@@ -4,16 +4,13 @@ import ConnectionsList from "./ConnectionsList";
 import React, { useEffect, useState } from "react";
 import { useAppSelector } from "../redux/hooks";
 import * as types from "../utilities/types";
-import { DSNPUserId } from "@dsnp/sdk/dist/types/core/identifiers";
 import { saveProfile } from "../services/content";
 import { core } from "@dsnp/sdk";
 
 const Profile = (): JSX.Element => {
-  const userId: DSNPUserId | undefined = useAppSelector(
-    (state) => state.user.id
-  );
+  const userId: string | undefined = useAppSelector((state) => state.user.id);
 
-  const displayId: DSNPUserId | undefined = useAppSelector(
+  const displayId: string | undefined = useAppSelector(
     (state) => state.user.displayId
   );
 
@@ -52,12 +49,12 @@ const Profile = (): JSX.Element => {
 
   const saveEditProfile = async () => {
     setIsEditing(!isEditing);
-    if (displayId === undefined || newName === undefined) return;
+    if (userId === undefined || newName === undefined) return;
     const newProfile = core.activityContent.createProfile({
       name: newName,
       icon: profile?.icon,
     });
-    await saveProfile(displayId, newProfile);
+    await saveProfile(BigInt(userId), newProfile);
   };
 
   const cancelEditProfile = () => {

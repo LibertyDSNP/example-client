@@ -2,7 +2,6 @@ import React from "react";
 import Post from "./Post";
 import { FeedItem } from "../utilities/types";
 import { useAppSelector } from "../redux/hooks";
-import { DSNPUserId } from "@dsnp/sdk/dist/types/core/identifiers";
 import BlankPost from "./BlankPost";
 
 enum FeedTypes {
@@ -25,10 +24,8 @@ const sortFeed = (feed: FeedItem[]): FeedItem[] => {
 };
 
 const PostList = ({ feedType }: PostListProps): JSX.Element => {
-  const userId: DSNPUserId | undefined = useAppSelector(
-    (state) => state.user.id
-  );
-  const myGraph: Record<DSNPUserId, boolean> = useAppSelector(
+  const userId: string | undefined = useAppSelector((state) => state.user.id);
+  const myGraph: Record<string, boolean> = useAppSelector(
     (state) => (userId ? state.graphs.following[userId] : undefined) || {}
   );
 

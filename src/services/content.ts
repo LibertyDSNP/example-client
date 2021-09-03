@@ -1,4 +1,4 @@
-import { FeedItem, Profile, Reply } from "../utilities/types";
+import { FeedItem, Reply } from "../utilities/types";
 import { core } from "@dsnp/sdk";
 import { RegistryUpdateLogData } from "@dsnp/sdk/core/contracts/registry";
 import { addFeedItem, clearFeedItems } from "../redux/slices/feedSlice";
@@ -170,18 +170,17 @@ const dispatchFeedItem = (
   content: ActivityContentNote,
   blockNumber: number
 ) => {
-  const decoder = new TextDecoder();
   dispatch(
     addFeedItem({
-      fromId: decoder.decode((message.fromId as any) as Uint8Array),
+      fromId: message.fromId.toString(),
       blockNumber: blockNumber,
-      hash: decoder.decode((message.contentHash as any) as Uint8Array),
+      hash: message.contentHash,
       published: content.published,
-      uri: decoder.decode((message.url as any) as Uint8Array),
+      uri: message.url,
       content: content,
       inReplyTo:
         message.announcementType === core.announcements.AnnouncementType.Reply
-          ? decoder.decode((message.inReplyTo as any) as Uint8Array)
+          ? message.inReplyTo
           : undefined,
     })
   );
@@ -204,16 +203,14 @@ const dispatchProfile = (
   blockIndex: number,
   batchIndex: number
 ) => {
-  const decoder = new TextDecoder();
-
   dispatch(
     upsertProfile({
       ...profile,
-      fromId: decoder.decode((message.fromId as any) as Uint8Array),
+      fromId: message.fromId.toString(),
       blockNumber,
       blockIndex,
       batchIndex,
-    } as Profile)
+    })
   );
 };
 
@@ -228,11 +225,14 @@ const handleRegistryUpdate = (dispatch: Dispatch) => (
   dispatch(
     upsertProfile({
       ...createProfile(),
-      fromId: core.identifiers.convertDSNPUserURIToDSNPUserId(
-        update.dsnpUserURI
-      ),
+      fromId: core.identifiers
+        .convertToDSNPUserId(update.dsnpUserURI)
+        .toString(),
       handle: update.handle,
-    } as Profile)
+      blockNumber: update.blockNumber,
+      blockIndex: update.transactionIndex,
+      batchIndex: 0, // batchIndex doesn't apply to registry updates
+    })
   );
 };
 
@@ -253,11 +253,8 @@ const fetchAndDispatchContent = async (
   blockIndex: number,
   batchIndex: number
 ) => {
-  const decoder = new TextDecoder();
-
   try {
-    const url = decoder.decode((message.url as any) as Uint8Array);
-    const res = await fetch(url);
+    const res = await fetch(message.url);
     const activityContent = await res.json();
     dispatchActivityContent(
       dispatch,
@@ -281,11 +278,10 @@ const dispatchGraphChange = (
   dispatch: Dispatch,
   graphChange: GraphChangeAnnouncement
 ) => {
-  const decoder = new TextDecoder();
   dispatch(
     upsertGraph({
-      follower: decoder.decode((graphChange.fromId as any) as Uint8Array),
-      followee: decoder.decode((graphChange.objectId as any) as Uint8Array),
+      follower: graphChange.fromId.toString(),
+      followee: graphChange.objectId.toString(),
       unfollow: graphChange.changeType === DSNPGraphChangeType.Unfollow,
     })
   );
@@ -295,11 +291,10 @@ const dispatchGraphChange = (
  * handleBatchAnnouncment retrieves and parses a batch and then routes its contents
  * to the redux store.
  * @param dispatch function used to dispatch to the store
- * @param blockIndex index of publication within block
+ * @param batchAnnouncement announcement of batch (publication) to handle
  */
 const handleBatchAnnouncement = (dispatch: Dispatch) => (
-  batchAnnouncement: BatchPublicationLogData,
-  blockIndex: number
+  batchAnnouncement: BatchPublicationLogData
 ) => {
   dsnp.readBatchFile(batchAnnouncement, (announcementRow, batchIndex) => {
     try {
@@ -311,7 +306,7 @@ const handleBatchAnnouncement = (dispatch: Dispatch) => (
           dispatch,
           announcement,
           batchAnnouncement.blockNumber,
-          blockIndex,
+          batchAnnouncement.transactionIndex,
           batchIndex++
         );
       }
@@ -329,7 +324,7 @@ const handleBatchAnnouncement = (dispatch: Dispatch) => (
 const storeActivityContent = async (
   content: ActivityContentNote | ActivityContentProfile
 ): Promise<string> => {
-  const hash = keccak256(core.activityContent.serialize(content));
+  const hash = keccak256(JSON.stringify(content));
   await fetch(
     `${process.env.REACT_APP_UPLOAD_HOST}/upload?filename=${encodeURIComponent(
       hash + ".json"

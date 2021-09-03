@@ -1,4 +1,3 @@
-import { DSNPUserId } from "@dsnp/sdk/dist/types/core/identifiers";
 import { HexString } from "../utilities/types";
 import { generateDsnpUserId, getPrefabDsnpUserId } from "./testAddresses";
 
@@ -8,7 +7,7 @@ import { generateDsnpUserId, getPrefabDsnpUserId } from "./testAddresses";
  * for all users. The existence of a relationship from account1 to
  * account2 can be checked with graph[account1]?.[account2].
  */
-type Graph = Record<DSNPUserId, Record<DSNPUserId, boolean>>;
+type Graph = Record<string, Record<string, boolean>>;
 
 interface SocialGraph {
   followers: Graph;
@@ -18,7 +17,7 @@ interface SocialGraph {
 export const generateRandomGraph = (
   dsnpUserId: HexString,
   _size: number = 4
-): Record<DSNPUserId, boolean> => {
+): Record<string, boolean> => {
   return {};
 };
 
@@ -45,9 +44,9 @@ export const generateRandomSocialGraph = (
   graphSize: number = 4
 ): SocialGraph => {
   // Generate addresses
-  const following: Record<DSNPUserId, Record<DSNPUserId, boolean>> = {};
+  const following: Record<string, Record<string, boolean>> = {};
   for (let i = 0; i < socialGraphSize; i++) {
-    const address: DSNPUserId = generateDsnpUserId();
+    const address: string = generateDsnpUserId();
     const graph = generateRandomGraph(address, graphSize);
     following[address] = graph;
   }

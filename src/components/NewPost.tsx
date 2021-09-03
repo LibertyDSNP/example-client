@@ -8,7 +8,6 @@ import { createNote } from "../services/Storage";
 import { sendPost } from "../services/content";
 import { createProfile } from "@dsnp/sdk/core/activityContent";
 import { FromTitle } from "./FromTitle";
-import { DSNPUserId } from "@dsnp/sdk/dist/types/core/identifiers";
 import { postLoading } from "../redux/slices/feedSlice";
 
 interface NewPostProps {
@@ -23,9 +22,7 @@ const NewPost = ({ onSuccess, onCancel }: NewPostProps): JSX.Element => {
   const [postMessage, setPostMessage] = React.useState<string>("");
   const [isValidPost, setIsValidPost] = React.useState<boolean>(false);
 
-  const userId: DSNPUserId | undefined = useAppSelector(
-    (state) => state.user.id
-  );
+  const userId: string | undefined = useAppSelector((state) => state.user.id);
 
   const profiles: Record<HexString, Profile> = useAppSelector(
     (state) => state.profiles?.profiles || {}
@@ -42,7 +39,7 @@ const NewPost = ({ onSuccess, onCancel }: NewPostProps): JSX.Element => {
   };
 
   const createPost = async () => {
-    if (!profile) return;
+    if (!userId) return;
     const newPostFeedItem: FeedItem = await createNote(
       postMessage,
       uriList,
