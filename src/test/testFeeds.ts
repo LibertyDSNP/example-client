@@ -54,7 +54,7 @@ export const generateFeedItem = (
     content: content,
     replies: replies || [],
     blockNumber: 50,
-    hash: keccak_256("this is a hash of the feed item"),
+    hash: "0x" + keccak_256("this is a hash of the feed item"),
     rawContent: "", // This can be simulated, but it's annoying to do so.
   };
 };
