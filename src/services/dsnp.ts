@@ -26,16 +26,9 @@ import { DSNPUserId } from "@dsnp/sdk/dist/types/core/identifiers";
 // Parameter types
 //
 
-type RegistryUpdateHandler = (
-  update: RegistryUpdateLogData,
-  blockNumber: number,
-  blockIndex: number
-) => void;
+type RegistryUpdateHandler = (update: RegistryUpdateLogData) => void;
 
-type BatchAnnouncementHandler = (
-  announcment: BatchPublicationLogData,
-  blockIndex: number
-) => void;
+type BatchAnnouncementHandler = (announcment: BatchPublicationLogData) => void;
 
 type AnnouncementRowHandler = (
   announcementRow: SignedAnnouncement,
@@ -116,33 +109,17 @@ export const startSubscriptions = async (
   registryHandler: RegistryUpdateHandler
 ): Promise<UnsubscribeFunction> => {
   // subscribe to all announcements
-  let batchBlockNumber: number;
-  let batchBlockIndex = 0;
   const unsubscribeToBatchPublications = await core.contracts.subscription.subscribeToBatchPublications(
     (announcement: BatchPublicationLogData) => {
-      if (announcement.blockNumber !== batchBlockNumber) {
-        batchBlockNumber = announcement.blockNumber;
-        batchBlockIndex = 0;
-      } else {
-        batchBlockIndex++;
-      }
-      batchHandler(announcement, batchBlockIndex);
+      batchHandler(announcement);
     },
     { fromBlock: 1 }
   );
 
   // subscribe to registry events
-  let registryBlockNumber: number;
-  let registryBlockIndex = 0;
   const unsubscribeToRegistryUpdate = await core.contracts.subscription.subscribeToRegistryUpdates(
     (announcement: RegistryUpdateLogData) => {
-      if (announcement.blockNumber !== registryBlockNumber) {
-        registryBlockNumber = announcement.blockNumber;
-        registryBlockIndex = 0;
-      } else {
-        registryBlockIndex++;
-      }
-      registryHandler(announcement, registryBlockNumber, registryBlockIndex);
+      registryHandler(announcement);
     },
     { fromBlock: 1 }
   );

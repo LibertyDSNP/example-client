@@ -218,13 +218,9 @@ const dispatchProfile = (
  * handleRegistryUpdate dispatches a profile update for the handle when a registry update is made.
  * @param dispatch function used to dispatch to store
  * @param update registry log message containg DSNP uri and handle
- * @param blockNumber number of block containing the publication
- * @param blockIndex index of log message (relative to other DSNP logs) within the block
  */
 const handleRegistryUpdate = (dispatch: Dispatch) => (
-  update: RegistryUpdateLogData,
-  blockNumber: number,
-  blockIndex: number
+  update: RegistryUpdateLogData
 ) => {
   dispatch(
     upsertProfile({
@@ -233,9 +229,9 @@ const handleRegistryUpdate = (dispatch: Dispatch) => (
         .convertToDSNPUserId(update.dsnpUserURI)
         .toString(),
       handle: update.handle,
-      blockNumber,
-      blockIndex,
-      batchIndex: 0,
+      blockNumber: update.blockNumber,
+      blockIndex: update.transactionIndex,
+      batchIndex: 0, // batchIndex doesn't apply to registry updates
     })
   );
 };
@@ -295,11 +291,10 @@ const dispatchGraphChange = (
  * handleBatchAnnouncment retrieves and parses a batch and then routes its contents
  * to the redux store.
  * @param dispatch function used to dispatch to the store
- * @param blockIndex index of publication within block
+ * @param batchAnnouncement announcement of batch (publication) to handle
  */
 const handleBatchAnnouncement = (dispatch: Dispatch) => (
-  batchAnnouncement: BatchPublicationLogData,
-  blockIndex: number
+  batchAnnouncement: BatchPublicationLogData
 ) => {
   dsnp.readBatchFile(batchAnnouncement, (announcementRow, batchIndex) => {
     try {
@@ -311,7 +306,7 @@ const handleBatchAnnouncement = (dispatch: Dispatch) => (
           dispatch,
           announcement,
           batchAnnouncement.blockNumber,
-          blockIndex,
+          batchAnnouncement.transactionIndex,
           batchIndex++
         );
       }
