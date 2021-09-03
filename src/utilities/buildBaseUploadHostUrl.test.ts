@@ -23,7 +23,8 @@ describe("buildBaseUploadHostUrl", () => {
       ...originalWindow,
       location: {
         ...originalWindow.location,
-        host: "http://example.com",
+        host: "example.com",
+        protocol: "http:",
       },
     }));
 

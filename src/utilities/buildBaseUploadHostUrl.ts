@@ -1,3 +1,6 @@
 export const buildBaseUploadHostUrl = (): string => {
-  return process.env.REACT_APP_UPLOAD_HOST || window.location.host;
+  return (
+    process.env.REACT_APP_UPLOAD_HOST ||
+    `${window.location.protocol}//${window.location.host}`
+  );
 };
