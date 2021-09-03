@@ -47,10 +47,18 @@ const RegistrationModal = ({
     (state) => state.profiles?.profiles || {}
   );
 
-  // Flip to select registration if we see registrations increase
-  if (registrations.length && !hasRegistrations) {
-    setHasRegistrations(true);
-    setIsCreatingRegistration(false);
+  if (registrations.length) {
+    // Flip to select registration if we see registrations increase
+    if (!hasRegistrations) {
+      setHasRegistrations(true);
+      setIsCreatingRegistration(false);
+    }
+  } else {
+    // Flip to create registration if we see registrations decrease to zero
+    if (hasRegistrations) {
+      setHasRegistrations(false);
+      setIsCreatingRegistration(true);
+    }
   }
 
   // convert registration to uri before calling callback

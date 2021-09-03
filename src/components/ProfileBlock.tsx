@@ -8,10 +8,20 @@ const ProfileBlock = (): JSX.Element => {
   const userId: DSNPUserId | undefined = useAppSelector(
     (state) => state.user.id
   );
+
+  const displayId: DSNPUserId | undefined = useAppSelector(
+    (state) => state.user.displayId
+  );
+
+  const displayProfileBlockElement = () => {
+    if (userId) {
+      return <Profile />;
+    }
+    return displayId ? <Profile /> : <LoginSetupInstructions />;
+  };
+
   return (
-    <div className="ProfileBlock__block">
-      {userId ? <Profile /> : <LoginSetupInstructions />}
-    </div>
+    <div className="ProfileBlock__block">{displayProfileBlockElement()}</div>
   );
 };
 export default ProfileBlock;

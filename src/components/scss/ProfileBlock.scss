@@ -3,10 +3,11 @@
   padding: 32px;
   display: flex;
   flex-direction: column;
-  flex-basis: 30%;
-  max-width: 475px;
+  width: 450px;
   height: min-content;
   border-radius: 25px;
+  position: sticky;
+  top: 16px;
 }
 
 .ProfileBlock__personalInfoBlock {

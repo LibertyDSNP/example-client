@@ -16,6 +16,18 @@
   padding-bottom: 12px;
 }
 
+.Feed__backArrow {
+  cursor: pointer;
+  background-color: $clear;
+  border-radius: 5px;
+  padding: 0 2px;
+  transition: background-color 0.3s;
+
+  &:hover {
+    background-color: $gray;
+  }
+}
+
 .Feed__navigation {
   display: flex;
   align-items: center;

@@ -12,12 +12,17 @@ const Profile = (): JSX.Element => {
   const userId: DSNPUserId | undefined = useAppSelector(
     (state) => state.user.id
   );
+
+  const displayId: DSNPUserId | undefined = useAppSelector(
+    (state) => state.user.displayId
+  );
+
   const profiles: Record<types.HexString, types.Profile> = useAppSelector(
     (state) => state.profiles?.profiles || {}
   );
 
-  const profile: types.Profile | undefined = userId
-    ? profiles[userId]
+  const profile: types.Profile | undefined = displayId
+    ? profiles[displayId]
     : undefined;
 
   const handle = profile?.handle;
@@ -47,12 +52,12 @@ const Profile = (): JSX.Element => {
 
   const saveEditProfile = async () => {
     setIsEditing(!isEditing);
-    if (userId === undefined || newName === undefined) return;
+    if (displayId === undefined || newName === undefined) return;
     const newProfile = core.activityContent.createProfile({
       name: newName,
       icon: profile?.icon,
     });
-    await saveProfile(userId, newProfile);
+    await saveProfile(displayId, newProfile);
   };
 
   const cancelEditProfile = () => {
@@ -67,33 +72,34 @@ const Profile = (): JSX.Element => {
         <div className="ProfileBlock__avatarBlock">
           <UserAvatar
             icon={(profile?.icon || [])[0]?.href}
-            profileAddress={userId}
+            profileAddress={displayId}
             avatarSize="large"
           />
-          {isEditing ? (
-            <>
+          {userId === displayId &&
+            (isEditing ? (
+              <>
+                <Button
+                  className="ProfileBlock__editButton"
+                  onClick={() => saveEditProfile()}
+                  disabled={!didEditProfile}
+                >
+                  save
+                </Button>
+                <Button
+                  className="ProfileBlock__editButton"
+                  onClick={() => cancelEditProfile()}
+                >
+                  cancel
+                </Button>
+              </>
+            ) : (
               <Button
                 className="ProfileBlock__editButton"
-                onClick={() => saveEditProfile()}
-                disabled={!didEditProfile}
+                onClick={() => setIsEditing(!isEditing)}
               >
-                save
+                edit
               </Button>
-              <Button
-                className="ProfileBlock__editButton"
-                onClick={() => cancelEditProfile()}
-              >
-                cancel
-              </Button>
-            </>
-          ) : (
-            <Button
-              className="ProfileBlock__editButton"
-              onClick={() => setIsEditing(!isEditing)}
-            >
-              edit
-            </Button>
-          )}
+            ))}
         </div>
         <div className="ProfileBlock__personalInfo">
           <label className="ProfileBlock__personalInfoLabel">NAME</label>
@@ -115,7 +121,7 @@ const Profile = (): JSX.Element => {
           </label>
           <input
             className="ProfileBlock__dsnpUserId"
-            value={userId || "Anonymous"}
+            value={displayId || "Anonymous"}
             disabled={true}
           />
         </div>

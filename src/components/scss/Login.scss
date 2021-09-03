@@ -1,3 +1,14 @@
+.LoginButton__loginButton {
+  position: relative;
+
+  .LoginButton__spinner {
+    position: absolute;
+    right: 0.5em;
+    top: 0.4em;
+  }
+  }
+
+
 .Login__block {
   display: flex;
 }

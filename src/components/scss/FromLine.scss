@@ -1,5 +1,9 @@
 .FromLine__secondary {
   display: inline-block;
-  margin-left: .5rem;
+  margin-left: 0.5rem;
   color: $text-gray;
+}
+
+.FromTitle__primary--active {
+  text-decoration: underline;
 }

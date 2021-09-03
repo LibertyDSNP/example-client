@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Badge, Button } from "antd";
 import { WalletOutlined } from "@ant-design/icons";
 import { useAppDispatch, useAppSelector } from "../redux/hooks";
@@ -11,12 +11,14 @@ import { Registration } from "@dsnp/sdk/core/contracts/registry";
 import RegistrationModal from "./RegistrationModal";
 import { core } from "@dsnp/sdk";
 import ethereum from "../services/wallets/metamask/ethereum";
+import { HexString } from "../utilities/types";
 
 interface LoginProps {
+  isPrimary: boolean;
   loginWalletOptions: wallet.WalletType;
 }
 
-const Login = ({ loginWalletOptions }: LoginProps): JSX.Element => {
+const Login = ({ isPrimary, loginWalletOptions }: LoginProps): JSX.Element => {
   const [loading, startLoading] = React.useState<boolean>(false);
   const [popoverVisible, setPopoverVisible] = React.useState<boolean>(false);
   const [registrationVisible, setRegistrationVisible] = React.useState<boolean>(
@@ -37,41 +39,60 @@ const Login = ({ loginWalletOptions }: LoginProps): JSX.Element => {
     setRegistrationVisible(false);
   };
 
+  const loginWithWalletAddress = async (
+    waddr: HexString,
+    selectedType: wallet.WalletType
+  ) => {
+    setWalletAddress(waddr);
+    sdk.setupProvider(selectedType);
+    const registrations = await sdk.getSocialIdentities(waddr);
+    if (registrations.length === 1) {
+      setUserID(registrations[0].dsnpUserURI);
+    } else {
+      setRegistrations(registrations);
+      setRegistrationVisible(true);
+    }
+  };
+
   const login = async (selectedType: wallet.WalletType) => {
     if (loading) return;
     startLoading(true);
     try {
       const waddr = await wallet.wallet(selectedType).login();
-      setWalletAddress(waddr);
-      sdk.setupProvider(selectedType);
-      const registrations = await sdk.getSocialIdentities(waddr);
-      if (registrations.length === 1) {
-        setUserID(registrations[0].dsnpUserURI);
-      } else {
-        setRegistrations(registrations);
-        setRegistrationVisible(true);
-      }
+      await loginWithWalletAddress(waddr, selectedType);
     } catch (error) {
       logout();
-    } finally {
       setPopoverVisible(false);
       startLoading(false);
     }
   };
 
   const logout = () => {
-    session.clearSession();
+    startLoading(false);
     setRegistrationVisible(false);
     setWalletAddress("");
+    if (!userId) return;
+    session.clearSession();
     if (currentWalletType !== wallet.WalletType.NONE) {
       wallet.wallet(currentWalletType).logout();
     }
     dispatch(userLogout());
   };
 
-  useEffect(() => {
-    ethereum?.on("accountsChanged", () => logout());
-  }, []);
+  // Listen for wallet account changes if this is the primary login button (there should only be one).
+  if (isPrimary) {
+    const handleAccountsChange = async (waddrs: HexString[]) => {
+      logout();
+      if (waddrs[0] && currentWalletType !== wallet.WalletType.NONE) {
+        startLoading(true);
+        await loginWithWalletAddress(waddrs[0], currentWalletType);
+      }
+    };
+
+    ethereum
+      ?.removeAllListeners("accountsChanged")
+      .on("accountsChanged", handleAccountsChange);
+  }
 
   return (
     <div className="Login__block">

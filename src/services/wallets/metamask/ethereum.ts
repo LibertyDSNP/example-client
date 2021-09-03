@@ -39,6 +39,8 @@ export interface EthereumProvider {
   on(event: "disconnect", handler: (error: ProviderRpcError) => void): void;
   on(event: "message", handler: (message: ProviderMessage) => void): void;
 
+  removeAllListeners(event: string): EthereumProvider;
+
   request(request: RequestArguments): Promise<any>;
 
   sendAsync(

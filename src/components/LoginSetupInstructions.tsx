@@ -23,7 +23,10 @@ const LoginSetupInstructions = (): JSX.Element => {
                 You already have MetaMask installed! Just click the{" "}
                 <code>Log In &#8594; MetaMask</code> button.
               </p>
-              <Login loginWalletOptions={wallet.WalletType.METAMASK} />
+              <Login
+                loginWalletOptions={wallet.WalletType.METAMASK}
+                isPrimary={false}
+              />
             </>
           ) : (
             <>
@@ -66,7 +69,10 @@ const LoginSetupInstructions = (): JSX.Element => {
                 </li>
                 <li>Once setup, select/connect to that Custom RPC.</li>
               </ul>
-              <Login loginWalletOptions={wallet.WalletType.METAMASK} />
+              <Login
+                loginWalletOptions={wallet.WalletType.METAMASK}
+                isPrimary={false}
+              />
             </>
           )}
         </Tabs.TabPane>
@@ -76,7 +82,10 @@ const LoginSetupInstructions = (): JSX.Element => {
             There is no setup required for Torus. Just click the{" "}
             <code>Log In &#8594; Torus</code> button.
           </p>
-          <Login loginWalletOptions={wallet.WalletType.TORUS} />
+          <Login
+            loginWalletOptions={wallet.WalletType.TORUS}
+            isPrimary={false}
+          />
         </Tabs.TabPane>
       </Tabs>
     </>
