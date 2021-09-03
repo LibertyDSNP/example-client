@@ -27,14 +27,14 @@ describe("buildBaseUploadHostUrl", () => {
       },
     }));
 
-    process.env.REACT_APP_UPLOAD_HOST = "/test";
-
     it("returns a qualified url for REACT_APP_UPLOAD_HOST", () => {
-      expect(buildBaseUploadHostUrl(true)).toEqual("http://example.com//test");
+      process.env.REACT_APP_UPLOAD_HOST = "";
+      expect(buildBaseUploadHostUrl()).toEqual("http://example.com");
     });
 
     it("does not return a qualified url for REACT_APP_UPLOAD_HOST", () => {
-      expect(buildBaseUploadHostUrl(false)).toEqual("/test");
+      process.env.REACT_APP_UPLOAD_HOST = "http://localhost:3000";
+      expect(buildBaseUploadHostUrl()).toEqual("http://localhost:3000");
     });
   });
 });

@@ -16,7 +16,6 @@ import { BatchPublicationLogData } from "@dsnp/sdk/core/contracts/subscription";
 import { WalletType } from "./wallets/wallet";
 import torusWallet from "./wallets/torus";
 import { DSNPUserId } from "@dsnp/sdk/dist/types/core/identifiers";
-import { UnsubscribeFunction } from "@dsnp/sdk/dist/types/core/contracts/utilities";
 
 //
 // DSNP Package
@@ -42,6 +41,8 @@ type AnnouncementRowHandler = (
   announcementRow: SignedAnnouncement,
   batchIndex: number
 ) => void;
+
+export type UnsubscribeFunction = () => void;
 
 //
 // Exported Functions

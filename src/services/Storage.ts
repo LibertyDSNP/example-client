@@ -30,7 +30,7 @@ export const createNote = async (
 export class Store implements StoreInterface {
   put(targetPath: string, _content: Content): Promise<URL> {
     return Promise.resolve(
-      new URL(`${buildBaseUploadHostUrl(true)}/${targetPath}`)
+      new URL(`${buildBaseUploadHostUrl()}/${targetPath}`)
     );
   }
 
@@ -40,7 +40,7 @@ export class Store implements StoreInterface {
   ): Promise<URL> {
     const ws = new ServerWriteStream(targetPath);
     await doWriteToStream(ws);
-    return new URL(`${buildBaseUploadHostUrl(true)}/${targetPath}`);
+    return new URL(`${buildBaseUploadHostUrl()}/${targetPath}`);
   }
 }
 
@@ -99,7 +99,7 @@ class ServerWriteStream implements WriteStream {
     }
 
     fetch(
-      `${buildBaseUploadHostUrl(false)}/upload?filename=${encodeURIComponent(
+      `${buildBaseUploadHostUrl()}/upload?filename=${encodeURIComponent(
         this.targetPath
       )}`,
       {
