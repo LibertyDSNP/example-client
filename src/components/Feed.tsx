@@ -19,6 +19,7 @@ const Feed = (): JSX.Element => {
 
   const userId = useAppSelector((state) => state.user.id);
   const displayId = useAppSelector((state) => state.user.displayId);
+
   const profiles: Record<types.HexString, types.Profile> = useAppSelector(
     (state) => state.profiles?.profiles || {}
   );
@@ -38,11 +39,11 @@ const Feed = (): JSX.Element => {
     <div className="Feed__block">
       <div className="Feed__header">
         <nav className="Feed__navigation">
-          {displayId !== userId && (
+          {userId && displayId && displayId !== userId && (
             <>
               <div
                 className="Feed__backArrow"
-                onClick={() => dispatch(setDisplayId(userId as string))}
+                onClick={() => dispatch(setDisplayId(BigInt(userId)))}
               >
                 <ArrowLeftOutlined />
               </div>

@@ -11,6 +11,7 @@ interface UserState {
 
 const initialState: UserState = {
   id: session.hasSession() ? session.loadSession()?.id : undefined,
+  displayId: session.hasSession() ? session.loadSession()?.id : undefined,
   walletType: session.loadSession()?.walletType ?? wallet.WalletType.NONE,
 };
 
