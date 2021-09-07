@@ -52,6 +52,14 @@ __Testing:__
 #### Note
 The features of the Example Client are subject to change with future versions and as decisions are made on the DSNP SDK.
 
+### Docker
+The Docker container is set up in such a way that the static-server will serve the example-client.
+
+To the example client and static server in docker run the following commands:
+
+- `docker build --build-arg REACT_APP_UPLOAD_HOST="" --build-arg REACT_APP_CHAIN_ID={REACT_APP_CHAIN_ID_VALUE} --build-arg  REACT_APP_CHAIN_NAME={REACT_APP_CHAIN_NAME_VAUE}  --build-arg REACT_APP_CHAIN_HOST={REACT_APP_CHAIN_HOST} --build-arg REACT_APP_TORUS_BUILD_ENV={REACT_APP_TORUS_BUILD_ENV_VALUE} . -t example-client`
+- `docker run --env-file=./.env -p 8080:8080 -v {name_for_volume}:/app/static-server/public example-client`
+
 ***
 ## Project Setup
 Follow this quick start guide to get up and running. This guide assumes a working knowledge of npm and git. Make sure to check out [CONTRIBUTING.md](CONTRIBUTING.md) as well.

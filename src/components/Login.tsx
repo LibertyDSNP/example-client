@@ -110,7 +110,7 @@ const Login = ({ isPrimary, loginWalletOptions }: LoginProps): JSX.Element => {
             loginWalletOptions={loginWalletOptions}
             loading={loading}
             loginWithWalletType={login}
-           />
+          />
         </RegistrationModal>
       ) : (
         <>
