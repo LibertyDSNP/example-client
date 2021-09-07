@@ -1,9 +1,29 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { latestBatchedMessage } from "../../utilities/sort";
 import { GraphChange } from "../../utilities/types";
 
-interface graphState {
-  following: Record<string, Record<string, boolean>>;
-  followers: Record<string, Record<string, boolean>>;
+export enum RelationshipStatus {
+  FOLLOWING,
+  UNFOLLOWING,
+  UPDATING,
+}
+
+export interface RelationshipState {
+  status: RelationshipStatus;
+  blockNumber: number;
+  blockIndex: number;
+  batchIndex: number;
+}
+
+export interface graphState {
+  following: Record<string, Record<string, RelationshipState>>;
+  followers: Record<string, Record<string, RelationshipState>>;
+}
+
+export interface RelationshipStatusUpdate {
+  follower: string;
+  followee: string;
+  status: RelationshipStatus;
 }
 
 const initialState: graphState = {
@@ -16,38 +36,72 @@ export const graphSlice = createSlice({
   initialState,
   reducers: {
     upsertGraph: (state, action: PayloadAction<GraphChange>) => {
-      const { follower, followee } = action.payload;
-      if (action.payload.unfollow) {
-        // unfollow
-        const { [followee]: _a, ...newFollows } =
-          state.following[follower] || {};
-        const { [follower]: _b, ...newFollowed } =
-          state.followers[followee] || {};
-        return {
-          following: { ...state.following, [follower]: newFollows },
-          followers: { ...state.followers, [followee]: newFollowed },
-        };
-      } else {
-        // follow
-        return {
-          following: {
-            ...state.following,
-            [follower]: {
-              ...(state.following[follower] || {}),
-              [followee]: true,
-            },
+      const { follower, followee, unfollow } = action.payload;
+
+      const follows = state.following[follower] || {};
+      const followers = state.followers[followee] || {};
+
+      // new state is latest of new and existing changes
+      const nextState = latestBatchedMessage(
+        {
+          status: unfollow
+            ? RelationshipStatus.UNFOLLOWING
+            : RelationshipStatus.FOLLOWING,
+          blockNumber: action.payload.blockNumber,
+          blockIndex: action.payload.blockIndex,
+          batchIndex: action.payload.batchIndex,
+        },
+        follows[followee]
+      );
+
+      // short circuit if message is stale
+      if (nextState === follows[followee]) return state;
+
+      return {
+        following: {
+          ...state.following,
+          [follower]: { ...follows, [followee]: nextState },
+        },
+        followers: {
+          ...state.followers,
+          [followee]: { ...followers, [follower]: nextState },
+        },
+      };
+    },
+    updateRelationshipStatus: (
+      state,
+      action: PayloadAction<RelationshipStatusUpdate>
+    ) => {
+      const { follower, followee, status } = action.payload;
+
+      const follows = state.following[follower] || {};
+
+      const oldState: RelationshipState = follows[follower] || {
+        status: RelationshipStatus.UPDATING,
+        blockNumber: -1,
+        blockIndex: -1,
+        batchNumber: -1,
+      };
+      const newState = { ...oldState, status };
+
+      return {
+        following: {
+          ...state.following,
+          [follower]: {
+            ...(state.following[follower] || {}),
+            [followee]: newState,
           },
-          followers: {
-            ...state.followers,
-            [followee]: {
-              ...(state.followers[followee] || {}),
-              [follower]: true,
-            },
+        },
+        followers: {
+          ...state.followers,
+          [followee]: {
+            ...(state.followers[followee] || {}),
+            [follower]: newState,
           },
-        };
-      }
+        },
+      };
     },
   },
 });
-export const { upsertGraph } = graphSlice.actions;
+export const { upsertGraph, updateRelationshipStatus } = graphSlice.actions;
 export default graphSlice.reducer;

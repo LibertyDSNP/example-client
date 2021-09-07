@@ -20,6 +20,17 @@
   transform: rotate(45deg);
 }
 
+.ConnectionsListProfiles__button {
+  position: relative;
+  .ant-spin {
+    position: absolute;
+    right: 0.4em;
+    top: 0.2em;
+    transform: scale(0.8);
+    filter: saturate(0);
+  }
+}
+
 .ConnectionsListProfiles__button[name="Unfollow"] {
   &:hover,
   &:active,

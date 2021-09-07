@@ -11,6 +11,7 @@ import {
   GraphChangeAnnouncement,
   SignedProfileAnnouncement,
   SignedAnnouncement,
+  SignedGraphChangeAnnouncement,
 } from "@dsnp/sdk/core/announcements";
 import { BatchPublicationLogData } from "@dsnp/sdk/core/contracts/subscription";
 import { WalletType } from "./wallets/wallet";
@@ -203,8 +204,8 @@ export const batchAnnouncement = async (
 
 /**
  * Creates a signed post announcement.
- * NOTE: The signature is currently fake to avoid the need for double-signing. This
- * should change in the future.
+ * Note that the provider's active signing address must be an authorized
+ * delegate for the DSNP account specified by from id for this to be valid.
  * @param fromId DSNP id of the user sending the post
  * @param url location of the post's activity content
  * @param hash has of the post's activity content
@@ -225,8 +226,8 @@ export const buildAndSignPostAnnouncement = async (
 
 /**
  * Creates a signed reply announcement.
- * NOTE: The signature is currently fake to avoid the need for double-signing. This
- * should change in the future.
+ * Note that the provider's active signing address must be an authorized
+ * delegate for the DSNP account specified by from id for this to be valid.
  * @param fromId DSNP id of the user sending the reply
  * @param inReplyTo signature of the post to which this post is a response
  * @param url location of the reply's activity content
@@ -245,8 +246,8 @@ export const buildAndSignReplyAnnouncement = async (
 
 /**
  * Creates a signed profile announcement.
- * NOTE: The signature is currently fake to avoid the need for double-signing. This
- * should change in the future.
+ * Note that the provider's active signing address must be an authorized
+ * delegate for the DSNP account specified by from id for this to be valid.
  * @param fromId DSNP id of the profiled user
  * @param url location of the profile's activity content
  * @param hash has of the profile's activity content
@@ -262,5 +263,43 @@ export const buildAndSignProfile = async (
       core.identifiers.convertToDSNPUserURI(fromId),
       url,
       hash
+    )
+  );
+
+/**
+ * Creates a signed follow announcement.
+ * Note that the provider's active signing address must be an authorized
+ * delegate for the DSNP account specified by from id for this to be valid.
+ * @param fromId DSNP Id of user doing the following
+ * @param followee DSNP Id of user being followed
+ * @returns a signed announcement ready for inclusion in a batch
+ */
+export const buildAndSignFollowAnnouncement = async (
+  fromId: DSNPUserId,
+  followee: DSNPUserId
+): Promise<SignedGraphChangeAnnouncement> =>
+  core.announcements.sign(
+    core.announcements.createFollowGraphChange(
+      core.identifiers.convertToDSNPUserURI(fromId),
+      core.identifiers.convertToDSNPUserURI(followee)
+    )
+  );
+
+/**
+ * Creates a signed unfollow announcement.
+ * Note that the provider's active signing address must be an authorized
+ * delegate for the DSNP account specified by from id for this to be valid.
+ * @param fromId DSNP Id of user doing the unfollowing
+ * @param followee DSNP Id of user being unfollowed
+ * @returns a signed announcement ready for inclusion in a batch
+ */
+export const buildAndSignUnfollowAnnouncement = async (
+  fromId: DSNPUserId,
+  followee: DSNPUserId
+): Promise<SignedGraphChangeAnnouncement> =>
+  core.announcements.sign(
+    core.announcements.createUnfollowGraphChange(
+      core.identifiers.convertToDSNPUserURI(fromId),
+      core.identifiers.convertToDSNPUserURI(followee)
     )
   );

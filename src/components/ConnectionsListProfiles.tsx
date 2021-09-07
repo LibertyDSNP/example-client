@@ -1,11 +1,15 @@
 import React from "react";
 import UserAvatar from "./UserAvatar";
-import { Button } from "antd";
 import { Profile } from "../utilities/types";
 import { HexString } from "@dsnp/sdk/dist/types/types/Strings";
 import { useAppSelector } from "../redux/hooks";
 import { createProfile } from "@dsnp/sdk/core/activityContent";
 import { AnnouncementType } from "@dsnp/sdk/core/announcements";
+import {
+  RelationshipState,
+  RelationshipStatus,
+} from "../redux/slices/graphSlice";
+import GraphChangeButton from "./GraphChangeButton";
 
 enum ListStatus {
   CLOSED,
@@ -14,19 +18,18 @@ enum ListStatus {
 }
 
 interface ConnectionsListProfilesProps {
+  userId: string;
   listStatus: ListStatus;
-  following: Record<string, boolean>;
-  followers: Record<string, boolean>;
+  following: Record<string, RelationshipState>;
+  followers: Record<string, RelationshipState>;
 }
 
 const ConnectionsListProfiles = ({
+  userId,
   listStatus,
   following,
   followers,
 }: ConnectionsListProfilesProps): JSX.Element => {
-  const userRelationship = (userProfile: Profile) =>
-    following[userProfile.fromId] ? "Unfollow" : "Follow";
-
   const profiles: Record<HexString, Profile> = useAppSelector(
     (state) => state.profiles?.profiles || {}
   );
@@ -42,43 +45,37 @@ const ConnectionsListProfiles = ({
       createdAt: new Date().getTime(),
     };
 
-  const connectionsList =
+  const relations =
     listStatus === ListStatus.FOLLOWERS
-      ? Object.keys(followers).map(profileForId)
+      ? followers
       : listStatus === ListStatus.FOLLOWING
-      ? Object.keys(following).map(profileForId)
-      : [];
+      ? following
+      : {};
+
+  const connectionsList = Object.keys(relations)
+    .map(profileForId)
+    .filter(
+      (profile) =>
+        relations[profile.fromId]?.status !== RelationshipStatus.UNFOLLOWING
+    );
 
   return (
     <>
-      {connectionsList.map((userProfile) => (
-        <div
-          className="ConnectionsListProfiles__profile"
-          key={userProfile.fromId}
-        >
+      {connectionsList.map((profile) => (
+        <div className="ConnectionsListProfiles__profile" key={profile.fromId}>
           <UserAvatar
-            icon={profiles[userProfile.fromId]?.icon?.[0]?.href}
+            icon={profiles[profile.fromId]?.icon?.[0]?.href}
             avatarSize="small"
-            profileAddress={userProfile.fromId}
+            profileAddress={profile.fromId}
           />
           <div className="ConnectionsListProfiles__name">
-            {userProfile.name || userProfile.fromId || "Anonymous"}
+            {profile.name || profile.fromId || "Anonymous"}
           </div>
-          <Button
-            className="ConnectionsListProfiles__button"
-            name={userRelationship(userProfile)}
-          >
-            {userRelationship(userProfile)}
-            <div
-              className={
-                userRelationship(userProfile) === "Follow"
-                  ? "ConnectionsListProfiles__buttonFollowIcon"
-                  : "ConnectionsListProfiles__buttonUnfollowIcon"
-              }
-            >
-              &#10005;
-            </div>
-          </Button>
+          <GraphChangeButton
+            userId={userId}
+            profile={profile}
+            following={following}
+          ></GraphChangeButton>
         </div>
       ))}
     </>

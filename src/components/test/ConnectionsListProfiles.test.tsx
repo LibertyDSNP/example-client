@@ -2,6 +2,10 @@ import ConnectionsListProfiles from "../ConnectionsListProfiles";
 import { shallow, mount } from "enzyme";
 import { preFabProfiles } from "../../test/testProfiles";
 import { componentWithStore, createMockStore } from "../../test/testhelpers";
+import {
+  RelationshipState,
+  RelationshipStatus,
+} from "../../redux/slices/graphSlice";
 
 enum ListStatus {
   CLOSED,
@@ -19,13 +23,22 @@ const mockUserList = [
 
 const profiles = mockUserList.reduce((m, p) => ({ ...m, [p.fromId]: p }), {});
 
-const following = mockUserList
+const followState = {
+  status: RelationshipStatus.FOLLOWING,
+  blockNumber: 0,
+  blockIndex: 0,
+  batchIndex: 0,
+};
+const following: Record<
+  string,
+  Record<string, RelationshipState>
+> = mockUserList
   .slice(0, 3)
-  .reduce((m, p) => ({ ...m, [p.fromId]: true }), {});
+  .reduce((m, p) => ({ ...m, [p.fromId]: followState }), {});
 
 const followers = mockUserList
   .slice(2)
-  .reduce((m, p) => ({ ...m, [p.fromId]: true }), {});
+  .reduce((m, p) => ({ ...m, [p.fromId]: followState }), {});
 
 const store = {
   profiles: { profiles: profiles },

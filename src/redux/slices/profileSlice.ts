@@ -1,4 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { latestBatchedMessage } from "../../utilities/sort";
 import { HexString, Profile } from "../../utilities/types";
 
 interface profileState {
@@ -7,18 +8,6 @@ interface profileState {
 
 const initialState: profileState = {
   profiles: {},
-};
-
-// choose latest profile comparing by blockNumber then blockIndex then batchIndex
-const latestProfile = (a: Profile, b: Profile): Profile => {
-  if (!a || a.blockNumber === undefined) return b;
-  if (!b || b.blockNumber === undefined) return a;
-  if (b.blockNumber !== a.blockNumber) {
-    return b.blockNumber > a.blockNumber ? b : a;
-  } else if (b.blockIndex !== a.blockIndex) {
-    return b.blockIndex > a.blockIndex ? b : a;
-  }
-  return b.batchIndex > a.batchIndex ? b : a;
 };
 
 export const profileSlice = createSlice({
@@ -34,7 +23,7 @@ export const profileSlice = createSlice({
       return {
         profiles: {
           ...state.profiles,
-          [key]: latestProfile(oldProfile, newProfile),
+          [key]: latestBatchedMessage(oldProfile, newProfile),
         },
       };
     },

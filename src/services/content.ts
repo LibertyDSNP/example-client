@@ -116,6 +116,40 @@ export const saveProfile = async (
   await dsnp.batchAnnouncement(`${hash}.parquet`, announcement);
 };
 
+/**
+ * followUser creates and announces a DSNP follow graph change event.
+ * @param fromId DSNP Id of user doing the following
+ * @param followee DSNP Id of the user being followed
+ */
+export const followUser = async (
+  fromId: DSNPUserId,
+  followee: DSNPUserId
+): Promise<void> => {
+  const announcement = await dsnp.buildAndSignFollowAnnouncement(
+    fromId,
+    followee
+  );
+  const hash = core.announcements.serialize(announcement);
+  await dsnp.batchAnnouncement(hash, announcement);
+};
+
+/**
+ * unfollowUser creates and announces a DSNP unfollow graph change event.
+ * @param fromId DSNP Id of user doing the unfollowing
+ * @param followee DSNP Id of the user being unfollowed
+ */
+export const unfollowUser = async (
+  fromId: DSNPUserId,
+  followee: DSNPUserId
+): Promise<void> => {
+  const announcement = await dsnp.buildAndSignUnfollowAnnouncement(
+    fromId,
+    followee
+  );
+  const hash = core.announcements.serialize(announcement);
+  await dsnp.batchAnnouncement(hash, announcement);
+};
+
 //
 // Internal Functions
 //
@@ -273,16 +307,25 @@ const fetchAndDispatchContent = async (
  * dipatchGraphChange updates the social graph in redux with a graph change announcment.
  * @param dispatch function used to dispatch to store
  * @param graphChange graph change announcment
+ * @param blockNumber block number of block containing publication
+ * @param blockIndex index of publication within block
+ * @param batchIndex index of announcment within batch
  */
 const dispatchGraphChange = (
   dispatch: Dispatch,
-  graphChange: GraphChangeAnnouncement
+  graphChange: GraphChangeAnnouncement,
+  blockNumber: number,
+  blockIndex: number,
+  batchIndex: number
 ) => {
   dispatch(
     upsertGraph({
       follower: graphChange.fromId.toString(),
       followee: graphChange.objectId.toString(),
       unfollow: graphChange.changeType === DSNPGraphChangeType.Unfollow,
+      blockNumber,
+      blockIndex,
+      batchIndex,
     })
   );
 };
@@ -300,7 +343,13 @@ const handleBatchAnnouncement = (dispatch: Dispatch) => (
     try {
       const announcement = announcementRow as unknown;
       if (dsnp.isGraphChangeAnnouncement(announcement)) {
-        dispatchGraphChange(dispatch, announcement);
+        dispatchGraphChange(
+          dispatch,
+          announcement,
+          batchAnnouncement.blockNumber,
+          batchAnnouncement.transactionIndex,
+          batchIndex++
+        );
       } else if (dsnp.isBroadcastAnnouncement(announcement)) {
         fetchAndDispatchContent(
           dispatch,

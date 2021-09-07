@@ -62,11 +62,14 @@ const ConnectionsList = (): JSX.Element => {
           Following
         </Button>
       </div>
-      <ConnectionsListProfiles
-        listStatus={selectedListTitle}
-        following={following}
-        followers={followers}
-      />
+      {userId && (
+        <ConnectionsListProfiles
+          userId={userId}
+          listStatus={selectedListTitle}
+          following={following}
+          followers={followers}
+        />
+      )}
     </div>
   );
 };
