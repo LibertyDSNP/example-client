@@ -5,7 +5,10 @@ import { HexString } from "@dsnp/sdk/dist/types/types/Strings";
 import { useAppSelector } from "../redux/hooks";
 import { createProfile } from "@dsnp/sdk/core/activityContent";
 import { AnnouncementType } from "@dsnp/sdk/core/announcements";
-import { RelationshipStatus } from "../redux/slices/graphSlice";
+import {
+  RelationshipState,
+  RelationshipStatus,
+} from "../redux/slices/graphSlice";
 import GraphChangeButton from "./GraphChangeButton";
 
 enum ListStatus {
@@ -17,8 +20,8 @@ enum ListStatus {
 interface ConnectionsListProfilesProps {
   userId: string;
   listStatus: ListStatus;
-  following: Record<string, RelationshipStatus>;
-  followers: Record<string, RelationshipStatus>;
+  following: Record<string, RelationshipState>;
+  followers: Record<string, RelationshipState>;
 }
 
 const ConnectionsListProfiles = ({
@@ -42,12 +45,19 @@ const ConnectionsListProfiles = ({
       createdAt: new Date().getTime(),
     };
 
-  const connectionsList =
+  const relations =
     listStatus === ListStatus.FOLLOWERS
-      ? Object.keys(followers).map(profileForId)
+      ? followers
       : listStatus === ListStatus.FOLLOWING
-      ? Object.keys(following).map(profileForId)
-      : [];
+      ? following
+      : {};
+
+  const connectionsList = Object.keys(relations)
+    .map(profileForId)
+    .filter(
+      (profile) =>
+        relations[profile.fromId]?.status !== RelationshipStatus.UNFOLLOWING
+    );
 
   return (
     <>

@@ -1,4 +1,7 @@
-import { RelationshipStatus } from "../redux/slices/graphSlice";
+import {
+  RelationshipState,
+  RelationshipStatus,
+} from "../redux/slices/graphSlice";
 import { getPrefabDsnpUserId } from "./testAddresses";
 
 /**
@@ -7,7 +10,7 @@ import { getPrefabDsnpUserId } from "./testAddresses";
  * for all users. The existence of a relationship from account1 to
  * account2 can be checked with graph[account1]?.[account2].
  */
-type Graph = Record<string, Record<string, RelationshipStatus>>;
+type Graph = Record<string, Record<string, RelationshipState>>;
 
 interface SocialGraph {
   followers: Graph;
@@ -16,12 +19,17 @@ interface SocialGraph {
 
 // Invert a map from followers to followees into a map of followees to followers.
 const followersFromFollowing = (following: Graph): Graph => {
-  const followers: Record<string, Record<string, RelationshipStatus>> = {};
+  const followers: Record<string, Record<string, RelationshipState>> = {};
   for (const follower of Object.keys(following)) {
     for (const followee of Object.keys(following[follower])) {
       followers[followee] = {
         ...(followers[followee] || {}),
-        [follower]: RelationshipStatus.ESTABlISHED,
+        [follower]: {
+          status: RelationshipStatus.FOLLOWING,
+          blockNumber: 0,
+          blockIndex: 0,
+          batchIndex: 0,
+        },
       };
     }
   }
@@ -41,29 +49,36 @@ const adr6 = getPrefabDsnpUserId(6);
  */
 
 export const getPreFabSocialGraph = (): SocialGraph => {
+  const followState = {
+    status: RelationshipStatus.FOLLOWING,
+    blockNumber: 0,
+    blockIndex: 0,
+    batchIndex: 0,
+  };
+
   const following = {
     [adr0]: {
-      [adr1]: RelationshipStatus.ESTABlISHED,
-      [adr2]: RelationshipStatus.ESTABlISHED,
+      [adr1]: followState,
+      [adr2]: followState,
     },
     [adr1]: {
-      [adr0]: RelationshipStatus.ESTABlISHED,
-      [adr6]: RelationshipStatus.ESTABlISHED,
+      [adr0]: followState,
+      [adr6]: followState,
     },
     [adr2]: {
-      [adr0]: RelationshipStatus.ESTABlISHED,
-      [adr1]: RelationshipStatus.ESTABlISHED,
-      [adr3]: RelationshipStatus.ESTABlISHED,
-      [adr4]: RelationshipStatus.ESTABlISHED,
-      [adr5]: RelationshipStatus.ESTABlISHED,
-      [adr6]: RelationshipStatus.ESTABlISHED,
+      [adr0]: followState,
+      [adr1]: followState,
+      [adr3]: followState,
+      [adr4]: followState,
+      [adr5]: followState,
+      [adr6]: followState,
     },
-    [adr3]: { [adr6]: RelationshipStatus.ESTABlISHED },
+    [adr3]: { [adr6]: followState },
     [adr4]: {
-      [adr6]: RelationshipStatus.ESTABlISHED,
-      [adr5]: RelationshipStatus.ESTABlISHED,
+      [adr6]: followState,
+      [adr5]: followState,
     },
-    [adr5]: { [adr6]: RelationshipStatus.ESTABlISHED },
+    [adr5]: { [adr6]: followState },
     [adr6]: {},
   };
 

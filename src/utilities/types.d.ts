@@ -9,6 +9,9 @@ export interface GraphChange {
   followee: string;
   follower: string;
   unfollow: boolean;
+  blockNumber: number;
+  blockIndex: number;
+  batchIndex: number;
 }
 
 // ## Profile ##

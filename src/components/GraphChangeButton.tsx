@@ -3,6 +3,7 @@ import { DSNPUserId } from "@dsnp/sdk/dist/types/core/identifiers";
 import { Button, Spin } from "antd";
 import { useAppDispatch } from "../redux/hooks";
 import {
+  RelationshipState,
   RelationshipStatus,
   updateRelationshipStatus,
 } from "../redux/slices/graphSlice";
@@ -12,7 +13,7 @@ import { Profile } from "../utilities/types";
 interface FollowButtonProps {
   userId: string;
   profile: Profile;
-  following: Record<string, RelationshipStatus>;
+  following: Record<string, RelationshipState>;
 }
 
 const GraphChangeButton = ({
@@ -23,10 +24,10 @@ const GraphChangeButton = ({
   const dispatch = useAppDispatch();
 
   const isFollowing = (profile: Profile): boolean =>
-    profile.fromId in following;
+    [RelationshipStatus.FOLLOWING, RelationshipStatus.UPDATING].includes(following[profile.fromId]?.status)
 
   const isFollowingUpdating = (profile: Profile): boolean =>
-    following[profile.fromId] === RelationshipStatus.UPDATING;
+    following[profile.fromId]?.status === RelationshipStatus.UPDATING;
 
   const buttonText = (profile: Profile): string =>
     isFollowingUpdating(profile)
