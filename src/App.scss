@@ -4,6 +4,7 @@
 @import "theme/buttons";
 @import "theme/antd-overrides";
 @import "theme/kss-styleguide-classes";
+@import "./components/scss/GraphChangeButton";
 @import "./components/scss/Header";
 @import "./components/scss/Login";
 @import "./components/scss/LoginButton";
@@ -14,6 +15,7 @@
 @import "./components/scss/NewPostImageUpload";
 @import "./components/scss/Post";
 @import "./components/scss/PostHashDropdown";
+@import "./components/scss/Profile";
 @import "./components/scss/BlankPost";
 @import "./components/scss/PostMedia";
 @import "./components/scss/RegistrationModal";

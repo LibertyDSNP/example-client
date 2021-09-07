@@ -40,8 +40,11 @@ const followers = mockUserList
   .slice(2)
   .reduce((m, p) => ({ ...m, [p.fromId]: followState }), {});
 
+const userId = mockUserList[0].fromId;
 const store = {
+  user: { user: { id: userId } },
   profiles: { profiles: profiles },
+  graphs: { following: { [userId]: following } },
 };
 
 describe("ConnectionsListProfiles", () => {
@@ -50,8 +53,9 @@ describe("ConnectionsListProfiles", () => {
       shallow(
         componentWithStore(ConnectionsListProfiles, createMockStore(store), {
           listStatus: ListStatus.FOLLOWING,
-          followers: followers,
-          following: following,
+          followedByDisplayUser: following,
+          followingDisplayUser: followers,
+          userId: userId,
         })
       );
     }).not.toThrow();
@@ -62,8 +66,9 @@ describe("ConnectionsListProfiles", () => {
       const component = mount(
         componentWithStore(ConnectionsListProfiles, createMockStore(store), {
           listStatus: ListStatus.CLOSED,
-          followers: followers,
-          following: following,
+          followedByDisplayUser: following,
+          followingDisplayUser: followers,
+          userId: userId,
         })
       );
       expect(component.find(".ConnectionsListProfiles__profile").length).toBe(
@@ -77,8 +82,9 @@ describe("ConnectionsListProfiles", () => {
       const component = mount(
         componentWithStore(ConnectionsListProfiles, createMockStore(store), {
           listStatus: ListStatus.FOLLOWING,
-          followers: followers,
-          following: following,
+          followedByDisplayUser: following,
+          followingDisplayUser: followers,
+          userId: userId,
         })
       );
       expect(component.find(".ConnectionsListProfiles__profile").length).toBe(
@@ -99,19 +105,20 @@ describe("ConnectionsListProfiles", () => {
       const component = mount(
         componentWithStore(ConnectionsListProfiles, createMockStore(store), {
           listStatus: ListStatus.FOLLOWING,
-          followers: followers,
-          following: following,
+          followedByDisplayUser: following,
+          followingDisplayUser: followers,
+          userId: userId,
         })
       );
-      expect(
-        component.find(".ConnectionsListProfiles__button").at(0).text()
-      ).toContain("Unfollow");
-      expect(
-        component.find(".ConnectionsListProfiles__button").at(1).text()
-      ).toContain("Unfollow");
-      expect(
-        component.find(".ConnectionsListProfiles__button").at(2).text()
-      ).toContain("Unfollow");
+      expect(component.find(".GraphChangeButton").at(0).text()).toContain(
+        "Unfollow"
+      );
+      expect(component.find(".GraphChangeButton").at(1).text()).toContain(
+        "Unfollow"
+      );
+      expect(component.find(".GraphChangeButton").at(2).text()).toContain(
+        "Unfollow"
+      );
     });
   });
 
@@ -120,8 +127,8 @@ describe("ConnectionsListProfiles", () => {
       const component = mount(
         componentWithStore(ConnectionsListProfiles, createMockStore(store), {
           listStatus: ListStatus.FOLLOWERS,
-          followers: followers,
-          following: following,
+          followedByDisplayUser: following,
+          followingDisplayUser: followers,
         })
       );
       expect(component.find(".ConnectionsListProfiles__profile").length).toBe(
@@ -142,15 +149,16 @@ describe("ConnectionsListProfiles", () => {
       const component = mount(
         componentWithStore(ConnectionsListProfiles, createMockStore(store), {
           listStatus: ListStatus.FOLLOWERS,
-          followers: followers,
-          following: following,
+          followedByDisplayUser: following,
+          followingDisplayUser: followers,
+          userId: userId,
         })
       );
       expect(
         component
           .find(".ConnectionsListProfiles__profile")
           .at(0)
-          .find(".ConnectionsListProfiles__button")
+          .find(".GraphChangeButton")
           .first()
           .text()
       ).toContain("Unfollow");
@@ -158,7 +166,7 @@ describe("ConnectionsListProfiles", () => {
         component
           .find(".ConnectionsListProfiles__profile")
           .at(1)
-          .find(".ConnectionsListProfiles__button")
+          .find(".GraphChangeButton")
           .first()
           .text()
       ).toContain("Follow");
@@ -166,7 +174,7 @@ describe("ConnectionsListProfiles", () => {
         component
           .find(".ConnectionsListProfiles__profile")
           .at(2)
-          .find(".ConnectionsListProfiles__button")
+          .find(".GraphChangeButton")
           .first()
           .text()
       ).toContain("Follow");
