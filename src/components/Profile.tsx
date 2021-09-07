@@ -11,7 +11,7 @@ import GraphChangeButton from "./GraphChangeButton";
 const Profile = (): JSX.Element => {
   const userId: string | undefined = useAppSelector((state) => state.user.id);
 
-  const following = useAppSelector(
+  const followedByCurrentuser = useAppSelector(
     (state) => (userId && state.graphs.following[userId]) || {}
   );
 
@@ -106,7 +106,7 @@ const Profile = (): JSX.Element => {
             <GraphChangeButton
               userId={userId}
               profile={profile}
-              following={following}
+              following={followedByCurrentuser}
             ></GraphChangeButton>
           )}
         </div>
