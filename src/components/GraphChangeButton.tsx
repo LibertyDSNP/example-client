@@ -1,5 +1,4 @@
 import React from "react";
-import { DSNPUserId } from "@dsnp/sdk/dist/types/core/identifiers";
 import { Button, Spin } from "antd";
 import { useAppDispatch } from "../redux/hooks";
 import {
@@ -24,7 +23,9 @@ const GraphChangeButton = ({
   const dispatch = useAppDispatch();
 
   const isFollowing = (profile: Profile): boolean =>
-    [RelationshipStatus.FOLLOWING, RelationshipStatus.UPDATING].includes(following[profile.fromId]?.status)
+    [RelationshipStatus.FOLLOWING, RelationshipStatus.UPDATING].includes(
+      following[profile.fromId]?.status
+    );
 
   const isFollowingUpdating = (profile: Profile): boolean =>
     following[profile.fromId]?.status === RelationshipStatus.UPDATING;
