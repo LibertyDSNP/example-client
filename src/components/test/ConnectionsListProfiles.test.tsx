@@ -53,8 +53,8 @@ describe("ConnectionsListProfiles", () => {
       shallow(
         componentWithStore(ConnectionsListProfiles, createMockStore(store), {
           listStatus: ListStatus.FOLLOWING,
-          followers: followers,
-          following: following,
+          followedByDisplayUser: following,
+          followingDisplayUser: followers,
           userId: userId,
         })
       );
@@ -66,8 +66,8 @@ describe("ConnectionsListProfiles", () => {
       const component = mount(
         componentWithStore(ConnectionsListProfiles, createMockStore(store), {
           listStatus: ListStatus.CLOSED,
-          followers: followers,
-          following: following,
+          followedByDisplayUser: following,
+          followingDisplayUser: followers,
           userId: userId,
         })
       );
@@ -82,8 +82,8 @@ describe("ConnectionsListProfiles", () => {
       const component = mount(
         componentWithStore(ConnectionsListProfiles, createMockStore(store), {
           listStatus: ListStatus.FOLLOWING,
-          followers: followers,
-          following: following,
+          followedByDisplayUser: following,
+          followingDisplayUser: followers,
           userId: userId,
         })
       );
@@ -105,8 +105,8 @@ describe("ConnectionsListProfiles", () => {
       const component = mount(
         componentWithStore(ConnectionsListProfiles, createMockStore(store), {
           listStatus: ListStatus.FOLLOWING,
-          followers: followers,
-          following: following,
+          followedByDisplayUser: following,
+          followingDisplayUser: followers,
           userId: userId,
         })
       );
@@ -127,8 +127,8 @@ describe("ConnectionsListProfiles", () => {
       const component = mount(
         componentWithStore(ConnectionsListProfiles, createMockStore(store), {
           listStatus: ListStatus.FOLLOWERS,
-          followers: followers,
-          following: following,
+          followedByDisplayUser: following,
+          followingDisplayUser: followers,
         })
       );
       expect(component.find(".ConnectionsListProfiles__profile").length).toBe(
@@ -149,8 +149,8 @@ describe("ConnectionsListProfiles", () => {
       const component = mount(
         componentWithStore(ConnectionsListProfiles, createMockStore(store), {
           listStatus: ListStatus.FOLLOWERS,
-          followers: followers,
-          following: following,
+          followedByDisplayUser: following,
+          followingDisplayUser: followers,
           userId: userId,
         })
       );

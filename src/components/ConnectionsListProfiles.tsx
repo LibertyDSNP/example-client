@@ -20,21 +20,21 @@ enum ListStatus {
 interface ConnectionsListProfilesProps {
   userId: string;
   listStatus: ListStatus;
-  following: Record<string, RelationshipState>;
-  followers: Record<string, RelationshipState>;
+  followedByDisplayUser: Record<string, RelationshipState>;
+  followingDisplayUser: Record<string, RelationshipState>;
 }
 
 const ConnectionsListProfiles = ({
   userId,
   listStatus,
-  following,
-  followers,
+  followedByDisplayUser,
+  followingDisplayUser,
 }: ConnectionsListProfilesProps): JSX.Element => {
   const profiles: Record<HexString, Profile> = useAppSelector(
     (state) => state.profiles?.profiles || {}
   );
 
-  const userFollowing = useAppSelector(
+  const followedByCurrentUser = useAppSelector(
     (state) => (userId && state.graphs.following[userId]) || {}
   );
 
@@ -51,9 +51,9 @@ const ConnectionsListProfiles = ({
 
   const relations =
     listStatus === ListStatus.FOLLOWERS
-      ? followers
+      ? followingDisplayUser
       : listStatus === ListStatus.FOLLOWING
-      ? following
+      ? followedByDisplayUser
       : {};
 
   const connectionsList = Object.keys(relations)
@@ -78,7 +78,7 @@ const ConnectionsListProfiles = ({
           <GraphChangeButton
             userId={userId}
             profile={profile}
-            following={userFollowing}
+            following={followedByCurrentUser}
           ></GraphChangeButton>
         </div>
       ))}

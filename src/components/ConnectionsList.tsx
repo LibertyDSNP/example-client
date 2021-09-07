@@ -12,10 +12,10 @@ enum ListStatus {
 const ConnectionsList = (): JSX.Element => {
   const { id: userId, displayId } = useAppSelector((state) => state.user);
 
-  const following = useAppSelector(
+  const followedByDisplayUser = useAppSelector(
     (state) => (displayId && state.graphs.following[displayId]) || {}
   );
-  const followers = useAppSelector(
+  const followingDisplayUser = useAppSelector(
     (state) => (displayId && state.graphs.followers[displayId]) || {}
   );
 
@@ -45,7 +45,7 @@ const ConnectionsList = (): JSX.Element => {
           onClick={() => handleClick(ListStatus.FOLLOWERS)}
         >
           <div className="ConnectionsList__buttonCount">
-            {Object.keys(followers).length}
+            {Object.keys(followingDisplayUser).length}
           </div>
           Followers
         </Button>
@@ -58,7 +58,7 @@ const ConnectionsList = (): JSX.Element => {
           onClick={() => handleClick(ListStatus.FOLLOWING)}
         >
           <div className="ConnectionsList__buttonCount">
-            {Object.keys(following).length}
+            {Object.keys(followedByDisplayUser).length}
           </div>
           Following
         </Button>
@@ -67,8 +67,8 @@ const ConnectionsList = (): JSX.Element => {
         <ConnectionsListProfiles
           userId={userId}
           listStatus={selectedListTitle}
-          following={following}
-          followers={followers}
+          followedByDisplayUser={followedByDisplayUser}
+          followingDisplayUser={followingDisplayUser}
         />
       )}
     </div>
