@@ -40,8 +40,11 @@ const followers = mockUserList
   .slice(2)
   .reduce((m, p) => ({ ...m, [p.fromId]: followState }), {});
 
+const userId = mockUserList[0].fromId;
 const store = {
+  user: { user: { id: userId } },
   profiles: { profiles: profiles },
+  graphs: { following: { [userId]: following } },
 };
 
 describe("ConnectionsListProfiles", () => {
@@ -52,6 +55,7 @@ describe("ConnectionsListProfiles", () => {
           listStatus: ListStatus.FOLLOWING,
           followers: followers,
           following: following,
+          userId: userId,
         })
       );
     }).not.toThrow();
@@ -64,6 +68,7 @@ describe("ConnectionsListProfiles", () => {
           listStatus: ListStatus.CLOSED,
           followers: followers,
           following: following,
+          userId: userId,
         })
       );
       expect(component.find(".ConnectionsListProfiles__profile").length).toBe(
@@ -79,6 +84,7 @@ describe("ConnectionsListProfiles", () => {
           listStatus: ListStatus.FOLLOWING,
           followers: followers,
           following: following,
+          userId: userId,
         })
       );
       expect(component.find(".ConnectionsListProfiles__profile").length).toBe(
@@ -101,6 +107,7 @@ describe("ConnectionsListProfiles", () => {
           listStatus: ListStatus.FOLLOWING,
           followers: followers,
           following: following,
+          userId: userId,
         })
       );
       expect(component.find(".GraphChangeButton").at(0).text()).toContain(
@@ -144,6 +151,7 @@ describe("ConnectionsListProfiles", () => {
           listStatus: ListStatus.FOLLOWERS,
           followers: followers,
           following: following,
+          userId: userId,
         })
       );
       expect(
