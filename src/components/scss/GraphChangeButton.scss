@@ -1,0 +1,42 @@
+.GraphChangeButton__followIcon {
+  transform: rotate(0deg);
+  transition: transform 0.3s;
+}
+
+.GraphChangeButton__unfollowIcon {
+  transform: rotate(45deg);
+}
+
+.GraphChangeButton {
+  position: relative;
+  .ant-spin {
+    position: absolute;
+    right: 0.4em;
+    top: 0.2em;
+    transform: scale(0.8);
+    filter: saturate(0);
+  }
+}
+
+.GraphChangeButton[name="Unfollow"] {
+  &:hover,
+  &:active,
+  &:focus {
+    color: $black;
+    border-color: $green;
+    background-color: $light-gray;
+  }
+}
+
+.GraphChangeButton[name="Follow"] {
+  background-color: $black;
+  color: $white;
+
+  &:hover,
+  &:active,
+  &:focus {
+    color: $white;
+    border-color: $green;
+    background-color: $dark-gray;
+  }
+}

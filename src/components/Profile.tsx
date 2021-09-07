@@ -6,9 +6,14 @@ import { useAppSelector } from "../redux/hooks";
 import * as types from "../utilities/types";
 import { saveProfile } from "../services/content";
 import { core } from "@dsnp/sdk";
+import GraphChangeButton from "./GraphChangeButton";
 
 const Profile = (): JSX.Element => {
   const userId: string | undefined = useAppSelector((state) => state.user.id);
+
+  const following = useAppSelector(
+    (state) => (userId && state.graphs.following[userId]) || {}
+  );
 
   const displayId: string | undefined = useAppSelector(
     (state) => state.user.displayId
@@ -97,6 +102,13 @@ const Profile = (): JSX.Element => {
                 edit
               </Button>
             ))}
+          {userId && userId !== displayId && profile && (
+            <GraphChangeButton
+              userId={userId}
+              profile={profile}
+              following={following}
+            ></GraphChangeButton>
+          )}
         </div>
         <div className="ProfileBlock__personalInfo">
           <label className="ProfileBlock__personalInfoLabel">NAME</label>

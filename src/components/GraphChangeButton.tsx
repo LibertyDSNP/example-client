@@ -54,7 +54,7 @@ const GraphChangeButton = ({
 
   return (
     <Button
-      className="ConnectionsListProfiles__button"
+      className="GraphChangeButton"
       name={buttonText(profile)}
       onClick={() => changeGraphState(profile)}
       disabled={isFollowingUpdating(profile)}
@@ -66,8 +66,8 @@ const GraphChangeButton = ({
         <div
           className={
             buttonText(profile) === "Follow"
-              ? "ConnectionsListProfiles__buttonFollowIcon"
-              : "ConnectionsListProfiles__buttonUnfollowIcon"
+              ? "GraphChangeButton__followIcon"
+              : "GraphChangeButton__unfollowIcon"
           }
         >
           &#10005;

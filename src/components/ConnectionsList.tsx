@@ -10,12 +10,13 @@ enum ListStatus {
 }
 
 const ConnectionsList = (): JSX.Element => {
-  const userId: string | undefined = useAppSelector((state) => state.user.id);
+  const { id: userId, displayId } = useAppSelector((state) => state.user);
+
   const following = useAppSelector(
-    (state) => (userId && state.graphs.following[userId]) || {}
+    (state) => (displayId && state.graphs.following[displayId]) || {}
   );
   const followers = useAppSelector(
-    (state) => (userId && state.graphs.followers[userId]) || {}
+    (state) => (displayId && state.graphs.followers[displayId]) || {}
   );
 
   const [selectedListTitle, setSelectedListTitle] = useState<ListStatus>(

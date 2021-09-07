@@ -34,6 +34,10 @@ const ConnectionsListProfiles = ({
     (state) => state.profiles?.profiles || {}
   );
 
+  const userFollowing = useAppSelector(
+    (state) => (userId && state.graphs.following[userId]) || {}
+  );
+
   const profileForId = (userId: string): Profile =>
     profiles[userId] || {
       ...createProfile({ name: "Anonymous" }),
@@ -74,7 +78,7 @@ const ConnectionsListProfiles = ({
           <GraphChangeButton
             userId={userId}
             profile={profile}
-            following={following}
+            following={userFollowing}
           ></GraphChangeButton>
         </div>
       ))}

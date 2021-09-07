@@ -103,15 +103,15 @@ describe("ConnectionsListProfiles", () => {
           following: following,
         })
       );
-      expect(
-        component.find(".ConnectionsListProfiles__button").at(0).text()
-      ).toContain("Unfollow");
-      expect(
-        component.find(".ConnectionsListProfiles__button").at(1).text()
-      ).toContain("Unfollow");
-      expect(
-        component.find(".ConnectionsListProfiles__button").at(2).text()
-      ).toContain("Unfollow");
+      expect(component.find(".GraphChangeButton").at(0).text()).toContain(
+        "Unfollow"
+      );
+      expect(component.find(".GraphChangeButton").at(1).text()).toContain(
+        "Unfollow"
+      );
+      expect(component.find(".GraphChangeButton").at(2).text()).toContain(
+        "Unfollow"
+      );
     });
   });
 
@@ -150,7 +150,7 @@ describe("ConnectionsListProfiles", () => {
         component
           .find(".ConnectionsListProfiles__profile")
           .at(0)
-          .find(".ConnectionsListProfiles__button")
+          .find(".GraphChangeButton")
           .first()
           .text()
       ).toContain("Unfollow");
@@ -158,7 +158,7 @@ describe("ConnectionsListProfiles", () => {
         component
           .find(".ConnectionsListProfiles__profile")
           .at(1)
-          .find(".ConnectionsListProfiles__button")
+          .find(".GraphChangeButton")
           .first()
           .text()
       ).toContain("Follow");
@@ -166,7 +166,7 @@ describe("ConnectionsListProfiles", () => {
         component
           .find(".ConnectionsListProfiles__profile")
           .at(2)
-          .find(".ConnectionsListProfiles__button")
+          .find(".GraphChangeButton")
           .first()
           .text()
       ).toContain("Follow");
