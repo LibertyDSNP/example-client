@@ -4,7 +4,7 @@ USER root
 RUN apk --update add bash tini
 
 COPY package.json package-lock.json ./
-RUN npm install
+RUN npm ci
 
 ARG REACT_APP_UPLOAD_HOST=""
 ARG REACT_APP_CHAIN_ID="31337"
