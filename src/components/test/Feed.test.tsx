@@ -6,7 +6,6 @@ import { componentWithStore, createMockStore } from "../../test/testhelpers";
 import { getPreFabSocialGraph } from "../../test/testGraphs";
 import { getPrefabProfile } from "../../test/testProfiles";
 import { FeedItem } from "../../utilities/types";
-import { waitFor } from "@testing-library/react";
 
 const userProfile = getPrefabProfile(0);
 const displayProfile = getPrefabProfile(3);
@@ -66,7 +65,7 @@ describe("Feed", () => {
   });
 
   describe("Displays Correct Feed", () => {
-    it("Connections Feed", () => {
+    it("Discover Feed", () => {
       const component = mount(componentWithStore(Feed, store));
       const button = component.findWhere((node) => {
         return (
@@ -86,7 +85,7 @@ describe("Feed", () => {
       });
     });
 
-    it("My Feed", () => {
+    it("My Posts", () => {
       const component = mount(componentWithStore(Feed, store));
       const button = component.findWhere((node) => {
         return (
@@ -100,7 +99,7 @@ describe("Feed", () => {
       });
     });
 
-    it("All Posts", () => {
+    it("My Feed", () => {
       const component = mount(componentWithStore(Feed, store));
       const button = component.findWhere((node) => {
         return (
@@ -114,38 +113,16 @@ describe("Feed", () => {
     describe("Another User's Posts", () => {
       it("Displays nav name in feed nav", async () => {
         const component = mount(componentWithStore(Feed, store));
-        const postProfileBlock = component.findWhere((node) =>
-          node.hasClass("Post__metaBlock")
+        expect(component.find(".Feed__navigationItem--active").text()).toEqual(
+          displayProfile.name + "'s Posts"
         );
-        postProfileBlock.first().simulate("click");
-        try {
-          await waitFor(() => {
-            expect(
-              component.find(".Feed__navigationItem--active").text()
-            ).toEqual(displayProfile.name + "'s Posts");
-          });
-        } catch (e) {
-          console.log("error", component.debug());
-          throw e;
-        }
       });
 
       it("Displays correct feed items", async () => {
         const component = mount(componentWithStore(Feed, store));
-        const postProfileBlock = component.findWhere((node) =>
-          node.hasClass("Post__metaBlock")
+        expect(component.find(Post).props().feedItem.fromId).toEqual(
+          displayProfile.fromId
         );
-        postProfileBlock.first().simulate("click");
-        try {
-          await waitFor(() => {
-            expect(component.find(Post).props().feedItem.fromId).toEqual(
-              displayProfile.fromId
-            );
-          });
-        } catch (e) {
-          console.log("error", component.debug());
-          throw e;
-        }
       });
     });
   });

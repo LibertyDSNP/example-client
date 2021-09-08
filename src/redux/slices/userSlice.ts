@@ -37,13 +37,10 @@ export const userSlice = createSlice({
       ...state,
       walletType: action.payload,
     }),
-    setDisplayId: (state, action: PayloadAction<string>) => {
-      console.log("in redux store:", action.payload);
-      return {
-        ...state,
-        displayId: action.payload,
-      };
-    },
+    setDisplayId: (state, action: PayloadAction<string>) => ({
+      ...state,
+      displayId: action.payload,
+    }),
   },
 });
 export const {

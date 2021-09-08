@@ -28,8 +28,9 @@ const sortFeed = (feed: FeedItem[]): FeedItem[] => {
 };
 
 const PostList = ({ feedType }: PostListProps): JSX.Element => {
-  const { id: userId, displayId }: any | undefined = useAppSelector(
-    (state) => state.user
+  const userId: string | undefined = useAppSelector((state) => state.user.id);
+  const displayId: string | undefined = useAppSelector(
+    (state) => state.user.displayId
   );
   const myGraph: Record<string, RelationshipState> = useAppSelector(
     (state) => (userId && state.graphs.following[userId]) || {}
