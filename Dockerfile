@@ -1,6 +1,7 @@
 FROM node:14.17-alpine3.14
 
 USER root
+RUN apk add --update --no-cache python3 make g++
 
 WORKDIR /app/static-server
 COPY static-server/package.json static-server/package-lock.json  ./
@@ -32,7 +33,5 @@ RUN npm run build
 RUN cp -r build ./static-server/build/
 
 WORKDIR /app/static-server
-
-ENV REACT_APP_UPLOAD_HOST ""
 
 ENTRYPOINT ["node", "bin/www"]

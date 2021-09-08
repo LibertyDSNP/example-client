@@ -58,7 +58,7 @@
     "prestart": "node bin/pre-start",
     "start": "node scripts/start.js",
     "watch": "node scripts/start.js",
-    "build": "node scripts/build.js",
+    "build": "GENERATE_SOURCEMAP=false node scripts/build.js",
     "lint": "npm-run-all -c lint:*",
     "lint:eslint": "eslint 'src/**/*.{js,jsx,ts,tsx}'",
     "lint:stylelint": "stylelint src/**/*.scss",
