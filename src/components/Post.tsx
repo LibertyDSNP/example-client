@@ -6,10 +6,10 @@ import PostMedia from "./PostMedia";
 import RelativeTime from "./RelativeTime";
 import ReplyBlock from "./ReplyBlock";
 import PostHashDropdown from "./PostHashDropdown";
-import { ActivityContentImage } from "@dsnp/sdk/core/activityContent";
 import { FromTitle } from "./FromTitle";
 import { setDisplayId } from "../redux/slices/userSlice";
 import { useAppDispatch, useAppSelector } from "../redux/hooks";
+import { ActivityContentAttachment } from "@dsnp/sdk/core/activityContent";
 
 interface PostProps {
   feedItem: FeedItem;
@@ -19,7 +19,7 @@ const Post = ({ feedItem }: PostProps): JSX.Element => {
   const dispatch = useAppDispatch();
 
   const noteContent = feedItem.content;
-  const attachments = noteContent.attachment;
+  const attachments: ActivityContentAttachment[] = noteContent.attachment || [];
 
   const [isHoveringProfile, setIsHoveringProfile] = useState(false);
 
@@ -65,9 +65,7 @@ const Post = ({ feedItem }: PostProps): JSX.Element => {
       </div>
       <PostHashDropdown hash={feedItem.hash} fromId={feedItem.fromId} />
       <div className="Post__caption">{noteContent.content}</div>
-      {attachments && (
-        <PostMedia attachment={attachments as ActivityContentImage[]} />
-      )}
+      {attachments && <PostMedia attachments={attachments} />}
       <ReplyBlock parent={feedItem.hash} />
     </Card>
   );

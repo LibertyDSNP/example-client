@@ -62,7 +62,6 @@ const PostList = ({ feedType }: PostListProps): JSX.Element => {
   } else {
     currentFeed = feed;
   }
-
   return (
     <div className="PostList__block">
       {loading && <BlankPost />}

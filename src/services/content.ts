@@ -173,17 +173,12 @@ const dispatchActivityContent = (
   batchIndex: number
 ) => {
   if (isActivityContentNoteType(activityContent)) {
-    return dispatchFeedItem(
-      dispatch,
-      message,
-      activityContent as ActivityContentNote,
-      blockNumber
-    );
+    return dispatchFeedItem(dispatch, message, activityContent, blockNumber);
   } else if (isActivityContentProfileType(activityContent)) {
     return dispatchProfile(
       dispatch,
       message,
-      activityContent as ActivityContentProfile,
+      activityContent,
       blockNumber,
       blockIndex,
       batchIndex

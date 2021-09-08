@@ -10,39 +10,53 @@ import {
 } from "@dsnp/sdk/core/activityContent";
 
 interface PostMediaProps {
-  attachment: ActivityContentAttachment[];
+  attachments: ActivityContentAttachment[];
 }
 
-const PostMedia = ({ attachment }: PostMediaProps): JSX.Element => {
+function isImage(
+  attachment: ActivityContentAttachment
+): attachment is ActivityContentImage {
+  return attachment.type.toLowerCase() === "image";
+}
+
+function isVideo(
+  attachment: ActivityContentAttachment
+): attachment is ActivityContentVideo {
+  return attachment.type.toLowerCase() === "video";
+}
+
+function isAudio(
+  attachment: ActivityContentAttachment
+): attachment is ActivityContentAudio {
+  return attachment.type.toLowerCase() === "audio";
+}
+
+const PostMedia = ({ attachments }: PostMediaProps): JSX.Element => {
   const getPostMediaItems = () => {
-    return attachment.map((item, index) => {
-      const type = item?.type?.toLowerCase();
+    return attachments.map((attachment, index) => {
       return (
         <div key={index} className="PostMedia__cover">
-          {type === "image" && (
+          {isImage(attachment) && (
             <a
-              href={(item as ActivityContentImage).url[0].href}
+              href={attachment.url[0].href}
               target="_blank"
               rel="noopener noreferrer"
             >
               <img
-                alt={item.name}
+                alt={attachment.name}
                 className="PostMedia__img"
-                src={(item as ActivityContentImage).url[0].href}
+                src={attachment.url[0].href}
               />
             </a>
           )}
-          {(type === "video" || type === "audio") && (
+          {(isVideo(attachment) || isAudio(attachment)) && (
             <ReactPlayer
               controls
               playsinline
               className="PostMedia__img"
-              url={
-                (item as ActivityContentVideo | ActivityContentAudio).url[0]
-                  .href
-              }
+              url={attachment.url[0].href}
               width={670}
-              height={type === "video" ? 400 : 55}
+              height={isVideo(attachment) ? 400 : 55}
               muted
             />
           )}

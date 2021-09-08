@@ -1,7 +1,3 @@
-import { ProfileAnnouncement } from "@dsnp/sdk/core/announcements";
-import { ActivityContentProfile } from "@dsnp/sdk/core/activityContent";
-import { DSNPUserId } from "@dsnp/sdk/dist/types/core/identifiers";
-
 export declare type HexString = string;
 
 // ## GraphChange ##

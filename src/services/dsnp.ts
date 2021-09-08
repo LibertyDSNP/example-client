@@ -195,7 +195,7 @@ export const batchAnnouncement = async (
 
   await core.contracts.publisher.publish([
     {
-      announcementType: core.announcements.AnnouncementType.Broadcast,
+      announcementType: announcement.announcementType,
       fileUrl: batchData.url.toString(),
       fileHash: batchData.hash,
     },
