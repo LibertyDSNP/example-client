@@ -58,7 +58,7 @@ The Docker container is set up in such a way that the static-server will serve t
 To the example client and static server in docker run the following commands:
 
 - `docker build --build-arg REACT_APP_UPLOAD_HOST="" --build-arg REACT_APP_CHAIN_ID={REACT_APP_CHAIN_ID_VALUE} --build-arg  REACT_APP_CHAIN_NAME={REACT_APP_CHAIN_NAME_VAUE}  --build-arg REACT_APP_CHAIN_HOST={REACT_APP_CHAIN_HOST} --build-arg REACT_APP_TORUS_BUILD_ENV={REACT_APP_TORUS_BUILD_ENV_VALUE} . -t example-client`
-- `docker run --env-file=./.env -p 8080:8080 -v {name_for_volume}:/app/static-server/public example-client`
+- `docker run  --init --rm --env-file=./.env -p 8080:8080 -v {name_for_volume}:/app/static-server/public example-client`
 
 #### Docker Builds
 Docker image will be pushed from our [github repo](https://github.com/LibertyDSNP/example-client) to our [dockerhub](https://hub.docker.com/r/dsnp/example-client) when a new
