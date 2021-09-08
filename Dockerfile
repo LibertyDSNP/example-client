@@ -1,7 +1,6 @@
 FROM node:14.17-alpine3.14
 
 USER root
-RUN apk --update add bash tini
 
 WORKDIR /app/static-server
 COPY static-server/package.json static-server/package-lock.json  ./
@@ -34,6 +33,6 @@ RUN cp -r build ./static-server/build/
 
 WORKDIR /app/static-server
 
-ENV REACT_APP_UPLOAD_HOST test
+ENV REACT_APP_UPLOAD_HOST ""
 
 ENTRYPOINT ["node", "bin/www"]
