@@ -1,7 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import * as wallet from "../../services/wallets/wallet";
 import * as session from "../../services/session";
-import { DSNPUserId } from "@dsnp/sdk/dist/types/core/identifiers";
 
 interface UserState {
   id?: string;
@@ -26,10 +25,10 @@ export const userSlice = createSlice({
     userLogout: (_state) => ({
       walletType: wallet.WalletType.NONE,
     }),
-    userUpdateId: (state, action: PayloadAction<DSNPUserId>) => ({
+    userUpdateId: (state, action: PayloadAction<string>) => ({
       ...state,
-      id: action.payload.toString(),
-      displayId: action.payload.toString(),
+      id: action.payload,
+      displayId: action.payload,
     }),
     userUpdateWalletType: (
       state,
@@ -38,10 +37,13 @@ export const userSlice = createSlice({
       ...state,
       walletType: action.payload,
     }),
-    setDisplayId: (state, action: PayloadAction<DSNPUserId>) => ({
-      ...state,
-      displayId: action.payload.toString(),
-    }),
+    setDisplayId: (state, action: PayloadAction<string>) => {
+      console.log("in redux store:", action.payload);
+      return {
+        ...state,
+        displayId: action.payload,
+      };
+    },
   },
 });
 export const {

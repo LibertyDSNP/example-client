@@ -6,12 +6,23 @@ import { componentWithStore, createMockStore } from "../../test/testhelpers";
 import { getPreFabSocialGraph } from "../../test/testGraphs";
 import { getPrefabProfile } from "../../test/testProfiles";
 import { FeedItem } from "../../utilities/types";
+import { waitFor } from "@testing-library/react";
 
-const userId = getPrefabProfile(0).fromId;
+const userProfile = getPrefabProfile(0);
+const displayProfile = getPrefabProfile(3);
 const feedItems: FeedItem[] = getPrefabFeed();
 const graphs = getPreFabSocialGraph();
 const initialState = {
-  user: { id: userId },
+  user: {
+    id: userProfile.fromId,
+    displayId: displayProfile.fromId as string | undefined,
+  },
+  profiles: {
+    profiles: {
+      [userProfile.fromId]: userProfile,
+      [displayProfile.fromId]: displayProfile,
+    },
+  },
   feed: {
     feedItems: feedItems,
     isPostLoading: { loading: false, currentUserId: undefined },
@@ -57,13 +68,21 @@ describe("Feed", () => {
   describe("Displays Correct Feed", () => {
     it("Connections Feed", () => {
       const component = mount(componentWithStore(Feed, store));
+      const button = component.findWhere((node) => {
+        return (
+          node.hasClass("Feed__navigationItem") && node.text() === "Discover"
+        );
+      });
+      button.simulate("click");
+
       expect(component.find(Post).length).toEqual(4);
 
-      const expectedFeedAddresses = [userId].concat(
-        Object.keys(graphs.following)
-      );
-      component.find(".ant-card-meta-title").forEach((address) => {
-        expect(expectedFeedAddresses).toContain(address.text());
+      const expectedFeedAddresses: (string | undefined)[] = [
+        userProfile.fromId,
+      ].concat(Object.keys(graphs.following));
+
+      component.find(Post).forEach((post) => {
+        expect(expectedFeedAddresses).toContain(post.props().feedItem.fromId);
       });
     });
 
@@ -77,7 +96,7 @@ describe("Feed", () => {
       button.simulate("click");
       expect(component.find(Post).length).toEqual(2);
       component.find(".ant-card-meta-title").forEach((address) => {
-        expect(address.text()).toBe(userId);
+        expect(address.text()).toBe(userProfile.name);
       });
     });
 
@@ -90,6 +109,44 @@ describe("Feed", () => {
       });
       button.simulate("click");
       expect(component.find(Post).length).toEqual(3);
+    });
+
+    describe("Another User's Posts", () => {
+      it("Displays nav name in feed nav", async () => {
+        const component = mount(componentWithStore(Feed, store));
+        const postProfileBlock = component.findWhere((node) =>
+          node.hasClass("Post__metaBlock")
+        );
+        postProfileBlock.first().simulate("click");
+        try {
+          await waitFor(() => {
+            expect(
+              component.find(".Feed__navigationItem--active").text()
+            ).toEqual(displayProfile.name + "'s Posts");
+          });
+        } catch (e) {
+          console.log("error", component.debug());
+          throw e;
+        }
+      });
+
+      it("Displays correct feed items", async () => {
+        const component = mount(componentWithStore(Feed, store));
+        const postProfileBlock = component.findWhere((node) =>
+          node.hasClass("Post__metaBlock")
+        );
+        postProfileBlock.first().simulate("click");
+        try {
+          await waitFor(() => {
+            expect(component.find(Post).props().feedItem.fromId).toEqual(
+              displayProfile.fromId
+            );
+          });
+        } catch (e) {
+          console.log("error", component.debug());
+          throw e;
+        }
+      });
     });
   });
 });
