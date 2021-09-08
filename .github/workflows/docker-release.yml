@@ -1,0 +1,41 @@
+name: Release Docker Images Only
+on:
+  push:
+    tags: [ docker/* ]
+jobs:
+  docker-release:
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v1
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1
+
+      - name: Login to DockerHub
+        uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+      - name: Get the tag name
+        run: |
+          echo ${GITHUB_REF##*/}
+          echo "TAG=${GITHUB_REF##*/}" >> $GITHUB_ENV
+
+      - name: Build and push dsnp/example-client
+        id: docker_build_example-client
+        uses: docker/build-push-action@v2
+        with:
+          push: true
+          file: Dockerfile
+          tags: |
+            dsnp/example-client:${{ env.TAG }}
+
+      - name: Image digests
+        run: |
+          echo dsnp/hardhat ${{ steps.docker_build_example-client.outputs.digest }}
+          echo dsnp/ganache ${{ steps.docker_build_ganache.outputs.digest }}
+          echo dsnp/openethereum ${{ steps.docker_build_openethereum.outputs.digest }}
