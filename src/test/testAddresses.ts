@@ -29,7 +29,7 @@ export const getPrefabWalletAddress = (index: number): HexString => {
  * Get a prefabricated social identity address compatible with other prefab data
  * Prefab social identity addres is `0xCODE0000`
  */
-export const getPrefabDsnpUserId = (index: number): HexString => {
+export const getPrefabDsnpUserId = (index: number): string => {
   const regex = /0/gi;
   const address = "12340000".replace(regex, index.toString());
   return address;

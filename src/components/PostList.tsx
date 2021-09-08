@@ -12,7 +12,7 @@ enum FeedTypes {
   MY_FEED,
   MY_POSTS,
   DISCOVER,
-  PROFILE_POSTS,
+  DISPLAY_ID_POSTS,
 }
 
 interface PostListProps {
@@ -29,6 +29,9 @@ const sortFeed = (feed: FeedItem[]): FeedItem[] => {
 
 const PostList = ({ feedType }: PostListProps): JSX.Element => {
   const userId: string | undefined = useAppSelector((state) => state.user.id);
+  const displayId: string | undefined = useAppSelector(
+    (state) => state.user.displayId
+  );
   const myGraph: Record<string, RelationshipState> = useAppSelector(
     (state) => (userId && state.graphs.following[userId]) || {}
   );
@@ -54,6 +57,8 @@ const PostList = ({ feedType }: PostListProps): JSX.Element => {
     );
   } else if (feedType === FeedTypes.MY_POSTS) {
     currentFeed = feed.filter((post) => userId === post?.fromId);
+  } else if (feedType === FeedTypes.DISPLAY_ID_POSTS) {
+    currentFeed = feed.filter((post) => displayId === post?.fromId);
   } else {
     currentFeed = feed;
   }

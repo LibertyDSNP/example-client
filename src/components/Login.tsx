@@ -34,7 +34,7 @@ const Login = ({ isPrimary, loginWalletOptions }: LoginProps): JSX.Element => {
 
   const setUserID = (fromURI: string) => {
     const fromId = core.identifiers.convertToDSNPUserId(fromURI);
-    dispatch(userUpdateId(fromId));
+    dispatch(userUpdateId(fromId.toString()));
     session.upsertSessionUserId(fromId);
     setRegistrationVisible(false);
   };

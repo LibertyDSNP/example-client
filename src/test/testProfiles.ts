@@ -1,5 +1,4 @@
 import { randInt } from "@dsnp/test-generators";
-import { HexString } from "../utilities/types";
 import { generateDsnpUserId, getPrefabDsnpUserId } from "./testAddresses";
 import { prefabFirstNames, prefabLastNames } from "./testhelpers";
 import { generators } from "@dsnp/sdk";
@@ -73,7 +72,7 @@ export const preFabProfiles: Array<
 ];
 
 export const getPrefabProfileByAddress = (
-  address: HexString
+  address: string | undefined
 ): (ActivityContentProfile & { fromId: string }) | null => {
   for (let i = 0; i < preFabProfiles.length; i++) {
     const prefabProfile = preFabProfiles[i];

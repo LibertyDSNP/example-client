@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import NewPost from "./NewPost";
 import PostList from "./PostList";
 import { Button } from "antd";
@@ -11,7 +11,7 @@ enum FeedTypes {
   MY_FEED,
   MY_POSTS,
   DISCOVER,
-  PROFILE_POSTS,
+  DISPLAY_ID_POSTS,
 }
 
 const Feed = (): JSX.Element => {
@@ -29,25 +29,41 @@ const Feed = (): JSX.Element => {
 
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [feedType, setFeedType] = useState<FeedTypes>(FeedTypes.DISCOVER);
+  const [showDisplayIdNav, setShowDisplayIdNav] = useState<boolean>(false);
 
   const feedNavClassName = (navItemType: FeedTypes) =>
     feedType === navItemType
       ? "Feed__navigationItem Feed__navigationItem--active"
       : "Feed__navigationItem";
 
+  const resetFeed = () => {
+    userId && dispatch(setDisplayId(userId));
+    setShowDisplayIdNav(false);
+    setFeedType(FeedTypes.DISCOVER);
+  };
+
+  useEffect(() => {
+    if (!(userId && displayId && displayId !== userId)) return;
+    setShowDisplayIdNav(true);
+  }, [userId, displayId]);
+
+  useEffect(() => {
+    showDisplayIdNav && setFeedType(FeedTypes.DISPLAY_ID_POSTS);
+  }, [showDisplayIdNav, displayId]);
+
   return (
     <div className="Feed__block">
       <div className="Feed__header">
         <nav className="Feed__navigation">
-          {userId && displayId && displayId !== userId && (
+          {showDisplayIdNav && (
             <>
-              <div
-                className="Feed__backArrow"
-                onClick={() => dispatch(setDisplayId(BigInt(userId)))}
-              >
+              <div className="Feed__backArrow" onClick={() => resetFeed()}>
                 <ArrowLeftOutlined />
               </div>
-              <div className={feedNavClassName(FeedTypes.PROFILE_POSTS)}>
+              <div
+                className={feedNavClassName(FeedTypes.DISPLAY_ID_POSTS)}
+                onClick={() => setFeedType(FeedTypes.DISPLAY_ID_POSTS)}
+              >
                 {profile?.name || profile?.handle}'s Posts
               </div>
               <div className="Feed__navigationSpacer"></div>
