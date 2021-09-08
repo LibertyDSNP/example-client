@@ -1,7 +1,6 @@
 name: Release Docker Images Only
 on:
   push:
-    branches: ['chores/docker-file-for-example-client']
     tags: [ docker/* ]
 jobs:
   docker-release:
