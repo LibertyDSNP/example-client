@@ -1,16 +1,16 @@
-.ant-btn.LoginButton__loginButton,
-.ant-btn.Login__logOutButton {
-  border-radius: 6px;
+.ant-btn.LoginButton__loginButton {
+  @include button($black, $black, $white, $black);
+
   padding: 0 30px;
-  background-color: $black;
-  color: $white;
-  border-color: $black;
 
   &:hover, &:active, &:focus {
-    color: $green;
-    background-color: $black;
-    border-color: $green;
+    color: $green !important;
   }
+}
+
+.ant-btn.Logout__logoutButton {
+  @include button($white, $shadow-green, $black, $shadow-green);
+
 }
 
 .ant-spin.Login__spinner {
@@ -24,7 +24,7 @@
 .ant-btn.GraphChangeButton {
   height: 27px;
   width: 100px;
-  border-radius: 8px;
+  border-radius: 5px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -32,23 +32,13 @@
 }
 
 .ant-btn.ConnectionsList__button {
-  border: solid $black;
-  background: $black;
-  color: $white;
-  border-width: 2px 2px 2px 1px;
+  @include button($black, $white, $white, $black);
+
   border-radius: 0 8px 8px 0;
   height: auto;
 
-  &:focus {
-    border-color: $black;
-    background: $black;
-    color: $white;
-  }
-
   &:hover, &:active {
-    border-color: $black;
-    background: $white;
-    color: $black;
+    color: $black !important;
   }
 }
 
@@ -58,7 +48,8 @@
 }
 
 .ant-btn.ProfileBlock__editButton {
-  @include button($shadow-green, $green);
+  @include button($shadow-green, $black, $white, $shadow-green);
+
   padding: 0 10px;
   font-size: 12px;
   height: 24px;
@@ -70,11 +61,11 @@
 }
 
 .ant-btn.Feed__newPostButton {
-  @include button($shadow-green, $green);
+  @include button($shadow-green, $black, $white, $shadow-green);
 }
 
 .ant-btn.NewPost__footerBtn {
-  @include button($shadow-green, $green);
+  @include button($shadow-green, $black, $white, $shadow-green);
 }
 
 .ant-input.NewPostImageUpload__urlInput {
@@ -82,7 +73,7 @@
 }
 
 .ant-btn.NewPostImageUpload__urlInputBtn {
-  @include button($gray, $light-gray);
+  @include button($light-gray, $light-gray, $dark-gray, $dark-gray);
   height: inherit;
 }
 

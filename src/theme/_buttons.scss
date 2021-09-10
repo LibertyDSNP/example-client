@@ -1,15 +1,14 @@
-@mixin button($light-color, $dark-color) {
-  border-radius: 6px;
-  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.16);
-  background-image: linear-gradient($light-color, $dark-color);
-  border: none;
-  color: $black;
+@mixin button($background-color, $hover-color, $text-color, $border-color) {
+  border-radius: 5px;
+  border: 2px solid $border-color !important;
+  background-color: $background-color;
+  color: $text-color !important;
+  cursor: pointer;
+  transition: 0.25s linear all;
 
   &:hover,
   &:active,
   &:focus {
-    background-image: linear-gradient($dark-color, $light-color);
-    color: $black;
-    border: none;
+    background-color: $hover-color;
   }
 }

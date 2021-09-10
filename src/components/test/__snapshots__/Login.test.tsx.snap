@@ -1,0 +1,3548 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Login Component header button triggers login sequence header button -> metamask login 1`] = `
+<Provider
+  store={
+    Object {
+      "clearActions": [Function],
+      "dispatch": [Function],
+      "getActions": [Function],
+      "getState": [Function],
+      "replaceReducer": [Function],
+      "subscribe": [Function],
+    }
+  }
+>
+  <BrowserRouter>
+    <Router
+      history={
+        Object {
+          "action": "POP",
+          "block": [Function],
+          "createHref": [Function],
+          "go": [Function],
+          "goBack": [Function],
+          "goForward": [Function],
+          "length": 1,
+          "listen": [Function],
+          "location": Object {
+            "hash": "",
+            "pathname": "/",
+            "search": "",
+            "state": undefined,
+          },
+          "push": [Function],
+          "replace": [Function],
+        }
+      }
+    >
+      <Login
+        loginWalletOptions="NONE"
+      >
+        <div
+          className="Login__block"
+        >
+          <RegistrationModal
+            onCancel={[Function]}
+            onIdResolved={[Function]}
+            registrations={Array []}
+            visible={false}
+            walletAddress=""
+          >
+            <Popover
+              content={
+                <div
+                  className="RegistrationModal"
+                >
+                  <Button
+                    className="RegistrationModal__cancel"
+                    onClick={[Function]}
+                    type="link"
+                  >
+                    Cancel
+                  </Button>
+                  <h2>
+                    Welcome!
+                  </h2>
+                  <ForwardRef(InternalForm)
+                    className="RegistrationModal__createHandle"
+                    initialValues={
+                      Object {
+                        "remember": true,
+                      }
+                    }
+                    name="createHandle"
+                    onFinish={[Function]}
+                  >
+                    <p>
+                      Please create a handle:
+                    </p>
+                    <FormItem
+                      className="RegistrationModal__handleInput"
+                      name="handle"
+                      rules={
+                        Array [
+                          Object {
+                            "message": "Handle cannot be blank",
+                            "required": true,
+                          },
+                        ]
+                      }
+                    >
+                      <Input
+                        type="text"
+                      />
+                    </FormItem>
+                    <div
+                      className="RegistrationModal__footer"
+                    >
+                      <Button
+                        className="RegistrationModal__footerBtn"
+                        htmlType="submit"
+                        type="primary"
+                      >
+                        Choose handle
+                      </Button>
+                    </div>
+                  </ForwardRef(InternalForm)>
+                </div>
+              }
+              mouseEnterDelay={0.1}
+              mouseLeaveDelay={0.1}
+              overlayStyle={Object {}}
+              placement="bottomRight"
+              trigger="hover"
+              visible={false}
+            >
+              <Tooltip
+                arrowPointAtCenter={false}
+                autoAdjustOverflow={true}
+                mouseEnterDelay={0.1}
+                mouseLeaveDelay={0.1}
+                overlay={
+                  <React.Fragment>
+                    <div
+                      className="ant-popover-inner-content"
+                    >
+                      <div
+                        className="RegistrationModal"
+                      >
+                        <Button
+                          className="RegistrationModal__cancel"
+                          onClick={[Function]}
+                          type="link"
+                        >
+                          Cancel
+                        </Button>
+                        <h2>
+                          Welcome!
+                        </h2>
+                        <ForwardRef(InternalForm)
+                          className="RegistrationModal__createHandle"
+                          initialValues={
+                            Object {
+                              "remember": true,
+                            }
+                          }
+                          name="createHandle"
+                          onFinish={[Function]}
+                        >
+                          <p>
+                            Please create a handle:
+                          </p>
+                          <FormItem
+                            className="RegistrationModal__handleInput"
+                            name="handle"
+                            rules={
+                              Array [
+                                Object {
+                                  "message": "Handle cannot be blank",
+                                  "required": true,
+                                },
+                              ]
+                            }
+                          >
+                            <Input
+                              type="text"
+                            />
+                          </FormItem>
+                          <div
+                            className="RegistrationModal__footer"
+                          >
+                            <Button
+                              className="RegistrationModal__footerBtn"
+                              htmlType="submit"
+                              type="primary"
+                            >
+                              Choose handle
+                            </Button>
+                          </div>
+                        </ForwardRef(InternalForm)>
+                      </div>
+                    </div>
+                  </React.Fragment>
+                }
+                overlayStyle={Object {}}
+                placement="bottomRight"
+                prefixCls="ant-popover"
+                transitionName="ant-zoom-big"
+                trigger="hover"
+                visible={false}
+              >
+                <ForwardRef(Tooltip)
+                  arrowContent={
+                    <span
+                      className="ant-popover-arrow-content"
+                    />
+                  }
+                  arrowPointAtCenter={false}
+                  autoAdjustOverflow={true}
+                  builtinPlacements={
+                    Object {
+                      "bottom": Object {
+                        "ignoreShake": true,
+                        "offset": Array [
+                          0,
+                          4,
+                        ],
+                        "overflow": Object {
+                          "adjustX": 1,
+                          "adjustY": 1,
+                        },
+                        "points": Array [
+                          "tc",
+                          "bc",
+                        ],
+                        "targetOffset": Array [
+                          0,
+                          0,
+                        ],
+                      },
+                      "bottomLeft": Object {
+                        "ignoreShake": true,
+                        "offset": Array [
+                          0,
+                          4,
+                        ],
+                        "overflow": Object {
+                          "adjustX": 1,
+                          "adjustY": 1,
+                        },
+                        "points": Array [
+                          "tl",
+                          "bl",
+                        ],
+                        "targetOffset": Array [
+                          0,
+                          0,
+                        ],
+                      },
+                      "bottomRight": Object {
+                        "ignoreShake": true,
+                        "offset": Array [
+                          0,
+                          4,
+                        ],
+                        "overflow": Object {
+                          "adjustX": 1,
+                          "adjustY": 1,
+                        },
+                        "points": Array [
+                          "tr",
+                          "br",
+                        ],
+                        "targetOffset": Array [
+                          0,
+                          0,
+                        ],
+                      },
+                      "left": Object {
+                        "ignoreShake": true,
+                        "offset": Array [
+                          -4,
+                          0,
+                        ],
+                        "overflow": Object {
+                          "adjustX": 1,
+                          "adjustY": 1,
+                        },
+                        "points": Array [
+                          "cr",
+                          "cl",
+                        ],
+                        "targetOffset": Array [
+                          0,
+                          0,
+                        ],
+                      },
+                      "leftBottom": Object {
+                        "ignoreShake": true,
+                        "offset": Array [
+                          -4,
+                          0,
+                        ],
+                        "overflow": Object {
+                          "adjustX": 1,
+                          "adjustY": 1,
+                        },
+                        "points": Array [
+                          "br",
+                          "bl",
+                        ],
+                        "targetOffset": Array [
+                          0,
+                          0,
+                        ],
+                      },
+                      "leftTop": Object {
+                        "ignoreShake": true,
+                        "offset": Array [
+                          -4,
+                          0,
+                        ],
+                        "overflow": Object {
+                          "adjustX": 1,
+                          "adjustY": 1,
+                        },
+                        "points": Array [
+                          "tr",
+                          "tl",
+                        ],
+                        "targetOffset": Array [
+                          0,
+                          0,
+                        ],
+                      },
+                      "right": Object {
+                        "ignoreShake": true,
+                        "offset": Array [
+                          4,
+                          0,
+                        ],
+                        "overflow": Object {
+                          "adjustX": 1,
+                          "adjustY": 1,
+                        },
+                        "points": Array [
+                          "cl",
+                          "cr",
+                        ],
+                        "targetOffset": Array [
+                          0,
+                          0,
+                        ],
+                      },
+                      "rightBottom": Object {
+                        "ignoreShake": true,
+                        "offset": Array [
+                          4,
+                          0,
+                        ],
+                        "overflow": Object {
+                          "adjustX": 1,
+                          "adjustY": 1,
+                        },
+                        "points": Array [
+                          "bl",
+                          "br",
+                        ],
+                        "targetOffset": Array [
+                          0,
+                          0,
+                        ],
+                      },
+                      "rightTop": Object {
+                        "ignoreShake": true,
+                        "offset": Array [
+                          4,
+                          0,
+                        ],
+                        "overflow": Object {
+                          "adjustX": 1,
+                          "adjustY": 1,
+                        },
+                        "points": Array [
+                          "tl",
+                          "tr",
+                        ],
+                        "targetOffset": Array [
+                          0,
+                          0,
+                        ],
+                      },
+                      "top": Object {
+                        "ignoreShake": true,
+                        "offset": Array [
+                          0,
+                          -4,
+                        ],
+                        "overflow": Object {
+                          "adjustX": 1,
+                          "adjustY": 1,
+                        },
+                        "points": Array [
+                          "bc",
+                          "tc",
+                        ],
+                        "targetOffset": Array [
+                          0,
+                          0,
+                        ],
+                      },
+                      "topLeft": Object {
+                        "ignoreShake": true,
+                        "offset": Array [
+                          0,
+                          -4,
+                        ],
+                        "overflow": Object {
+                          "adjustX": 1,
+                          "adjustY": 1,
+                        },
+                        "points": Array [
+                          "bl",
+                          "tl",
+                        ],
+                        "targetOffset": Array [
+                          0,
+                          0,
+                        ],
+                      },
+                      "topRight": Object {
+                        "ignoreShake": true,
+                        "offset": Array [
+                          0,
+                          -4,
+                        ],
+                        "overflow": Object {
+                          "adjustX": 1,
+                          "adjustY": 1,
+                        },
+                        "points": Array [
+                          "br",
+                          "tr",
+                        ],
+                        "targetOffset": Array [
+                          0,
+                          0,
+                        ],
+                      },
+                    }
+                  }
+                  motion={
+                    Object {
+                      "motionDeadline": 1000,
+                      "motionName": "ant-zoom-big",
+                    }
+                  }
+                  mouseEnterDelay={0.1}
+                  mouseLeaveDelay={0.1}
+                  onPopupAlign={[Function]}
+                  onVisibleChange={[Function]}
+                  overlay={
+                    <React.Fragment>
+                      <div
+                        className="ant-popover-inner-content"
+                      >
+                        <div
+                          className="RegistrationModal"
+                        >
+                          <Button
+                            className="RegistrationModal__cancel"
+                            onClick={[Function]}
+                            type="link"
+                          >
+                            Cancel
+                          </Button>
+                          <h2>
+                            Welcome!
+                          </h2>
+                          <ForwardRef(InternalForm)
+                            className="RegistrationModal__createHandle"
+                            initialValues={
+                              Object {
+                                "remember": true,
+                              }
+                            }
+                            name="createHandle"
+                            onFinish={[Function]}
+                          >
+                            <p>
+                              Please create a handle:
+                            </p>
+                            <FormItem
+                              className="RegistrationModal__handleInput"
+                              name="handle"
+                              rules={
+                                Array [
+                                  Object {
+                                    "message": "Handle cannot be blank",
+                                    "required": true,
+                                  },
+                                ]
+                              }
+                            >
+                              <Input
+                                type="text"
+                              />
+                            </FormItem>
+                            <div
+                              className="RegistrationModal__footer"
+                            >
+                              <Button
+                                className="RegistrationModal__footerBtn"
+                                htmlType="submit"
+                                type="primary"
+                              >
+                                Choose handle
+                              </Button>
+                            </div>
+                          </ForwardRef(InternalForm)>
+                        </div>
+                      </div>
+                    </React.Fragment>
+                  }
+                  overlayClassName=""
+                  overlayStyle={Object {}}
+                  placement="bottomRight"
+                  prefixCls="ant-popover"
+                  transitionName="ant-zoom-big"
+                  trigger="hover"
+                  visible={false}
+                >
+                  <Trigger
+                    action="hover"
+                    afterPopupVisibleChange={[Function]}
+                    arrowContent={
+                      <span
+                        className="ant-popover-arrow-content"
+                      />
+                    }
+                    arrowPointAtCenter={false}
+                    autoAdjustOverflow={true}
+                    autoDestroy={false}
+                    blurDelay={0.15}
+                    builtinPlacements={
+                      Object {
+                        "bottom": Object {
+                          "ignoreShake": true,
+                          "offset": Array [
+                            0,
+                            4,
+                          ],
+                          "overflow": Object {
+                            "adjustX": 1,
+                            "adjustY": 1,
+                          },
+                          "points": Array [
+                            "tc",
+                            "bc",
+                          ],
+                          "targetOffset": Array [
+                            0,
+                            0,
+                          ],
+                        },
+                        "bottomLeft": Object {
+                          "ignoreShake": true,
+                          "offset": Array [
+                            0,
+                            4,
+                          ],
+                          "overflow": Object {
+                            "adjustX": 1,
+                            "adjustY": 1,
+                          },
+                          "points": Array [
+                            "tl",
+                            "bl",
+                          ],
+                          "targetOffset": Array [
+                            0,
+                            0,
+                          ],
+                        },
+                        "bottomRight": Object {
+                          "ignoreShake": true,
+                          "offset": Array [
+                            0,
+                            4,
+                          ],
+                          "overflow": Object {
+                            "adjustX": 1,
+                            "adjustY": 1,
+                          },
+                          "points": Array [
+                            "tr",
+                            "br",
+                          ],
+                          "targetOffset": Array [
+                            0,
+                            0,
+                          ],
+                        },
+                        "left": Object {
+                          "ignoreShake": true,
+                          "offset": Array [
+                            -4,
+                            0,
+                          ],
+                          "overflow": Object {
+                            "adjustX": 1,
+                            "adjustY": 1,
+                          },
+                          "points": Array [
+                            "cr",
+                            "cl",
+                          ],
+                          "targetOffset": Array [
+                            0,
+                            0,
+                          ],
+                        },
+                        "leftBottom": Object {
+                          "ignoreShake": true,
+                          "offset": Array [
+                            -4,
+                            0,
+                          ],
+                          "overflow": Object {
+                            "adjustX": 1,
+                            "adjustY": 1,
+                          },
+                          "points": Array [
+                            "br",
+                            "bl",
+                          ],
+                          "targetOffset": Array [
+                            0,
+                            0,
+                          ],
+                        },
+                        "leftTop": Object {
+                          "ignoreShake": true,
+                          "offset": Array [
+                            -4,
+                            0,
+                          ],
+                          "overflow": Object {
+                            "adjustX": 1,
+                            "adjustY": 1,
+                          },
+                          "points": Array [
+                            "tr",
+                            "tl",
+                          ],
+                          "targetOffset": Array [
+                            0,
+                            0,
+                          ],
+                        },
+                        "right": Object {
+                          "ignoreShake": true,
+                          "offset": Array [
+                            4,
+                            0,
+                          ],
+                          "overflow": Object {
+                            "adjustX": 1,
+                            "adjustY": 1,
+                          },
+                          "points": Array [
+                            "cl",
+                            "cr",
+                          ],
+                          "targetOffset": Array [
+                            0,
+                            0,
+                          ],
+                        },
+                        "rightBottom": Object {
+                          "ignoreShake": true,
+                          "offset": Array [
+                            4,
+                            0,
+                          ],
+                          "overflow": Object {
+                            "adjustX": 1,
+                            "adjustY": 1,
+                          },
+                          "points": Array [
+                            "bl",
+                            "br",
+                          ],
+                          "targetOffset": Array [
+                            0,
+                            0,
+                          ],
+                        },
+                        "rightTop": Object {
+                          "ignoreShake": true,
+                          "offset": Array [
+                            4,
+                            0,
+                          ],
+                          "overflow": Object {
+                            "adjustX": 1,
+                            "adjustY": 1,
+                          },
+                          "points": Array [
+                            "tl",
+                            "tr",
+                          ],
+                          "targetOffset": Array [
+                            0,
+                            0,
+                          ],
+                        },
+                        "top": Object {
+                          "ignoreShake": true,
+                          "offset": Array [
+                            0,
+                            -4,
+                          ],
+                          "overflow": Object {
+                            "adjustX": 1,
+                            "adjustY": 1,
+                          },
+                          "points": Array [
+                            "bc",
+                            "tc",
+                          ],
+                          "targetOffset": Array [
+                            0,
+                            0,
+                          ],
+                        },
+                        "topLeft": Object {
+                          "ignoreShake": true,
+                          "offset": Array [
+                            0,
+                            -4,
+                          ],
+                          "overflow": Object {
+                            "adjustX": 1,
+                            "adjustY": 1,
+                          },
+                          "points": Array [
+                            "bl",
+                            "tl",
+                          ],
+                          "targetOffset": Array [
+                            0,
+                            0,
+                          ],
+                        },
+                        "topRight": Object {
+                          "ignoreShake": true,
+                          "offset": Array [
+                            0,
+                            -4,
+                          ],
+                          "overflow": Object {
+                            "adjustX": 1,
+                            "adjustY": 1,
+                          },
+                          "points": Array [
+                            "br",
+                            "tr",
+                          ],
+                          "targetOffset": Array [
+                            0,
+                            0,
+                          ],
+                        },
+                      }
+                    }
+                    defaultPopupVisible={false}
+                    destroyPopupOnHide={false}
+                    focusDelay={0}
+                    getDocument={[Function]}
+                    getPopupClassNameFromAlign={[Function]}
+                    hideAction={Array []}
+                    mask={false}
+                    maskClosable={true}
+                    mouseEnterDelay={0.1}
+                    mouseLeaveDelay={0.1}
+                    onPopupAlign={[Function]}
+                    onPopupVisibleChange={[Function]}
+                    overlay={
+                      <React.Fragment>
+                        <div
+                          className="ant-popover-inner-content"
+                        >
+                          <div
+                            className="RegistrationModal"
+                          >
+                            <Button
+                              className="RegistrationModal__cancel"
+                              onClick={[Function]}
+                              type="link"
+                            >
+                              Cancel
+                            </Button>
+                            <h2>
+                              Welcome!
+                            </h2>
+                            <ForwardRef(InternalForm)
+                              className="RegistrationModal__createHandle"
+                              initialValues={
+                                Object {
+                                  "remember": true,
+                                }
+                              }
+                              name="createHandle"
+                              onFinish={[Function]}
+                            >
+                              <p>
+                                Please create a handle:
+                              </p>
+                              <FormItem
+                                className="RegistrationModal__handleInput"
+                                name="handle"
+                                rules={
+                                  Array [
+                                    Object {
+                                      "message": "Handle cannot be blank",
+                                      "required": true,
+                                    },
+                                  ]
+                                }
+                              >
+                                <Input
+                                  type="text"
+                                />
+                              </FormItem>
+                              <div
+                                className="RegistrationModal__footer"
+                              >
+                                <Button
+                                  className="RegistrationModal__footerBtn"
+                                  htmlType="submit"
+                                  type="primary"
+                                >
+                                  Choose handle
+                                </Button>
+                              </div>
+                            </ForwardRef(InternalForm)>
+                          </div>
+                        </div>
+                      </React.Fragment>
+                    }
+                    popup={[Function]}
+                    popupAlign={Object {}}
+                    popupClassName=""
+                    popupMotion={
+                      Object {
+                        "motionDeadline": 1000,
+                        "motionName": "ant-zoom-big",
+                      }
+                    }
+                    popupPlacement="bottomRight"
+                    popupStyle={Object {}}
+                    popupTransitionName="ant-zoom-big"
+                    popupVisible={false}
+                    prefixCls="ant-popover"
+                    showAction={Array []}
+                    visible={false}
+                  >
+                    <LoginButton
+                      key="trigger"
+                      loading={false}
+                      loginWalletOptions="NONE"
+                      loginWithWalletType={[Function]}
+                      onMouseEnter={[Function]}
+                      onMouseLeave={[Function]}
+                      popoverVisible={false}
+                      setPopoverVisible={[Function]}
+                    >
+                      <Popover
+                        color="black"
+                        content={
+                          <div
+                            className="LoginButton__loginOptions"
+                          >
+                            <div>
+                              Log in with
+                            </div>
+                            <button
+                              className="LoginButton__loginMetamask"
+                              onClick={[Function]}
+                            >
+                              MetaMask
+                            </button>
+                            <div>
+                              OR
+                            </div>
+                            <button
+                              className="LoginButton__loginTorus"
+                              onClick={[Function]}
+                            >
+                              Torus
+                            </button>
+                          </div>
+                        }
+                        mouseEnterDelay={0.1}
+                        mouseLeaveDelay={0.1}
+                        onVisibleChange={[Function]}
+                        overlayStyle={Object {}}
+                        placement="bottomRight"
+                        trigger="click"
+                        visible={false}
+                      >
+                        <Tooltip
+                          arrowPointAtCenter={false}
+                          autoAdjustOverflow={true}
+                          color="black"
+                          mouseEnterDelay={0.1}
+                          mouseLeaveDelay={0.1}
+                          onVisibleChange={[Function]}
+                          overlay={
+                            <React.Fragment>
+                              <div
+                                className="ant-popover-inner-content"
+                              >
+                                <div
+                                  className="LoginButton__loginOptions"
+                                >
+                                  <div>
+                                    Log in with
+                                  </div>
+                                  <button
+                                    className="LoginButton__loginMetamask"
+                                    onClick={[Function]}
+                                  >
+                                    MetaMask
+                                  </button>
+                                  <div>
+                                    OR
+                                  </div>
+                                  <button
+                                    className="LoginButton__loginTorus"
+                                    onClick={[Function]}
+                                  >
+                                    Torus
+                                  </button>
+                                </div>
+                              </div>
+                            </React.Fragment>
+                          }
+                          overlayStyle={Object {}}
+                          placement="bottomRight"
+                          prefixCls="ant-popover"
+                          transitionName="ant-zoom-big"
+                          trigger="click"
+                          visible={false}
+                        >
+                          <ForwardRef(Tooltip)
+                            arrowContent={
+                              <span
+                                className="ant-popover-arrow-content"
+                                style={
+                                  Object {
+                                    "background": "black",
+                                  }
+                                }
+                              />
+                            }
+                            arrowPointAtCenter={false}
+                            autoAdjustOverflow={true}
+                            builtinPlacements={
+                              Object {
+                                "bottom": Object {
+                                  "ignoreShake": true,
+                                  "offset": Array [
+                                    0,
+                                    4,
+                                  ],
+                                  "overflow": Object {
+                                    "adjustX": 1,
+                                    "adjustY": 1,
+                                  },
+                                  "points": Array [
+                                    "tc",
+                                    "bc",
+                                  ],
+                                  "targetOffset": Array [
+                                    0,
+                                    0,
+                                  ],
+                                },
+                                "bottomLeft": Object {
+                                  "ignoreShake": true,
+                                  "offset": Array [
+                                    0,
+                                    4,
+                                  ],
+                                  "overflow": Object {
+                                    "adjustX": 1,
+                                    "adjustY": 1,
+                                  },
+                                  "points": Array [
+                                    "tl",
+                                    "bl",
+                                  ],
+                                  "targetOffset": Array [
+                                    0,
+                                    0,
+                                  ],
+                                },
+                                "bottomRight": Object {
+                                  "ignoreShake": true,
+                                  "offset": Array [
+                                    0,
+                                    4,
+                                  ],
+                                  "overflow": Object {
+                                    "adjustX": 1,
+                                    "adjustY": 1,
+                                  },
+                                  "points": Array [
+                                    "tr",
+                                    "br",
+                                  ],
+                                  "targetOffset": Array [
+                                    0,
+                                    0,
+                                  ],
+                                },
+                                "left": Object {
+                                  "ignoreShake": true,
+                                  "offset": Array [
+                                    -4,
+                                    0,
+                                  ],
+                                  "overflow": Object {
+                                    "adjustX": 1,
+                                    "adjustY": 1,
+                                  },
+                                  "points": Array [
+                                    "cr",
+                                    "cl",
+                                  ],
+                                  "targetOffset": Array [
+                                    0,
+                                    0,
+                                  ],
+                                },
+                                "leftBottom": Object {
+                                  "ignoreShake": true,
+                                  "offset": Array [
+                                    -4,
+                                    0,
+                                  ],
+                                  "overflow": Object {
+                                    "adjustX": 1,
+                                    "adjustY": 1,
+                                  },
+                                  "points": Array [
+                                    "br",
+                                    "bl",
+                                  ],
+                                  "targetOffset": Array [
+                                    0,
+                                    0,
+                                  ],
+                                },
+                                "leftTop": Object {
+                                  "ignoreShake": true,
+                                  "offset": Array [
+                                    -4,
+                                    0,
+                                  ],
+                                  "overflow": Object {
+                                    "adjustX": 1,
+                                    "adjustY": 1,
+                                  },
+                                  "points": Array [
+                                    "tr",
+                                    "tl",
+                                  ],
+                                  "targetOffset": Array [
+                                    0,
+                                    0,
+                                  ],
+                                },
+                                "right": Object {
+                                  "ignoreShake": true,
+                                  "offset": Array [
+                                    4,
+                                    0,
+                                  ],
+                                  "overflow": Object {
+                                    "adjustX": 1,
+                                    "adjustY": 1,
+                                  },
+                                  "points": Array [
+                                    "cl",
+                                    "cr",
+                                  ],
+                                  "targetOffset": Array [
+                                    0,
+                                    0,
+                                  ],
+                                },
+                                "rightBottom": Object {
+                                  "ignoreShake": true,
+                                  "offset": Array [
+                                    4,
+                                    0,
+                                  ],
+                                  "overflow": Object {
+                                    "adjustX": 1,
+                                    "adjustY": 1,
+                                  },
+                                  "points": Array [
+                                    "bl",
+                                    "br",
+                                  ],
+                                  "targetOffset": Array [
+                                    0,
+                                    0,
+                                  ],
+                                },
+                                "rightTop": Object {
+                                  "ignoreShake": true,
+                                  "offset": Array [
+                                    4,
+                                    0,
+                                  ],
+                                  "overflow": Object {
+                                    "adjustX": 1,
+                                    "adjustY": 1,
+                                  },
+                                  "points": Array [
+                                    "tl",
+                                    "tr",
+                                  ],
+                                  "targetOffset": Array [
+                                    0,
+                                    0,
+                                  ],
+                                },
+                                "top": Object {
+                                  "ignoreShake": true,
+                                  "offset": Array [
+                                    0,
+                                    -4,
+                                  ],
+                                  "overflow": Object {
+                                    "adjustX": 1,
+                                    "adjustY": 1,
+                                  },
+                                  "points": Array [
+                                    "bc",
+                                    "tc",
+                                  ],
+                                  "targetOffset": Array [
+                                    0,
+                                    0,
+                                  ],
+                                },
+                                "topLeft": Object {
+                                  "ignoreShake": true,
+                                  "offset": Array [
+                                    0,
+                                    -4,
+                                  ],
+                                  "overflow": Object {
+                                    "adjustX": 1,
+                                    "adjustY": 1,
+                                  },
+                                  "points": Array [
+                                    "bl",
+                                    "tl",
+                                  ],
+                                  "targetOffset": Array [
+                                    0,
+                                    0,
+                                  ],
+                                },
+                                "topRight": Object {
+                                  "ignoreShake": true,
+                                  "offset": Array [
+                                    0,
+                                    -4,
+                                  ],
+                                  "overflow": Object {
+                                    "adjustX": 1,
+                                    "adjustY": 1,
+                                  },
+                                  "points": Array [
+                                    "br",
+                                    "tr",
+                                  ],
+                                  "targetOffset": Array [
+                                    0,
+                                    0,
+                                  ],
+                                },
+                              }
+                            }
+                            color="black"
+                            motion={
+                              Object {
+                                "motionDeadline": 1000,
+                                "motionName": "ant-zoom-big",
+                              }
+                            }
+                            mouseEnterDelay={0.1}
+                            mouseLeaveDelay={0.1}
+                            onPopupAlign={[Function]}
+                            onVisibleChange={[Function]}
+                            overlay={
+                              <React.Fragment>
+                                <div
+                                  className="ant-popover-inner-content"
+                                >
+                                  <div
+                                    className="LoginButton__loginOptions"
+                                  >
+                                    <div>
+                                      Log in with
+                                    </div>
+                                    <button
+                                      className="LoginButton__loginMetamask"
+                                      onClick={[Function]}
+                                    >
+                                      MetaMask
+                                    </button>
+                                    <div>
+                                      OR
+                                    </div>
+                                    <button
+                                      className="LoginButton__loginTorus"
+                                      onClick={[Function]}
+                                    >
+                                      Torus
+                                    </button>
+                                  </div>
+                                </div>
+                              </React.Fragment>
+                            }
+                            overlayClassName=""
+                            overlayInnerStyle={
+                              Object {
+                                "background": "black",
+                              }
+                            }
+                            overlayStyle={Object {}}
+                            placement="bottomRight"
+                            prefixCls="ant-popover"
+                            transitionName="ant-zoom-big"
+                            trigger="click"
+                            visible={false}
+                          >
+                            <Trigger
+                              action="click"
+                              afterPopupVisibleChange={[Function]}
+                              arrowContent={
+                                <span
+                                  className="ant-popover-arrow-content"
+                                  style={
+                                    Object {
+                                      "background": "black",
+                                    }
+                                  }
+                                />
+                              }
+                              arrowPointAtCenter={false}
+                              autoAdjustOverflow={true}
+                              autoDestroy={false}
+                              blurDelay={0.15}
+                              builtinPlacements={
+                                Object {
+                                  "bottom": Object {
+                                    "ignoreShake": true,
+                                    "offset": Array [
+                                      0,
+                                      4,
+                                    ],
+                                    "overflow": Object {
+                                      "adjustX": 1,
+                                      "adjustY": 1,
+                                    },
+                                    "points": Array [
+                                      "tc",
+                                      "bc",
+                                    ],
+                                    "targetOffset": Array [
+                                      0,
+                                      0,
+                                    ],
+                                  },
+                                  "bottomLeft": Object {
+                                    "ignoreShake": true,
+                                    "offset": Array [
+                                      0,
+                                      4,
+                                    ],
+                                    "overflow": Object {
+                                      "adjustX": 1,
+                                      "adjustY": 1,
+                                    },
+                                    "points": Array [
+                                      "tl",
+                                      "bl",
+                                    ],
+                                    "targetOffset": Array [
+                                      0,
+                                      0,
+                                    ],
+                                  },
+                                  "bottomRight": Object {
+                                    "ignoreShake": true,
+                                    "offset": Array [
+                                      0,
+                                      4,
+                                    ],
+                                    "overflow": Object {
+                                      "adjustX": 1,
+                                      "adjustY": 1,
+                                    },
+                                    "points": Array [
+                                      "tr",
+                                      "br",
+                                    ],
+                                    "targetOffset": Array [
+                                      0,
+                                      0,
+                                    ],
+                                  },
+                                  "left": Object {
+                                    "ignoreShake": true,
+                                    "offset": Array [
+                                      -4,
+                                      0,
+                                    ],
+                                    "overflow": Object {
+                                      "adjustX": 1,
+                                      "adjustY": 1,
+                                    },
+                                    "points": Array [
+                                      "cr",
+                                      "cl",
+                                    ],
+                                    "targetOffset": Array [
+                                      0,
+                                      0,
+                                    ],
+                                  },
+                                  "leftBottom": Object {
+                                    "ignoreShake": true,
+                                    "offset": Array [
+                                      -4,
+                                      0,
+                                    ],
+                                    "overflow": Object {
+                                      "adjustX": 1,
+                                      "adjustY": 1,
+                                    },
+                                    "points": Array [
+                                      "br",
+                                      "bl",
+                                    ],
+                                    "targetOffset": Array [
+                                      0,
+                                      0,
+                                    ],
+                                  },
+                                  "leftTop": Object {
+                                    "ignoreShake": true,
+                                    "offset": Array [
+                                      -4,
+                                      0,
+                                    ],
+                                    "overflow": Object {
+                                      "adjustX": 1,
+                                      "adjustY": 1,
+                                    },
+                                    "points": Array [
+                                      "tr",
+                                      "tl",
+                                    ],
+                                    "targetOffset": Array [
+                                      0,
+                                      0,
+                                    ],
+                                  },
+                                  "right": Object {
+                                    "ignoreShake": true,
+                                    "offset": Array [
+                                      4,
+                                      0,
+                                    ],
+                                    "overflow": Object {
+                                      "adjustX": 1,
+                                      "adjustY": 1,
+                                    },
+                                    "points": Array [
+                                      "cl",
+                                      "cr",
+                                    ],
+                                    "targetOffset": Array [
+                                      0,
+                                      0,
+                                    ],
+                                  },
+                                  "rightBottom": Object {
+                                    "ignoreShake": true,
+                                    "offset": Array [
+                                      4,
+                                      0,
+                                    ],
+                                    "overflow": Object {
+                                      "adjustX": 1,
+                                      "adjustY": 1,
+                                    },
+                                    "points": Array [
+                                      "bl",
+                                      "br",
+                                    ],
+                                    "targetOffset": Array [
+                                      0,
+                                      0,
+                                    ],
+                                  },
+                                  "rightTop": Object {
+                                    "ignoreShake": true,
+                                    "offset": Array [
+                                      4,
+                                      0,
+                                    ],
+                                    "overflow": Object {
+                                      "adjustX": 1,
+                                      "adjustY": 1,
+                                    },
+                                    "points": Array [
+                                      "tl",
+                                      "tr",
+                                    ],
+                                    "targetOffset": Array [
+                                      0,
+                                      0,
+                                    ],
+                                  },
+                                  "top": Object {
+                                    "ignoreShake": true,
+                                    "offset": Array [
+                                      0,
+                                      -4,
+                                    ],
+                                    "overflow": Object {
+                                      "adjustX": 1,
+                                      "adjustY": 1,
+                                    },
+                                    "points": Array [
+                                      "bc",
+                                      "tc",
+                                    ],
+                                    "targetOffset": Array [
+                                      0,
+                                      0,
+                                    ],
+                                  },
+                                  "topLeft": Object {
+                                    "ignoreShake": true,
+                                    "offset": Array [
+                                      0,
+                                      -4,
+                                    ],
+                                    "overflow": Object {
+                                      "adjustX": 1,
+                                      "adjustY": 1,
+                                    },
+                                    "points": Array [
+                                      "bl",
+                                      "tl",
+                                    ],
+                                    "targetOffset": Array [
+                                      0,
+                                      0,
+                                    ],
+                                  },
+                                  "topRight": Object {
+                                    "ignoreShake": true,
+                                    "offset": Array [
+                                      0,
+                                      -4,
+                                    ],
+                                    "overflow": Object {
+                                      "adjustX": 1,
+                                      "adjustY": 1,
+                                    },
+                                    "points": Array [
+                                      "br",
+                                      "tr",
+                                    ],
+                                    "targetOffset": Array [
+                                      0,
+                                      0,
+                                    ],
+                                  },
+                                }
+                              }
+                              color="black"
+                              defaultPopupVisible={false}
+                              destroyPopupOnHide={false}
+                              focusDelay={0}
+                              getDocument={[Function]}
+                              getPopupClassNameFromAlign={[Function]}
+                              hideAction={Array []}
+                              mask={false}
+                              maskClosable={true}
+                              mouseEnterDelay={0.1}
+                              mouseLeaveDelay={0.1}
+                              onPopupAlign={[Function]}
+                              onPopupVisibleChange={[Function]}
+                              overlay={
+                                <React.Fragment>
+                                  <div
+                                    className="ant-popover-inner-content"
+                                  >
+                                    <div
+                                      className="LoginButton__loginOptions"
+                                    >
+                                      <div>
+                                        Log in with
+                                      </div>
+                                      <button
+                                        className="LoginButton__loginMetamask"
+                                        onClick={[Function]}
+                                      >
+                                        MetaMask
+                                      </button>
+                                      <div>
+                                        OR
+                                      </div>
+                                      <button
+                                        className="LoginButton__loginTorus"
+                                        onClick={[Function]}
+                                      >
+                                        Torus
+                                      </button>
+                                    </div>
+                                  </div>
+                                </React.Fragment>
+                              }
+                              popup={[Function]}
+                              popupAlign={Object {}}
+                              popupClassName=""
+                              popupMotion={
+                                Object {
+                                  "motionDeadline": 1000,
+                                  "motionName": "ant-zoom-big",
+                                }
+                              }
+                              popupPlacement="bottomRight"
+                              popupStyle={Object {}}
+                              popupTransitionName="ant-zoom-big"
+                              popupVisible={false}
+                              prefixCls="ant-popover"
+                              showAction={Array []}
+                              visible={false}
+                            >
+                              <Button
+                                aria-label="Login"
+                                className="LoginButton__loginButton"
+                                key="trigger"
+                                onClick={[Function]}
+                                onMouseDown={[Function]}
+                                onTouchStart={[Function]}
+                              >
+                                <Wave>
+                                  <button
+                                    aria-label="Login"
+                                    className="ant-btn LoginButton__loginButton"
+                                    onClick={[Function]}
+                                    onMouseDown={[Function]}
+                                    onTouchStart={[Function]}
+                                    type="button"
+                                  >
+                                    <LoadingIcon
+                                      existIcon={false}
+                                      loading={false}
+                                      prefixCls="ant-btn"
+                                    >
+                                      <CSSMotion
+                                        motionName="ant-btn-loading-icon-motion"
+                                        onAppearActive={[Function]}
+                                        onAppearStart={[Function]}
+                                        onEnterActive={[Function]}
+                                        onEnterStart={[Function]}
+                                        onLeaveActive={[Function]}
+                                        onLeaveStart={[Function]}
+                                        removeOnLeave={true}
+                                        visible={false}
+                                      >
+                                        <DomWrapper />
+                                      </CSSMotion>
+                                    </LoadingIcon>
+                                    <span
+                                      key=".0"
+                                    >
+                                      Log In
+                                    </span>
+                                  </button>
+                                </Wave>
+                              </Button>
+                            </Trigger>
+                          </ForwardRef(Tooltip)>
+                        </Tooltip>
+                      </Popover>
+                    </LoginButton>
+                  </Trigger>
+                </ForwardRef(Tooltip)>
+              </Tooltip>
+            </Popover>
+          </RegistrationModal>
+        </div>
+      </Login>
+    </Router>
+  </BrowserRouter>
+</Provider>
+`;
+
+exports[`Login Component header button triggers login sequence header button -> metamask login 2`] = `
+<Provider
+  store={
+    Object {
+      "clearActions": [Function],
+      "dispatch": [Function],
+      "getActions": [Function],
+      "getState": [Function],
+      "replaceReducer": [Function],
+      "subscribe": [Function],
+    }
+  }
+>
+  <BrowserRouter>
+    <Router
+      history={
+        Object {
+          "action": "POP",
+          "block": [Function],
+          "createHref": [Function],
+          "go": [Function],
+          "goBack": [Function],
+          "goForward": [Function],
+          "length": 1,
+          "listen": [Function],
+          "location": Object {
+            "hash": "",
+            "pathname": "/",
+            "search": "",
+            "state": undefined,
+          },
+          "push": [Function],
+          "replace": [Function],
+        }
+      }
+    >
+      <Login
+        loginWalletOptions="NONE"
+      >
+        <div
+          className="Login__block"
+        >
+          <RegistrationModal
+            onCancel={[Function]}
+            onIdResolved={[Function]}
+            registrations={Array []}
+            visible={false}
+            walletAddress=""
+          >
+            <Popover
+              content={
+                <div
+                  className="RegistrationModal"
+                >
+                  <Button
+                    className="RegistrationModal__cancel"
+                    onClick={[Function]}
+                    type="link"
+                  >
+                    Cancel
+                  </Button>
+                  <h2>
+                    Welcome!
+                  </h2>
+                  <ForwardRef(InternalForm)
+                    className="RegistrationModal__createHandle"
+                    initialValues={
+                      Object {
+                        "remember": true,
+                      }
+                    }
+                    name="createHandle"
+                    onFinish={[Function]}
+                  >
+                    <p>
+                      Please create a handle:
+                    </p>
+                    <FormItem
+                      className="RegistrationModal__handleInput"
+                      name="handle"
+                      rules={
+                        Array [
+                          Object {
+                            "message": "Handle cannot be blank",
+                            "required": true,
+                          },
+                        ]
+                      }
+                    >
+                      <Input
+                        type="text"
+                      />
+                    </FormItem>
+                    <div
+                      className="RegistrationModal__footer"
+                    >
+                      <Button
+                        className="RegistrationModal__footerBtn"
+                        htmlType="submit"
+                        type="primary"
+                      >
+                        Choose handle
+                      </Button>
+                    </div>
+                  </ForwardRef(InternalForm)>
+                </div>
+              }
+              mouseEnterDelay={0.1}
+              mouseLeaveDelay={0.1}
+              overlayStyle={Object {}}
+              placement="bottomRight"
+              trigger="hover"
+              visible={false}
+            >
+              <Tooltip
+                arrowPointAtCenter={false}
+                autoAdjustOverflow={true}
+                mouseEnterDelay={0.1}
+                mouseLeaveDelay={0.1}
+                overlay={
+                  <React.Fragment>
+                    <div
+                      className="ant-popover-inner-content"
+                    >
+                      <div
+                        className="RegistrationModal"
+                      >
+                        <Button
+                          className="RegistrationModal__cancel"
+                          onClick={[Function]}
+                          type="link"
+                        >
+                          Cancel
+                        </Button>
+                        <h2>
+                          Welcome!
+                        </h2>
+                        <ForwardRef(InternalForm)
+                          className="RegistrationModal__createHandle"
+                          initialValues={
+                            Object {
+                              "remember": true,
+                            }
+                          }
+                          name="createHandle"
+                          onFinish={[Function]}
+                        >
+                          <p>
+                            Please create a handle:
+                          </p>
+                          <FormItem
+                            className="RegistrationModal__handleInput"
+                            name="handle"
+                            rules={
+                              Array [
+                                Object {
+                                  "message": "Handle cannot be blank",
+                                  "required": true,
+                                },
+                              ]
+                            }
+                          >
+                            <Input
+                              type="text"
+                            />
+                          </FormItem>
+                          <div
+                            className="RegistrationModal__footer"
+                          >
+                            <Button
+                              className="RegistrationModal__footerBtn"
+                              htmlType="submit"
+                              type="primary"
+                            >
+                              Choose handle
+                            </Button>
+                          </div>
+                        </ForwardRef(InternalForm)>
+                      </div>
+                    </div>
+                  </React.Fragment>
+                }
+                overlayStyle={Object {}}
+                placement="bottomRight"
+                prefixCls="ant-popover"
+                transitionName="ant-zoom-big"
+                trigger="hover"
+                visible={false}
+              >
+                <ForwardRef(Tooltip)
+                  arrowContent={
+                    <span
+                      className="ant-popover-arrow-content"
+                    />
+                  }
+                  arrowPointAtCenter={false}
+                  autoAdjustOverflow={true}
+                  builtinPlacements={
+                    Object {
+                      "bottom": Object {
+                        "ignoreShake": true,
+                        "offset": Array [
+                          0,
+                          4,
+                        ],
+                        "overflow": Object {
+                          "adjustX": 1,
+                          "adjustY": 1,
+                        },
+                        "points": Array [
+                          "tc",
+                          "bc",
+                        ],
+                        "targetOffset": Array [
+                          0,
+                          0,
+                        ],
+                      },
+                      "bottomLeft": Object {
+                        "ignoreShake": true,
+                        "offset": Array [
+                          0,
+                          4,
+                        ],
+                        "overflow": Object {
+                          "adjustX": 1,
+                          "adjustY": 1,
+                        },
+                        "points": Array [
+                          "tl",
+                          "bl",
+                        ],
+                        "targetOffset": Array [
+                          0,
+                          0,
+                        ],
+                      },
+                      "bottomRight": Object {
+                        "ignoreShake": true,
+                        "offset": Array [
+                          0,
+                          4,
+                        ],
+                        "overflow": Object {
+                          "adjustX": 1,
+                          "adjustY": 1,
+                        },
+                        "points": Array [
+                          "tr",
+                          "br",
+                        ],
+                        "targetOffset": Array [
+                          0,
+                          0,
+                        ],
+                      },
+                      "left": Object {
+                        "ignoreShake": true,
+                        "offset": Array [
+                          -4,
+                          0,
+                        ],
+                        "overflow": Object {
+                          "adjustX": 1,
+                          "adjustY": 1,
+                        },
+                        "points": Array [
+                          "cr",
+                          "cl",
+                        ],
+                        "targetOffset": Array [
+                          0,
+                          0,
+                        ],
+                      },
+                      "leftBottom": Object {
+                        "ignoreShake": true,
+                        "offset": Array [
+                          -4,
+                          0,
+                        ],
+                        "overflow": Object {
+                          "adjustX": 1,
+                          "adjustY": 1,
+                        },
+                        "points": Array [
+                          "br",
+                          "bl",
+                        ],
+                        "targetOffset": Array [
+                          0,
+                          0,
+                        ],
+                      },
+                      "leftTop": Object {
+                        "ignoreShake": true,
+                        "offset": Array [
+                          -4,
+                          0,
+                        ],
+                        "overflow": Object {
+                          "adjustX": 1,
+                          "adjustY": 1,
+                        },
+                        "points": Array [
+                          "tr",
+                          "tl",
+                        ],
+                        "targetOffset": Array [
+                          0,
+                          0,
+                        ],
+                      },
+                      "right": Object {
+                        "ignoreShake": true,
+                        "offset": Array [
+                          4,
+                          0,
+                        ],
+                        "overflow": Object {
+                          "adjustX": 1,
+                          "adjustY": 1,
+                        },
+                        "points": Array [
+                          "cl",
+                          "cr",
+                        ],
+                        "targetOffset": Array [
+                          0,
+                          0,
+                        ],
+                      },
+                      "rightBottom": Object {
+                        "ignoreShake": true,
+                        "offset": Array [
+                          4,
+                          0,
+                        ],
+                        "overflow": Object {
+                          "adjustX": 1,
+                          "adjustY": 1,
+                        },
+                        "points": Array [
+                          "bl",
+                          "br",
+                        ],
+                        "targetOffset": Array [
+                          0,
+                          0,
+                        ],
+                      },
+                      "rightTop": Object {
+                        "ignoreShake": true,
+                        "offset": Array [
+                          4,
+                          0,
+                        ],
+                        "overflow": Object {
+                          "adjustX": 1,
+                          "adjustY": 1,
+                        },
+                        "points": Array [
+                          "tl",
+                          "tr",
+                        ],
+                        "targetOffset": Array [
+                          0,
+                          0,
+                        ],
+                      },
+                      "top": Object {
+                        "ignoreShake": true,
+                        "offset": Array [
+                          0,
+                          -4,
+                        ],
+                        "overflow": Object {
+                          "adjustX": 1,
+                          "adjustY": 1,
+                        },
+                        "points": Array [
+                          "bc",
+                          "tc",
+                        ],
+                        "targetOffset": Array [
+                          0,
+                          0,
+                        ],
+                      },
+                      "topLeft": Object {
+                        "ignoreShake": true,
+                        "offset": Array [
+                          0,
+                          -4,
+                        ],
+                        "overflow": Object {
+                          "adjustX": 1,
+                          "adjustY": 1,
+                        },
+                        "points": Array [
+                          "bl",
+                          "tl",
+                        ],
+                        "targetOffset": Array [
+                          0,
+                          0,
+                        ],
+                      },
+                      "topRight": Object {
+                        "ignoreShake": true,
+                        "offset": Array [
+                          0,
+                          -4,
+                        ],
+                        "overflow": Object {
+                          "adjustX": 1,
+                          "adjustY": 1,
+                        },
+                        "points": Array [
+                          "br",
+                          "tr",
+                        ],
+                        "targetOffset": Array [
+                          0,
+                          0,
+                        ],
+                      },
+                    }
+                  }
+                  motion={
+                    Object {
+                      "motionDeadline": 1000,
+                      "motionName": "ant-zoom-big",
+                    }
+                  }
+                  mouseEnterDelay={0.1}
+                  mouseLeaveDelay={0.1}
+                  onPopupAlign={[Function]}
+                  onVisibleChange={[Function]}
+                  overlay={
+                    <React.Fragment>
+                      <div
+                        className="ant-popover-inner-content"
+                      >
+                        <div
+                          className="RegistrationModal"
+                        >
+                          <Button
+                            className="RegistrationModal__cancel"
+                            onClick={[Function]}
+                            type="link"
+                          >
+                            Cancel
+                          </Button>
+                          <h2>
+                            Welcome!
+                          </h2>
+                          <ForwardRef(InternalForm)
+                            className="RegistrationModal__createHandle"
+                            initialValues={
+                              Object {
+                                "remember": true,
+                              }
+                            }
+                            name="createHandle"
+                            onFinish={[Function]}
+                          >
+                            <p>
+                              Please create a handle:
+                            </p>
+                            <FormItem
+                              className="RegistrationModal__handleInput"
+                              name="handle"
+                              rules={
+                                Array [
+                                  Object {
+                                    "message": "Handle cannot be blank",
+                                    "required": true,
+                                  },
+                                ]
+                              }
+                            >
+                              <Input
+                                type="text"
+                              />
+                            </FormItem>
+                            <div
+                              className="RegistrationModal__footer"
+                            >
+                              <Button
+                                className="RegistrationModal__footerBtn"
+                                htmlType="submit"
+                                type="primary"
+                              >
+                                Choose handle
+                              </Button>
+                            </div>
+                          </ForwardRef(InternalForm)>
+                        </div>
+                      </div>
+                    </React.Fragment>
+                  }
+                  overlayClassName=""
+                  overlayStyle={Object {}}
+                  placement="bottomRight"
+                  prefixCls="ant-popover"
+                  transitionName="ant-zoom-big"
+                  trigger="hover"
+                  visible={false}
+                >
+                  <Trigger
+                    action="hover"
+                    afterPopupVisibleChange={[Function]}
+                    arrowContent={
+                      <span
+                        className="ant-popover-arrow-content"
+                      />
+                    }
+                    arrowPointAtCenter={false}
+                    autoAdjustOverflow={true}
+                    autoDestroy={false}
+                    blurDelay={0.15}
+                    builtinPlacements={
+                      Object {
+                        "bottom": Object {
+                          "ignoreShake": true,
+                          "offset": Array [
+                            0,
+                            4,
+                          ],
+                          "overflow": Object {
+                            "adjustX": 1,
+                            "adjustY": 1,
+                          },
+                          "points": Array [
+                            "tc",
+                            "bc",
+                          ],
+                          "targetOffset": Array [
+                            0,
+                            0,
+                          ],
+                        },
+                        "bottomLeft": Object {
+                          "ignoreShake": true,
+                          "offset": Array [
+                            0,
+                            4,
+                          ],
+                          "overflow": Object {
+                            "adjustX": 1,
+                            "adjustY": 1,
+                          },
+                          "points": Array [
+                            "tl",
+                            "bl",
+                          ],
+                          "targetOffset": Array [
+                            0,
+                            0,
+                          ],
+                        },
+                        "bottomRight": Object {
+                          "ignoreShake": true,
+                          "offset": Array [
+                            0,
+                            4,
+                          ],
+                          "overflow": Object {
+                            "adjustX": 1,
+                            "adjustY": 1,
+                          },
+                          "points": Array [
+                            "tr",
+                            "br",
+                          ],
+                          "targetOffset": Array [
+                            0,
+                            0,
+                          ],
+                        },
+                        "left": Object {
+                          "ignoreShake": true,
+                          "offset": Array [
+                            -4,
+                            0,
+                          ],
+                          "overflow": Object {
+                            "adjustX": 1,
+                            "adjustY": 1,
+                          },
+                          "points": Array [
+                            "cr",
+                            "cl",
+                          ],
+                          "targetOffset": Array [
+                            0,
+                            0,
+                          ],
+                        },
+                        "leftBottom": Object {
+                          "ignoreShake": true,
+                          "offset": Array [
+                            -4,
+                            0,
+                          ],
+                          "overflow": Object {
+                            "adjustX": 1,
+                            "adjustY": 1,
+                          },
+                          "points": Array [
+                            "br",
+                            "bl",
+                          ],
+                          "targetOffset": Array [
+                            0,
+                            0,
+                          ],
+                        },
+                        "leftTop": Object {
+                          "ignoreShake": true,
+                          "offset": Array [
+                            -4,
+                            0,
+                          ],
+                          "overflow": Object {
+                            "adjustX": 1,
+                            "adjustY": 1,
+                          },
+                          "points": Array [
+                            "tr",
+                            "tl",
+                          ],
+                          "targetOffset": Array [
+                            0,
+                            0,
+                          ],
+                        },
+                        "right": Object {
+                          "ignoreShake": true,
+                          "offset": Array [
+                            4,
+                            0,
+                          ],
+                          "overflow": Object {
+                            "adjustX": 1,
+                            "adjustY": 1,
+                          },
+                          "points": Array [
+                            "cl",
+                            "cr",
+                          ],
+                          "targetOffset": Array [
+                            0,
+                            0,
+                          ],
+                        },
+                        "rightBottom": Object {
+                          "ignoreShake": true,
+                          "offset": Array [
+                            4,
+                            0,
+                          ],
+                          "overflow": Object {
+                            "adjustX": 1,
+                            "adjustY": 1,
+                          },
+                          "points": Array [
+                            "bl",
+                            "br",
+                          ],
+                          "targetOffset": Array [
+                            0,
+                            0,
+                          ],
+                        },
+                        "rightTop": Object {
+                          "ignoreShake": true,
+                          "offset": Array [
+                            4,
+                            0,
+                          ],
+                          "overflow": Object {
+                            "adjustX": 1,
+                            "adjustY": 1,
+                          },
+                          "points": Array [
+                            "tl",
+                            "tr",
+                          ],
+                          "targetOffset": Array [
+                            0,
+                            0,
+                          ],
+                        },
+                        "top": Object {
+                          "ignoreShake": true,
+                          "offset": Array [
+                            0,
+                            -4,
+                          ],
+                          "overflow": Object {
+                            "adjustX": 1,
+                            "adjustY": 1,
+                          },
+                          "points": Array [
+                            "bc",
+                            "tc",
+                          ],
+                          "targetOffset": Array [
+                            0,
+                            0,
+                          ],
+                        },
+                        "topLeft": Object {
+                          "ignoreShake": true,
+                          "offset": Array [
+                            0,
+                            -4,
+                          ],
+                          "overflow": Object {
+                            "adjustX": 1,
+                            "adjustY": 1,
+                          },
+                          "points": Array [
+                            "bl",
+                            "tl",
+                          ],
+                          "targetOffset": Array [
+                            0,
+                            0,
+                          ],
+                        },
+                        "topRight": Object {
+                          "ignoreShake": true,
+                          "offset": Array [
+                            0,
+                            -4,
+                          ],
+                          "overflow": Object {
+                            "adjustX": 1,
+                            "adjustY": 1,
+                          },
+                          "points": Array [
+                            "br",
+                            "tr",
+                          ],
+                          "targetOffset": Array [
+                            0,
+                            0,
+                          ],
+                        },
+                      }
+                    }
+                    defaultPopupVisible={false}
+                    destroyPopupOnHide={false}
+                    focusDelay={0}
+                    getDocument={[Function]}
+                    getPopupClassNameFromAlign={[Function]}
+                    hideAction={Array []}
+                    mask={false}
+                    maskClosable={true}
+                    mouseEnterDelay={0.1}
+                    mouseLeaveDelay={0.1}
+                    onPopupAlign={[Function]}
+                    onPopupVisibleChange={[Function]}
+                    overlay={
+                      <React.Fragment>
+                        <div
+                          className="ant-popover-inner-content"
+                        >
+                          <div
+                            className="RegistrationModal"
+                          >
+                            <Button
+                              className="RegistrationModal__cancel"
+                              onClick={[Function]}
+                              type="link"
+                            >
+                              Cancel
+                            </Button>
+                            <h2>
+                              Welcome!
+                            </h2>
+                            <ForwardRef(InternalForm)
+                              className="RegistrationModal__createHandle"
+                              initialValues={
+                                Object {
+                                  "remember": true,
+                                }
+                              }
+                              name="createHandle"
+                              onFinish={[Function]}
+                            >
+                              <p>
+                                Please create a handle:
+                              </p>
+                              <FormItem
+                                className="RegistrationModal__handleInput"
+                                name="handle"
+                                rules={
+                                  Array [
+                                    Object {
+                                      "message": "Handle cannot be blank",
+                                      "required": true,
+                                    },
+                                  ]
+                                }
+                              >
+                                <Input
+                                  type="text"
+                                />
+                              </FormItem>
+                              <div
+                                className="RegistrationModal__footer"
+                              >
+                                <Button
+                                  className="RegistrationModal__footerBtn"
+                                  htmlType="submit"
+                                  type="primary"
+                                >
+                                  Choose handle
+                                </Button>
+                              </div>
+                            </ForwardRef(InternalForm)>
+                          </div>
+                        </div>
+                      </React.Fragment>
+                    }
+                    popup={[Function]}
+                    popupAlign={Object {}}
+                    popupClassName=""
+                    popupMotion={
+                      Object {
+                        "motionDeadline": 1000,
+                        "motionName": "ant-zoom-big",
+                      }
+                    }
+                    popupPlacement="bottomRight"
+                    popupStyle={Object {}}
+                    popupTransitionName="ant-zoom-big"
+                    popupVisible={false}
+                    prefixCls="ant-popover"
+                    showAction={Array []}
+                    visible={false}
+                  >
+                    <LoginButton
+                      key="trigger"
+                      loading={false}
+                      loginWalletOptions="NONE"
+                      loginWithWalletType={[Function]}
+                      onMouseEnter={[Function]}
+                      onMouseLeave={[Function]}
+                      popoverVisible={true}
+                      setPopoverVisible={[Function]}
+                    >
+                      <Popover
+                        color="black"
+                        content={
+                          <div
+                            className="LoginButton__loginOptions"
+                          >
+                            <div>
+                              Log in with
+                            </div>
+                            <button
+                              className="LoginButton__loginMetamask"
+                              onClick={[Function]}
+                            >
+                              MetaMask
+                            </button>
+                            <div>
+                              OR
+                            </div>
+                            <button
+                              className="LoginButton__loginTorus"
+                              onClick={[Function]}
+                            >
+                              Torus
+                            </button>
+                          </div>
+                        }
+                        mouseEnterDelay={0.1}
+                        mouseLeaveDelay={0.1}
+                        onVisibleChange={[Function]}
+                        overlayStyle={Object {}}
+                        placement="bottomRight"
+                        trigger="click"
+                        visible={true}
+                      >
+                        <Tooltip
+                          arrowPointAtCenter={false}
+                          autoAdjustOverflow={true}
+                          color="black"
+                          mouseEnterDelay={0.1}
+                          mouseLeaveDelay={0.1}
+                          onVisibleChange={[Function]}
+                          overlay={
+                            <React.Fragment>
+                              <div
+                                className="ant-popover-inner-content"
+                              >
+                                <div
+                                  className="LoginButton__loginOptions"
+                                >
+                                  <div>
+                                    Log in with
+                                  </div>
+                                  <button
+                                    className="LoginButton__loginMetamask"
+                                    onClick={[Function]}
+                                  >
+                                    MetaMask
+                                  </button>
+                                  <div>
+                                    OR
+                                  </div>
+                                  <button
+                                    className="LoginButton__loginTorus"
+                                    onClick={[Function]}
+                                  >
+                                    Torus
+                                  </button>
+                                </div>
+                              </div>
+                            </React.Fragment>
+                          }
+                          overlayStyle={Object {}}
+                          placement="bottomRight"
+                          prefixCls="ant-popover"
+                          transitionName="ant-zoom-big"
+                          trigger="click"
+                          visible={true}
+                        >
+                          <ForwardRef(Tooltip)
+                            arrowContent={
+                              <span
+                                className="ant-popover-arrow-content"
+                                style={
+                                  Object {
+                                    "background": "black",
+                                  }
+                                }
+                              />
+                            }
+                            arrowPointAtCenter={false}
+                            autoAdjustOverflow={true}
+                            builtinPlacements={
+                              Object {
+                                "bottom": Object {
+                                  "ignoreShake": true,
+                                  "offset": Array [
+                                    0,
+                                    4,
+                                  ],
+                                  "overflow": Object {
+                                    "adjustX": 1,
+                                    "adjustY": 1,
+                                  },
+                                  "points": Array [
+                                    "tc",
+                                    "bc",
+                                  ],
+                                  "targetOffset": Array [
+                                    0,
+                                    0,
+                                  ],
+                                },
+                                "bottomLeft": Object {
+                                  "ignoreShake": true,
+                                  "offset": Array [
+                                    0,
+                                    4,
+                                  ],
+                                  "overflow": Object {
+                                    "adjustX": 1,
+                                    "adjustY": 1,
+                                  },
+                                  "points": Array [
+                                    "tl",
+                                    "bl",
+                                  ],
+                                  "targetOffset": Array [
+                                    0,
+                                    0,
+                                  ],
+                                },
+                                "bottomRight": Object {
+                                  "ignoreShake": true,
+                                  "offset": Array [
+                                    0,
+                                    4,
+                                  ],
+                                  "overflow": Object {
+                                    "adjustX": 1,
+                                    "adjustY": 1,
+                                  },
+                                  "points": Array [
+                                    "tr",
+                                    "br",
+                                  ],
+                                  "targetOffset": Array [
+                                    0,
+                                    0,
+                                  ],
+                                },
+                                "left": Object {
+                                  "ignoreShake": true,
+                                  "offset": Array [
+                                    -4,
+                                    0,
+                                  ],
+                                  "overflow": Object {
+                                    "adjustX": 1,
+                                    "adjustY": 1,
+                                  },
+                                  "points": Array [
+                                    "cr",
+                                    "cl",
+                                  ],
+                                  "targetOffset": Array [
+                                    0,
+                                    0,
+                                  ],
+                                },
+                                "leftBottom": Object {
+                                  "ignoreShake": true,
+                                  "offset": Array [
+                                    -4,
+                                    0,
+                                  ],
+                                  "overflow": Object {
+                                    "adjustX": 1,
+                                    "adjustY": 1,
+                                  },
+                                  "points": Array [
+                                    "br",
+                                    "bl",
+                                  ],
+                                  "targetOffset": Array [
+                                    0,
+                                    0,
+                                  ],
+                                },
+                                "leftTop": Object {
+                                  "ignoreShake": true,
+                                  "offset": Array [
+                                    -4,
+                                    0,
+                                  ],
+                                  "overflow": Object {
+                                    "adjustX": 1,
+                                    "adjustY": 1,
+                                  },
+                                  "points": Array [
+                                    "tr",
+                                    "tl",
+                                  ],
+                                  "targetOffset": Array [
+                                    0,
+                                    0,
+                                  ],
+                                },
+                                "right": Object {
+                                  "ignoreShake": true,
+                                  "offset": Array [
+                                    4,
+                                    0,
+                                  ],
+                                  "overflow": Object {
+                                    "adjustX": 1,
+                                    "adjustY": 1,
+                                  },
+                                  "points": Array [
+                                    "cl",
+                                    "cr",
+                                  ],
+                                  "targetOffset": Array [
+                                    0,
+                                    0,
+                                  ],
+                                },
+                                "rightBottom": Object {
+                                  "ignoreShake": true,
+                                  "offset": Array [
+                                    4,
+                                    0,
+                                  ],
+                                  "overflow": Object {
+                                    "adjustX": 1,
+                                    "adjustY": 1,
+                                  },
+                                  "points": Array [
+                                    "bl",
+                                    "br",
+                                  ],
+                                  "targetOffset": Array [
+                                    0,
+                                    0,
+                                  ],
+                                },
+                                "rightTop": Object {
+                                  "ignoreShake": true,
+                                  "offset": Array [
+                                    4,
+                                    0,
+                                  ],
+                                  "overflow": Object {
+                                    "adjustX": 1,
+                                    "adjustY": 1,
+                                  },
+                                  "points": Array [
+                                    "tl",
+                                    "tr",
+                                  ],
+                                  "targetOffset": Array [
+                                    0,
+                                    0,
+                                  ],
+                                },
+                                "top": Object {
+                                  "ignoreShake": true,
+                                  "offset": Array [
+                                    0,
+                                    -4,
+                                  ],
+                                  "overflow": Object {
+                                    "adjustX": 1,
+                                    "adjustY": 1,
+                                  },
+                                  "points": Array [
+                                    "bc",
+                                    "tc",
+                                  ],
+                                  "targetOffset": Array [
+                                    0,
+                                    0,
+                                  ],
+                                },
+                                "topLeft": Object {
+                                  "ignoreShake": true,
+                                  "offset": Array [
+                                    0,
+                                    -4,
+                                  ],
+                                  "overflow": Object {
+                                    "adjustX": 1,
+                                    "adjustY": 1,
+                                  },
+                                  "points": Array [
+                                    "bl",
+                                    "tl",
+                                  ],
+                                  "targetOffset": Array [
+                                    0,
+                                    0,
+                                  ],
+                                },
+                                "topRight": Object {
+                                  "ignoreShake": true,
+                                  "offset": Array [
+                                    0,
+                                    -4,
+                                  ],
+                                  "overflow": Object {
+                                    "adjustX": 1,
+                                    "adjustY": 1,
+                                  },
+                                  "points": Array [
+                                    "br",
+                                    "tr",
+                                  ],
+                                  "targetOffset": Array [
+                                    0,
+                                    0,
+                                  ],
+                                },
+                              }
+                            }
+                            color="black"
+                            motion={
+                              Object {
+                                "motionDeadline": 1000,
+                                "motionName": "ant-zoom-big",
+                              }
+                            }
+                            mouseEnterDelay={0.1}
+                            mouseLeaveDelay={0.1}
+                            onPopupAlign={[Function]}
+                            onVisibleChange={[Function]}
+                            overlay={
+                              <React.Fragment>
+                                <div
+                                  className="ant-popover-inner-content"
+                                >
+                                  <div
+                                    className="LoginButton__loginOptions"
+                                  >
+                                    <div>
+                                      Log in with
+                                    </div>
+                                    <button
+                                      className="LoginButton__loginMetamask"
+                                      onClick={[Function]}
+                                    >
+                                      MetaMask
+                                    </button>
+                                    <div>
+                                      OR
+                                    </div>
+                                    <button
+                                      className="LoginButton__loginTorus"
+                                      onClick={[Function]}
+                                    >
+                                      Torus
+                                    </button>
+                                  </div>
+                                </div>
+                              </React.Fragment>
+                            }
+                            overlayClassName=""
+                            overlayInnerStyle={
+                              Object {
+                                "background": "black",
+                              }
+                            }
+                            overlayStyle={Object {}}
+                            placement="bottomRight"
+                            prefixCls="ant-popover"
+                            transitionName="ant-zoom-big"
+                            trigger="click"
+                            visible={true}
+                          >
+                            <Trigger
+                              action="click"
+                              afterPopupVisibleChange={[Function]}
+                              arrowContent={
+                                <span
+                                  className="ant-popover-arrow-content"
+                                  style={
+                                    Object {
+                                      "background": "black",
+                                    }
+                                  }
+                                />
+                              }
+                              arrowPointAtCenter={false}
+                              autoAdjustOverflow={true}
+                              autoDestroy={false}
+                              blurDelay={0.15}
+                              builtinPlacements={
+                                Object {
+                                  "bottom": Object {
+                                    "ignoreShake": true,
+                                    "offset": Array [
+                                      0,
+                                      4,
+                                    ],
+                                    "overflow": Object {
+                                      "adjustX": 1,
+                                      "adjustY": 1,
+                                    },
+                                    "points": Array [
+                                      "tc",
+                                      "bc",
+                                    ],
+                                    "targetOffset": Array [
+                                      0,
+                                      0,
+                                    ],
+                                  },
+                                  "bottomLeft": Object {
+                                    "ignoreShake": true,
+                                    "offset": Array [
+                                      0,
+                                      4,
+                                    ],
+                                    "overflow": Object {
+                                      "adjustX": 1,
+                                      "adjustY": 1,
+                                    },
+                                    "points": Array [
+                                      "tl",
+                                      "bl",
+                                    ],
+                                    "targetOffset": Array [
+                                      0,
+                                      0,
+                                    ],
+                                  },
+                                  "bottomRight": Object {
+                                    "ignoreShake": true,
+                                    "offset": Array [
+                                      0,
+                                      4,
+                                    ],
+                                    "overflow": Object {
+                                      "adjustX": 1,
+                                      "adjustY": 1,
+                                    },
+                                    "points": Array [
+                                      "tr",
+                                      "br",
+                                    ],
+                                    "targetOffset": Array [
+                                      0,
+                                      0,
+                                    ],
+                                  },
+                                  "left": Object {
+                                    "ignoreShake": true,
+                                    "offset": Array [
+                                      -4,
+                                      0,
+                                    ],
+                                    "overflow": Object {
+                                      "adjustX": 1,
+                                      "adjustY": 1,
+                                    },
+                                    "points": Array [
+                                      "cr",
+                                      "cl",
+                                    ],
+                                    "targetOffset": Array [
+                                      0,
+                                      0,
+                                    ],
+                                  },
+                                  "leftBottom": Object {
+                                    "ignoreShake": true,
+                                    "offset": Array [
+                                      -4,
+                                      0,
+                                    ],
+                                    "overflow": Object {
+                                      "adjustX": 1,
+                                      "adjustY": 1,
+                                    },
+                                    "points": Array [
+                                      "br",
+                                      "bl",
+                                    ],
+                                    "targetOffset": Array [
+                                      0,
+                                      0,
+                                    ],
+                                  },
+                                  "leftTop": Object {
+                                    "ignoreShake": true,
+                                    "offset": Array [
+                                      -4,
+                                      0,
+                                    ],
+                                    "overflow": Object {
+                                      "adjustX": 1,
+                                      "adjustY": 1,
+                                    },
+                                    "points": Array [
+                                      "tr",
+                                      "tl",
+                                    ],
+                                    "targetOffset": Array [
+                                      0,
+                                      0,
+                                    ],
+                                  },
+                                  "right": Object {
+                                    "ignoreShake": true,
+                                    "offset": Array [
+                                      4,
+                                      0,
+                                    ],
+                                    "overflow": Object {
+                                      "adjustX": 1,
+                                      "adjustY": 1,
+                                    },
+                                    "points": Array [
+                                      "cl",
+                                      "cr",
+                                    ],
+                                    "targetOffset": Array [
+                                      0,
+                                      0,
+                                    ],
+                                  },
+                                  "rightBottom": Object {
+                                    "ignoreShake": true,
+                                    "offset": Array [
+                                      4,
+                                      0,
+                                    ],
+                                    "overflow": Object {
+                                      "adjustX": 1,
+                                      "adjustY": 1,
+                                    },
+                                    "points": Array [
+                                      "bl",
+                                      "br",
+                                    ],
+                                    "targetOffset": Array [
+                                      0,
+                                      0,
+                                    ],
+                                  },
+                                  "rightTop": Object {
+                                    "ignoreShake": true,
+                                    "offset": Array [
+                                      4,
+                                      0,
+                                    ],
+                                    "overflow": Object {
+                                      "adjustX": 1,
+                                      "adjustY": 1,
+                                    },
+                                    "points": Array [
+                                      "tl",
+                                      "tr",
+                                    ],
+                                    "targetOffset": Array [
+                                      0,
+                                      0,
+                                    ],
+                                  },
+                                  "top": Object {
+                                    "ignoreShake": true,
+                                    "offset": Array [
+                                      0,
+                                      -4,
+                                    ],
+                                    "overflow": Object {
+                                      "adjustX": 1,
+                                      "adjustY": 1,
+                                    },
+                                    "points": Array [
+                                      "bc",
+                                      "tc",
+                                    ],
+                                    "targetOffset": Array [
+                                      0,
+                                      0,
+                                    ],
+                                  },
+                                  "topLeft": Object {
+                                    "ignoreShake": true,
+                                    "offset": Array [
+                                      0,
+                                      -4,
+                                    ],
+                                    "overflow": Object {
+                                      "adjustX": 1,
+                                      "adjustY": 1,
+                                    },
+                                    "points": Array [
+                                      "bl",
+                                      "tl",
+                                    ],
+                                    "targetOffset": Array [
+                                      0,
+                                      0,
+                                    ],
+                                  },
+                                  "topRight": Object {
+                                    "ignoreShake": true,
+                                    "offset": Array [
+                                      0,
+                                      -4,
+                                    ],
+                                    "overflow": Object {
+                                      "adjustX": 1,
+                                      "adjustY": 1,
+                                    },
+                                    "points": Array [
+                                      "br",
+                                      "tr",
+                                    ],
+                                    "targetOffset": Array [
+                                      0,
+                                      0,
+                                    ],
+                                  },
+                                }
+                              }
+                              color="black"
+                              defaultPopupVisible={false}
+                              destroyPopupOnHide={false}
+                              focusDelay={0}
+                              getDocument={[Function]}
+                              getPopupClassNameFromAlign={[Function]}
+                              hideAction={Array []}
+                              mask={false}
+                              maskClosable={true}
+                              mouseEnterDelay={0.1}
+                              mouseLeaveDelay={0.1}
+                              onPopupAlign={[Function]}
+                              onPopupVisibleChange={[Function]}
+                              overlay={
+                                <React.Fragment>
+                                  <div
+                                    className="ant-popover-inner-content"
+                                  >
+                                    <div
+                                      className="LoginButton__loginOptions"
+                                    >
+                                      <div>
+                                        Log in with
+                                      </div>
+                                      <button
+                                        className="LoginButton__loginMetamask"
+                                        onClick={[Function]}
+                                      >
+                                        MetaMask
+                                      </button>
+                                      <div>
+                                        OR
+                                      </div>
+                                      <button
+                                        className="LoginButton__loginTorus"
+                                        onClick={[Function]}
+                                      >
+                                        Torus
+                                      </button>
+                                    </div>
+                                  </div>
+                                </React.Fragment>
+                              }
+                              popup={[Function]}
+                              popupAlign={Object {}}
+                              popupClassName=""
+                              popupMotion={
+                                Object {
+                                  "motionDeadline": 1000,
+                                  "motionName": "ant-zoom-big",
+                                }
+                              }
+                              popupPlacement="bottomRight"
+                              popupStyle={Object {}}
+                              popupTransitionName="ant-zoom-big"
+                              popupVisible={true}
+                              prefixCls="ant-popover"
+                              showAction={Array []}
+                              visible={true}
+                            >
+                              <Button
+                                aria-label="Login"
+                                className="LoginButton__loginButton ant-popover-open"
+                                key="trigger"
+                                onClick={[Function]}
+                                onMouseDown={[Function]}
+                                onTouchStart={[Function]}
+                              >
+                                <Wave>
+                                  <button
+                                    aria-label="Login"
+                                    className="ant-btn LoginButton__loginButton ant-popover-open"
+                                    onClick={[Function]}
+                                    onMouseDown={[Function]}
+                                    onTouchStart={[Function]}
+                                    type="button"
+                                  >
+                                    <LoadingIcon
+                                      existIcon={false}
+                                      loading={false}
+                                      prefixCls="ant-btn"
+                                    >
+                                      <CSSMotion
+                                        motionName="ant-btn-loading-icon-motion"
+                                        onAppearActive={[Function]}
+                                        onAppearStart={[Function]}
+                                        onEnterActive={[Function]}
+                                        onEnterStart={[Function]}
+                                        onLeaveActive={[Function]}
+                                        onLeaveStart={[Function]}
+                                        removeOnLeave={true}
+                                        visible={false}
+                                      >
+                                        <DomWrapper />
+                                      </CSSMotion>
+                                    </LoadingIcon>
+                                    <span
+                                      key=".0"
+                                    >
+                                      Log In
+                                    </span>
+                                  </button>
+                                </Wave>
+                              </Button>
+                              <ForwardRef
+                                didUpdate={[Function]}
+                                getContainer={[Function]}
+                                key="portal"
+                              >
+                                <Portal
+                                  containerInfo={
+                                    <div
+                                      style="position: absolute; top: 0px; left: 0px; width: 100%;"
+                                    >
+                                      <div>
+                                        <div
+                                          class="ant-popover"
+                                          style="opacity: 0; pointer-events: none;"
+                                        >
+                                          <div
+                                            class="ant-popover-content"
+                                          >
+                                            <div
+                                              class="ant-popover-arrow"
+                                            >
+                                              <span
+                                                class="ant-popover-arrow-content"
+                                                style="background: black;"
+                                              />
+                                            </div>
+                                            <div
+                                              class="ant-popover-inner"
+                                              role="tooltip"
+                                              style="background: black;"
+                                            >
+                                              <div
+                                                class="ant-popover-inner-content"
+                                              >
+                                                <div
+                                                  class="LoginButton__loginOptions"
+                                                >
+                                                  <div>
+                                                    Log in with
+                                                  </div>
+                                                  <button
+                                                    class="LoginButton__loginMetamask"
+                                                  >
+                                                    MetaMask
+                                                  </button>
+                                                  <div>
+                                                    OR
+                                                  </div>
+                                                  <button
+                                                    class="LoginButton__loginTorus"
+                                                  >
+                                                    Torus
+                                                  </button>
+                                                </div>
+                                              </div>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  }
+                                >
+                                  <Popup
+                                    align={
+                                      Object {
+                                        "ignoreShake": true,
+                                        "offset": Array [
+                                          0,
+                                          4,
+                                        ],
+                                        "overflow": Object {
+                                          "adjustX": 1,
+                                          "adjustY": 1,
+                                        },
+                                        "points": Array [
+                                          "tr",
+                                          "br",
+                                        ],
+                                        "targetOffset": Array [
+                                          0,
+                                          0,
+                                        ],
+                                      }
+                                    }
+                                    className=""
+                                    destroyPopupOnHide={false}
+                                    getClassNameFromAlign={[Function]}
+                                    getRootDomNode={[Function]}
+                                    mask={false}
+                                    motion={
+                                      Object {
+                                        "motionDeadline": 1000,
+                                        "motionName": "ant-zoom-big",
+                                      }
+                                    }
+                                    onAlign={[Function]}
+                                    onMouseDown={[Function]}
+                                    onTouchStart={[Function]}
+                                    prefixCls="ant-popover"
+                                    style={Object {}}
+                                    transitionName="ant-zoom-big"
+                                    visible={true}
+                                  >
+                                    <div>
+                                      <Mask
+                                        align={
+                                          Object {
+                                            "ignoreShake": true,
+                                            "offset": Array [
+                                              0,
+                                              4,
+                                            ],
+                                            "overflow": Object {
+                                              "adjustX": 1,
+                                              "adjustY": 1,
+                                            },
+                                            "points": Array [
+                                              "tr",
+                                              "br",
+                                            ],
+                                            "targetOffset": Array [
+                                              0,
+                                              0,
+                                            ],
+                                          }
+                                        }
+                                        className=""
+                                        destroyPopupOnHide={false}
+                                        getClassNameFromAlign={[Function]}
+                                        getRootDomNode={[Function]}
+                                        mask={false}
+                                        motion={
+                                          Object {
+                                            "motionDeadline": 1000,
+                                            "motionName": "ant-zoom-big",
+                                          }
+                                        }
+                                        onAlign={[Function]}
+                                        onMouseDown={[Function]}
+                                        onTouchStart={[Function]}
+                                        prefixCls="ant-popover"
+                                        style={Object {}}
+                                        transitionName="ant-zoom-big"
+                                        visible={true}
+                                      />
+                                      <PopupInner
+                                        align={
+                                          Object {
+                                            "ignoreShake": true,
+                                            "offset": Array [
+                                              0,
+                                              4,
+                                            ],
+                                            "overflow": Object {
+                                              "adjustX": 1,
+                                              "adjustY": 1,
+                                            },
+                                            "points": Array [
+                                              "tr",
+                                              "br",
+                                            ],
+                                            "targetOffset": Array [
+                                              0,
+                                              0,
+                                            ],
+                                          }
+                                        }
+                                        className=""
+                                        destroyPopupOnHide={false}
+                                        getClassNameFromAlign={[Function]}
+                                        getRootDomNode={[Function]}
+                                        mask={false}
+                                        motion={
+                                          Object {
+                                            "motionDeadline": 1000,
+                                            "motionName": "ant-zoom-big",
+                                          }
+                                        }
+                                        onAlign={[Function]}
+                                        onMouseDown={[Function]}
+                                        onTouchStart={[Function]}
+                                        prefixCls="ant-popover"
+                                        style={Object {}}
+                                        transitionName="ant-zoom-big"
+                                        visible={true}
+                                      >
+                                        <CSSMotion
+                                          leavedClassName="ant-popover-hidden"
+                                          motionDeadline={1000}
+                                          motionName="ant-zoom-big"
+                                          onAppearEnd={[Function]}
+                                          onAppearPrepare={[Function]}
+                                          onEnterEnd={[Function]}
+                                          onEnterPrepare={[Function]}
+                                          onLeaveEnd={[Function]}
+                                          removeOnLeave={false}
+                                          visible={true}
+                                        >
+                                          <DomWrapper>
+                                            <Align
+                                              align={
+                                                Object {
+                                                  "ignoreShake": true,
+                                                  "offset": Array [
+                                                    0,
+                                                    4,
+                                                  ],
+                                                  "overflow": Object {
+                                                    "adjustX": 1,
+                                                    "adjustY": 1,
+                                                  },
+                                                  "points": Array [
+                                                    "tr",
+                                                    "br",
+                                                  ],
+                                                  "targetOffset": Array [
+                                                    0,
+                                                    0,
+                                                  ],
+                                                }
+                                              }
+                                              disabled={true}
+                                              key="popup"
+                                              monitorWindowResize={true}
+                                              onAlign={[Function]}
+                                              target={[Function]}
+                                            >
+                                              <div
+                                                className="ant-popover"
+                                                onMouseDownCapture={[Function]}
+                                                onTouchStartCapture={[Function]}
+                                                style={
+                                                  Object {
+                                                    "opacity": 0,
+                                                    "pointerEvents": "none",
+                                                    "zIndex": undefined,
+                                                  }
+                                                }
+                                              >
+                                                <div
+                                                  className="ant-popover-content"
+                                                >
+                                                  <div
+                                                    className="ant-popover-arrow"
+                                                    key="arrow"
+                                                  >
+                                                    <span
+                                                      className="ant-popover-arrow-content"
+                                                      style={
+                                                        Object {
+                                                          "background": "black",
+                                                        }
+                                                      }
+                                                    />
+                                                  </div>
+                                                  <Content
+                                                    key="content"
+                                                    overlay={
+                                                      <React.Fragment>
+                                                        <div
+                                                          className="ant-popover-inner-content"
+                                                        >
+                                                          <div
+                                                            className="LoginButton__loginOptions"
+                                                          >
+                                                            <div>
+                                                              Log in with
+                                                            </div>
+                                                            <button
+                                                              className="LoginButton__loginMetamask"
+                                                              onClick={[Function]}
+                                                            >
+                                                              MetaMask
+                                                            </button>
+                                                            <div>
+                                                              OR
+                                                            </div>
+                                                            <button
+                                                              className="LoginButton__loginTorus"
+                                                              onClick={[Function]}
+                                                            >
+                                                              Torus
+                                                            </button>
+                                                          </div>
+                                                        </div>
+                                                      </React.Fragment>
+                                                    }
+                                                    overlayInnerStyle={
+                                                      Object {
+                                                        "background": "black",
+                                                      }
+                                                    }
+                                                    prefixCls="ant-popover"
+                                                  >
+                                                    <div
+                                                      className="ant-popover-inner"
+                                                      role="tooltip"
+                                                      style={
+                                                        Object {
+                                                          "background": "black",
+                                                        }
+                                                      }
+                                                    >
+                                                      <div
+                                                        className="ant-popover-inner-content"
+                                                      >
+                                                        <div
+                                                          className="LoginButton__loginOptions"
+                                                        >
+                                                          <div>
+                                                            Log in with
+                                                          </div>
+                                                          <button
+                                                            className="LoginButton__loginMetamask"
+                                                            onClick={[Function]}
+                                                          >
+                                                            MetaMask
+                                                          </button>
+                                                          <div>
+                                                            OR
+                                                          </div>
+                                                          <button
+                                                            className="LoginButton__loginTorus"
+                                                            onClick={[Function]}
+                                                          >
+                                                            Torus
+                                                          </button>
+                                                        </div>
+                                                      </div>
+                                                    </div>
+                                                  </Content>
+                                                </div>
+                                              </div>
+                                            </Align>
+                                          </DomWrapper>
+                                        </CSSMotion>
+                                      </PopupInner>
+                                    </div>
+                                  </Popup>
+                                </Portal>
+                              </ForwardRef>
+                            </Trigger>
+                          </ForwardRef(Tooltip)>
+                        </Tooltip>
+                      </Popover>
+                    </LoginButton>
+                  </Trigger>
+                </ForwardRef(Tooltip)>
+              </Tooltip>
+            </Popover>
+          </RegistrationModal>
+        </div>
+      </Login>
+    </Router>
+  </BrowserRouter>
+</Provider>
+`;

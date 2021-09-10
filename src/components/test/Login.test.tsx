@@ -10,6 +10,7 @@ import {
 import * as metamask from "../../services/wallets/metamask/metamask";
 import * as dsnp from "../../services/dsnp";
 import * as session from "../../services/session";
+import { getPrefabProfile } from "../../test/testProfiles";
 
 let torusWallet: wallet.Wallet;
 let metamaskWallet: wallet.Wallet;
@@ -21,7 +22,7 @@ beforeAll(async () => {
     .spyOn(torusWallet, "login")
     .mockImplementation(() => Promise.resolve("0x123"));
 
-  metamaskWallet = await wallet.wallet(wallet.WalletType.METAMASK);
+  metamaskWallet = await wallet.wallet(wallet.WalletType.NONE);
 
   jest
     .spyOn(metamaskWallet, "login")
@@ -42,8 +43,23 @@ beforeAll(async () => {
     );
 });
 
+const walletType = wallet.WalletType.NONE;
+const profiles = Array(3)
+  .fill(0)
+  .map((x, i) => getPrefabProfile(i));
+
+const store = createMockStore({
+  user: { walletType },
+  profiles: {
+    profiles: {
+      [profiles[0].fromId]: profiles[0],
+      [profiles[1].fromId]: profiles[1],
+      [profiles[2].fromId]: profiles[2],
+    },
+  },
+});
+
 describe("Login Component", () => {
-  const store = createMockStore({ user: {} });
   describe("is logged out", () => {
     it("renders without crashing", () => {
       expect(() => {
@@ -60,6 +76,7 @@ describe("Login Component", () => {
     it("header button -> torus login", async () => {
       const component = mount(
         componentWithStore(Login, store, {
+          isPrimary: false,
           loginWalletOptions: wallet.WalletType.NONE,
         })
       );
@@ -70,9 +87,10 @@ describe("Login Component", () => {
     });
 
     it("header button -> metamask login", async () => {
-      const store = createMockStore({ user: {} });
+      const store = createMockStore({ user: { walletType } });
       const component = mount(
         componentWithStore(Login, store, {
+          isPrimary: false,
           loginWalletOptions: wallet.WalletType.NONE,
         })
       );
@@ -85,14 +103,23 @@ describe("Login Component", () => {
 
   describe("is logged in", () => {
     const id = "0x03f2";
-    const walletType = wallet.WalletType.METAMASK;
-    const initialState = { user: { id, walletType } };
+    const initialState = {
+      user: { id, walletType },
+      profiles: {
+        profiles: {
+          [profiles[0].fromId]: profiles[0],
+          [profiles[1].fromId]: profiles[1],
+          [profiles[2].fromId]: profiles[2],
+        },
+      },
+    };
     const store = createMockStore(initialState);
 
     it("renders without crashing", () => {
       expect(() => {
         mount(
           componentWithStore(Login, store, {
+            isPrimary: false,
             loginWalletOptions: wallet.WalletType.NONE,
           })
         );
@@ -105,11 +132,16 @@ describe("Login Component", () => {
         initialState.user.walletType = wallet.WalletType.TORUS;
         const component = mount(
           componentWithStore(Login, store, {
+            isPrimary: false,
             loginWalletOptions: wallet.WalletType.TORUS,
           })
         );
         it("renders logout and clicking on it calls torus logout", () => {
-          component.find("Button").first().simulate("click");
+          component
+            .find("RegistrationHub__userBlock")
+            .first()
+            .simulate("click");
+          component.find(".Logout__logoutButton").first().simulate("click");
           expect(sessionSpy).toHaveBeenCalled();
           expect(torus.logout).toHaveBeenCalled();
         });
@@ -118,11 +150,16 @@ describe("Login Component", () => {
         initialState.user.walletType = wallet.WalletType.METAMASK;
         const component = mount(
           componentWithStore(Login, store, {
+            isPrimary: false,
             loginWalletOptions: wallet.WalletType.METAMASK,
           })
         );
         it("renders logout and clicking on it calls metamask logout", () => {
-          component.find("Button").simulate("click");
+          component
+            .find(".RegistrationHub__userBlock")
+            .first()
+            .simulate("click");
+          component.find(".Logout__logoutButton").first().simulate("click");
           expect(sessionSpy).toHaveBeenCalled();
           expect(metamaskWallet.logout).toHaveBeenCalled();
         });
