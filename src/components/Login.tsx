@@ -12,6 +12,7 @@ import RegistrationModal from "./RegistrationModal";
 import { core } from "@dsnp/sdk";
 import ethereum from "../services/wallets/metamask/ethereum";
 import { HexString } from "../utilities/types";
+import RegistrationHub from "./RegistrationHub";
 
 interface LoginProps {
   isPrimary: boolean;
@@ -113,26 +114,7 @@ const Login = ({ isPrimary, loginWalletOptions }: LoginProps): JSX.Element => {
           />
         </RegistrationModal>
       ) : (
-        <>
-          <Badge
-            count={<WalletOutlined style={{ color: "#52C41A" }} />}
-            offset={[-48, 8]}
-          >
-            <img
-              className="Login__walletIcon"
-              src={wallet.wallet(currentWalletType).icon}
-              alt="Wallet Symbol"
-            />
-          </Badge>
-
-          <Button
-            className="Login__logOutButton"
-            aria-label="Logout"
-            onClick={logout}
-          >
-            Log Out
-          </Button>
-        </>
+        <RegistrationHub logout={logout} />
       )}
     </div>
   );

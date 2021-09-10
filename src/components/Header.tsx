@@ -6,7 +6,9 @@ const Header = (): JSX.Element => {
   return (
     <div className="Header__block">
       <h1 className="Header__title">Example Client</h1>
-      <Login loginWalletOptions={wallet.WalletType.NONE} isPrimary={true} />
+      <div>
+        <Login loginWalletOptions={wallet.WalletType.NONE} isPrimary={true} />
+      </div>
     </div>
   );
 };
