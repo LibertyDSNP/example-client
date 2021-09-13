@@ -1,6 +1,6 @@
 import { keccak_256 } from "js-sha3";
 import { randInt } from "@dsnp/test-generators";
-import { FeedItem, HexString, Reply } from "../utilities/types";
+import { FeedItem } from "../utilities/types";
 import { generateDsnpUserId, getPrefabDsnpUserId } from "./testAddresses";
 import {
   prefabFirstNames,
@@ -13,6 +13,7 @@ import {
 } from "@dsnp/sdk/core/activityContent";
 
 import { generators } from "@dsnp/sdk";
+import { AnnouncementType } from "@dsnp/sdk/core/announcements";
 
 const generateNote = generators.activityContent.generateNote;
 
@@ -34,28 +35,22 @@ export const generatePerson = (name?: string): ActivityContentProfile => {
  * Generate a FeedItem needed to make a full Feed
  * You'll need to generate Content first. Use
  * `generateNote()` or `generatePerson()`.
- * @param content the content to make the FeedItem around
- * @param constTime use the standard time of this or now time
- * @param replies? an array of FeedItem replies to this FeedItem
+ * @param address from address of feed item
+ * @param content content for feed item
  */
 export const generateFeedItem = (
-  address: HexString,
-  content: ActivityContentNote,
-  constTime: boolean = false,
-  replies?: Reply[]
+  address: string,
+  content: string
 ): FeedItem => {
+  const hash = "0x" + keccak_256(content);
   return {
-    createdAt: constTime
-      ? new Date("05 October 2020 14:48 UTC").toISOString()
-      : new Date().toISOString(),
-    inbox: false,
-    topic: "0x" + keccak_256("Announce(string,bytes32,bytes32)"),
+    announcementType: AnnouncementType.Broadcast,
     fromId: address,
-    content: content,
-    replies: replies || [],
     blockNumber: 50,
-    hash: "0x" + keccak_256("this is a hash of the feed item"),
-    rawContent: "", // This can be simulated, but it's annoying to do so.
+    blockIndex: 0,
+    batchIndex: 0,
+    contentHash: hash,
+    url: `http://example.com/${hash}.json`,
   };
 };
 
@@ -65,28 +60,15 @@ export const generateFeedItem = (
  */
 export const getPrefabFeed = (): FeedItem[] => {
   const address0 = getPrefabDsnpUserId(0);
-  const address1 = getPrefabDsnpUserId(1);
   const address2 = getPrefabDsnpUserId(2);
   const address3 = getPrefabDsnpUserId(3);
-  const noteWithAttachment = generateNote("Everyone leave me alone", true);
 
   return [
     // FeedItems that are just Notes
-    generateFeedItem(
-      address3,
-      generateNote("My favorite dessert is Cake"),
-      true
-    ),
-    generateFeedItem(address0, generateNote("Going to the mall!"), true),
-    // FeedItem note with replies
-    generateFeedItem(address0, generateNote("Hello World"), true, [
-      generateFeedItem(address1, generateNote("Hi Monday!"), true),
-      generateFeedItem(address2, generateNote("Go away"), true, [
-        generateFeedItem(address0, generateNote("You're mean"), true),
-      ]),
-    ]),
-    // FeedItem Note with media
-    generateFeedItem(address2, noteWithAttachment, true),
+    generateFeedItem(address3, "My favorite dessert is Cake"),
+    generateFeedItem(address0, "Going to the mall!"),
+    generateFeedItem(address0, "Hello World"),
+    generateFeedItem(address2, "Everyone leave me alone"),
   ];
 };
 
@@ -116,7 +98,7 @@ export const generateRandomReplies = (avgReplies: number): FeedItem[] => {
   const replies: FeedItem[] = [];
   const numReplies = randInt(avgReplies * 2 + 1);
   for (let r = 0; r < numReplies; r++) {
-    replies[r] = generateFeedItem(generateDsnpUserId(), generateRandomNote());
+    replies[r] = generateFeedItem(generateDsnpUserId(), getRandomMessage());
   }
   return replies;
 };
@@ -126,22 +108,13 @@ export const generateRandomReplies = (avgReplies: number): FeedItem[] => {
  * @param size the size of the feed, default to 4
  * @param avgReplies the average number of replies, default 0
  */
-export const generateRandomFeed = (
-  size: number = 4,
-  avgReplies: number = 0
-): FeedItem[] => {
+export const generateRandomFeed = (size: number = 4): FeedItem[] => {
   const feed: FeedItem[] = [];
   // For each feed item we need to generate:
   // 1 - Content
   // 2 - Replies if Note
   for (let s = 0; s < size; s++) {
-    const content: ActivityContentNote = generateRandomNote();
-    feed[s] = generateFeedItem(
-      generateDsnpUserId(),
-      content,
-      false,
-      generateRandomReplies(avgReplies)
-    );
+    feed[s] = generateFeedItem(generateDsnpUserId(), getRandomMessage());
   }
   return feed;
 };

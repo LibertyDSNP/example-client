@@ -92,13 +92,13 @@ describe("ConnectionsListProfiles", () => {
       );
       expect(
         component.find(".ConnectionsListProfiles__name").first().text()
-      ).toContain(mockUserList[0].name);
+      ).toContain(mockUserList[0].fromId);
       expect(
         component.find(".ConnectionsListProfiles__name").at(1).text()
-      ).toContain(mockUserList[1].name);
+      ).toContain(mockUserList[1].fromId);
       expect(
         component.find(".ConnectionsListProfiles__name").at(2).text()
-      ).toContain(mockUserList[2].name);
+      ).toContain(mockUserList[2].fromId);
     });
 
     it("all connections can be unfollowed", () => {
@@ -136,13 +136,13 @@ describe("ConnectionsListProfiles", () => {
       );
       expect(
         component.find(".ConnectionsListProfiles__name").first().text()
-      ).toContain(mockUserList[2].name);
+      ).toContain(mockUserList[2].fromId);
       expect(
         component.find(".ConnectionsListProfiles__name").at(1).text()
-      ).toContain(mockUserList[3].name);
+      ).toContain(mockUserList[3].fromId);
       expect(
         component.find(".ConnectionsListProfiles__name").at(2).text()
-      ).toContain(mockUserList[4].name);
+      ).toContain(mockUserList[4].fromId);
     });
 
     it("all followers can be followed or unfollowed depending on status", () => {

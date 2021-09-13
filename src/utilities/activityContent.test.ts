@@ -1,4 +1,5 @@
-import { noteToActivityContentNote } from "./activityContent";
+import { ActivityContentAudio, ActivityContentVideo } from "@dsnp/sdk/core/activityContent";
+import { createActivityContentNote } from "./activityContent";
 
 describe("activityContent", () => {
   describe("noteToActivityContentNote", () => {
@@ -57,13 +58,14 @@ describe("activityContent", () => {
       },
     ].forEach((tc: any) => {
       it(`${tc.name} is correctly typed`, () => {
-        const res = noteToActivityContentNote("test", [tc.uri]);
+        const res = createActivityContentNote("test", [tc.uri]);
         expect(res.mediaType).toEqual("text/plain");
         const att = res.attachment?.pop();
-        expect(att.type).toEqual(tc.mediaType);
-        const url = att.url?.pop();
-        expect(url.type).toEqual("Link");
-        expect(url.mediaType).toEqual(tc.attachmentType);
+        expect(att?.type).toEqual(tc.mediaType);
+        const linkAttach = att as ActivityContentAudio | ActivityContentVideo;
+        const url = linkAttach?.url.pop();
+        expect(url?.type).toEqual("Link");
+        expect(url?.mediaType).toEqual(tc.attachmentType);
       });
     });
   });

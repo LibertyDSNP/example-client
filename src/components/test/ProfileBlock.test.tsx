@@ -88,7 +88,7 @@ describe("Profile Block", () => {
     });
     component.find(".ProfileBlock__editButton").last().simulate("click");
     expect(component.find(".ProfileBlock__name").props().value).toEqual(
-      "Monday January"
+      "Anonymous"
     );
   });
 
@@ -107,10 +107,10 @@ describe("Profile Block", () => {
       expect(component.find(".ProfileBlock__editButton")).toEqual({});
     });
 
-    it("displays correct username", async () => {
+    it("displays correct userId", async () => {
       const component = mount(componentWithStore(ProfileBlock, otherUserStore));
-      expect(component.find(".ProfileBlock__name").props().value).toEqual(
-        "Tuesday February"
+      expect(component.find(".ProfileBlock__dsnpUserId").props().value).toEqual(
+        displayId
       );
     });
   });

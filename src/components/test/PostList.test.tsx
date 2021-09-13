@@ -2,7 +2,6 @@ import PostList from "../PostList";
 import { mount, shallow } from "enzyme";
 import { componentWithStore, createMockStore } from "../../test/testhelpers";
 import { generateFeedItem, getPrefabFeed } from "../../test/testFeeds";
-import { ActivityContentNote } from "@dsnp/sdk/dist/types/core/activityContent";
 import { FeedItem } from "../../utilities/types";
 import { getPrefabDsnpUserId } from "../../test/testAddresses";
 import { getPrefabProfile } from "../../test/testProfiles";
@@ -14,7 +13,7 @@ feed.forEach((feedItem) => {
   feedItem.blockNumber = initialBlockNumber++;
 });
 
-let store = createMockStore({ feed: feed });
+let store = createMockStore({ feed: { feedItems: feed } });
 describe("PostList", () => {
   it("renders without crashing", () => {
     expect(() => {
@@ -28,37 +27,13 @@ describe("PostList", () => {
       const address2 = getPrefabDsnpUserId(1);
       const address3 = getPrefabDsnpUserId(2);
 
-      const feedItem1: FeedItem = generateFeedItem(
-        address1,
-        {
-          type: "Note",
-          mediaType: "text/plain",
-          content: "hello hello",
-        } as ActivityContentNote,
-        true
-      );
+      const feedItem1: FeedItem = generateFeedItem(address1, "hello hello");
       feedItem1.blockNumber = 1;
 
-      const feedItem2: FeedItem = generateFeedItem(
-        address2,
-        {
-          type: "Note",
-          mediaType: "text/plain",
-          content: "hi there",
-        } as ActivityContentNote,
-        true
-      );
+      const feedItem2: FeedItem = generateFeedItem(address2, "hi there");
       feedItem2.blockNumber = 2;
 
-      const feedItem3: FeedItem = generateFeedItem(
-        address3,
-        {
-          type: "Note",
-          mediaType: "text/plain",
-          content: "Goodbye",
-        } as ActivityContentNote,
-        true
-      );
+      const feedItem3: FeedItem = generateFeedItem(address3, "Goodbye");
 
       feedItem3.blockNumber = 3;
 
@@ -66,19 +41,23 @@ describe("PostList", () => {
       const graphs = getPreFabSocialGraph();
       const userId = getPrefabProfile(0).fromId;
       store = createMockStore({
-        feed: { feedItems: feed, isPostLoading: { loading: false } },
+        feed: {
+          feedItems: feed,
+          replies: {},
+          isPostLoading: { loading: false },
+        },
         user: { id: userId },
         graphs: graphs,
       });
 
       const component = mount(componentWithStore(PostList, store));
 
-      expect(component.find(".Post__caption").first().text()).toContain(
-        "Goodbye"
+      expect(component.find(".FromTitle__block").first().text()).toContain(
+        feedItem3.fromId
       );
 
-      expect(component.find(".Post__caption").last().text()).toContain(
-        "hello hello"
+      expect(component.find(".FromTitle__block").last().text()).toContain(
+        feedItem1.fromId
       );
     });
   });

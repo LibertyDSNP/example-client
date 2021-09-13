@@ -7,11 +7,14 @@ import { waitFor } from "@testing-library/react";
 import * as content from "../../services/content";
 
 const feedItems = getPrefabFeed();
-const initialState = { user: { id: "0x0345" }, feed: { feedItems } };
+const initialState = {
+  user: { id: "0x0345" },
+  feed: { feedItems, replies: {} },
+};
 const store = createMockStore(initialState);
 
 const writeReply = async (component: any) => {
-  return component
+  component
     .find(".ReplyInput__input")
     .first()
     .simulate("change", { target: { value: "This is our new reply!" } });

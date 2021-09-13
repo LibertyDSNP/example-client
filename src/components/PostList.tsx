@@ -40,7 +40,9 @@ const PostList = ({ feedType }: PostListProps): JSX.Element => {
     userId ? state.graphs.following[userId] : undefined
   );
 
-  const feed = useAppSelector((state) => state.feed.feedItems);
+  const feed = useAppSelector((state) => {
+    return state.feed.feedItems;
+  });
 
   const loading: boolean = useAppSelector(
     (state) => state.feed.isPostLoading.loading
@@ -56,7 +58,7 @@ const PostList = ({ feedType }: PostListProps): JSX.Element => {
       [FeedTypes.DISCOVER]: (_p: FeedItem) => true,
     };
 
-    const feedTypeFilter = feedTypeFilters[feedType];
+    const feedTypeFilter = feedTypeFilters[feedType] || ((_p) => true);
 
     const items: FeedItem[] = sortFeed(feed.filter(feedTypeFilter));
 
