@@ -22,7 +22,7 @@ beforeAll(async () => {
     .spyOn(torusWallet, "login")
     .mockImplementation(() => Promise.resolve("0x123"));
 
-  metamaskWallet = await wallet.wallet(wallet.WalletType.NONE);
+  metamaskWallet = await wallet.wallet(wallet.WalletType.METAMASK);
 
   jest
     .spyOn(metamaskWallet, "login")
@@ -76,7 +76,6 @@ describe("Login Component", () => {
     it("header button -> torus login", async () => {
       const component = mount(
         componentWithStore(Login, store, {
-          isPrimary: false,
           loginWalletOptions: wallet.WalletType.NONE,
         })
       );
@@ -87,10 +86,9 @@ describe("Login Component", () => {
     });
 
     it("header button -> metamask login", async () => {
-      const store = createMockStore({ user: { walletType } });
+      const store = createMockStore({ user: {} });
       const component = mount(
         componentWithStore(Login, store, {
-          isPrimary: false,
           loginWalletOptions: wallet.WalletType.NONE,
         })
       );
@@ -103,6 +101,7 @@ describe("Login Component", () => {
 
   describe("is logged in", () => {
     const id = "0x03f2";
+    const walletType = wallet.WalletType.METAMASK;
     const initialState = {
       user: { id, walletType },
       profiles: {
@@ -119,7 +118,6 @@ describe("Login Component", () => {
       expect(() => {
         mount(
           componentWithStore(Login, store, {
-            isPrimary: false,
             loginWalletOptions: wallet.WalletType.NONE,
           })
         );
@@ -132,13 +130,12 @@ describe("Login Component", () => {
         initialState.user.walletType = wallet.WalletType.TORUS;
         const component = mount(
           componentWithStore(Login, store, {
-            isPrimary: false,
             loginWalletOptions: wallet.WalletType.TORUS,
           })
         );
         it("renders logout and clicking on it calls torus logout", () => {
           component
-            .find("RegistrationHub__userBlock")
+            .find(".RegistrationHub__userBlock")
             .first()
             .simulate("click");
           component.find(".Logout__logoutButton").first().simulate("click");
@@ -150,7 +147,6 @@ describe("Login Component", () => {
         initialState.user.walletType = wallet.WalletType.METAMASK;
         const component = mount(
           componentWithStore(Login, store, {
-            isPrimary: false,
             loginWalletOptions: wallet.WalletType.METAMASK,
           })
         );
