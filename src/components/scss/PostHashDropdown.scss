@@ -15,10 +15,25 @@
   max-width: 200px !important;
   overflow-wrap: break-word !important;
   white-space: pre-wrap;
+  background-color: $white;
+  padding: 12px;
+  box-shadow: -2px 8px 8px -4px rgba(0, 0, 0, 0.3);
+}
+
+.PostHashDropdown__menuHashTitle {
+  font-weight: bold;
+  line-height: 1;
 }
 
 .PostHashDropdown__button {
-  border-radius: 50%;
+  background-color: $white;
   border: 2px solid $shadow-green;
+  border-radius: 5px;
   cursor: pointer;
+  font-size: 11px;
+  transition: 0.25s linear all;
+
+  &:hover {
+    background-color: $shadow-green;
+  }
 }

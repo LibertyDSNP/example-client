@@ -1,6 +1,10 @@
 import React, { useState } from "react";
 import { Menu, Dropdown } from "antd";
-import { CheckCircleOutlined, CopyOutlined } from "@ant-design/icons";
+import {
+  CheckCircleOutlined,
+  CopyOutlined,
+  CheckCircleTwoTone,
+} from "@ant-design/icons";
 import {
   buildDSNPAnnouncementURI,
   DSNPUserId,
@@ -28,31 +32,14 @@ const PostHashDropdown = ({
   );
 
   const menu = (
-    <Menu onClick={() => setIsVisible(true)}>
-      <Menu.Item
-        key="valid"
-        onClick={() => {
-          setIsCopied(true);
-          setTimeout(function () {
-            setIsCopied(false);
-          }, 2000);
-        }}
-      >
-        {isCopied ? (
-          <div>
-            <CheckCircleOutlined /> Copied!
-          </div>
-        ) : (
-          <div
-            className="PostHashDropdown__menuHash"
-            onClick={() => navigator.clipboard.writeText(announcementURI)}
-          >
-            DSNP Announcement URI: {announcementURI}
-          </div>
-        )}
-      </Menu.Item>
-    </Menu>
+    <div className="PostHashDropdown__menuHash">
+      <div className="PostHashDropdown__menuHashTitle">
+        DSNP Announcement URI:
+      </div>{" "}
+      {announcementURI}
+    </div>
   );
+
   return (
     <Dropdown
       className={
@@ -65,9 +52,21 @@ const PostHashDropdown = ({
     >
       <button
         className="PostHashDropdown__button"
-        onClick={(e) => e.preventDefault()}
+        onClick={(e) => {
+          e.preventDefault();
+          navigator.clipboard.writeText(announcementURI);
+          setIsCopied(true);
+          setTimeout(function () {
+            setIsCopied(false);
+          }, 2000);
+        }}
       >
-        <CopyOutlined /> DSNP URI
+        {isCopied ? (
+          <CheckCircleTwoTone twoToneColor="#1dcf76" />
+        ) : (
+          <CopyOutlined />
+        )}{" "}
+        DSNP URI
       </button>
     </Dropdown>
   );
