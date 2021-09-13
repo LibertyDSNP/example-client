@@ -10,6 +10,7 @@ import {
   createHash,
   createAudioLink,
   createAudioAttachment,
+  createNote,
 } from "@dsnp/sdk/core/activityContent";
 
 const createMediaAttachment = (item: string): ActivityContentAttachment => {
@@ -59,17 +60,11 @@ const createMediaAttachment = (item: string): ActivityContentAttachment => {
   }
 };
 
-export const noteToActivityContentNote = (
+export const createActivityContentNote = (
   note: string,
   uriList: string[]
 ): ActivityContentNote => {
-  const activityContent: ActivityContentNote = {
-    "@context": "https://www.w3.org/ns/activitystreams",
-    type: "Note",
-    mediaType: "text/plain",
-    content: note,
-    published: new Date().toISOString(),
-  };
+  const activityContent: ActivityContentNote = createNote(note);
   if (uriList) {
     activityContent["attachment"] = uriList.map(createMediaAttachment);
   }

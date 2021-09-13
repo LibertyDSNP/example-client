@@ -443,7 +443,7 @@ setConfig({
   store: new Store(),
 });
 
-const storeAnnouncement = async (content, accountId, signer) => {
+const storeAnnouncement = async (content, accountId, signer, type) => {
   const hash = web3.keccak256(JSON.stringify(content));
 
   // store note content
@@ -460,11 +460,23 @@ const storeAnnouncement = async (content, accountId, signer) => {
 
   // create and store announcement of content to batch
   const announcement = core.announcements.sign(
-    core.announcements.createBroadcast(
-      accountId,
-      `${process.env.REACT_APP_UPLOAD_HOST}/${hash}.json`,
-      hash
-    ),
+    type === core.announcements.AnnouncementType.Broadcast
+      ? core.announcements.createBroadcast(
+          accountId,
+          `${process.env.REACT_APP_UPLOAD_HOST}/${hash}.json`,
+          hash
+        )
+      : type === core.announcements.AnnouncementType.Reply
+      ? core.announcements.createReply(
+          accountId,
+          `${process.env.REACT_APP_UPLOAD_HOST}/${hash}.json`,
+          hash
+        )
+      : core.announcements.createProfile(
+          accountId,
+          `${process.env.REACT_APP_UPLOAD_HOST}/${hash}.json`,
+          hash
+        ),
     { signer: signer }
   );
 
@@ -488,6 +500,35 @@ const storeAvatar = async (handle) => {
     { height: 72, width: 72 }
   );
 };
+
+const publishAnnouncements = async (announcements) => {
+  const hash = announcements.reduce(
+    (m, a) => web3.keccak256(m + a.hash),
+    web3.keccak256("0")
+  );
+
+  const batchData = await core.batch.createFile(
+    hash + ".parquet",
+    announcements
+  );
+
+  const publication = {
+    announcementType: announcements[0].announcementType,
+    fileUrl: batchData.url.toString(),
+    fileHash: batchData.hash,
+  };
+
+  const provider = new providers.JsonRpcProvider(
+    process.env.REACT_APP_CHAIN_HOST
+  );
+
+  await core.contracts.publisher.publish([publication], {
+    signer: new Wallet(accounts[0].pk, provider),
+  });
+};
+
+const profileAnnoucements = [];
+const broadcastAnnouncements = [];
 
 /**
  * Populate all profiles and notes
@@ -516,7 +557,7 @@ for await (let account of accounts.values()) {
     name: account.name,
     icon: [avatar],
   });
-  profile.published = Date.now.toString(16);
+  profile.published = Date.now().toString(16);
 
   // create a note
   const content = core.activityContent.createNote(
@@ -526,13 +567,14 @@ for await (let account of accounts.values()) {
   content.published = new Date().toISOString();
   if (account.tag) content.tag = account.tag;
 
-  const {
-    hash: profileHash,
-    announcement: profileAnnouncement,
-  } = await storeAnnouncement(profile, account.id, wallet);
+  const { announcement: profileAnnouncement } = await storeAnnouncement(
+    profile,
+    account.id,
+    wallet,
+    core.announcements.AnnouncementType.Profile
+  );
 
-  let hashText = profileHash;
-  const announcements = [profileAnnouncement];
+  profileAnnoucements.push(await profileAnnouncement);
 
   if (account.text) {
     // create a note
@@ -542,30 +584,19 @@ for await (let account of accounts.values()) {
     );
     content.published = new Date().toISOString();
 
-    const {
-      hash: contentHash,
-      announcement: noteAnnouncement,
-    } = await storeAnnouncement(content, account.id, wallet);
+    const { announcement: noteAnnouncement } = await storeAnnouncement(
+      content,
+      account.id,
+      wallet,
+      core.announcements.AnnouncementType.Broadcast
+    );
 
-    hashText += contentHash;
-    announcements.push(noteAnnouncement);
+    broadcastAnnouncements.push(await noteAnnouncement);
   }
-
-  const hash = web3.keccak256(hashText);
-
-  const batchData = await core.batch.createFile(
-    hash + ".parquet",
-    announcements
-  );
-
-  const publication = {
-    announcementType: core.announcements.AnnouncementType.Broadcast,
-    fileUrl: batchData.url.toString(),
-    fileHash: batchData.hash,
-  };
-
-  await core.contracts.publisher.publish([publication], { signer: wallet });
 }
+
+await publishAnnouncements(profileAnnoucements);
+await publishAnnouncements(broadcastAnnouncements);
 
 /**
  * Populate follows

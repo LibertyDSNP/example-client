@@ -1,18 +1,21 @@
+import { ActivityContentProfile } from "@dsnp/sdk/core/activityContent";
 import React from "react";
-import { Profile } from "../utilities/types";
+import { User } from "../utilities/types";
 
 interface FromTitleProps {
-  profile: Partial<Profile>;
+  userInfo: Partial<User>;
+  profile: ActivityContentProfile | undefined;
   isHoveringProfile?: boolean;
 }
 
 export const FromTitle = ({
+  userInfo,
   profile,
   isHoveringProfile,
 }: FromTitleProps): JSX.Element => {
-  const atHandle = profile.handle && "@" + profile.handle;
-  const primary = profile.name || atHandle || profile.fromId;
-  const secondary = profile.name ? atHandle : undefined;
+  const atHandle = userInfo.handle && "@" + userInfo.handle;
+  const primary = profile?.name || atHandle || userInfo.fromId;
+  const secondary = profile?.name ? atHandle : undefined;
 
   return (
     <span className="FromTitle__block">

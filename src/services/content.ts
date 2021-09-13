@@ -1,29 +1,34 @@
-import { FeedItem, Reply } from "../utilities/types";
 import { core } from "@dsnp/sdk";
 import { RegistryUpdateLogData } from "@dsnp/sdk/core/contracts/registry";
-import { addFeedItem, clearFeedItems } from "../redux/slices/feedSlice";
+import {
+  addFeedItem,
+  addReply,
+  clearFeedItems,
+} from "../redux/slices/feedSlice";
 import { upsertProfile } from "../redux/slices/profileSlice";
 import { AnyAction, ThunkDispatch } from "@reduxjs/toolkit";
 import {
   ActivityContentNote,
   ActivityContentProfile,
-  isActivityContentNoteType,
-  isActivityContentProfileType,
   createProfile,
+  requireIsActivityContentNoteType,
+  requireIsActivityContentProfileType,
 } from "@dsnp/sdk/core/activityContent";
 import {
-  BroadcastAnnouncement,
-  ReplyAnnouncement,
-  GraphChangeAnnouncement,
   DSNPGraphChangeType,
+  isBroadcastAnnouncement,
+  isGraphChangeAnnouncement,
+  isProfileAnnouncement,
+  isReplyAnnouncement,
 } from "@dsnp/sdk/core/announcements";
 import { BatchPublicationLogData } from "@dsnp/sdk/core/contracts/subscription";
 import { upsertGraph } from "../redux/slices/graphSlice";
 import * as dsnp from "./dsnp";
-import { UnsubscribeFunction } from "@dsnp/sdk/dist/types/core/contracts/utilities";
 import { keccak256 } from "web3-utils";
 import { HexString } from "@dsnp/sdk/dist/types/types/Strings";
-import { DSNPUserId } from "@dsnp/sdk/dist/types/core/identifiers";
+import { DSNPAnnouncementURI, DSNPUserId } from "@dsnp/sdk/core/identifiers";
+import { FeedItem, User } from "../utilities/types";
+import { useQuery, UseQueryResult } from "react-query";
 
 //
 // Content Package
@@ -49,7 +54,7 @@ type Dispatch = ThunkDispatch<any, Record<string, any>, AnyAction>;
  */
 export const startSubscriptions = async (
   dispatch: Dispatch
-): Promise<UnsubscribeFunction> => {
+): Promise<dsnp.UnsubscribeFunction> => {
   dispatch(clearFeedItems());
 
   return dsnp.startSubscriptions(
@@ -60,14 +65,17 @@ export const startSubscriptions = async (
 
 /**
  * sendPost stores a post, creates an announcement for it, stores that in a batch, and publishes the batch.
+ * @param fromId Id of DSNP user sending post (probably currently logged in user)
  * @param post the post content to add
  * @returns a promise pending completion
  */
-export const sendPost = async (post: FeedItem): Promise<void> => {
-  if (!post.content) return;
-  const hash = await storeActivityContent(post.content);
+export const sendPost = async (
+  fromId: HexString,
+  post: ActivityContentNote
+): Promise<void> => {
+  const hash = await storeActivityContent(post);
   const announcement = await dsnp.buildAndSignPostAnnouncement(
-    post.fromId,
+    fromId,
     `${process.env.REACT_APP_UPLOAD_HOST}/${hash}.json`,
     hash
   );
@@ -81,15 +89,14 @@ export const sendPost = async (post: FeedItem): Promise<void> => {
  * @returns a promise pending completion
  */
 export const sendReply = async (
-  reply: Reply,
-  inReplyTo: HexString
+  fromId: string,
+  reply: ActivityContentNote,
+  parentURI: DSNPAnnouncementURI
 ): Promise<void> => {
-  if (!reply.content || !inReplyTo) return;
-
-  const hash = await storeActivityContent(reply.content);
+  const hash = await storeActivityContent(reply);
   const announcement = await dsnp.buildAndSignReplyAnnouncement(
-    reply.fromId,
-    inReplyTo,
+    fromId,
+    parentURI,
     `${process.env.REACT_APP_UPLOAD_HOST}/${hash}.json`,
     hash
   );
@@ -151,97 +158,73 @@ export const unfollowUser = async (
 };
 
 //
-// Internal Functions
+// Content Queries
 //
 
-/**
- * dispatchActivityContent determines what type of content its receiving and
- * routes it to the correct redux store
- * @param dispatch function used to dispatch to store
- * @param message announcment information from batch
- * @param activityContent activity content retrieved from announcment
- * @param blockNumber number of block containing the publication
- * @param blockIndex index of log message (relative to other DSNP logs) within the block
- * @param batchIndex index of announcment within the batch
- */
-const dispatchActivityContent = (
-  dispatch: Dispatch,
-  message: BroadcastAnnouncement,
-  activityContent: ActivityContentNote | ActivityContentProfile,
-  blockNumber: number,
-  blockIndex: number,
-  batchIndex: number
-) => {
-  if (isActivityContentNoteType(activityContent)) {
-    return dispatchFeedItem(dispatch, message, activityContent, blockNumber);
-  } else if (isActivityContentProfileType(activityContent)) {
-    return dispatchProfile(
-      dispatch,
-      message,
-      activityContent,
-      blockNumber,
-      blockIndex,
-      batchIndex
-    );
-  }
-};
+// hold on to activity content for 3 minutes before attempting to refresh
+const timeToCache = 3 * 60 * 1000;
 
 /**
- * dispatchFeedItem dispatches a feed item to the redux store
- * @param dispatch function used to dispatch to store
- * @param message announcment information from batch
- * @param content activity content retrieved from announcment
- * @param blockNumber number of block containing the publication
+ * PostQuery returns a query used to retrieve the content of a post or reply
+ * @param feedItem item representing announcement of content.
+ * @return query result that updates as the query progresses
  */
-const dispatchFeedItem = (
-  dispatch: Dispatch,
-  message: BroadcastAnnouncement | ReplyAnnouncement,
-  content: ActivityContentNote,
-  blockNumber: number
-) => {
-  dispatch(
-    addFeedItem({
-      fromId: message.fromId.toString(),
-      blockNumber: blockNumber,
-      hash: message.contentHash,
-      published: content.published,
-      uri: message.url,
-      content: content,
-      inReplyTo:
-        message.announcementType === core.announcements.AnnouncementType.Reply
-          ? message.inReplyTo
-          : undefined,
-    })
+export const PostQuery = (
+  feedItem: FeedItem
+): UseQueryResult<ActivityContentNote, Error> => {
+  return useQuery(
+    ["activityContentPost", feedItem.uri],
+    async () => {
+      const res = await fetch(feedItem.uri);
+      const maybeNote = await res.json();
+      try {
+        requireIsActivityContentNoteType(maybeNote);
+      } catch (e) {
+        console.log(e);
+        throw e;
+      }
+      return maybeNote;
+    },
+    {
+      staleTime: timeToCache,
+    }
   );
 };
 
 /**
- * dispatchProfile dispatches a profile to the redux store
- * @param dispatch function used to dispatch to store
- * @param message announcment information from batch
- * @param profile profile to dispatch
- * @param blockNumber number of block containing the publication
- * @param blockIndex index of log message (relative to other DSNP logs) within the block
- * @param batchIndex index of announcment within the batch
+ * ProfileQuery returns a query used to retrieve the content of a profile
+ * @param userInfo announcement of a profile containing lookup information
+ * @return query result that updates as the query progresses
  */
-const dispatchProfile = (
-  dispatch: Dispatch,
-  message: BroadcastAnnouncement,
-  profile: ActivityContentProfile,
-  blockNumber: number,
-  blockIndex: number,
-  batchIndex: number
-) => {
-  dispatch(
-    upsertProfile({
-      ...profile,
-      fromId: message.fromId.toString(),
-      blockNumber,
-      blockIndex,
-      batchIndex,
-    })
+export const ProfileQuery = (
+  userInfo: User | undefined
+): UseQueryResult<ActivityContentProfile, Error> => {
+  return useQuery(
+    ["activityContentProfile", userInfo?.url],
+    async () => {
+      if (!userInfo?.url) {
+        return createProfile({ name: "" });
+      }
+
+      const res = await fetch(userInfo.url);
+      const maybeProfile = await res.json();
+      try {
+        requireIsActivityContentProfileType(maybeProfile);
+      } catch (e) {
+        console.log(e);
+        throw e;
+      }
+      return maybeProfile;
+    },
+    {
+      staleTime: timeToCache,
+    }
   );
 };
+
+//
+// Content subscription dispatch
+//
 
 /**
  * handleRegistryUpdate dispatches a profile update for the handle when a registry update is made.
@@ -266,66 +249,6 @@ const handleRegistryUpdate = (dispatch: Dispatch) => (
 };
 
 /**
- * fetchAndDispatchContent retrieves activity content for an annoucement and then dispatches
- * it to the redux store.
- * @param dispatch function used to dispatch to store
- * @param message broadcast annoucnement containing activity content url
- * @param blockNumber block number of block containing publication
- * @param blockIndex index of publication within block
- * @param batchIndex index of announcment within batch
- * @throws if content cannot be retrieved
- */
-const fetchAndDispatchContent = async (
-  dispatch: Dispatch,
-  message: BroadcastAnnouncement,
-  blockNumber: number,
-  blockIndex: number,
-  batchIndex: number
-) => {
-  try {
-    const res = await fetch(message.url);
-    const activityContent = await res.json();
-    dispatchActivityContent(
-      dispatch,
-      message,
-      activityContent,
-      blockNumber,
-      blockIndex,
-      batchIndex
-    );
-  } catch (err) {
-    console.log(err);
-  }
-};
-
-/**
- * dipatchGraphChange updates the social graph in redux with a graph change announcment.
- * @param dispatch function used to dispatch to store
- * @param graphChange graph change announcment
- * @param blockNumber block number of block containing publication
- * @param blockIndex index of publication within block
- * @param batchIndex index of announcment within batch
- */
-const dispatchGraphChange = (
-  dispatch: Dispatch,
-  graphChange: GraphChangeAnnouncement,
-  blockNumber: number,
-  blockIndex: number,
-  batchIndex: number
-) => {
-  dispatch(
-    upsertGraph({
-      follower: graphChange.fromId.toString(),
-      followee: graphChange.objectId.toString(),
-      unfollow: graphChange.changeType === DSNPGraphChangeType.Unfollow,
-      blockNumber,
-      blockIndex,
-      batchIndex,
-    })
-  );
-};
-
-/**
  * handleBatchAnnouncment retrieves and parses a batch and then routes its contents
  * to the redux store.
  * @param dispatch function used to dispatch to the store
@@ -337,23 +260,52 @@ const handleBatchAnnouncement = (dispatch: Dispatch) => (
   dsnp.readBatchFile(batchAnnouncement, (announcementRow, batchIndex) => {
     try {
       const announcement = announcementRow as unknown;
-      if (dsnp.isGraphChangeAnnouncement(announcement)) {
-        dispatchGraphChange(
-          dispatch,
-          announcement,
-          batchAnnouncement.blockNumber,
-          batchAnnouncement.transactionIndex,
-          batchIndex++
+      if (isGraphChangeAnnouncement(announcement)) {
+        dispatch(
+          upsertGraph({
+            follower: announcement.fromId.toString(),
+            followee: announcement.objectId.toString(),
+            unfollow: announcement.changeType === DSNPGraphChangeType.Unfollow,
+            blockNumber: batchAnnouncement.blockNumber,
+            blockIndex: batchAnnouncement.transactionIndex,
+            batchIndex,
+          })
         );
-      } else if (dsnp.isBroadcastAnnouncement(announcement)) {
-        fetchAndDispatchContent(
-          dispatch,
-          announcement,
-          batchAnnouncement.blockNumber,
-          batchAnnouncement.transactionIndex,
-          batchIndex++
+      } else if (isBroadcastAnnouncement(announcement)) {
+        dispatch(
+          addFeedItem({
+            fromId: announcement.fromId.toString(),
+            blockNumber: batchAnnouncement.blockNumber,
+            blockIndex: batchAnnouncement.transactionIndex,
+            batchIndex: batchIndex,
+            hash: announcement.contentHash,
+            uri: announcement.url,
+          })
+        );
+      } else if (isReplyAnnouncement(announcement)) {
+        dispatch(
+          addReply({
+            fromId: announcement.fromId.toString(),
+            inReplyTo: announcement.inReplyTo,
+            blockNumber: batchAnnouncement.blockNumber,
+            blockIndex: batchAnnouncement.transactionIndex,
+            batchIndex: batchIndex,
+            hash: announcement.contentHash,
+            uri: announcement.url,
+          })
+        );
+      } else if (isProfileAnnouncement(announcement)) {
+        dispatch(
+          upsertProfile({
+            fromId: announcement.fromId.toString(),
+            url: announcement.url,
+            blockNumber: batchAnnouncement.blockNumber,
+            blockIndex: batchAnnouncement.transactionIndex,
+            batchIndex,
+          })
         );
       }
+      batchIndex++;
     } catch (err) {
       console.log(err);
     }

@@ -1,7 +1,9 @@
 import React from "react";
 import { Avatar } from "antd";
-import { HexString } from "../utilities/types";
 import * as blockies from "blockies-ts";
+import { User } from "../utilities/types";
+import { ProfileQuery } from "../services/content";
+import { userIdentification } from "../services/utilities";
 
 const avatarSizeOptions = new Map([
   ["small", 32],
@@ -10,23 +12,23 @@ const avatarSizeOptions = new Map([
 ]);
 
 interface UserAvatarProps {
-  icon: string | undefined;
-  profileAddress: HexString | undefined;
+  user: User | undefined;
   avatarSize: string;
 }
 
-const UserAvatar = ({
-  icon,
-  profileAddress,
-  avatarSize,
-}: UserAvatarProps): JSX.Element => {
+const UserAvatar = ({ user, avatarSize }: UserAvatarProps): JSX.Element => {
+  const { data: profile } = ProfileQuery(user);
+
   const iconURL =
-    icon ||
-    (profileAddress && blockies.create({ seed: profileAddress }).toDataURL());
+    profile?.icon?.[0]?.href ||
+    blockies.create({ seed: user?.fromId || "unknown" }).toDataURL();
+
+  const name = userIdentification(user, profile);
+
   return (
     <Avatar
       className="UserAvatar"
-      alt={profileAddress || "anonymous"}
+      alt={name}
       src={iconURL}
       size={avatarSizeOptions.get(avatarSize)}
     />

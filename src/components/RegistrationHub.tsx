@@ -1,9 +1,10 @@
 import React from "react";
 import UserAvatar from "./UserAvatar";
 import { useAppSelector } from "../redux/hooks";
-import { HexString, Profile } from "../utilities/types";
+import { HexString, User } from "../utilities/types";
 import { Popover } from "antd";
 import Logout from "./Logout";
+import { UserName } from "./UserName";
 
 interface RegistrationHubProps {
   logout: () => void;
@@ -11,10 +12,10 @@ interface RegistrationHubProps {
 
 const RegistrationHub = ({ logout }: RegistrationHubProps): JSX.Element => {
   const userId: string | undefined = useAppSelector((state) => state.user.id);
-  const profiles: Record<HexString, Profile> = useAppSelector(
+  const profiles: Record<HexString, User> = useAppSelector(
     (state) => state.profiles.profiles
   );
-  const profile: Profile | undefined = userId ? profiles[userId] : undefined;
+  const user: User | undefined = userId ? profiles[userId] : undefined;
 
   const [popoverVisible, setPopoverVisible] = React.useState<boolean>(false);
   const handleVisibleChange = (visible: boolean) => {
@@ -34,15 +35,9 @@ const RegistrationHub = ({ logout }: RegistrationHubProps): JSX.Element => {
       }
     >
       <div className="RegistrationHub__userBlock">
-        <UserAvatar
-          icon={profile?.icon?.[0]?.href}
-          profileAddress={userId}
-          avatarSize="small"
-        />
+        <UserAvatar user={user} avatarSize="small" />
         <div className="RegistrationHub__userTitle">
-          {profile?.handle
-            ? "@" + profile.handle
-            : profile?.name || profile?.fromId}
+          {user && <UserName user={user} />}
         </div>
       </div>
     </Popover>

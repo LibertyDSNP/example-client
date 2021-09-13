@@ -1,4 +1,3 @@
-import { FeedItem } from "../utilities/types";
 import {
   Content,
   WriteStreamCallback,
@@ -6,26 +5,7 @@ import {
   StoreInterface,
 } from "@dsnp/sdk/core/store";
 import { isFunction, isUint8Array } from "./utilities";
-import { ActivityContentNote } from "@dsnp/sdk/core/activityContent";
-import { noteToActivityContentNote } from "../utilities/activityContent";
 import { buildBaseUploadHostUrl } from "../utilities/buildBaseUploadHostUrl";
-
-export const createNote = async (
-  note: string,
-  uriList: string[],
-  fromId: string
-): Promise<FeedItem> => {
-  // send content to api
-  const activityPubNote: ActivityContentNote = noteToActivityContentNote(
-    note,
-    uriList
-  );
-  const newPostFeedItem: Partial<FeedItem> = {
-    fromId: BigInt(fromId),
-    content: activityPubNote,
-  };
-  return newPostFeedItem;
-};
 
 export class Store implements StoreInterface {
   put(targetPath: string, _content: Content): Promise<URL> {

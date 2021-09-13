@@ -9,17 +9,21 @@ export interface BatchedMessage {
   batchIndex: number;
 }
 
-// choose latest profile comparing by blockNumber then blockIndex then batchIndex
-export const latestBatchedMessage = <T extends BatchedMessage>(
+export const latestBatchedMessageComparator = <T extends BatchedMessage>(
   a: T,
   b: T
-): T => {
-  if (!a || a.blockNumber === undefined) return b;
-  if (!b || b.blockNumber === undefined) return a;
-  if (b.blockNumber !== a.blockNumber) {
-    return b.blockNumber > a.blockNumber ? b : a;
-  } else if (b.blockIndex !== a.blockIndex) {
-    return b.blockIndex > a.blockIndex ? b : a;
-  }
-  return b.batchIndex > a.batchIndex ? b : a;
+): number => {
+  if (!a || a.blockNumber === undefined) return 1;
+  if (!b || b.blockNumber === undefined) return -1;
+  if (b.blockNumber !== a.blockNumber)
+    return b.blockNumber > a.blockNumber ? 1 : -1;
+  if (b.blockIndex !== a.blockIndex)
+    return b.blockIndex > a.blockIndex ? 1 : -1;
+  if (b.batchIndex !== a.batchIndex)
+    return b.batchIndex > a.batchIndex ? 1 : -1;
+  return 0;
 };
+
+// choose latest profile comparing by blockNumber then blockIndex then batchIndex
+export const latestBatchedMessage = <T extends BatchedMessage>(a: T, b: T): T =>
+  latestBatchedMessageComparator(a, b) > 0 ? b : a;
