@@ -38,20 +38,23 @@ const LoginButton = ({
       trigger="click"
       visible={popoverVisible}
       onVisibleChange={handleVisibleChange}
+      color={"black"}
       content={
         <div className="LoginButton__loginOptions">
-          <Button
-            className="LoginButton__loginTorus"
-            onClick={() => setWalletType(wallet.WalletType.TORUS)}
-          >
-            Torus
-          </Button>
-          <Button
+          <div>Log in with</div>
+          <button
             className="LoginButton__loginMetamask"
             onClick={() => setWalletType(wallet.WalletType.METAMASK)}
           >
             MetaMask
-          </Button>
+          </button>
+          <div>OR</div>
+          <button
+            className="LoginButton__loginTorus"
+            onClick={() => setWalletType(wallet.WalletType.TORUS)}
+          >
+            Torus
+          </button>
         </div>
       }
     >

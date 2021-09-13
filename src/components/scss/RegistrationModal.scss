@@ -12,12 +12,14 @@
   }
 
   .ant-btn.RegistrationModal__footerBtn {
-    @include button($shadow-green, $green);
+    @include button($shadow-green, $black, $white, $shadow-green);
+
     margin: 1em auto;
   }
 
   .ant-btn.RegistrationModal__footerBtn[disabled] {
-    @include button($light-gray, $light-gray);
+    @include button($light-gray, $light-gray, $dark-gray, $dark-gray);
+
     span {
       color: $gray;
     }
