@@ -1,10 +1,6 @@
 import React, { useState } from "react";
-import { Menu, Dropdown } from "antd";
-import {
-  CheckCircleOutlined,
-  CopyOutlined,
-  CheckCircleTwoTone,
-} from "@ant-design/icons";
+import { Dropdown } from "antd";
+import { CopyOutlined, CheckCircleTwoTone } from "@ant-design/icons";
 import {
   buildDSNPAnnouncementURI,
   DSNPUserId,
