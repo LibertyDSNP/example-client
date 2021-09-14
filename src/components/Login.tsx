@@ -9,8 +9,8 @@ import { Registration } from "@dsnp/sdk/core/contracts/registry";
 import RegistrationModal from "./RegistrationModal";
 import { core } from "@dsnp/sdk";
 import ethereum from "../services/wallets/metamask/ethereum";
-import { HexString } from "../utilities/types";
-import RegistrationHub from "./RegistrationHub";
+import { HexString, Profile } from "../utilities/types";
+import UserAvatar from "./UserAvatar";
 
 interface LoginProps {
   isPrimary: boolean;
@@ -30,6 +30,10 @@ const Login = ({ isPrimary, loginWalletOptions }: LoginProps): JSX.Element => {
   const dispatch = useAppDispatch();
   const userId = useAppSelector((state) => state.user.id);
   const currentWalletType = useAppSelector((state) => state.user.walletType);
+  const profiles: Record<HexString, Profile> = useAppSelector(
+    (state) => state.profiles.profiles
+  );
+  const profile: Profile | undefined = userId ? profiles[userId] : undefined;
 
   const setUserID = (fromURI: string) => {
     const fromId = core.identifiers.convertToDSNPUserId(fromURI);
@@ -97,25 +101,21 @@ const Login = ({ isPrimary, loginWalletOptions }: LoginProps): JSX.Element => {
 
   return (
     <div className="Login__block">
-      {!userId ? (
-        <RegistrationModal
-          visible={registrationVisible}
-          registrations={registrations}
-          onIdResolved={setUserID}
-          onCancel={logout}
-          walletAddress={walletAddress}
-        >
-          <LoginButton
-            popoverVisible={popoverVisible}
-            setPopoverVisible={setPopoverVisible}
-            loginWalletOptions={loginWalletOptions}
-            loading={loading}
-            loginWithWalletType={login}
-          />
-        </RegistrationModal>
-      ) : (
-        <RegistrationHub logout={logout} />
-      )}
+      <RegistrationModal
+        visible={registrationVisible}
+        registrations={registrations}
+        onIdResolved={setUserID}
+        logout={logout}
+        walletAddress={walletAddress}
+      >
+        <LoginButton
+          popoverVisible={popoverVisible}
+          setPopoverVisible={setPopoverVisible}
+          loginWalletOptions={loginWalletOptions}
+          loading={loading}
+          loginWithWalletType={login}
+        />
+      </RegistrationModal>
     </div>
   );
 };
