@@ -93,6 +93,8 @@ const Login = ({ isPrimary, loginWalletOptions }: LoginProps): JSX.Element => {
       .on("accountsChanged", handleAccountsChange);
   }
 
+  ethereum?.removeAllListeners("chainChanged").on("chainChanged", logout);
+
   return (
     <div className="Login__block">
       {!userId ? (
