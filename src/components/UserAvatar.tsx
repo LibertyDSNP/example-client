@@ -4,6 +4,7 @@ import * as blockies from "blockies-ts";
 import { User } from "../utilities/types";
 import { ProfileQuery } from "../services/content";
 import { userIdentification } from "../services/utilities";
+import { UserOutlined } from "@ant-design/icons";
 
 const avatarSizeOptions = new Map([
   ["small", 32],
@@ -20,8 +21,10 @@ const UserAvatar = ({ user, avatarSize }: UserAvatarProps): JSX.Element => {
   const { data: profile } = ProfileQuery(user);
 
   const iconURL =
-    profile?.icon?.[0]?.href ||
-    blockies.create({ seed: user?.fromId || "unknown" }).toDataURL();
+    user === undefined
+      ? undefined
+      : profile?.icon?.[0]?.href ||
+        blockies.create({ seed: user?.fromId }).toDataURL();
 
   const name = userIdentification(user, profile);
 
@@ -29,6 +32,7 @@ const UserAvatar = ({ user, avatarSize }: UserAvatarProps): JSX.Element => {
     <Avatar
       className="UserAvatar"
       alt={name}
+      icon={<UserOutlined />}
       src={iconURL}
       size={avatarSizeOptions.get(avatarSize)}
       style={{ minWidth: avatarSizeOptions.get(avatarSize) }}

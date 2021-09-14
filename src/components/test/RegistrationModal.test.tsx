@@ -10,7 +10,15 @@ import * as dsnp from "../../services/dsnp";
 const profiles = Array(3)
   .fill(0)
   .map((x, i) => getPrefabProfile(i));
+
+const mockRegistrations: Registration[] = profiles.map((p, i) => ({
+  dsnpUserURI: p.fromId,
+  contractAddr: "0x" + Array(5).fill(i).join(""),
+  handle: `test_${i}`,
+}));
+
 const store = createMockStore({
+  user: { id: "424242", registrations: mockRegistrations },
   profiles: {
     profiles: {
       [profiles[0].fromId]: profiles[0],
@@ -19,12 +27,6 @@ const store = createMockStore({
     },
   },
 });
-
-const registrations: Registration[] = profiles.map((p, i) => ({
-  dsnpUserURI: p.fromId,
-  contractAddr: "0x" + Array(5).fill(i).join(""),
-  handle: `test_${i}`,
-}));
 
 describe("RegistrationModal", () => {
   describe("when account has no registrations", () => {
@@ -36,7 +38,6 @@ describe("RegistrationModal", () => {
       component = mount(
         componentWithStore(RegistrationModal, store, {
           visible: true,
-          registrations: [],
           onIdResolved: (r: DSNPUserURI) => {
             registrationSelection = r;
           },
@@ -56,10 +57,18 @@ describe("RegistrationModal", () => {
     });
 
     it("shows new registration UI", async () => {
+      component
+        .find(".EditRegistrationAccordion__panelTitle")
+        .first()
+        .simulate("click");
       expect(component.exists(".RegistrationModal__handleInput")).toBe(true);
     });
 
     it("prevents registration with empty handle", async () => {
+      component
+        .find(".EditRegistrationAccordion__panelTitle")
+        .first()
+        .simulate("click");
       component
         .find(".RegistrationModal__createHandle")
         .first()
@@ -75,6 +84,10 @@ describe("RegistrationModal", () => {
     });
 
     it("registers new DSNP Id", async () => {
+      component
+        .find(".EditRegistrationAccordion__panelTitle")
+        .first()
+        .simulate("click");
       component.find("Input").simulate("change", {
         target: { value: "Joanne" },
       });
@@ -99,12 +112,12 @@ describe("RegistrationModal", () => {
       component = mount(
         componentWithStore(RegistrationModal, store, {
           visible: true,
-          registrations: registrations,
           onIdResolved: (r: DSNPUserURI) => {
             registrationSelection = r;
           },
         })
       );
+      component.find({ children: "Select Account Handle" }).simulate("click");
     });
 
     afterEach(() => {
@@ -112,7 +125,7 @@ describe("RegistrationModal", () => {
     });
 
     it("displays all registrations", async () => {
-      registrations.forEach((registration, i) => {
+      mockRegistrations.forEach((registration, i) => {
         expect(
           component.find(".RegistrationModal__registration").at(i).text()
         ).toContain(registration.handle);
@@ -120,7 +133,7 @@ describe("RegistrationModal", () => {
     });
 
     it("associates registrations with profiles", async () => {
-      registrations.forEach((registration, i) => {
+      mockRegistrations.forEach((registration, i) => {
         expect(
           component
             .find(".RegistrationModal__registration")
@@ -132,8 +145,12 @@ describe("RegistrationModal", () => {
     });
 
     it("has disabled button when no registration is selected", async () => {
+      component
+        .find(".EditRegistrationAccordion__panelTitle")
+        .last()
+        .simulate("click");
       expect(
-        component.find("Button.RegistrationModal__footerBtn").prop("disabled")
+        component.find(".RegistrationModal__footerBtn").last().prop("disabled")
       ).toBe(true);
     });
 
@@ -168,7 +185,7 @@ describe("RegistrationModal", () => {
         component.find("Button.RegistrationModal__footerBtn").simulate("click");
 
         await waitFor(() => {
-          expect(registrationSelection).toBe(registrations[1].dsnpUserURI);
+          expect(registrationSelection).toBe(mockRegistrations[1].dsnpUserURI);
         });
       });
     });
@@ -180,9 +197,7 @@ describe("RegistrationModal", () => {
 
       it("displays create handle form", async () => {
         await waitFor(() => {
-          expect(
-            component.find(".RegistrationModal__createHandle").first().text()
-          ).toContain("Please create a handle:");
+          expect(component.find("form").props().id).toEqual("createHandle");
         });
       });
 
@@ -198,18 +213,7 @@ describe("RegistrationModal", () => {
           .find(".RegistrationModal__createHandle")
           .first()
           .simulate("submit");
-
         expect(registerSpy.mock.calls.length).toBe(1);
-      });
-
-      it("select existing handle switches back to handle selection", () => {
-        component
-          .find({ children: "Select Existing Handle" })
-          .simulate("click");
-
-        expect(component.find("RegistrationModal").first().text()).toContain(
-          "Select an account:"
-        );
       });
     });
   });

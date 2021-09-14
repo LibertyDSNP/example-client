@@ -4,20 +4,19 @@ import * as dsnp from "../services/dsnp";
 import { core } from "@dsnp/sdk";
 import { HexString } from "../utilities/types";
 import { DSNPUserURI } from "@dsnp/sdk/core/identifiers";
+import { setRegistrations } from "../redux/slices/userSlice";
+import { useAppDispatch } from "../redux/hooks";
 
 interface CreateRegistrationProps {
   walletAddress: HexString;
   onIdResolved: (uri: DSNPUserURI) => void;
-  hasRegistrations: boolean;
-  setIsCreatingRegistration: (value: boolean) => void;
 }
 
 const CreateRegistration = ({
   walletAddress,
   onIdResolved,
-  hasRegistrations,
-  setIsCreatingRegistration,
 }: CreateRegistrationProps): JSX.Element => {
+  const dispatch = useAppDispatch();
   const [registrationError, setRegistrationError] = React.useState<
     string | undefined
   >(undefined);
@@ -29,9 +28,9 @@ const CreateRegistration = ({
         walletAddress,
         formValues.handle
       );
-      console.log("here1", userURI);
       onIdResolved(core.identifiers.convertToDSNPUserId(userURI).toString());
-      console.log("here2");
+      const registrations = await dsnp.getSocialIdentities(walletAddress);
+      dispatch(setRegistrations(registrations));
     } catch (error) {
       console.error(error);
       setRegistrationError(
@@ -67,17 +66,6 @@ const CreateRegistration = ({
         <Input />
       </Form.Item>
       <div className="RegistrationModal__footer">
-        {hasRegistrations && (
-          <button
-            onClick={(e) => {
-              e.preventDefault();
-              setIsCreatingRegistration(false);
-            }}
-            className="RegisrationModal__changeMode"
-          >
-            Select Existing Handle
-          </button>
-        )}
         <Button
           type="primary"
           htmlType="submit"

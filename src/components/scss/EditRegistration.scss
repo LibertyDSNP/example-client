@@ -1,0 +1,20 @@
+.EditRegistration {
+  width: 300px;
+  margin: 0;
+}
+
+.EditRegistration__title {
+  @include large-text;
+  font-weight: bold;
+  line-height: 1.2;
+}
+
+.EditRegistration__cancel {
+  color: $shadow-green !important;
+  position: absolute;
+  margin-left: 232px;
+}
+
+.EditRegistration__logoutButton {
+  margin-top: 16px;
+}

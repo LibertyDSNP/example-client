@@ -43,7 +43,7 @@ describe("LoginSetupInstructions Component", () => {
         })
       );
       component
-        .find(".LoginButton__loginButton--quickStart")
+        .find(".LoginModal__loginButton--quickStart")
         .first()
         .simulate("click");
       await waitFor(() => {
@@ -60,7 +60,7 @@ describe("LoginSetupInstructions Component", () => {
         })
       );
       component
-        .find(".LoginButton__loginButton--quickStart")
+        .find(".LoginModal__loginButton--quickStart")
         .first()
         .simulate("click");
       await waitFor(() => {
