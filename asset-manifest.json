@@ -1,30 +1,23 @@
 {
   "files": {
-    "main.css": "/example-client/static/css/main.dd20e4b7.chunk.css",
-    "main.js": "/example-client/static/js/main.f8cd8b33.chunk.js",
-    "main.js.map": "/example-client/static/js/main.f8cd8b33.chunk.js.map",
-    "runtime-main.js": "/example-client/static/js/runtime-main.86f1febe.js",
-    "runtime-main.js.map": "/example-client/static/js/runtime-main.86f1febe.js.map",
-    "static/css/2.581e2bc3.chunk.css": "/example-client/static/css/2.581e2bc3.chunk.css",
-    "static/js/2.01955e12.chunk.js": "/example-client/static/js/2.01955e12.chunk.js",
-    "static/js/2.01955e12.chunk.js.map": "/example-client/static/js/2.01955e12.chunk.js.map",
-    "index.html": "/example-client/index.html",
-    "service-worker.js": "/example-client/service-worker.js",
-    "service-worker.js.map": "/example-client/service-worker.js.map",
-    "static/css/2.581e2bc3.chunk.css.map": "/example-client/static/css/2.581e2bc3.chunk.css.map",
-    "static/css/main.dd20e4b7.chunk.css.map": "/example-client/static/css/main.dd20e4b7.chunk.css.map",
-    "static/js/2.01955e12.chunk.js.LICENSE.txt": "/example-client/static/js/2.01955e12.chunk.js.LICENSE.txt",
-    "static/media/Camera.svg": "/example-client/static/media/Camera.a7abe56b.svg",
-    "static/media/check_selected.svg": "/example-client/static/media/check_selected.c4045e25.svg",
-    "static/media/check_unselected.svg": "/example-client/static/media/check_unselected.ce1d490c.svg",
-    "workbox-347b9996.js": "/example-client/workbox-347b9996.js",
-    "workbox-347b9996.js.map": "/example-client/workbox-347b9996.js.map"
+    "main.css": "./static/css/main.6da054ec.chunk.css",
+    "main.js": "./static/js/main.0c554c63.chunk.js",
+    "runtime-main.js": "./static/js/runtime-main.8b0ae790.js",
+    "static/css/2.2f8b8629.chunk.css": "./static/css/2.2f8b8629.chunk.css",
+    "static/js/2.dd4a49a5.chunk.js": "./static/js/2.dd4a49a5.chunk.js",
+    "index.html": "./index.html",
+    "service-worker.js": "./service-worker.js",
+    "static/js/2.dd4a49a5.chunk.js.LICENSE.txt": "./static/js/2.dd4a49a5.chunk.js.LICENSE.txt",
+    "static/media/Camera.svg": "./static/media/Camera.a7abe56b.svg",
+    "static/media/check_selected.svg": "./static/media/check_selected.c4045e25.svg",
+    "static/media/check_unselected.svg": "./static/media/check_unselected.ce1d490c.svg",
+    "workbox-347b9996.js": "./workbox-347b9996.js"
   },
   "entrypoints": [
-    "static/js/runtime-main.86f1febe.js",
-    "static/css/2.581e2bc3.chunk.css",
-    "static/js/2.01955e12.chunk.js",
-    "static/css/main.dd20e4b7.chunk.css",
-    "static/js/main.f8cd8b33.chunk.js"
+    "static/js/runtime-main.8b0ae790.js",
+    "static/css/2.2f8b8629.chunk.css",
+    "static/js/2.dd4a49a5.chunk.js",
+    "static/css/main.6da054ec.chunk.css",
+    "static/js/main.0c554c63.chunk.js"
   ]
 }
