@@ -1,11 +1,10 @@
 import React from "react";
 import { Alert, Button, Form, Input, Popover } from "antd";
-import { useAppSelector } from "../redux/hooks";
 import UserAvatar from "./UserAvatar";
 import { core } from "@dsnp/sdk";
 import * as dsnp from "../services/dsnp";
 import * as registry from "@dsnp/sdk/core/contracts/registry";
-import { HexString, Profile } from "../utilities/types";
+import { HexString } from "../utilities/types";
 import { Registration } from "@dsnp/sdk/core/contracts/registry";
 import { DSNPUserURI } from "@dsnp/sdk/dist/types/core/identifiers";
 
@@ -43,10 +42,6 @@ const RegistrationModal = ({
     registry.Registration | undefined
   >(undefined);
 
-  const profiles: Record<HexString, Profile> = useAppSelector(
-    (state) => state.profiles?.profiles || {}
-  );
-
   if (registrations.length) {
     // Flip to select registration if we see registrations increase
     if (!hasRegistrations) {
@@ -82,14 +77,6 @@ const RegistrationModal = ({
       );
     }
   };
-
-  // Find the profile photo a given DSNP registration
-  const iconForRegistration = (
-    registration: registry.Registration
-  ): string | undefined =>
-    profiles[
-      core.identifiers.convertToDSNPUserId(registration.dsnpUserURI).toString()
-    ]?.icon?.[0].href;
 
   /**
    * New Registration Form
@@ -163,8 +150,14 @@ const RegistrationModal = ({
             key={registration.dsnpUserURI}
           >
             <UserAvatar
-              icon={iconForRegistration(registration)}
-              profileAddress={registration.dsnpUserURI}
+              user={{
+                fromId: core.identifiers
+                  .convertToDSNPUserId(registration.dsnpUserURI)
+                  .toString(),
+                blockNumber: 0,
+                blockIndex: 0,
+                batchIndex: 0,
+              }}
               avatarSize="small"
             />
             {`@${registration.handle}`}

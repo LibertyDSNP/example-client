@@ -1,25 +1,24 @@
 import React from "react";
 import { useAppSelector } from "../redux/hooks";
-import { FeedItem, HexString } from "../utilities/types";
+import { FeedItem } from "../utilities/types";
 import Reply from "./Reply";
 import ReplyInput from "./ReplyInput";
 import BlankReply from "./BlankReply";
+import { DSNPAnnouncementURI } from "@dsnp/sdk/core/identifiers";
 
 interface isReplyLoadingType {
   loading: boolean;
-  parent: HexString | undefined;
+  parent: DSNPAnnouncementURI | undefined;
 }
 
 interface ReplyBlockProps {
-  parent: HexString;
+  parentURI: DSNPAnnouncementURI;
 }
 
-const ReplyBlock = ({ parent }: ReplyBlockProps): JSX.Element => {
+const ReplyBlock = ({ parentURI }: ReplyBlockProps): JSX.Element => {
   const replyFeed: FeedItem[] = useAppSelector(
-    (state) => state.feed.feedItems
-  ).filter((reply) => {
-    return reply?.content?.type === "Note" && reply?.inReplyTo === parent;
-  }) as FeedItem[];
+    (state) => state.feed.replies[parentURI]
+  );
 
   const loading: isReplyLoadingType = useAppSelector(
     (state) => state.feed.isReplyLoading
@@ -27,19 +26,19 @@ const ReplyBlock = ({ parent }: ReplyBlockProps): JSX.Element => {
 
   return (
     <>
-      {(parent === loading?.parent || replyFeed.length > 0) && (
+      {(parentURI === loading?.parent || replyFeed?.length) && (
         <div className="ReplyBlock__repliesList">
-          {replyFeed.length > 0 && (
+          {replyFeed?.length > 0 && (
             <>
               {replyFeed.map((reply, index) => (
                 <Reply reply={reply} key={index} />
               ))}
             </>
           )}
-          {parent === loading?.parent && <BlankReply />}
+          {parentURI === loading?.parent && <BlankReply />}
         </div>
       )}
-      <ReplyInput parent={parent} />
+      <ReplyInput parentURI={parentURI} />
     </>
   );
 };

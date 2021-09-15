@@ -24,6 +24,7 @@ const initialState = {
   },
   feed: {
     feedItems: feedItems,
+    replies: {},
     isPostLoading: { loading: false, currentUserId: undefined },
     isReplyLoading: { loading: false, parent: undefined },
   },
@@ -48,6 +49,7 @@ describe("Feed", () => {
       user: {},
       feed: {
         feedItems,
+        replies: {},
         isPostLoading: { loading: false, currentUserId: undefined },
         isReplyLoading: { loading: false, parent: undefined },
       },
@@ -95,7 +97,7 @@ describe("Feed", () => {
       button.simulate("click");
       expect(component.find(Post).length).toEqual(2);
       component.find(".ant-card-meta-title").forEach((address) => {
-        expect(address.text()).toBe(userProfile.name);
+        expect(address.text()).toBe(userProfile.fromId);
       });
     });
 
@@ -114,7 +116,7 @@ describe("Feed", () => {
       it("Displays nav name in feed nav", async () => {
         const component = mount(componentWithStore(Feed, store));
         expect(component.find(".Feed__navigationItem--active").text()).toEqual(
-          displayProfile.name + "'s Posts"
+          displayProfile.fromId + "'s Posts"
         );
       });
 

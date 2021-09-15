@@ -1,15 +1,15 @@
 import React from "react";
 import UserAvatar from "./UserAvatar";
-import { Profile } from "../utilities/types";
+import { User } from "../utilities/types";
 import { HexString } from "@dsnp/sdk/dist/types/types/Strings";
 import { useAppSelector } from "../redux/hooks";
-import { createProfile } from "@dsnp/sdk/core/activityContent";
 import { AnnouncementType } from "@dsnp/sdk/core/announcements";
 import {
   RelationshipState,
   RelationshipStatus,
 } from "../redux/slices/graphSlice";
 import GraphChangeButton from "./GraphChangeButton";
+import { UserName } from "./UserName";
 
 enum ListStatus {
   CLOSED,
@@ -30,7 +30,7 @@ const ConnectionsListProfiles = ({
   followedByDisplayUser,
   followingDisplayUser,
 }: ConnectionsListProfilesProps): JSX.Element => {
-  const profiles: Record<HexString, Profile> = useAppSelector(
+  const users: Record<HexString, User> = useAppSelector(
     (state) => state.profiles?.profiles || {}
   );
 
@@ -38,15 +38,13 @@ const ConnectionsListProfiles = ({
     (state) => (userId && state.graphs.following[userId]) || {}
   );
 
-  const profileForId = (userId: string): Profile =>
-    profiles[userId] || {
-      ...createProfile({ name: "Anonymous" }),
+  const profileForId = (userId: string): User =>
+    users[userId] || {
       contentHash: "",
       url: "",
       announcementType: AnnouncementType.Profile,
       fromId: userId,
       handle: "unknown",
-      createdAt: new Date().getTime(),
     };
 
   const relations =
@@ -65,19 +63,15 @@ const ConnectionsListProfiles = ({
 
   return (
     <>
-      {connectionsList.map((profile) => (
-        <div className="ConnectionsListProfiles__profile" key={profile.fromId}>
-          <UserAvatar
-            icon={profiles[profile.fromId]?.icon?.[0]?.href}
-            avatarSize="small"
-            profileAddress={profile.fromId}
-          />
+      {connectionsList.map((user) => (
+        <div className="ConnectionsListProfiles__profile" key={user.fromId}>
+          <UserAvatar user={users[user.fromId]} avatarSize="small" />
           <div className="ConnectionsListProfiles__name">
-            {profile.name || profile.fromId || "Anonymous"}
+            <UserName user={user} />
           </div>
           <GraphChangeButton
             userId={userId}
-            profile={profile}
+            user={user}
             following={followedByCurrentUser}
           ></GraphChangeButton>
         </div>

@@ -7,37 +7,37 @@ import {
   updateRelationshipStatus,
 } from "../redux/slices/graphSlice";
 import { followUser, unfollowUser } from "../services/content";
-import { Profile } from "../utilities/types";
+import { User } from "../utilities/types";
 
 interface FollowButtonProps {
   userId: string;
-  profile: Profile;
+  user: User;
   following: Record<string, RelationshipState>;
 }
 
 const GraphChangeButton = ({
   userId,
-  profile,
+  user: profile,
   following,
 }: FollowButtonProps): JSX.Element => {
   const dispatch = useAppDispatch();
 
-  const isFollowing = (profile: Profile): boolean =>
+  const isFollowing = (profile: User): boolean =>
     [RelationshipStatus.FOLLOWING, RelationshipStatus.UPDATING].includes(
       following[profile.fromId]?.status
     );
 
-  const isFollowingUpdating = (profile: Profile): boolean =>
+  const isFollowingUpdating = (profile: User): boolean =>
     following[profile.fromId]?.status === RelationshipStatus.UPDATING;
 
-  const buttonText = (profile: Profile): string =>
+  const buttonText = (profile: User): string =>
     isFollowingUpdating(profile)
       ? "updating"
       : isFollowing(profile)
       ? "Unfollow"
       : "Follow";
 
-  const changeGraphState = async (profile: Profile) => {
+  const changeGraphState = async (profile: User) => {
     if (isFollowing(profile)) {
       await unfollowUser(BigInt(userId), BigInt(profile.fromId));
     } else {

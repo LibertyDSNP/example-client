@@ -6,6 +6,7 @@ import { useAppDispatch, useAppSelector } from "../redux/hooks";
 import * as types from "../utilities/types";
 import { ArrowLeftOutlined } from "@ant-design/icons";
 import { setDisplayId } from "../redux/slices/userSlice";
+import { UserName } from "./UserName";
 
 enum FeedTypes {
   MY_FEED,
@@ -19,17 +20,16 @@ const Feed = (): JSX.Element => {
 
   const userId = useAppSelector((state) => state.user.id);
   const displayId = useAppSelector((state) => state.user.displayId);
-
-  const profiles: Record<types.HexString, types.Profile> = useAppSelector(
-    (state) => state.profiles?.profiles || {}
-  );
-  const profile: types.Profile | undefined = displayId
-    ? profiles[displayId]
-    : undefined;
-
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [feedType, setFeedType] = useState<FeedTypes>(FeedTypes.DISCOVER);
   const [showDisplayIdNav, setShowDisplayIdNav] = useState<boolean>(false);
+
+  const users: Record<types.HexString, types.User> = useAppSelector(
+    (state) => state.profiles?.profiles || {}
+  );
+  const user: types.User = displayId
+    ? users[displayId]
+    : { fromId: "unknown", blockNumber: 0, blockIndex: 0, batchIndex: 0 };
 
   const feedNavClassName = (navItemType: FeedTypes) =>
     feedType === navItemType
@@ -64,7 +64,8 @@ const Feed = (): JSX.Element => {
                 className={feedNavClassName(FeedTypes.DISPLAY_ID_POSTS)}
                 onClick={() => setFeedType(FeedTypes.DISPLAY_ID_POSTS)}
               >
-                {profile?.name || profile?.handle}'s Posts
+                <UserName user={user} />
+                's Posts
               </div>
               <div className="Feed__navigationSpacer"></div>
             </>

@@ -1,16 +1,17 @@
 import React from "react";
 import { shallow } from "enzyme";
 import UserAvatar from "../UserAvatar";
-import { getPrefabDsnpUserId } from "../../test/testAddresses";
+import { componentWithStore, createMockStore } from "../../test/testhelpers";
+import { getPrefabProfile } from "../../test/testProfiles";
 
 describe("UserAvatar", () => {
   it("renders without crashing", () => {
     expect(() => {
       shallow(
-        <UserAvatar
-          profileAddress={getPrefabDsnpUserId(0)}
-          avatarSize="large"
-        />
+        componentWithStore(
+          () => <UserAvatar user={getPrefabProfile(0)} avatarSize="large" />,
+          createMockStore({})
+        )
       );
     }).not.toThrow();
   });

@@ -4,11 +4,8 @@ import { RegistryUpdateLogData } from "@dsnp/sdk/core/contracts/registry";
 import { providers } from "ethers";
 import { Store } from "./Storage";
 import {
-  BroadcastAnnouncement,
-  AnnouncementType,
   SignedBroadcastAnnouncement,
   SignedReplyAnnouncement,
-  GraphChangeAnnouncement,
   SignedProfileAnnouncement,
   SignedAnnouncement,
   SignedGraphChangeAnnouncement,
@@ -152,36 +149,6 @@ export const readBatchFile = async (
 };
 
 /**
- * isGraphChangeAnnouncment returns whether the provided object is likely a GraphChangeAnnouncment
- * @param obj any object
- * @returns true if object appears to be a graph change announcment
- */
-export const isGraphChangeAnnouncement = (
-  obj: unknown
-): obj is GraphChangeAnnouncement => {
-  return (
-    (obj as Record<string, unknown>)["announcementType"] ===
-    AnnouncementType.GraphChange
-  );
-};
-
-/**
- * isBroadcastAnnouncment returns whether the provided object is likely a BroadcastAnnouncment
- * @param obj any object
- * @returns true if object appears to be a broadcast announcment
- */
-export const isBroadcastAnnouncement = (
-  obj: unknown
-): obj is BroadcastAnnouncement => {
-  const type = (obj as Record<string, unknown>)["announcementType"];
-  return (
-    type === AnnouncementType.Profile ||
-    type === AnnouncementType.Broadcast ||
-    type === AnnouncementType.Reply
-  );
-};
-
-/**
  * batchAnnouncment takes a single announcement, creates a batch file
  * containing it in the store, and then publishes the batch on chain.
  * @param filename name used to store the parquet file in the store
@@ -212,7 +179,7 @@ export const batchAnnouncement = async (
  * @returns a signed announcement ready for inclusion in a batch
  */
 export const buildAndSignPostAnnouncement = async (
-  fromId: DSNPUserId,
+  fromId: HexString,
   url: string,
   hash: string
 ): Promise<SignedBroadcastAnnouncement> =>

@@ -7,11 +7,14 @@ import { waitFor } from "@testing-library/react";
 import * as content from "../../services/content";
 
 const feedItems = getPrefabFeed();
-const initialState = { user: { id: "0x0345" }, feed: { feedItems } };
+const initialState = {
+  user: { id: "0x0345" },
+  feed: { feedItems, replies: {} },
+};
 const store = createMockStore(initialState);
 
 const writeReply = async (component: any) => {
-  return component
+  component
     .find(".ReplyInput__input")
     .first()
     .simulate("change", { target: { value: "This is our new reply!" } });
@@ -56,10 +59,10 @@ describe("ReplyBlock", () => {
 
     it("display new message in feed on enter", async () => {
       await writeReply(component);
-      await pressEnter(component);
-      await waitFor(() =>
-        expect(component.find(".ReplyBlock__repliesList")).toBeDefined()
-      );
+      await waitFor(async () => {
+        await pressEnter(component);
+        expect(component.find(".ReplyBlock__repliesList")).toBeDefined();
+      });
     });
   });
 
@@ -73,10 +76,10 @@ describe("ReplyBlock", () => {
 
     it("clears message value on new message submit", async () => {
       await writeReply(component);
-      await pressEnter(component);
-      await waitFor(() =>
-        expect(component.find("textarea").first().text()).toEqual("")
-      );
+      await waitFor(async () => {
+        await pressEnter(component);
+        expect(component.find("textarea").first().text()).toEqual("");
+      });
     });
   });
 });

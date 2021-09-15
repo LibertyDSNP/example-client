@@ -11,6 +11,7 @@ import { setupProvider } from "./services/dsnp";
 import { startSubscriptions } from "./services/content";
 import { userUpdateWalletType } from "./redux/slices/userSlice";
 import { upsertSessionWalletType } from "./services/session";
+import { QueryClient, QueryClientProvider } from "react-query";
 
 const App = (): JSX.Element => {
   const dispatch = useAppDispatch();
@@ -45,15 +46,19 @@ const App = (): JSX.Element => {
     };
   });
 
+  const queryClient = new QueryClient();
+
   return (
     <Router>
-      <div className="App">
-        <Header />
-        <main className="App__content">
-          <Feed />
-          <ProfileBlock />
-        </main>
-      </div>
+      <QueryClientProvider client={queryClient}>
+        <div className="App">
+          <Header />
+          <main className="App__content">
+            <Feed />
+            <ProfileBlock />
+          </main>
+        </div>
+      </QueryClientProvider>
     </Router>
   );
 };

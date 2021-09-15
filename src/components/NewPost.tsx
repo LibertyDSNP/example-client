@@ -3,12 +3,11 @@ import { Button, Space, Spin, Modal, Input } from "antd";
 import { useAppDispatch, useAppSelector } from "../redux/hooks";
 import UserAvatar from "./UserAvatar";
 import NewPostImageUpload from "./NewPostImageUpload";
-import { FeedItem, HexString, Profile } from "../utilities/types";
-import { createNote } from "../services/Storage";
-import { sendPost } from "../services/content";
-import { createProfile } from "@dsnp/sdk/core/activityContent";
+import { HexString, User } from "../utilities/types";
+import { ProfileQuery, sendPost } from "../services/content";
 import { FromTitle } from "./FromTitle";
 import { postLoading } from "../redux/slices/feedSlice";
+import { createActivityContentNote } from "../utilities/activityContent";
 
 interface NewPostProps {
   onSuccess: () => void;
@@ -24,14 +23,18 @@ const NewPost = ({ onSuccess, onCancel }: NewPostProps): JSX.Element => {
 
   const userId: string | undefined = useAppSelector((state) => state.user.id);
 
-  const profiles: Record<HexString, Profile> = useAppSelector(
+  const profiles: Record<HexString, User> = useAppSelector(
     (state) => state.profiles?.profiles || {}
   );
 
-  const profile = (userId && profiles[userId]) || {
-    ...createProfile(),
+  const user = (userId && profiles[userId]) || {
     fromId: userId || "",
+    url: undefined,
+    blockIndex: 0,
+    blockNumber: 0,
+    batchIndex: 0,
   };
+  const { data: profile } = ProfileQuery(user);
 
   const success = () => {
     setSaving(false);
@@ -40,12 +43,8 @@ const NewPost = ({ onSuccess, onCancel }: NewPostProps): JSX.Element => {
 
   const createPost = async () => {
     if (!userId) return;
-    const newPostFeedItem: FeedItem = await createNote(
-      postMessage,
-      uriList,
-      userId
-    );
-    await sendPost(newPostFeedItem);
+    const note = createActivityContentNote(postMessage, uriList);
+    await sendPost(userId, note);
     dispatch(postLoading({ loading: true, currentUserId: userId }));
     success();
   };
@@ -83,13 +82,9 @@ const NewPost = ({ onSuccess, onCancel }: NewPostProps): JSX.Element => {
       ]}
     >
       <div className="NewPost__profileBlock">
-        <UserAvatar
-          icon={profile?.icon?.[0]?.href}
-          profileAddress={userId}
-          avatarSize={"small"}
-        />
+        <UserAvatar user={user} avatarSize={"small"} />
         <h3 className="NewPost__profileBlockName">
-          <FromTitle profile={profile} />
+          <FromTitle userInfo={user} profile={profile} />
         </h3>
       </div>
       <Input.TextArea

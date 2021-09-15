@@ -4,7 +4,7 @@ import ConnectionsList from "./ConnectionsList";
 import React, { useEffect, useState } from "react";
 import { useAppSelector } from "../redux/hooks";
 import * as types from "../utilities/types";
-import { saveProfile } from "../services/content";
+import { ProfileQuery, saveProfile } from "../services/content";
 import { core } from "@dsnp/sdk";
 import GraphChangeButton from "./GraphChangeButton";
 
@@ -19,15 +19,17 @@ const Profile = (): JSX.Element => {
     (state) => state.user.displayId
   );
 
-  const profiles: Record<types.HexString, types.Profile> = useAppSelector(
+  const profiles: Record<types.HexString, types.User> = useAppSelector(
     (state) => state.profiles?.profiles || {}
   );
 
-  const profile: types.Profile | undefined = displayId
+  const user: types.User | undefined = displayId
     ? profiles[displayId]
     : undefined;
 
-  const handle = profile?.handle;
+  const { data: profile } = ProfileQuery(user);
+
+  const handle = user?.handle;
   const [newName, setNewName] = useState<string | undefined>();
   const [newHandle, setNewHandle] = useState<string | undefined>();
   const [didEditProfile, setDidEditProfile] = useState<boolean>(false);
@@ -72,11 +74,7 @@ const Profile = (): JSX.Element => {
     <>
       <div className="ProfileBlock__personalInfoBlock">
         <div className="ProfileBlock__avatarBlock">
-          <UserAvatar
-            icon={(profile?.icon || [])[0]?.href}
-            profileAddress={displayId}
-            avatarSize="large"
-          />
+          <UserAvatar user={user} avatarSize="large" />
           {userId === displayId &&
             (isEditing ? (
               <>
@@ -102,10 +100,10 @@ const Profile = (): JSX.Element => {
                 edit
               </Button>
             ))}
-          {userId && userId !== displayId && profile && (
+          {userId && userId !== displayId && user && (
             <GraphChangeButton
               userId={userId}
-              profile={profile}
+              user={user}
               following={followedByCurrentuser}
             ></GraphChangeButton>
           )}

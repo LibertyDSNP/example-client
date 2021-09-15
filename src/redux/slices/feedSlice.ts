@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { FeedItem, HexString } from "../../utilities/types";
+import { FeedItem, Reply, HexString } from "../../utilities/types";
 
 interface isPostLoadingType {
   loading: boolean;
@@ -13,12 +13,14 @@ interface isReplyLoadingType {
 
 interface feedState {
   feedItems: FeedItem[];
+  replies: Record<string, Reply[]>;
   isPostLoading: isPostLoadingType;
   isReplyLoading: isReplyLoadingType;
 }
 
 const initialState: feedState = {
   feedItems: [],
+  replies: {},
   isPostLoading: { loading: false, currentUserId: undefined },
   isReplyLoading: { loading: false, parent: undefined },
 };
@@ -34,7 +36,7 @@ const newPostLoadingState = (
 
 const newReplyLoadingState = (
   state: isReplyLoadingType,
-  item: FeedItem
+  item: Reply
 ): isReplyLoadingType => {
   if (state.loading && state.parent === item.inReplyTo) {
     return { loading: false, parent: undefined };
@@ -52,14 +54,24 @@ export const feedSlice = createSlice({
         ...state,
         feedItems: [...state.feedItems, newFeedItem],
         isPostLoading: newPostLoadingState(state.isPostLoading, newFeedItem),
-        isReplyLoading: newReplyLoadingState(state.isReplyLoading, newFeedItem),
       };
     },
-    clearFeedItems: (state) => {
+    addReply: (state, action: PayloadAction<Reply>) => {
+      const newReply = action.payload;
       return {
         ...state,
-        feedItems: [],
+        replies: {
+          ...state.replies,
+          [newReply.inReplyTo]: [
+            ...(state.replies[newReply.inReplyTo] || []),
+            newReply,
+          ],
+        },
+        isReplyLoading: newReplyLoadingState(state.isReplyLoading, newReply),
       };
+    },
+    clearFeedItems: (_state) => {
+      return initialState;
     },
     postLoading: (state, isLoading: PayloadAction<isPostLoadingType>) => {
       return {
@@ -84,6 +96,7 @@ export const feedSlice = createSlice({
 
 export const {
   addFeedItem,
+  addReply,
   clearFeedItems,
   postLoading,
   replyLoading,

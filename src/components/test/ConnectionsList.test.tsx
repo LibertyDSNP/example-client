@@ -1,7 +1,10 @@
 import ConnectionsList from "../ConnectionsList";
 import { mount, shallow } from "enzyme";
-import { forcePromiseResolve } from "../../test/testhelpers";
-import { componentWithStore, createMockStore } from "../../test/testhelpers";
+import {
+  forcePromiseResolve,
+  componentWithStore,
+  createMockStore,
+} from "../../test/testhelpers";
 import { getPreFabSocialGraph } from "../../test/testGraphs";
 import { getPrefabProfile } from "../../test/testProfiles";
 

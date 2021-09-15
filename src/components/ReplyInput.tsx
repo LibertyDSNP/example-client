@@ -1,16 +1,16 @@
 import { Input } from "antd";
 import React, { useState } from "react";
-import { createNote } from "../services/Storage";
 import { sendReply } from "../services/content";
-import { HexString } from "../utilities/types";
 import { useAppDispatch, useAppSelector } from "../redux/hooks";
 import { replyLoading } from "../redux/slices/feedSlice";
+import { createActivityContentNote } from "../utilities/activityContent";
+import { DSNPAnnouncementURI } from "@dsnp/sdk/core/identifiers";
 
 interface ReplyInputProps {
-  parent: HexString;
+  parentURI: DSNPAnnouncementURI;
 }
 
-const ReplyInput = ({ parent }: ReplyInputProps): JSX.Element => {
+const ReplyInput = ({ parentURI: parent }: ReplyInputProps): JSX.Element => {
   const dispatch = useAppDispatch();
   const userId = useAppSelector((state) => state.user.id);
   const [saving, setSaving] = React.useState<boolean>(false);
@@ -22,8 +22,8 @@ const ReplyInput = ({ parent }: ReplyInputProps): JSX.Element => {
     event.preventDefault();
     if (!userId) return;
     setSaving(true);
-    const newReplyFeedItem = await createNote(replyValue, [], userId);
-    await sendReply(newReplyFeedItem, parent);
+    const newReply = createActivityContentNote(replyValue, []);
+    await sendReply(userId, newReply, parent);
     dispatch(replyLoading({ loading: true, parent: parent }));
     setReplyValue("");
     setSaving(false);

@@ -4,6 +4,7 @@ import configureStore from "redux-mock-store";
 import { act } from "react-dom/test-utils";
 import { Provider } from "react-redux";
 import { BrowserRouter as Router } from "react-router-dom";
+import { QueryClient, QueryClientProvider } from "react-query";
 
 /**
  * Using this to spy on promise functions in Jest
@@ -31,11 +32,15 @@ export const componentWithStore = (
   store: Store,
   props: Record<string, unknown> = {}
 ): JSX.Element => {
+  const queryClient = new QueryClient();
+
   return (
     <Provider store={store}>
-      <Router>
-        <Component {...props} />
-      </Router>
+      <QueryClientProvider client={queryClient}>
+        <Router>
+          <Component {...props} />
+        </Router>
+      </QueryClientProvider>
     </Provider>
   );
 };
