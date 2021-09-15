@@ -1,4 +1,7 @@
-import { ActivityContentAudio, ActivityContentVideo } from "@dsnp/sdk/core/activityContent";
+import {
+  ActivityContentAudio,
+  ActivityContentVideo,
+} from "@dsnp/sdk/core/activityContent";
 import { createActivityContentNote } from "./activityContent";
 
 describe("activityContent", () => {
