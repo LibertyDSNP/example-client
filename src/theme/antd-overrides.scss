@@ -73,13 +73,8 @@
 }
 
 .ant-btn.NewPostImageUpload__urlInputBtn {
-  @include button($light-gray, $light-gray, $dark-gray, $dark-gray);
-  height: inherit;
-}
-
-.ant-spin.NewPostImageUpload__spinner {
-  display: flex;
-  margin: 10px 10px 0 0;
+  @include button($white, $green, $dark-gray, $shadow-green);
+  height: fit-content;
 }
 
 .ant-alert.NewPostImageUpload__alert {
@@ -96,7 +91,7 @@
 }
 
 .ant-input:focus {
-  box-shadow: 0 0 0 2px $gray !important;
+  box-shadow: none !important;
 }
 
 .ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn {
@@ -149,4 +144,25 @@ a {
       background: $shadow-green !important;
     }
   }
+}
+
+.ant-input.NewPost__textArea {
+  @include medium-text;
+  border: none;
+  margin-left: 5px;
+  flex-grow: 1;
+
+  &:active, &:focus, &:focus-visible {
+    border: none;
+    box-shadow: none !important;
+  }
+}
+
+.ant-modal-body {
+  border-top: none;
+  border-bottom: 2px solid $black;
+}
+
+.ant-modal.NewPost {
+  border-radius: 10px;
 }

@@ -34,7 +34,6 @@ const NewPost = ({ onSuccess, onCancel }: NewPostProps): JSX.Element => {
     blockNumber: 0,
     batchIndex: 0,
   };
-  const { data: profile } = ProfileQuery(user);
 
   const success = () => {
     setSaving(false);
@@ -64,7 +63,6 @@ const NewPost = ({ onSuccess, onCancel }: NewPostProps): JSX.Element => {
       onCancel={onCancel}
       width="535px"
       centered={true}
-      title={"Create a post"}
       footer={[
         <Spin spinning={saving} key={1}>
           <Space>
@@ -81,19 +79,17 @@ const NewPost = ({ onSuccess, onCancel }: NewPostProps): JSX.Element => {
         </Spin>,
       ]}
     >
-      <div className="NewPost__profileBlock">
-        <UserAvatar user={user} avatarSize={"small"} />
-        <h3 className="NewPost__profileBlockName">
-          <FromTitle userInfo={user} profile={profile} />
-        </h3>
+      <div className="NewPost__textAreaRow">
+        <UserAvatar user={user} avatarSize={"medium"} />
+        <Input.TextArea
+          autoFocus={true}
+          className="NewPost__textArea"
+          placeholder="Message"
+          value={postMessage || ""}
+          onChange={(e) => handleMessageInputChange(e)}
+          autoSize={{ minRows: 3, maxRows: 6 }}
+        />
       </div>
-      <Input.TextArea
-        className="NewPost__textArea"
-        placeholder="Message"
-        value={postMessage || ""}
-        onChange={(e) => handleMessageInputChange(e)}
-        rows={6}
-      />
       <NewPostImageUpload onNewPostImageUpload={setUriList} />
     </Modal>
   );

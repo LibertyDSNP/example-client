@@ -1,7 +1,6 @@
-import { Alert, Input, Spin } from "antd";
-import { CloseCircleTwoTone } from "@ant-design/icons";
+import { Alert, Input } from "antd";
+import { CloseCircleTwoTone, CameraOutlined } from "@ant-design/icons";
 import React from "react";
-import cameraIcon from "../images/Camera.svg";
 import { HexString } from "../utilities/types";
 import { Button } from "antd";
 
@@ -12,7 +11,6 @@ interface NewPostImageUploadProps {
 const NewPostImageUpload = ({
   onNewPostImageUpload,
 }: NewPostImageUploadProps): JSX.Element => {
-  const [previewLoading, setPreviewLoading] = React.useState<boolean>(false);
   const [urlErrorMsg, setUrlErrorMsg] = React.useState<string | null>(null);
   const [newUri, setNewUri] = React.useState<string>("");
   const [uriList, setUriList] = React.useState<string[]>([]);
@@ -47,41 +45,24 @@ const NewPostImageUpload = ({
           uriList.map((image, index) => {
             return (
               <div className="NewPostImageUpload__imageBlock" key={index}>
-                <img
-                  alt=""
-                  className="NewPostImageUpload__image"
-                  src={image}
-                  onLoad={() => setPreviewLoading(false)}
-                />
+                <img alt="" className="NewPostImageUpload__image" src={image} />
                 <CloseCircleTwoTone
                   className="NewPostImageUpload__imageDelete"
                   onClick={() => deleteImage(index)}
-                  twoToneColor="#9e9e9e"
+                  twoToneColor="#1dcf76"
                 />
               </div>
             );
           })}
-        {newUri && (
-          <Spin
-            className="NewPostImageUpload__spinner"
-            spinning={previewLoading}
-          />
-        )}
       </div>
       <div className="NewPostImageUpload__urlInputBlock">
-        <img
-          className="NewPostImageUpload__icon"
-          src={cameraIcon}
-          alt="camera"
-        />
+        <CameraOutlined style={{ fontSize: "28px" }} />
         <Input
           className="NewPostImageUpload__urlInput"
-          placeholder="Image URL"
+          placeholder="Content URL"
           value={newUri || ""}
-          onChange={(e) => {
-            setPreviewLoading(true);
-            newContentItem(e.target.value);
-          }}
+          onChange={(e) => newContentItem(e.target.value)}
+          onPressEnter={addContentToList}
         />
         <Button
           className="NewPostImageUpload__urlInputBtn"
