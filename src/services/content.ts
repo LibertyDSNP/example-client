@@ -259,7 +259,7 @@ const handleRegistryUpdate = (dispatch: Dispatch) => (
 const handleBatchAnnouncement = (dispatch: Dispatch) => (
   batchAnnouncement: BatchPublicationLogData
 ) => {
-  dsnp.readBatchFile(batchAnnouncement, (announcementRow, batchIndex) => {
+  dsnp.readBatchFile(batchAnnouncement, async (announcementRow, batchIndex) => {
     try {
       const announcement = announcementRow as unknown;
 
@@ -272,12 +272,12 @@ const handleBatchAnnouncement = (dispatch: Dispatch) => (
       }
 
       if (
-        !core.contracts.registry.isSignatureAuthorizedTo(
+        !(await core.contracts.registry.isSignatureAuthorizedTo(
           announcement.signature,
           announcement,
           BigInt(announcement.fromId),
           Permission.ANNOUNCE
-        )
+        ))
       ) {
         console.log(
           "batched announcment has unauthorized signature",
@@ -298,8 +298,6 @@ const handleBatchAnnouncement = (dispatch: Dispatch) => (
           })
         );
       } else if (isBroadcastAnnouncement(announcement)) {
-        console.log("broadcast annoucement url", announcement.url);
-        console.log("broadcast annoucement hash", announcement.contentHash);
         dispatch(
           addFeedItem({
             fromId: announcement.fromId.toString(),
