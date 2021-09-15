@@ -4,8 +4,7 @@ import { useAppDispatch, useAppSelector } from "../redux/hooks";
 import UserAvatar from "./UserAvatar";
 import NewPostImageUpload from "./NewPostImageUpload";
 import { HexString, User } from "../utilities/types";
-import { ProfileQuery, sendPost } from "../services/content";
-import { FromTitle } from "./FromTitle";
+import { sendPost } from "../services/content";
 import { postLoading } from "../redux/slices/feedSlice";
 import { createActivityContentNote } from "../utilities/activityContent";
 
@@ -87,7 +86,7 @@ const NewPost = ({ onSuccess, onCancel }: NewPostProps): JSX.Element => {
           placeholder="Message"
           value={postMessage || ""}
           onChange={(e) => handleMessageInputChange(e)}
-          autoSize={{ minRows: 3, maxRows: 6 }}
+          autoSize={{ minRows: 2, maxRows: 5 }}
         />
       </div>
       <NewPostImageUpload onNewPostImageUpload={setUriList} />
