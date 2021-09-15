@@ -20,6 +20,7 @@ import {
   isGraphChangeAnnouncement,
   isProfileAnnouncement,
   isReplyAnnouncement,
+  isSignedAnnouncement,
 } from "@dsnp/sdk/core/announcements";
 import { BatchPublicationLogData } from "@dsnp/sdk/core/contracts/subscription";
 import { upsertGraph } from "../redux/slices/graphSlice";
@@ -29,6 +30,7 @@ import { HexString } from "@dsnp/sdk/types/Strings";
 import { DSNPAnnouncementURI, DSNPUserId } from "@dsnp/sdk/core/identifiers";
 import { FeedItem, User } from "../utilities/types";
 import { useQuery, UseQueryResult } from "react-query";
+import { Permission } from "@dsnp/sdk/core/contracts/identity";
 
 //
 // Content Package
@@ -260,6 +262,30 @@ const handleBatchAnnouncement = (dispatch: Dispatch) => (
   dsnp.readBatchFile(batchAnnouncement, (announcementRow, batchIndex) => {
     try {
       const announcement = announcementRow as unknown;
+
+      if (!isSignedAnnouncement(announcement)) {
+        console.log(
+          "batched announcement is not signed announcment",
+          announcement
+        );
+        return;
+      }
+
+      if (
+        !core.contracts.registry.isSignatureAuthorizedTo(
+          announcement.signature,
+          announcement,
+          BigInt(announcement.fromId),
+          Permission.ANNOUNCE
+        )
+      ) {
+        console.log(
+          "batched announcment has unauthorized signature",
+          announcement
+        );
+        return;
+      }
+
       if (isGraphChangeAnnouncement(announcement)) {
         dispatch(
           upsertGraph({
@@ -272,6 +298,8 @@ const handleBatchAnnouncement = (dispatch: Dispatch) => (
           })
         );
       } else if (isBroadcastAnnouncement(announcement)) {
+        console.log("broadcast annoucement url", announcement.url);
+        console.log("broadcast annoucement hash", announcement.contentHash);
         dispatch(
           addFeedItem({
             fromId: announcement.fromId.toString(),
