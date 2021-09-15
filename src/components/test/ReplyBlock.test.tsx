@@ -59,10 +59,10 @@ describe("ReplyBlock", () => {
 
     it("display new message in feed on enter", async () => {
       await writeReply(component);
-      await pressEnter(component);
-      await waitFor(() =>
-        expect(component.find(".ReplyBlock__repliesList")).toBeDefined()
-      );
+      await waitFor(async () => {
+        await pressEnter(component);
+        expect(component.find(".ReplyBlock__repliesList")).toBeDefined();
+      });
     });
   });
 
@@ -76,10 +76,10 @@ describe("ReplyBlock", () => {
 
     it("clears message value on new message submit", async () => {
       await writeReply(component);
-      await pressEnter(component);
-      await waitFor(() =>
-        expect(component.find("textarea").first().text()).toEqual("")
-      );
+      await waitFor(async () => {
+        await pressEnter(component);
+        expect(component.find("textarea").first().text()).toEqual("");
+      });
     });
   });
 });
