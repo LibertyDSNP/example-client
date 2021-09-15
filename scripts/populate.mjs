@@ -443,6 +443,27 @@ setConfig({
   store: new Store(),
 });
 
+// create an announcment of the correct type
+const createAnnouncement = (accountId, hash, type) =>
+  type === core.announcements.AnnouncementType.Broadcast
+    ? core.announcements.createBroadcast(
+        accountId,
+        `${process.env.REACT_APP_UPLOAD_HOST}/${hash}.json`,
+        hash
+      )
+    : type === core.announcements.AnnouncementType.Reply
+    ? core.announcements.createReply(
+        accountId,
+        `${process.env.REACT_APP_UPLOAD_HOST}/${hash}.json`,
+        hash
+      )
+    : core.announcements.createProfile(
+        accountId,
+        `${process.env.REACT_APP_UPLOAD_HOST}/${hash}.json`,
+        hash
+      );
+
+// store a note on the static server, and create and sign an announcement for it.
 const storeAnnouncement = async (content, accountId, signer, type) => {
   const hash = web3.keccak256(JSON.stringify(content));
 
@@ -460,23 +481,7 @@ const storeAnnouncement = async (content, accountId, signer, type) => {
 
   // create and store announcement of content to batch
   const announcement = core.announcements.sign(
-    type === core.announcements.AnnouncementType.Broadcast
-      ? core.announcements.createBroadcast(
-          accountId,
-          `${process.env.REACT_APP_UPLOAD_HOST}/${hash}.json`,
-          hash
-        )
-      : type === core.announcements.AnnouncementType.Reply
-      ? core.announcements.createReply(
-          accountId,
-          `${process.env.REACT_APP_UPLOAD_HOST}/${hash}.json`,
-          hash
-        )
-      : core.announcements.createProfile(
-          accountId,
-          `${process.env.REACT_APP_UPLOAD_HOST}/${hash}.json`,
-          hash
-        ),
+    createAnnouncement(accountId, hash, type),
     { signer: signer }
   );
 
