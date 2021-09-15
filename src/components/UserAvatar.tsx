@@ -31,6 +31,7 @@ const UserAvatar = ({ user, avatarSize }: UserAvatarProps): JSX.Element => {
       alt={name}
       src={iconURL}
       size={avatarSizeOptions.get(avatarSize)}
+      style={{ minWidth: avatarSizeOptions.get(avatarSize) }}
     />
   );
 };

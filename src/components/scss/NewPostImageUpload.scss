@@ -1,12 +1,9 @@
 .NewPostImageUpload__urlInputBlock {
   display: flex;
   justify-content: space-between;
+  align-items: center;
   height: 35px;
   margin-top: 16px;
-}
-
-.NewPostImageUpload__icon {
-  height: inherit;
 }
 
 .NewPostImageUpload__cover {
@@ -34,9 +31,7 @@
   margin: 10px;
 }
 
-.NewPostImageUpload__spinner {
-  align-items: center;
-  justify-content: center;
+.NewPostImageUpload__placeholder {
   width: 100px;
   height: 100px;
   background-color: $gray;
