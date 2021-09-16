@@ -6,6 +6,9 @@ import { FeedItem } from "../../utilities/types";
 import { getPrefabDsnpUserId } from "../../test/testAddresses";
 import { getPrefabProfile } from "../../test/testProfiles";
 import { getPreFabSocialGraph } from "../../test/testGraphs";
+import * as content from "../../services/content";
+import { mockQueryResult } from "../../test/testQueryResult";
+import { createNote } from "@dsnp/sdk/core/activityContent";
 
 let initialBlockNumber = 0;
 const feed = getPrefabFeed();
@@ -15,6 +18,14 @@ feed.forEach((feedItem) => {
 
 let store = createMockStore({ feed: { feedItems: feed } });
 describe("PostList", () => {
+  beforeEach(() => {
+    jest
+      .spyOn(content, "PostQuery")
+      .mockImplementation((_feedItem) =>
+        mockQueryResult(createNote("test post"))
+      );
+  });
+
   it("renders without crashing", () => {
     expect(() => {
       shallow(componentWithStore(PostList, store));
