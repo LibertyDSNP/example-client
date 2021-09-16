@@ -1,7 +1,7 @@
 import React from "react";
 import UserAvatar from "./UserAvatar";
 import { User } from "../utilities/types";
-import { HexString } from "@dsnp/sdk/dist/types/types/Strings";
+import { HexString } from "@dsnp/sdk/types/Strings";
 import { useAppSelector } from "../redux/hooks";
 import { AnnouncementType } from "@dsnp/sdk/core/announcements";
 import {

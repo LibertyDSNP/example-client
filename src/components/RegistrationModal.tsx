@@ -6,7 +6,7 @@ import * as dsnp from "../services/dsnp";
 import * as registry from "@dsnp/sdk/core/contracts/registry";
 import { HexString } from "../utilities/types";
 import { Registration } from "@dsnp/sdk/core/contracts/registry";
-import { DSNPUserURI } from "@dsnp/sdk/dist/types/core/identifiers";
+import { DSNPUserURI } from "@dsnp/sdk/core/identifiers";
 
 interface RegistrationModalProps {
   children: JSX.Element;

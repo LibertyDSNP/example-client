@@ -13,7 +13,7 @@ import {
 import { BatchPublicationLogData } from "@dsnp/sdk/core/contracts/subscription";
 import { WalletType } from "./wallets/wallet";
 import torusWallet from "./wallets/torus";
-import { DSNPUserId } from "@dsnp/sdk/dist/types/core/identifiers";
+import { DSNPUserId } from "@dsnp/sdk/core/identifiers";
 
 //
 // DSNP Package
