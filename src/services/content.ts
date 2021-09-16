@@ -31,6 +31,7 @@ import { DSNPAnnouncementURI, DSNPUserId } from "@dsnp/sdk/core/identifiers";
 import { FeedItem, User } from "../utilities/types";
 import { useQuery, UseQueryResult } from "react-query";
 import { Permission } from "@dsnp/sdk/core/contracts/identity";
+import { buildBaseUploadHostUrl } from "../utilities/buildBaseUploadHostUrl";
 
 //
 // Content Package
@@ -78,7 +79,7 @@ export const sendPost = async (
   const hash = await storeActivityContent(post);
   const announcement = await dsnp.buildAndSignPostAnnouncement(
     fromId,
-    `${process.env.REACT_APP_UPLOAD_HOST}/${hash}.json`,
+    buildBaseUploadHostUrl(`${hash}.json`).toString(),
     hash
   );
 
@@ -87,7 +88,9 @@ export const sendPost = async (
 
 /**
  * sendReply stores a reply, creates an announcement for it, stores that in a batch, and publishes the batch.
- * @param post the post content to add
+ * @param fromId - Who is this from?
+ * @param reply - Content for the reply
+ * @param parentURI - What is it in reply to?
  * @returns a promise pending completion
  */
 export const sendReply = async (
@@ -99,7 +102,7 @@ export const sendReply = async (
   const announcement = await dsnp.buildAndSignReplyAnnouncement(
     fromId,
     parentURI,
-    `${process.env.REACT_APP_UPLOAD_HOST}/${hash}.json`,
+    buildBaseUploadHostUrl(`${hash}.json`).toString(),
     hash
   );
 
@@ -108,7 +111,8 @@ export const sendReply = async (
 
 /**
  * sendProfile stores a profile, creates an announcement for it, stores that in a batch, and publishes the batch.
- * @param post the profile content to add
+ * @param fromId - Who is it from?
+ * @param profile - What is the profile
  * @returns a promise pending completion
  */
 export const saveProfile = async (
@@ -118,7 +122,7 @@ export const saveProfile = async (
   const hash = await storeActivityContent(profile);
   const announcement = await dsnp.buildAndSignProfile(
     fromId,
-    `${process.env.REACT_APP_UPLOAD_HOST}/${hash}.json`,
+    buildBaseUploadHostUrl(`${hash}.json`).toString(),
     hash
   );
 
@@ -231,7 +235,6 @@ export const ProfileQuery = (
 /**
  * handleRegistryUpdate dispatches a profile update for the handle when a registry update is made.
  * @param dispatch function used to dispatch to store
- * @param update registry log message containg DSNP uri and handle
  */
 const handleRegistryUpdate = (dispatch: Dispatch) => (
   update: RegistryUpdateLogData
@@ -251,10 +254,9 @@ const handleRegistryUpdate = (dispatch: Dispatch) => (
 };
 
 /**
- * handleBatchAnnouncment retrieves and parses a batch and then routes its contents
+ * handleBatchAnnouncement retrieves and parses a batch and then routes its contents
  * to the redux store.
  * @param dispatch function used to dispatch to the store
- * @param batchAnnouncement announcement of batch (publication) to handle
  */
 const handleBatchAnnouncement = (dispatch: Dispatch) => (
   batchAnnouncement: BatchPublicationLogData
@@ -348,9 +350,9 @@ const storeActivityContent = async (
 ): Promise<string> => {
   const hash = keccak256(JSON.stringify(content));
   await fetch(
-    `${process.env.REACT_APP_UPLOAD_HOST}/upload?filename=${encodeURIComponent(
-      hash + ".json"
-    )}`,
+    buildBaseUploadHostUrl(
+      `/upload?filename=${encodeURIComponent(hash + ".json")}`
+    ).toString(),
     {
       method: "POST",
       mode: "cors",

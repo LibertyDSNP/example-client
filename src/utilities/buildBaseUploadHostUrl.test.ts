@@ -10,7 +10,7 @@ describe("buildBaseUploadHostUrl", () => {
   });
 
   afterEach(() => {
-    windowSpy.mockRestore();
+    windowSpy.mockClear();
   });
 
   afterAll(() => {
@@ -28,14 +28,43 @@ describe("buildBaseUploadHostUrl", () => {
       },
     }));
 
-    it("returns a qualified url for REACT_APP_UPLOAD_HOST", () => {
-      process.env.REACT_APP_UPLOAD_HOST = "";
-      expect(buildBaseUploadHostUrl()).toEqual("http://example.com");
+    it("doesn't do a double / prefix for the path", () => {
+      process.env.REACT_APP_UPLOAD_HOST = "http://test.com/";
+      expect(buildBaseUploadHostUrl("/path").toString()).toEqual(
+        "http://test.com/path"
+      );
     });
 
-    it("does not return a qualified url for REACT_APP_UPLOAD_HOST", () => {
-      process.env.REACT_APP_UPLOAD_HOST = "http://localhost:3000";
-      expect(buildBaseUploadHostUrl()).toEqual("http://localhost:3000");
+    describe("when REACT_APP_UPLOAD_HOST is empty", () => {
+      it("returns a qualified url", () => {
+        process.env.REACT_APP_UPLOAD_HOST = "";
+        expect(buildBaseUploadHostUrl("").toString()).toEqual(
+          "http://example.com/"
+        );
+      });
+
+      it("returns with the correct path", () => {
+        process.env.REACT_APP_UPLOAD_HOST = "";
+        expect(
+          buildBaseUploadHostUrl("/i-am-a/path/yes/i/am").toString()
+        ).toEqual("http://example.com/i-am-a/path/yes/i/am");
+      });
+    });
+
+    describe("when REACT_APP_UPLOAD_HOST is NOT empty", () => {
+      it("does not return a qualified url for REACT_APP_UPLOAD_HOST", () => {
+        process.env.REACT_APP_UPLOAD_HOST = "http://localhost:3000";
+        expect(buildBaseUploadHostUrl("").toString()).toEqual(
+          "http://localhost:3000/"
+        );
+      });
+
+      it("returns with the correct path", () => {
+        process.env.REACT_APP_UPLOAD_HOST = "http://localhost:3000";
+        expect(
+          buildBaseUploadHostUrl("/i-am-a/path/yes/i/am").toString()
+        ).toEqual("http://localhost:3000/i-am-a/path/yes/i/am");
+      });
     });
   });
 });
