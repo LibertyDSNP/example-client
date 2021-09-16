@@ -43,7 +43,7 @@ const Login = ({ isPrimary, loginWalletOptions }: LoginProps): JSX.Element => {
     selectedType: wallet.WalletType
   ) => {
     setWalletAddress(waddr);
-    dsnp.setupProvider(selectedType);
+    await dsnp.setupProvider(selectedType);
     const registrations = await dsnp.getSocialIdentities(waddr);
     if (registrations.length === 1) {
       setUserID(registrations[0].dsnpUserURI);
