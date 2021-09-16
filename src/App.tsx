@@ -25,7 +25,7 @@ const App = (): JSX.Element => {
     (async () => {
       try {
         await wallet.wallet(walletType).reload();
-        setupProvider(walletType);
+        await setupProvider(walletType);
         unsubscribeFunctions = await dispatch(startSubscriptions);
       } catch (e) {
         if (e.message.match(/login cancelled/i)) {

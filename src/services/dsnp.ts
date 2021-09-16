@@ -1,8 +1,6 @@
-import { HexString } from "../utilities/types";
 import { setConfig, createRegistration, core } from "@dsnp/sdk";
 import { RegistryUpdateLogData } from "@dsnp/sdk/core/contracts/registry";
 import { providers } from "ethers";
-import { Store } from "./Storage";
 import {
   SignedBroadcastAnnouncement,
   SignedReplyAnnouncement,
@@ -11,9 +9,12 @@ import {
   SignedGraphChangeAnnouncement,
 } from "@dsnp/sdk/core/announcements";
 import { BatchPublicationLogData } from "@dsnp/sdk/core/contracts/subscription";
+import { DSNPUserId } from "@dsnp/sdk/core/identifiers";
+import { ConfigOpts } from "@dsnp/sdk/core/config";
+import { HexString } from "@dsnp/sdk/types/Strings";
+import { Store } from "./Storage";
 import { WalletType } from "./wallets/wallet";
 import torusWallet from "./wallets/torus";
-import { DSNPUserId } from "@dsnp/sdk/core/identifiers";
 
 //
 // DSNP Package
@@ -36,6 +37,47 @@ type AnnouncementRowHandler = (
 export type UnsubscribeFunction = () => void;
 
 //
+// Internal Helper Functions
+//
+
+/**
+ * getChainSpecificConfig builds the configuration for specific chains
+ * @param chainId - The ID of the chain being used
+ * @returns the partial config to spread into the setConfig method
+ */
+const getChainSpecificConfig = (chainId: number): Partial<ConfigOpts> => {
+  switch (chainId) {
+    case 4: // Rinkeby
+      return {
+        dsnpStartBlockNumber: 9211311,
+        contracts: {
+          Publisher: "0xeF7B5d418128fB8C1645Dd31270BE2cCAF9015e4",
+          Beacon: "0xe3B7Fb9c43F9E62910Ae2763AA64aec07ec8F308",
+          BeaconFactory: "0xC1F8593D46356B98c5DC7f7E8DF35247A68ED7D8",
+          Identity: "0xa067CEa2859d27CA83700c7E17414f111C1BF561",
+          IdentityCloneFactory: "0xDf962f3C24863A0fb8fb77B3144E31fE2859b9B8",
+          Registry: "0x5d8266342aAfe19CB8EC25A6637f385893389A35",
+        },
+      };
+    case 3: // Ropsten
+      return {
+        dsnpStartBlockNumber: 10959123,
+        contracts: {
+          Publisher: "0x9828b9c8E8863267508eB0235370Eb26914D6a78",
+          Beacon: "0x307748fF8c3547a6768B0CD37c1b0F35fFB0ca47",
+          BeaconFactory: "0x024a03CFE1e8EE563382C08C1aB359830c39Cf20",
+          Identity: "0x33707b57CE4Af9f970fb04a4D6CFF15B8342D938",
+          IdentityCloneFactory: "0x61F57538a2621Dd2ba36E513e11cDe4f5936bCe9",
+          Registry: "0xEBF48cE1EE0e727C2E23cb977799B93fD2EbFfda",
+        },
+      };
+    default:
+      // Allow the SDK to search for the correct contracts
+      return {};
+  }
+};
+
+//
 // Exported Functions
 //
 
@@ -46,7 +88,7 @@ export type UnsubscribeFunction = () => void;
  * @param walletType which wallet plugin we should use to retrieve the chain provider.
  * @throws if walletType is unrecognized or wallet plugin cannot supply a provider.
  */
-export const setupProvider = (walletType: WalletType): void => {
+export const setupProvider = async (walletType: WalletType): Promise<void> => {
   let eth;
 
   if (walletType === WalletType.TORUS) {
@@ -67,10 +109,14 @@ export const setupProvider = (walletType: WalletType): void => {
   }
 
   const provider = new providers.Web3Provider(eth);
+  const signer = provider.getSigner();
+  const chainId = await signer.getChainId();
+
   setConfig({
-    provider: provider,
-    signer: provider.getSigner(),
+    provider,
+    signer,
     store: new Store(),
+    ...getChainSpecificConfig(chainId),
   });
 };
 
