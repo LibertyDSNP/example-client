@@ -4,7 +4,7 @@ import { componentWithStore, createMockStore } from "../../test/testhelpers";
 import { getPrefabProfile } from "../../test/testProfiles";
 import { waitFor } from "@testing-library/react";
 import { Registration } from "@dsnp/sdk/core/contracts/registry";
-import { DSNPUserURI } from "@dsnp/sdk/dist/types/core/identifiers";
+import { DSNPUserURI } from "@dsnp/sdk/core/identifiers";
 import * as dsnp from "../../services/dsnp";
 
 const profiles = Array(3)

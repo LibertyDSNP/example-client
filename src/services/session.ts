@@ -1,4 +1,4 @@
-import { DSNPUserId } from "@dsnp/sdk/dist/types/core/identifiers";
+import { DSNPUserId } from "@dsnp/sdk/core/identifiers";
 import { WalletType } from "./wallets/wallet";
 
 interface SessionData {
