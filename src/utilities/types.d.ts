@@ -1,3 +1,7 @@
+import { BroadcastAnnouncement, ReplyAnnouncement,  } from "@dsnp/sdk/core/announcements";
+import { DSNPAnnouncementURI } from "@dsnp/sdk/core/identifiers";
+
+
 export declare type HexString = string;
 
 // ## GraphChange ##
@@ -22,7 +26,22 @@ export type User = {
 };
 
 // ## FeedItem ##
-export type FeedItem = BroadcastAnnouncement;
+export type FeedItem = {
+  fromId: string;
+  contentHash: HexString;
+  url: string;
+  blockNumber: number;
+  blockIndex: number;
+  batchIndex: number;
+};
 
 // ## Reply ##
-export type Reply = ReplyAnnouncement;
+export type ReplyItem = {
+  fromId: string;
+  contentHash: HexString;
+  url: string;
+  inReplyTo: DSNPAnnouncementURI;
+  blockNumber: number;
+  blockIndex: number;
+  batchIndex: number;
+};
