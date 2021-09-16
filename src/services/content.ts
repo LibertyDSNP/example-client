@@ -26,7 +26,6 @@ import { BatchPublicationLogData } from "@dsnp/sdk/core/contracts/subscription";
 import { upsertGraph } from "../redux/slices/graphSlice";
 import * as dsnp from "./dsnp";
 import { keccak256 } from "web3-utils";
-import { HexString } from "@dsnp/sdk/types/Strings";
 import { DSNPAnnouncementURI, DSNPUserId } from "@dsnp/sdk/core/identifiers";
 import { FeedItem, User } from "../utilities/types";
 import { useQuery, UseQueryResult } from "react-query";
@@ -73,7 +72,7 @@ export const startSubscriptions = async (
  * @returns a promise pending completion
  */
 export const sendPost = async (
-  fromId: HexString,
+  fromId: string,
   post: ActivityContentNote
 ): Promise<void> => {
   const hash = await storeActivityContent(post);

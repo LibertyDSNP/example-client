@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "../redux/hooks";
 import {
   userLogout,
@@ -49,6 +49,15 @@ const Login = (): JSX.Element => {
     setRegistrationPopoverVisible(false);
   };
 
+  // clear state if something clears the wallet type (e.g. an error connecting to the provider)
+  useEffect(() => {
+    if (currentWalletType === wallet.WalletType.NONE) {
+      startLoading(false);
+      setPopoverVisible(false);
+      setRegistrationVisible(false);
+    }
+  }, [currentWalletType]);
+
   const loginWithWalletAddress = async (
     waddr: HexString,
     selectedType: wallet.WalletType
@@ -72,6 +81,7 @@ const Login = (): JSX.Element => {
       const waddr = await wallet.wallet(selectedType).login();
       await loginWithWalletAddress(waddr, selectedType);
     } catch (error) {
+      console.log("LOGIN error", error);
       logout();
       setLoginPopoverVisible(false);
       startLoading(false);
