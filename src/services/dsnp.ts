@@ -129,9 +129,9 @@ export const startSubscriptions = async (
 };
 
 /**
- * Load a DSNP batch file from a url in a batch announcment, parse it, and emit all rows in the batch
+ * Load a DSNP batch file from a url in a batch announcement, parse it, and emit all rows in the batch
  * to the given handler.
- * @param batchAnnouncement batch announcment that specifies where to retrieve the batch file.
+ * @param batchAnnouncement batch announcement that specifies where to retrieve the batch file.
  * @param rowHandler handler function that receives all rows from the batch.
  * @throwss if batch cannot be read.
  */
@@ -149,10 +149,10 @@ export const readBatchFile = async (
 };
 
 /**
- * batchAnnouncment takes a single announcement, creates a batch file
+ * batchAnnouncement takes a single announcement, creates a batch file
  * containing it in the store, and then publishes the batch on chain.
  * @param filename name used to store the parquet file in the store
- * @param announcement annoucement to batch and publish
+ * @param announcement announcement to batch and publish
  */
 export const batchAnnouncement = async (
   filename: string,
