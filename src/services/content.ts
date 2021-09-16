@@ -31,6 +31,7 @@ import { DSNPAnnouncementURI, DSNPUserId } from "@dsnp/sdk/core/identifiers";
 import { FeedItem, User } from "../utilities/types";
 import { useQuery, UseQueryResult } from "react-query";
 import { Permission } from "@dsnp/sdk/core/contracts/identity";
+import { buildBaseUploadHostUrl } from "../utilities/buildBaseUploadHostUrl";
 
 //
 // Content Package
@@ -78,7 +79,7 @@ export const sendPost = async (
   const hash = await storeActivityContent(post);
   const announcement = await dsnp.buildAndSignPostAnnouncement(
     fromId,
-    `${process.env.REACT_APP_UPLOAD_HOST}/${hash}.json`,
+    buildBaseUploadHostUrl(`${hash}.json`).toString(),
     hash
   );
 
@@ -101,7 +102,7 @@ export const sendReply = async (
   const announcement = await dsnp.buildAndSignReplyAnnouncement(
     fromId,
     parentURI,
-    `${process.env.REACT_APP_UPLOAD_HOST}/${hash}.json`,
+    buildBaseUploadHostUrl(`${hash}.json`).toString(),
     hash
   );
 
@@ -121,7 +122,7 @@ export const saveProfile = async (
   const hash = await storeActivityContent(profile);
   const announcement = await dsnp.buildAndSignProfile(
     fromId,
-    `${process.env.REACT_APP_UPLOAD_HOST}/${hash}.json`,
+    buildBaseUploadHostUrl(`${hash}.json`).toString(),
     hash
   );
 
@@ -349,9 +350,9 @@ const storeActivityContent = async (
 ): Promise<string> => {
   const hash = keccak256(JSON.stringify(content));
   await fetch(
-    `${process.env.REACT_APP_UPLOAD_HOST}/upload?filename=${encodeURIComponent(
-      hash + ".json"
-    )}`,
+    buildBaseUploadHostUrl(
+      `/upload?filename=${encodeURIComponent(hash + ".json")}`
+    ).toString(),
     {
       method: "POST",
       mode: "cors",

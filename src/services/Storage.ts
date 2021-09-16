@@ -9,9 +9,7 @@ import { buildBaseUploadHostUrl } from "../utilities/buildBaseUploadHostUrl";
 
 export class Store implements StoreInterface {
   put(targetPath: string, _content: Content): Promise<URL> {
-    return Promise.resolve(
-      new URL(`${buildBaseUploadHostUrl()}/${targetPath}`)
-    );
+    return Promise.resolve(buildBaseUploadHostUrl(targetPath));
   }
 
   async putStream(
@@ -20,7 +18,7 @@ export class Store implements StoreInterface {
   ): Promise<URL> {
     const ws = new ServerWriteStream(targetPath);
     await doWriteToStream(ws);
-    return new URL(`${buildBaseUploadHostUrl()}/${targetPath}`);
+    return buildBaseUploadHostUrl(targetPath);
   }
 }
 
@@ -79,9 +77,9 @@ class ServerWriteStream implements WriteStream {
     }
 
     fetch(
-      `${buildBaseUploadHostUrl()}/upload?filename=${encodeURIComponent(
-        this.targetPath
-      )}`,
+      buildBaseUploadHostUrl(
+        `/upload?filename=${encodeURIComponent(this.targetPath)}`
+      ).toString(),
       {
         method: "POST",
         mode: "cors",
