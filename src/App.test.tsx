@@ -3,7 +3,11 @@ import App from "./App";
 import * as wallet from "../src/services/wallets/wallet";
 
 import { mount } from "enzyme";
-import { componentWithStore, createMockStore } from "./test/testhelpers";
+import {
+  componentWithStore,
+  createMockStore,
+  flushPromises,
+} from "./test/testhelpers";
 import * as dsnp from "./services/dsnp";
 import * as content from "./services/content";
 import * as hooks from "./redux/hooks";
@@ -21,7 +25,7 @@ describe("App", () => {
     .spyOn(wallet, "wallet")
     .mockReturnValue({ reload: jest.fn().mockResolvedValue(null) } as any);
 
-  jest.spyOn(dsnp, "setupProvider").mockReturnValue(undefined);
+  jest.spyOn(dsnp, "setupProvider").mockResolvedValue(undefined);
 
   describe("useEffect", () => {
     let unsubscribeFnc: UnsubscribeFunction;
@@ -40,6 +44,7 @@ describe("App", () => {
       dispatch.mockResolvedValue({ unsubscribeFnc });
 
       component = await mount(componentWithStore(App, store));
+      await flushPromises();
     });
 
     it("calls clean up function", () => {

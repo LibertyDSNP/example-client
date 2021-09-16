@@ -40,7 +40,7 @@ const App = (): JSX.Element => {
     return () => {
       if (!unsubscribeFunctions) return;
 
-      Object.values(unsubscribeFunctions).forEach((unsubscribe: any) =>
+      Object.values(unsubscribeFunctions).forEach((unsubscribe: () => void) =>
         unsubscribe()
       );
     };
