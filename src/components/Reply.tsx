@@ -32,32 +32,30 @@ const Reply = ({ reply }: ReplyProps): JSX.Element => {
         fromId={reply.fromId}
         isReply={true}
       />
-      <div className="Reply__contentBlock">
-        <div
-          className="Reply__metaBlock"
-          onMouseEnter={() => setIsHoveringProfile(true)}
-          onMouseLeave={() => setIsHoveringProfile(false)}
-          onClick={() => dispatch(setDisplayId(reply.fromId))}
-        >
-          <UserAvatar user={fromUser} avatarSize="small" />
-          <div className="Reply__name">
-            <FromTitle
-              userInfo={fromUser}
-              profile={fromProfile}
-              isHoveringProfile={isHoveringProfile}
-              isReply={true}
-            />
-          </div>
-          {replySuccess ? (
-            <>{replyContent?.content}</>
-          ) : (
-            <div className="BlankReply__messageBlock">
-              <div className="BlankReply__name"> </div>
-              <div className="BlankReply__message"> </div>
-            </div>
-          )}
+      <div
+        className="Reply__metaBlock"
+        onMouseEnter={() => setIsHoveringProfile(true)}
+        onMouseLeave={() => setIsHoveringProfile(false)}
+        onClick={() => dispatch(setDisplayId(reply.fromId))}
+      >
+        <UserAvatar user={fromUser} avatarSize="small" />
+        <div className="Reply__name">
+          <FromTitle
+            userInfo={fromUser}
+            profile={fromProfile}
+            isHoveringProfile={isHoveringProfile}
+            isReply={true}
+          />
         </div>
       </div>
+      {replySuccess ? (
+        <div className="Reply__message">{replyContent?.content}</div>
+      ) : (
+        <div className="BlankReply__messageBlock">
+          <div className="BlankReply__name"> </div>
+          <div className="BlankReply__message"> </div>
+        </div>
+      )}
     </div>
   );
 };

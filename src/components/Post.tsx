@@ -58,8 +58,8 @@ const Post = ({ feedItem }: PostProps): JSX.Element => {
         />
       </div>
       <div className="Post__rightCorner">
-        {post?.published && (
-          <RelativeTime published={post?.published} postStyle={true} />
+        {feedItem?.published && (
+          <RelativeTime published={feedItem?.published} postStyle={true} />
         )}
         <PostHashDropdown
           hash={feedItem.contentHash}

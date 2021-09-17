@@ -16,12 +16,10 @@ const LoginSetupInstructions = (): JSX.Element => {
             MetaMask Log In Guide
           </div>
           {isInstalled() ? (
-            <>
-              <p>
-                You already have MetaMask installed! Just click the{" "}
-                <code>Log In &#8594; MetaMask</code> button.
-              </p>
-            </>
+            <p>
+              You already have MetaMask installed! Just click the{" "}
+              <code>Log In &#8594; MetaMask</code> button.
+            </p>
           ) : (
             <>
               <p>

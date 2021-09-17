@@ -263,7 +263,6 @@ const handleBatchAnnouncement = (dispatch: Dispatch) => (
   dsnp.readBatchFile(batchAnnouncement, async (announcementRow, batchIndex) => {
     try {
       const announcement = announcementRow as unknown;
-
       if (!isSignedAnnouncement(announcement)) {
         console.log(
           "batched announcement is not signed announcment",
@@ -299,6 +298,12 @@ const handleBatchAnnouncement = (dispatch: Dispatch) => (
           })
         );
       } else if (isBroadcastAnnouncement(announcement)) {
+        let publishedDate;
+        if (announcement.createdAt > (2 ^ 53) - 1) {
+          publishedDate = new Date(
+            Number(announcement.createdAt)
+          ).toISOString();
+        }
         dispatch(
           addFeedItem({
             fromId: announcement.fromId.toString(),
@@ -307,6 +312,7 @@ const handleBatchAnnouncement = (dispatch: Dispatch) => (
             batchIndex: batchIndex,
             contentHash: announcement.contentHash,
             url: announcement.url,
+            published: publishedDate ? publishedDate : undefined,
           })
         );
       } else if (isReplyAnnouncement(announcement)) {

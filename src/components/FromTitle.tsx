@@ -19,16 +19,21 @@ export const FromTitle = ({
   const primary = atHandle;
   const secondary = profile?.name || userInfo.fromId;
 
+  const primaryClassName = () => {
+    let className = "FromTitle__primary";
+    if (isHoveringProfile) {
+      className = className + " FromTitle__primary--active";
+    }
+    if (isReply) {
+      className = className + " FromTitle__primary--reply";
+    }
+    return className;
+  };
+
   return (
     <span className="FromTitle__block">
-      <div
-        className={`FromTitle__primary ${
-          isHoveringProfile ? "FromTitle__primary--active" : ""
-        }`}
-      >
-        {primary}
-      </div>
-      {!isReply && <div className="FromLine__secondary">{secondary}</div>}
+      <div className={primaryClassName()}>{primary}</div>
+      {!isReply && <div className="FromTitle__secondary">{secondary}</div>}
     </span>
   );
 };

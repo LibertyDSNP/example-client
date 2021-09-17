@@ -1,6 +1,5 @@
 .Reply__block {
   position: relative;
-  display: flex;
   margin-bottom: 14px;
   max-height: 400px;
   flex-grow: 1;
@@ -11,15 +10,17 @@
   color: $text-gray;
 }
 
-.Reply__contentBlock {
-  cursor: pointer;
-}
-
 .Reply__metaBlock {
   display: flex;
+  align-items: center;
+  cursor: pointer;
 }
 
 .Reply__name {
   font-weight: bold;
   margin-left: 10px;
+}
+
+.Reply__message {
+  margin-left: 38px;
 }
