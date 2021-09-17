@@ -20,10 +20,9 @@ import { Button, Spin } from "antd";
 
 interface LoginProps {
   isPrimary: boolean;
-  loginWalletOptions: wallet.WalletType;
 }
 
-const Login = ({ isPrimary, loginWalletOptions }: LoginProps): JSX.Element => {
+const Login = ({ isPrimary }: LoginProps): JSX.Element => {
   const [loading, startLoading] = React.useState<boolean>(false);
   const [loginPopoverVisible, setLoginPopoverVisible] = React.useState<boolean>(
     false
@@ -117,8 +116,6 @@ const Login = ({ isPrimary, loginWalletOptions }: LoginProps): JSX.Element => {
         <LoginModal
           popoverVisible={loginPopoverVisible}
           setPopoverVisible={setLoginPopoverVisible}
-          loginWalletOptions={loginWalletOptions}
-          loading={loading}
           loginWithWalletType={login}
         >
           <Button className="Login__loginButton" aria-label="Login">

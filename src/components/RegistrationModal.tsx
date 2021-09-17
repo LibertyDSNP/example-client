@@ -22,6 +22,7 @@ const RegistrationModal = ({
   onIdResolved,
   logout,
 }: RegistrationModalProps): JSX.Element => {
+  const userId = useAppSelector((state) => state.user.id);
   const registrations = useAppSelector((state) => state.user.registrations);
   const [hasRegistrations, setHasRegistrations] = React.useState<boolean>(
     false
@@ -46,6 +47,13 @@ const RegistrationModal = ({
     }
   }
 
+  const handleVisibleChange = () => {
+    if (!userId) {
+      logout();
+    }
+    setRegistrationVisible(!visible);
+  };
+
   /**
    * Create a popover with either registration or handle selection UI.
    */
@@ -54,7 +62,7 @@ const RegistrationModal = ({
       placement="bottomRight"
       visible={visible}
       trigger="click"
-      onVisibleChange={() => setRegistrationVisible(!visible)}
+      onVisibleChange={handleVisibleChange}
       content={
         <EditRegistration
           logout={logout}

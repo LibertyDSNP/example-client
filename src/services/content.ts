@@ -82,7 +82,6 @@ export const sendPost = async (
     buildBaseUploadHostUrl(`${hash}.json`).toString(),
     hash
   );
-
   await dsnp.batchAnnouncement(`${hash}.parquet`, announcement);
 };
 

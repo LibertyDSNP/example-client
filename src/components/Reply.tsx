@@ -1,15 +1,20 @@
-import React from "react";
+import React, { useState } from "react";
 import * as types from "../utilities/types";
 import UserAvatar from "./UserAvatar";
-import { useAppSelector } from "../redux/hooks";
+import { useAppDispatch, useAppSelector } from "../redux/hooks";
 import PostHashDropdown from "./PostHashDropdown";
 import { PostQuery, ProfileQuery } from "../services/content";
+import { FromTitle } from "./FromTitle";
+import { setDisplayId } from "../redux/slices/userSlice";
 
 interface ReplyProps {
   reply: types.ReplyItem;
 }
 
 const Reply = ({ reply }: ReplyProps): JSX.Element => {
+  const dispatch = useAppDispatch();
+  const [isHoveringProfile, setIsHoveringProfile] = useState(false);
+
   const users: Record<string, types.User> = useAppSelector(
     (state) => state.profiles.profiles
   );
@@ -27,19 +32,31 @@ const Reply = ({ reply }: ReplyProps): JSX.Element => {
         fromId={reply.fromId}
         isReply={true}
       />
-      <UserAvatar user={fromUser} avatarSize="small" />
-      <div className="Reply__message">
-        <div className="Reply__name">
-          {fromProfile?.name || fromUser?.fromId}
-        </div>
-        {replySuccess ? (
-          <>{replyContent?.content}</>
-        ) : (
-          <div className="BlankReply__messageBlock">
-            <div className="BlankReply__name"> </div>
-            <div className="BlankReply__message"> </div>
+      <div className="Reply__contentBlock">
+        <div
+          className="Reply__metaBlock"
+          onMouseEnter={() => setIsHoveringProfile(true)}
+          onMouseLeave={() => setIsHoveringProfile(false)}
+          onClick={() => dispatch(setDisplayId(reply.fromId))}
+        >
+          <UserAvatar user={fromUser} avatarSize="small" />
+          <div className="Reply__name">
+            <FromTitle
+              userInfo={fromUser}
+              profile={fromProfile}
+              isHoveringProfile={isHoveringProfile}
+              isReply={true}
+            />
           </div>
-        )}
+          {replySuccess ? (
+            <>{replyContent?.content}</>
+          ) : (
+            <div className="BlankReply__messageBlock">
+              <div className="BlankReply__name"> </div>
+              <div className="BlankReply__message"> </div>
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );

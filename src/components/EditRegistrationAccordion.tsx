@@ -47,7 +47,7 @@ const EditRegistrationAccordion = ({
           onIdResolved={onIdResolved}
         />
       </Panel>
-      {registrations && registrations.length > 0 && (
+      {registrations && registrations.length > 1 && (
         <Panel
           header={
             <p className="EditRegistrationAccordion__panelTitle">

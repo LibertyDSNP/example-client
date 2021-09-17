@@ -1,9 +1,14 @@
-.FromLine__secondary {
-  display: inline-block;
-  margin-left: 0.5rem;
-  color: $text-gray;
+.FromTitle__primary {
+  font-weight: bold;
+  font-size: 18px;
+  line-height: 1;
 }
 
 .FromTitle__primary--active {
   text-decoration: underline;
+}
+
+.FromLine__secondary {
+  color: $text-gray;
+  font-size: 13px;
 }

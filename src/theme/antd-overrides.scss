@@ -14,7 +14,12 @@
 
 }
 
-.ant-spin.Login__spinner {
+.ant-spin-dot-item {
+  background-color: $green !important;
+}
+
+.ant-spin.Login__spinner,
+.ant-spin.LoginModal__spinner {
   padding-left: 8px;
 }
 
@@ -33,19 +38,24 @@
 }
 
 .ant-btn.ConnectionsList__button {
-  @include button($black, $white, $white, $black);
+  @include button($black, $black, $white, $black);
 
-  border-radius: 0 8px 8px 0;
+  border-radius: 0 5px 5px 0;
   height: auto;
 
   &:hover, &:active {
-    color: $black !important;
+    color: $green !important;
   }
 }
 
 .ConnectionsList__buttonBlock .ant-btn:first-child {
-  border-radius: 8px 0 0 8px;
+  border-radius: 5px 0 0 5px;
   border-width: 2px 1px 2px 2px;
+  border-right: 2px solid $green !important;
+}
+
+.ant-btn.ConnectionsList__button--active {
+  color: $green !important;
 }
 
 .ant-btn.ProfileBlock__editButton {
@@ -54,11 +64,6 @@
   padding: 0 10px;
   font-size: 12px;
   height: 24px;
-}
-
-.ant-btn.ConnectionsList__button--active {
-  color: $black !important;
-  background: $white !important;
 }
 
 .ant-btn.Feed__newPostButton {
@@ -93,6 +98,11 @@
 
 .ant-input:focus {
   box-shadow: none !important;
+}
+
+.ant-tabs-tab-btn {
+  font-size: 20px;
+  font-weight: bold;
 }
 
 .ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn {
@@ -141,7 +151,7 @@ a {
 
     button {
       height: 15px !important;
-      border-radius: 8px !important;
+      border-radius: 5px !important;
       background: $shadow-green !important;
     }
   }

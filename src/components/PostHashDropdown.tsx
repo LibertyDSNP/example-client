@@ -37,9 +37,7 @@ const PostHashDropdown = ({
 
   return (
     <Dropdown
-      className={
-        isReply ? "PostHashDropdown__replyBlock" : "PostHashDropdown__block"
-      }
+      className={isReply ? "PostHashDropdown__replyBlock" : ""}
       overlay={menu}
       visible={isVisible}
       onVisibleChange={(e) => setIsVisible(e)}

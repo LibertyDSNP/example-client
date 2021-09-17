@@ -10,3 +10,14 @@
 .Post__metaBlock {
   cursor: pointer;
 }
+
+.Post__metaInnerBlock {
+  display: flex;
+  align-items: center;
+}
+
+.Post__rightCorner {
+  position: absolute;
+  top: 24px;
+  right: 24px;
+}
