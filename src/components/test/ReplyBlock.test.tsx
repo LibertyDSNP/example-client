@@ -44,7 +44,7 @@ describe("ReplyBlock", () => {
     expect(() => {
       shallow(
         componentWithStore(ReplyBlock, store, {
-          parent: getPrefabFeed()[0].hash,
+          parent: getPrefabFeed()[0].contentHash,
         })
       );
     }).not.toThrow();

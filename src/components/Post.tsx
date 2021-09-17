@@ -38,7 +38,7 @@ const Post = ({ feedItem }: PostProps): JSX.Element => {
   const attachments: ActivityContentAttachment[] = post?.attachment || [];
 
   return (
-    <Card key={feedItem.hash} className="Post__block" bordered={false}>
+    <Card key={feedItem.contentHash} className="Post__block" bordered={false}>
       <div
         onClick={() => dispatch(setDisplayId(feedItem.fromId))}
         onMouseEnter={() => setIsHoveringProfile(true)}
@@ -61,7 +61,7 @@ const Post = ({ feedItem }: PostProps): JSX.Element => {
           }
         />
       </div>
-      <PostHashDropdown hash={feedItem.hash} fromId={feedItem.fromId} />
+      <PostHashDropdown hash={feedItem.contentHash} fromId={feedItem.fromId} />
       {postSuccess ? (
         <>
           <div className="Post__caption">{post?.content}</div>
@@ -79,7 +79,10 @@ const Post = ({ feedItem }: PostProps): JSX.Element => {
         </div>
       )}
       <ReplyBlock
-        parentURI={buildDSNPAnnouncementURI(feedItem.fromId, feedItem.hash)}
+        parentURI={buildDSNPAnnouncementURI(
+          BigInt(feedItem.fromId),
+          feedItem.contentHash
+        )}
       />
     </Card>
   );

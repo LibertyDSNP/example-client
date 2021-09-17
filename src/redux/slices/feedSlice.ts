@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { FeedItem, Reply, HexString } from "../../utilities/types";
+import { FeedItem, ReplyItem, HexString } from "../../utilities/types";
 
 interface isPostLoadingType {
   loading: boolean;
@@ -13,7 +13,7 @@ interface isReplyLoadingType {
 
 interface feedState {
   feedItems: FeedItem[];
-  replies: Record<string, Reply[]>;
+  replies: Record<string, ReplyItem[]>;
   isPostLoading: isPostLoadingType;
   isReplyLoading: isReplyLoadingType;
 }
@@ -36,7 +36,7 @@ const newPostLoadingState = (
 
 const newReplyLoadingState = (
   state: isReplyLoadingType,
-  item: Reply
+  item: ReplyItem
 ): isReplyLoadingType => {
   if (state.loading && state.parent === item.inReplyTo) {
     return { loading: false, parent: undefined };
@@ -56,7 +56,7 @@ export const feedSlice = createSlice({
         isPostLoading: newPostLoadingState(state.isPostLoading, newFeedItem),
       };
     },
-    addReply: (state, action: PayloadAction<Reply>) => {
+    addReply: (state, action: PayloadAction<ReplyItem>) => {
       const newReply = action.payload;
       return {
         ...state,

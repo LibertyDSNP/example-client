@@ -3,14 +3,13 @@ import { Dropdown } from "antd";
 import { CopyOutlined, CheckCircleTwoTone } from "@ant-design/icons";
 import {
   buildDSNPAnnouncementURI,
-  DSNPUserId,
   DSNPAnnouncementURI,
 } from "@dsnp/sdk/core/identifiers";
 import { HexString } from "../utilities/types";
 
 interface PostHashDropdownProps {
   hash: HexString;
-  fromId: DSNPUserId;
+  fromId: string;
   isReply?: boolean;
 }
 
