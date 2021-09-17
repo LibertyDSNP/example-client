@@ -6,6 +6,9 @@ import { componentWithStore, createMockStore } from "../../test/testhelpers";
 import { getPreFabSocialGraph } from "../../test/testGraphs";
 import { getPrefabProfile } from "../../test/testProfiles";
 import { FeedItem } from "../../utilities/types";
+import * as content from "../../services/content";
+import { createNote } from "@dsnp/sdk/core/activityContent";
+import { mockQueryResult } from "../../test/testQueryResult";
 
 const userProfile = getPrefabProfile(0);
 const displayProfile = getPrefabProfile(3);
@@ -33,6 +36,14 @@ const initialState = {
 const store = createMockStore(initialState);
 
 describe("Feed", () => {
+  beforeEach(() => {
+    jest
+      .spyOn(content, "PostQuery")
+      .mockImplementation((_feedItem) =>
+        mockQueryResult(createNote("test post"))
+      );
+  });
+
   it("renders without crashing", () => {
     expect(() => {
       shallow(componentWithStore(Feed, store));

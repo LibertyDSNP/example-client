@@ -1,6 +1,6 @@
 import React from "react";
 import { useAppSelector } from "../redux/hooks";
-import { FeedItem } from "../utilities/types";
+import { ReplyItem } from "../utilities/types";
 import Reply from "./Reply";
 import ReplyInput from "./ReplyInput";
 import BlankReply from "./BlankReply";
@@ -16,7 +16,7 @@ interface ReplyBlockProps {
 }
 
 const ReplyBlock = ({ parentURI }: ReplyBlockProps): JSX.Element => {
-  const replyFeed: FeedItem[] = useAppSelector(
+  const replyFeed: ReplyItem[] = useAppSelector(
     (state) => state.feed.replies[parentURI]
   );
 

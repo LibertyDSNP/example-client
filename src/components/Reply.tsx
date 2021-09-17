@@ -6,7 +6,7 @@ import PostHashDropdown from "./PostHashDropdown";
 import { PostQuery, ProfileQuery } from "../services/content";
 
 interface ReplyProps {
-  reply: types.Reply;
+  reply: types.ReplyItem;
 }
 
 const Reply = ({ reply }: ReplyProps): JSX.Element => {
@@ -23,7 +23,7 @@ const Reply = ({ reply }: ReplyProps): JSX.Element => {
   return (
     <div className="Reply__block">
       <PostHashDropdown
-        hash={reply.hash}
+        hash={reply.contentHash}
         fromId={reply.fromId}
         isReply={true}
       />

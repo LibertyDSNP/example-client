@@ -179,9 +179,9 @@ export const PostQuery = (
   feedItem: FeedItem
 ): UseQueryResult<ActivityContentNote, Error> => {
   return useQuery(
-    ["activityContentPost", feedItem.uri],
+    ["activityContentPost", feedItem.url],
     async () => {
-      const res = await fetch(feedItem.uri);
+      const res = await fetch(feedItem.url);
       const maybeNote = await res.json();
       try {
         requireIsActivityContentNoteType(maybeNote);
@@ -306,8 +306,8 @@ const handleBatchAnnouncement = (dispatch: Dispatch) => (
             blockNumber: batchAnnouncement.blockNumber,
             blockIndex: batchAnnouncement.transactionIndex,
             batchIndex: batchIndex,
-            hash: announcement.contentHash,
-            uri: announcement.url,
+            contentHash: announcement.contentHash,
+            url: announcement.url,
           })
         );
       } else if (isReplyAnnouncement(announcement)) {
@@ -318,8 +318,8 @@ const handleBatchAnnouncement = (dispatch: Dispatch) => (
             blockNumber: batchAnnouncement.blockNumber,
             blockIndex: batchAnnouncement.transactionIndex,
             batchIndex: batchIndex,
-            hash: announcement.contentHash,
-            uri: announcement.url,
+            contentHash: announcement.contentHash,
+            url: announcement.url,
           })
         );
       } else if (isProfileAnnouncement(announcement)) {

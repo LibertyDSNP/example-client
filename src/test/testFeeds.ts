@@ -13,7 +13,6 @@ import {
 } from "@dsnp/sdk/core/activityContent";
 
 import { generators } from "@dsnp/sdk";
-import { AnnouncementType } from "@dsnp/sdk/core/announcements";
 
 const generateNote = generators.activityContent.generateNote;
 
@@ -44,7 +43,6 @@ export const generateFeedItem = (
 ): FeedItem => {
   const hash = "0x" + keccak_256(content);
   return {
-    announcementType: AnnouncementType.Broadcast,
     fromId: address,
     blockNumber: 50,
     blockIndex: 0,
