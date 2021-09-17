@@ -1,4 +1,4 @@
-.LoginButton__loginOptions {
+.LoginModal__loginOptions {
   color: $white;
   display: flex;
   flex-direction: column;
@@ -9,8 +9,8 @@
   padding: 20px;
 }
 
-.LoginButton__loginMetamask,
-.LoginButton__loginTorus {
+.LoginModal__loginMetamask,
+.LoginModal__loginTorus {
   @include button($black, $shadow-green, $white, $shadow-green);
 
   font-weight: bold;
@@ -18,6 +18,6 @@
   width: 115px;
 }
 
-.LoginButton__loginButton--quickStart {
+.LoginModal__loginButton--quickStart {
   margin: 0 auto;
 }

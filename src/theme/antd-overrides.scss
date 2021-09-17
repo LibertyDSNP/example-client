@@ -1,4 +1,5 @@
-.ant-btn.LoginButton__loginButton {
+.ant-btn.Login__loginButton,
+.ant-btn.LoginModal__loginButton {
   @include button($black, $black, $white, $black);
 
   padding: 0 30px;
@@ -8,7 +9,7 @@
   }
 }
 
-.ant-btn.Logout__logoutButton {
+.ant-btn.EditRegistration__logoutButton {
   @include button($white, $shadow-green, $black, $shadow-green);
 
 }
@@ -165,4 +166,26 @@ a {
 
 .ant-modal.NewPost {
   border-radius: 10px;
+}
+
+.ant-btn.RegistrationModal__footerBtn {
+  @include button($shadow-green, $black, $white, $shadow-green);
+
+  margin: 1em auto;
+}
+
+.ant-btn.RegistrationModal__footerBtn[disabled] {
+  @include button($light-gray, $light-gray, $dark-gray, $dark-gray);
+
+  span {
+    color: $gray;
+  }
+}
+
+.ant-collapse-borderless {
+  background-color: $white !important;
+}
+
+.ant-collapse-borderless > .ant-collapse-item {
+  border-bottom: none !important;
 }

@@ -1,9 +1,10 @@
 import React from "react";
 import { Card } from "antd";
 import UserAvatar from "./UserAvatar";
+import { User } from "../utilities/types";
 
 const BlankPost = (): JSX.Element => {
-  const blankUser = {
+  const blankUser: User = {
     fromId: "unknown",
     blockNumber: 0,
     blockIndex: 0,

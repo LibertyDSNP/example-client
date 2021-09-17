@@ -5,7 +5,8 @@ import { userUpdateWalletType } from "../redux/slices/userSlice";
 import { useAppDispatch } from "../redux/hooks";
 import { upsertSessionWalletType } from "../services/session";
 
-interface LoginButtonProps {
+interface LoginModalProps {
+  children: JSX.Element;
   popoverVisible: boolean;
   setPopoverVisible: any;
   loginWalletOptions: wallet.WalletType;
@@ -13,13 +14,14 @@ interface LoginButtonProps {
   loginWithWalletType: (wallet: wallet.WalletType) => void;
 }
 
-const LoginButton = ({
+const LoginModal = ({
+  children,
   popoverVisible,
   setPopoverVisible,
   loginWalletOptions,
   loading,
   loginWithWalletType,
-}: LoginButtonProps): JSX.Element => {
+}: LoginModalProps): JSX.Element => {
   const handleVisibleChange = (visible: boolean) => {
     setPopoverVisible(visible);
   };
@@ -32,7 +34,7 @@ const LoginButton = ({
     loginWithWalletType(wtype);
   };
 
-  const HeaderLoginButton = (
+  const HeaderLoginModal = (
     <Popover
       placement="bottomRight"
       trigger="click"
@@ -40,17 +42,17 @@ const LoginButton = ({
       onVisibleChange={handleVisibleChange}
       color={"black"}
       content={
-        <div className="LoginButton__loginOptions">
+        <div className="LoginModal__loginOptions">
           <div>Log in with</div>
           <button
-            className="LoginButton__loginMetamask"
+            className="LoginModal__loginMetamask"
             onClick={() => setWalletType(wallet.WalletType.METAMASK)}
           >
             MetaMask
           </button>
           <div>OR</div>
           <button
-            className="LoginButton__loginTorus"
+            className="LoginModal__loginTorus"
             onClick={() => setWalletType(wallet.WalletType.TORUS)}
           >
             Torus
@@ -58,30 +60,27 @@ const LoginButton = ({
         </div>
       }
     >
-      <Button className="LoginButton__loginButton" aria-label="Login">
-        Log In
-        {loading && <Spin className="LoginButton__spinner" size="small" />}
-      </Button>
+      {children}
     </Popover>
   );
 
-  const QuickStartLoginButton = (
+  const QuickStartLoginModal = (
     <Button
-      className="LoginButton__loginButton LoginButton__loginButton--quickStart"
+      className="LoginModal__loginButton LoginModal__loginButton--quickStart"
       aria-label="Login"
       onClick={() => loginWithWalletType(loginWalletOptions)}
     >
       Log In With {loginWalletOptions}
-      {loading && <Spin className="LoginButton__spinner" size="small" />}
+      {loading && <Spin className="LoginModal__spinner" size="small" />}
     </Button>
   );
 
   return (
     <>
       {loginWalletOptions === wallet.WalletType.NONE
-        ? HeaderLoginButton
-        : QuickStartLoginButton}
+        ? HeaderLoginModal
+        : QuickStartLoginModal}
     </>
   );
 };
-export default LoginButton;
+export default LoginModal;

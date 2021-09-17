@@ -22,6 +22,8 @@ export type User = {
   blockNumber: number;
   blockIndex: number;
   batchIndex: number;
+  icon?: any;
+  name?: string;
 };
 
 // ## FeedItem ##
