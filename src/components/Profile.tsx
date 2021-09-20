@@ -105,7 +105,7 @@ const Profile = (): JSX.Element => {
               userId={userId}
               user={user}
               following={followedByCurrentuser}
-            ></GraphChangeButton>
+            />
           )}
         </div>
         <div className="ProfileBlock__personalInfo">
@@ -116,21 +116,14 @@ const Profile = (): JSX.Element => {
             onChange={(e) => setNewName(e.target.value)}
             disabled={!isEditing}
           />
-          <label className="ProfileBlock__personalInfoLabel">HANDLE</label>
-          <input
-            className="ProfileBlock__handle"
-            value={newHandle || newHandle === "" ? newHandle : handle}
-            onChange={(e) => setNewHandle(e.target.value)}
-            disabled={true}
-          />
-          <label className="ProfileBlock__personalInfoLabel">
-            SOCIAL ADDRESS
-          </label>
-          <input
-            className="ProfileBlock__dsnpUserId"
-            value={displayId || "Anonymous"}
-            disabled={true}
-          />
+
+          <div className="ProfileBlock__personalInfoLabel">HANDLE</div>
+          <div className="ProfileBlock__handle">@{handle}</div>
+
+          <div className="ProfileBlock__personalInfoLabel">SOCIAL ADDRESS</div>
+          <div className="ProfileBlock__dsnpUserId">
+            {displayId || "Anonymous"}
+          </div>
         </div>
       </div>
       <ConnectionsList />
