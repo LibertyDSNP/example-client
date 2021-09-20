@@ -157,7 +157,7 @@ export const startSubscriptions = async (
     (announcement: BatchPublicationLogData) => {
       batchHandler(announcement);
     },
-    { fromBlock: 1 }
+    { fromBlock: "dsnp-start-block" }
   );
 
   // subscribe to registry events
@@ -165,7 +165,7 @@ export const startSubscriptions = async (
     (announcement: RegistryUpdateLogData) => {
       registryHandler(announcement);
     },
-    { fromBlock: 1 }
+    { fromBlock: "dsnp-start-block" }
   );
 
   return () => {
