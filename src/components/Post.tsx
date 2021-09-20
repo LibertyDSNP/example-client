@@ -46,6 +46,7 @@ const Post = ({ feedItem }: PostProps): JSX.Element => {
         className="Post__metaBlock"
       >
         <Card.Meta
+          className="Post__metaInnerBlock"
           avatar={<UserAvatar user={user} avatarSize={"medium"} />}
           title={
             <FromTitle
@@ -54,14 +55,17 @@ const Post = ({ feedItem }: PostProps): JSX.Element => {
               isHoveringProfile={isHoveringProfile}
             />
           }
-          description={
-            post?.published && (
-              <RelativeTime published={post?.published} postStyle={true} />
-            )
-          }
         />
       </div>
-      <PostHashDropdown hash={feedItem.contentHash} fromId={feedItem.fromId} />
+      <div className="Post__rightCorner">
+        {feedItem?.published && (
+          <RelativeTime published={feedItem?.published} postStyle={true} />
+        )}
+        <PostHashDropdown
+          hash={feedItem.contentHash}
+          fromId={feedItem.fromId}
+        />
+      </div>
       {postSuccess ? (
         <>
           <div className="Post__caption">{post?.content}</div>
