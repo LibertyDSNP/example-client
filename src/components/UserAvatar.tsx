@@ -7,7 +7,7 @@ import { userIdentification } from "../services/utilities";
 import { UserOutlined } from "@ant-design/icons";
 
 const avatarSizeOptions = new Map([
-  ["small", 32],
+  ["small", 28],
   ["medium", 50],
   ["large", 100],
 ]);
