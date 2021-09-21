@@ -1,21 +1,26 @@
 .Reply__block {
   position: relative;
-  display: flex;
-  justify-content: center;
-  padding-bottom: 14px;
+  margin-bottom: 14px;
   max-height: 400px;
-}
-
-.Reply__message {
-  align-self: center;
+  flex-grow: 1;
   background-color: $light-gray;
   padding: 4px;
-  border-radius: 8px;
+  border-radius: 5px;
   margin-left: 8px;
-  width: 90%;
   color: $text-gray;
+}
+
+.Reply__metaBlock {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
 }
 
 .Reply__name {
   font-weight: bold;
+  margin-left: 10px;
+}
+
+.Reply__message {
+  margin-left: 38px;
 }

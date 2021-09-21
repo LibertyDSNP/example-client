@@ -49,10 +49,6 @@ const ConnectionsList = (): JSX.Element => {
           </div>
           Followers
         </Button>
-
-        {selectedListTitle === ListStatus.CLOSED && (
-          <div className="ConnectionsList__buttonSeparator"> </div>
-        )}
         <Button
           className={getClassName(ListStatus.FOLLOWING)}
           onClick={() => handleClick(ListStatus.FOLLOWING)}

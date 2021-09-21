@@ -39,7 +39,7 @@ const LoginModal = ({
       color={"black"}
       content={
         <div className="LoginModal__loginOptions">
-          <div>Log in with</div>
+          <div>Connect with</div>
           <button
             className="LoginModal__loginMetamask"
             onClick={() => setWalletType(wallet.WalletType.METAMASK)}
