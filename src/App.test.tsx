@@ -11,7 +11,7 @@ import {
 import * as dsnp from "./services/dsnp";
 import * as content from "./services/content";
 import * as hooks from "./redux/hooks";
-import { UnsubscribeFunction } from "./services/dsnp";
+import { UnsubscribeFunction } from "@dsnp/sdk/core/contracts/utilities";
 
 jest.mock("../src/components/Header", () => () => <div> Header </div>);
 jest.mock("../src/components/Feed", () => () => <div> Feed </div>);

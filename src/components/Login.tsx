@@ -49,12 +49,16 @@ const Login = (): JSX.Element => {
     setRegistrationPopoverVisible(false);
   };
 
-  // clear state if something clears the wallet type (e.g. an error connecting to the provider)
   useEffect(() => {
     if (currentWalletType === wallet.WalletType.NONE) {
-      startLoading(false);
-      setPopoverVisible(false);
-      setRegistrationVisible(false);
+      // close modals if something clears the wallet type (e.g. an error connecting to the provider)
+      closeModals();
+    } else {
+      // Ensure wallet address is set for all  components this component owns.
+      (async () => {
+        const waddr = await wallet.wallet(currentWalletType).getAddress();
+        setWalletAddress(waddr);
+      })();
     }
   }, [currentWalletType]);
 
@@ -81,16 +85,19 @@ const Login = (): JSX.Element => {
       const waddr = await wallet.wallet(selectedType).login();
       await loginWithWalletAddress(waddr, selectedType);
     } catch (error) {
-      console.log("LOGIN error", error);
+      console.log("Login error", error);
       logout();
-      setLoginPopoverVisible(false);
-      startLoading(false);
     }
   };
 
-  const logout = () => {
+  const closeModals = () => {
     startLoading(false);
     setRegistrationPopoverVisible(false);
+    setLoginPopoverVisible(false);
+  };
+
+  const logout = () => {
+    closeModals();
     setWalletAddress("");
     if (!userId) return;
     session.clearSession();
@@ -137,6 +144,7 @@ const Login = (): JSX.Element => {
           setRegistrationVisible={setRegistrationPopoverVisible}
           onIdResolved={setUserID}
           logout={logout}
+          cancel={closeModals}
           walletAddress={walletAddress}
         >
           <div className="Login__userBlock">

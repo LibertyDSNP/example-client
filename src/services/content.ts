@@ -31,6 +31,7 @@ import { FeedItem, User } from "../utilities/types";
 import { useQuery, UseQueryResult } from "react-query";
 import { Permission } from "@dsnp/sdk/core/contracts/identity";
 import { buildBaseUploadHostUrl } from "../utilities/buildBaseUploadHostUrl";
+import { UnsubscribeFunction } from "@dsnp/sdk/core/contracts/utilities";
 
 //
 // Content Package
@@ -56,7 +57,7 @@ type Dispatch = ThunkDispatch<any, Record<string, any>, AnyAction>;
  */
 export const startSubscriptions = async (
   dispatch: Dispatch
-): Promise<dsnp.UnsubscribeFunction> => {
+): Promise<UnsubscribeFunction> => {
   dispatch(clearFeedItems());
 
   return dsnp.startSubscriptions(

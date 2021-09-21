@@ -15,6 +15,7 @@ import { HexString } from "@dsnp/sdk/types/Strings";
 import { Store } from "./Storage";
 import { WalletType } from "./wallets/wallet";
 import torusWallet from "./wallets/torus";
+import { UnsubscribeFunction } from "@dsnp/sdk/core/contracts/utilities";
 
 //
 // DSNP Package
@@ -33,8 +34,6 @@ type AnnouncementRowHandler = (
   announcementRow: SignedAnnouncement,
   batchIndex: number
 ) => void;
-
-export type UnsubscribeFunction = () => void;
 
 //
 // Internal Helper Functions

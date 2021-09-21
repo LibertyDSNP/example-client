@@ -7,6 +7,8 @@ import { ProfileQuery, saveProfile } from "../services/content";
 import { core } from "@dsnp/sdk";
 import GraphChangeButton from "./GraphChangeButton";
 import ProfileEditButtons from "./ProfileEditButtons";
+import { friendlyError } from "../services/errors";
+import { Modal } from "antd";
 
 const Profile = (): JSX.Element => {
   const userId: string | undefined = useAppSelector((state) => state.user.id);
@@ -57,7 +59,15 @@ const Profile = (): JSX.Element => {
       name: newName,
       icon: profile?.icon,
     });
-    await saveProfile(BigInt(userId), newProfile);
+    try {
+      await saveProfile(BigInt(userId), newProfile);
+    } catch (error) {
+      Modal.error({
+        title: "Error saving profile",
+        content: friendlyError(error),
+      });
+      cancelEditProfile();
+    }
   };
 
   const cancelEditProfile = () => {

@@ -6,6 +6,7 @@ import { HexString } from "../utilities/types";
 import { DSNPUserURI } from "@dsnp/sdk/core/identifiers";
 import { setRegistrations } from "../redux/slices/userSlice";
 import { useAppDispatch } from "../redux/hooks";
+import { friendlyError } from "../services/errors";
 
 interface CreateRegistrationProps {
   walletAddress: HexString;
@@ -33,9 +34,7 @@ const CreateRegistration = ({
       dispatch(setRegistrations(registrations));
     } catch (error) {
       console.error(error);
-      setRegistrationError(
-        `Error registering: ${error.message || error.toString()}`
-      );
+      setRegistrationError(friendlyError(error));
     }
   };
 
