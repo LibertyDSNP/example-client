@@ -301,7 +301,7 @@ const handleBatchAnnouncement = (dispatch: Dispatch) => (
         );
       } else if (isBroadcastAnnouncement(announcement)) {
         let publishedDate;
-        if (announcement.createdAt > (2 ^ 53) - 1) {
+        if (announcement.createdAt > Number.MAX_SAFE_INTEGER) {
           publishedDate = new Date(
             Number(announcement.createdAt)
           ).toISOString();
