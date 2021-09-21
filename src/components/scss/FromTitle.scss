@@ -1,9 +1,21 @@
-.FromTitle__secondary {
-  display: inline-block;
-  margin-left: 0.5rem;
-  color: $text-gray;
+.FromTitle__primary {
+  font-weight: bold;
+  font-size: 18px;
+  line-height: 1;
 }
 
 .FromTitle__primary--active {
   text-decoration: underline;
+}
+
+.FromTitle__primary--reply {
+  font-size: 14px;
+  line-height: 1;
+  padding-right: 12px;
+  color: $black;
+}
+
+.FromTitle__secondary {
+  color: $text-gray;
+  font-size: 13px;
 }

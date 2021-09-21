@@ -6,23 +6,34 @@ interface FromTitleProps {
   userInfo: Partial<User>;
   profile: ActivityContentProfile | undefined;
   isHoveringProfile?: boolean;
+  isReply?: boolean;
 }
 
 export const FromTitle = ({
   userInfo,
   profile,
   isHoveringProfile,
+  isReply,
 }: FromTitleProps): JSX.Element => {
   const atHandle = userInfo.handle && "@" + userInfo.handle;
-  const primary = profile?.name || atHandle || userInfo.fromId;
-  const secondary = profile?.name ? atHandle : undefined;
+  const primary = atHandle;
+  const secondary = profile?.name || userInfo.fromId;
+
+  const primaryClassName = () => {
+    let className = "FromTitle__primary";
+    if (isHoveringProfile) {
+      className = className + " FromTitle__primary--active";
+    }
+    if (isReply) {
+      className = className + " FromTitle__primary--reply";
+    }
+    return className;
+  };
 
   return (
     <span className="FromTitle__block">
-      <span className={isHoveringProfile ? "FromTitle__primary--active" : ""}>
-        {primary}
-      </span>
-      {secondary && <span className="FromTitle__secondary">{secondary}</span>}
+      <div className={primaryClassName()}>{primary}</div>
+      {!isReply && <div className="FromTitle__secondary">{secondary}</div>}
     </span>
   );
 };

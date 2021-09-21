@@ -1,6 +1,5 @@
 import { DSNPAnnouncementURI } from "@dsnp/sdk/core/identifiers";
 
-
 export declare type HexString = string;
 
 // ## GraphChange ##
@@ -34,6 +33,7 @@ export type FeedItem = {
   blockNumber: number;
   blockIndex: number;
   batchIndex: number;
+  published?: string;
 };
 
 // ## Reply ##
