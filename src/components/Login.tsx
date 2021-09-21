@@ -65,7 +65,7 @@ const Login = (): JSX.Element => {
     }
   };
 
-  const login = async (selectedType: wallet.WalletType) => {
+  const connectWallet = async (selectedType: wallet.WalletType) => {
     if (loading) return;
     startLoading(true);
     try {
@@ -114,7 +114,7 @@ const Login = (): JSX.Element => {
         <LoginModal
           popoverVisible={loginPopoverVisible}
           setPopoverVisible={setLoginPopoverVisible}
-          loginWithWalletType={login}
+          loginWithWalletType={connectWallet}
         >
           <Button className="Login__loginButton" aria-label="Login">
             Connect Wallet
