@@ -8,6 +8,7 @@ interface UserState {
   walletType: wallet.WalletType;
   displayId?: string;
   registrations?: Registration[];
+  tempIconUri?: string;
 }
 
 const initialState: UserState = {
@@ -47,6 +48,10 @@ export const userSlice = createSlice({
       ...state,
       registrations: action.payload,
     }),
+    setTempIconUri: (state, action: PayloadAction<string | undefined>) => ({
+      ...state,
+      tempIconUri: action.payload,
+    }),
   },
 });
 export const {
@@ -56,5 +61,6 @@ export const {
   userUpdateWalletType,
   setDisplayId,
   setRegistrations,
+  setTempIconUri,
 } = userSlice.actions;
 export default userSlice.reducer;

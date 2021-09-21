@@ -1,14 +1,19 @@
 import UserAvatar from "./UserAvatar";
 import ConnectionsList from "./ConnectionsList";
 import React, { useEffect, useState } from "react";
-import { useAppSelector } from "../redux/hooks";
+import { useAppDispatch, useAppSelector } from "../redux/hooks";
 import * as types from "../utilities/types";
 import { ProfileQuery, saveProfile } from "../services/content";
 import { core } from "@dsnp/sdk";
 import GraphChangeButton from "./GraphChangeButton";
+import EditAvatarModal from "./EditAvatarModal";
+import { ActivityContentImageLink } from "@dsnp/sdk/core/activityContent";
+import { setTempIconUri } from "../redux/slices/userSlice";
 import ProfileEditButtons from "./ProfileEditButtons";
 
 const Profile = (): JSX.Element => {
+  const dispatch = useAppDispatch();
+
   const userId: string | undefined = useAppSelector((state) => state.user.id);
 
   const followedByCurrentuser = useAppSelector(
@@ -31,17 +36,23 @@ const Profile = (): JSX.Element => {
 
   const handle = user?.handle;
   const [newName, setNewName] = useState<string | undefined>();
+  const [newIcon, setNewIcon] = useState<
+    ActivityContentImageLink[] | undefined
+  >(profile?.icon);
   const [didEditProfile, setDidEditProfile] = useState<boolean>(false);
 
   const profileName = profile?.name || "Anonymous";
 
   useEffect(() => {
-    if (newName && newName !== profileName) {
+    if (
+      (newName && newName !== profileName) ||
+      (newIcon && newIcon !== profile?.icon)
+    ) {
       setDidEditProfile(true);
       return;
     }
     setDidEditProfile(false);
-  }, [newName, profileName, handle]);
+  }, [newName, newIcon, profileName, handle]);
   const [isEditing, setIsEditing] = useState<boolean>(false);
 
   const getClassName = (sectionName: string) => {
@@ -52,10 +63,10 @@ const Profile = (): JSX.Element => {
 
   const saveEditProfile = async () => {
     setIsEditing(!isEditing);
-    if (userId === undefined || newName === undefined) return;
+    if (userId === undefined) return;
     const newProfile = core.activityContent.createProfile({
       name: newName,
-      icon: profile?.icon,
+      icon: newIcon,
     });
     await saveProfile(BigInt(userId), newProfile);
   };
@@ -63,13 +74,18 @@ const Profile = (): JSX.Element => {
   const cancelEditProfile = () => {
     setIsEditing(!isEditing);
     setNewName(undefined);
+    dispatch(setTempIconUri(undefined));
   };
 
   return (
     <>
       <div className="ProfileBlock__personalInfoBlock">
         <div className="ProfileBlock__avatarBlock">
-          <UserAvatar user={user} avatarSize="large" />
+          {userId === displayId && isEditing ? (
+            <EditAvatarModal setNewIcon={setNewIcon} />
+          ) : (
+            <UserAvatar user={user} avatarSize="large" />
+          )}
           {userId === displayId && (
             <ProfileEditButtons
               isEditing={isEditing}
