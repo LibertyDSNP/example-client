@@ -1,7 +1,5 @@
 import { Tabs } from "antd";
 import { isInstalled } from "../services/wallets/metamask/metamask";
-import Login from "./Login";
-import * as wallet from "../services/wallets/wallet";
 import React from "react";
 
 const LoginSetupInstructions = (): JSX.Element => {
@@ -18,16 +16,10 @@ const LoginSetupInstructions = (): JSX.Element => {
             MetaMask Log In Guide
           </div>
           {isInstalled() ? (
-            <>
-              <p>
-                You already have MetaMask installed! Just click the{" "}
-                <code>Log In &#8594; MetaMask</code> button.
-              </p>
-              <Login
-                loginWalletOptions={wallet.WalletType.METAMASK}
-                isPrimary={false}
-              />
-            </>
+            <p>
+              You already have MetaMask installed! Just click the{" "}
+              <code>Log In &#8594; MetaMask</code> button.
+            </p>
           ) : (
             <>
               <p>
@@ -69,10 +61,6 @@ const LoginSetupInstructions = (): JSX.Element => {
                 </li>
                 <li>Once setup, select/connect to that Custom RPC.</li>
               </ul>
-              <Login
-                loginWalletOptions={wallet.WalletType.METAMASK}
-                isPrimary={false}
-              />
             </>
           )}
         </Tabs.TabPane>
@@ -82,10 +70,6 @@ const LoginSetupInstructions = (): JSX.Element => {
             There is no setup required for Torus. Just click the{" "}
             <code>Log In &#8594; Torus</code> button.
           </p>
-          <Login
-            loginWalletOptions={wallet.WalletType.TORUS}
-            isPrimary={false}
-          />
         </Tabs.TabPane>
       </Tabs>
     </>

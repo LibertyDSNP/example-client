@@ -109,7 +109,7 @@ describe("Profile Block", () => {
 
     it("displays correct userId", async () => {
       const component = mount(componentWithStore(ProfileBlock, otherUserStore));
-      expect(component.find(".ProfileBlock__dsnpUserId").props().value).toEqual(
+      expect(component.find(".ProfileBlock__dsnpUserId").text()).toEqual(
         displayId
       );
     });
