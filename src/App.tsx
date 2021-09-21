@@ -30,7 +30,7 @@ const App = (): JSX.Element => {
   useEffect(() => {
     if (!walletType) return;
     if (walletType === wallet.WalletType.NONE) return;
-    let unsubscribeFunction: UnsubscribeFunction;
+    let unsubscribeFunction: UnsubscribeFunction | undefined;
 
     (async () => {
       try {
@@ -48,7 +48,7 @@ const App = (): JSX.Element => {
     })();
 
     return () => {
-      unsubscribeFunction();
+      unsubscribeFunction?.();
     };
   });
 

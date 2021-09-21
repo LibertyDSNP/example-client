@@ -50,15 +50,13 @@ const Login = (): JSX.Element => {
   };
 
   useEffect(() => {
-    if (currentWalletType === wallet.WalletType.NONE) {
+    if (currentWalletType && currentWalletType !== wallet.WalletType.NONE) {
+      // Ensure wallet address is set for all components this component owns.
+      const walletImpl = wallet.wallet(currentWalletType);
+      (async () => setWalletAddress(await walletImpl.getAddress()))();
+    } else {
       // close modals if something clears the wallet type (e.g. an error connecting to the provider)
       closeModals();
-    } else {
-      // Ensure wallet address is set for all  components this component owns.
-      (async () => {
-        const waddr = await wallet.wallet(currentWalletType).getAddress();
-        setWalletAddress(waddr);
-      })();
     }
   }, [currentWalletType]);
 

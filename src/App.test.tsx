@@ -41,7 +41,7 @@ describe("App", () => {
         .mockReturnValue(Promise.resolve(unsubscribeFnc));
       jest.spyOn(hooks, "useAppDispatch").mockReturnValue(dispatch);
 
-      dispatch.mockResolvedValue({ unsubscribeFnc });
+      dispatch.mockResolvedValue(unsubscribeFnc);
 
       component = await mount(componentWithStore(App, store));
       await flushPromises();
