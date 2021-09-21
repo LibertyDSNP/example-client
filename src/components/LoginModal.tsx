@@ -1,4 +1,4 @@
-import { Button, Popover, Spin } from "antd";
+import { Popover } from "antd";
 import * as wallet from "../services/wallets/wallet";
 import React from "react";
 import { userUpdateWalletType } from "../redux/slices/userSlice";
@@ -9,8 +9,6 @@ interface LoginModalProps {
   children: JSX.Element;
   popoverVisible: boolean;
   setPopoverVisible: any;
-  loginWalletOptions: wallet.WalletType;
-  loading: boolean;
   loginWithWalletType: (wallet: wallet.WalletType) => void;
 }
 
@@ -18,8 +16,6 @@ const LoginModal = ({
   children,
   popoverVisible,
   setPopoverVisible,
-  loginWalletOptions,
-  loading,
   loginWithWalletType,
 }: LoginModalProps): JSX.Element => {
   const handleVisibleChange = (visible: boolean) => {
@@ -34,7 +30,7 @@ const LoginModal = ({
     loginWithWalletType(wtype);
   };
 
-  const HeaderLoginModal = (
+  return (
     <Popover
       placement="bottomRight"
       trigger="click"
@@ -43,7 +39,7 @@ const LoginModal = ({
       color={"black"}
       content={
         <div className="LoginModal__loginOptions">
-          <div>Log in with</div>
+          <div>Connect with</div>
           <button
             className="LoginModal__loginMetamask"
             onClick={() => setWalletType(wallet.WalletType.METAMASK)}
@@ -62,25 +58,6 @@ const LoginModal = ({
     >
       {children}
     </Popover>
-  );
-
-  const QuickStartLoginModal = (
-    <Button
-      className="LoginModal__loginButton LoginModal__loginButton--quickStart"
-      aria-label="Login"
-      onClick={() => loginWithWalletType(loginWalletOptions)}
-    >
-      Log In With {loginWalletOptions}
-      {loading && <Spin className="LoginModal__spinner" size="small" />}
-    </Button>
-  );
-
-  return (
-    <>
-      {loginWalletOptions === wallet.WalletType.NONE
-        ? HeaderLoginModal
-        : QuickStartLoginModal}
-    </>
   );
 };
 export default LoginModal;

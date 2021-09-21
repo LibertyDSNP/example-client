@@ -1,7 +1,5 @@
 import { Tabs } from "antd";
 import { isInstalled } from "../services/wallets/metamask/metamask";
-import Login from "./Login";
-import * as wallet from "../services/wallets/wallet";
 import React from "react";
 
 const LoginSetupInstructions = (): JSX.Element => {
@@ -9,25 +7,19 @@ const LoginSetupInstructions = (): JSX.Element => {
     <>
       <div className="ProfileBlock__loginHeaderText"> Login Quick Start</div>
       <p>
-        To use the Example Client, you must log in with either MetaMask or
+        To use the Example Client, you must connect with either MetaMask or
         Torus. Read the guides below to get started!
       </p>
       <Tabs defaultActiveKey="1">
         <Tabs.TabPane tab="MetaMask" key="1">
           <div className="ProfileBlock__loginTitleText">
-            MetaMask Log In Guide
+            MetaMask Connection Guide
           </div>
           {isInstalled() ? (
-            <>
-              <p>
-                You already have MetaMask installed! Just click the{" "}
-                <code>Log In &#8594; MetaMask</code> button.
-              </p>
-              <Login
-                loginWalletOptions={wallet.WalletType.METAMASK}
-                isPrimary={false}
-              />
-            </>
+            <p>
+              You already have MetaMask installed! Just click the{" "}
+              <code>Log In &#8594; MetaMask</code> button.
+            </p>
           ) : (
             <>
               <p>
@@ -69,23 +61,17 @@ const LoginSetupInstructions = (): JSX.Element => {
                 </li>
                 <li>Once setup, select/connect to that Custom RPC.</li>
               </ul>
-              <Login
-                loginWalletOptions={wallet.WalletType.METAMASK}
-                isPrimary={false}
-              />
             </>
           )}
         </Tabs.TabPane>
         <Tabs.TabPane tab="Torus" key="2">
-          <div className="ProfileBlock__loginTitleText">Torus Log In Guide</div>
+          <div className="ProfileBlock__loginTitleText">
+            Torus Connection Guide
+          </div>
           <p>
             There is no setup required for Torus. Just click the{" "}
-            <code>Log In &#8594; Torus</code> button.
+            <code>Connect &#8594; Torus</code> button.
           </p>
-          <Login
-            loginWalletOptions={wallet.WalletType.TORUS}
-            isPrimary={false}
-          />
         </Tabs.TabPane>
       </Tabs>
     </>

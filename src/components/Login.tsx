@@ -17,13 +17,9 @@ import UserAvatar from "./UserAvatar";
 import * as types from "../utilities/types";
 import { ProfileQuery } from "../services/content";
 import { Button, Spin } from "antd";
+import { clearFeedItems } from "../redux/slices/feedSlice";
 
-interface LoginProps {
-  isPrimary: boolean;
-  loginWalletOptions: wallet.WalletType;
-}
-
-const Login = ({ isPrimary, loginWalletOptions }: LoginProps): JSX.Element => {
+const Login = (): JSX.Element => {
   const [loading, startLoading] = React.useState<boolean>(false);
   const [loginPopoverVisible, setLoginPopoverVisible] = React.useState<boolean>(
     false
@@ -69,7 +65,7 @@ const Login = ({ isPrimary, loginWalletOptions }: LoginProps): JSX.Element => {
     }
   };
 
-  const login = async (selectedType: wallet.WalletType) => {
+  const connectWallet = async (selectedType: wallet.WalletType) => {
     if (loading) return;
     startLoading(true);
     try {
@@ -94,22 +90,23 @@ const Login = ({ isPrimary, loginWalletOptions }: LoginProps): JSX.Element => {
     dispatch(userLogout());
   };
 
-  // Listen for wallet account changes if this is the primary login button (there should only be one).
-  if (isPrimary) {
-    const handleAccountsChange = async (waddrs: HexString[]) => {
-      logout();
-      if (waddrs[0] && currentWalletType !== wallet.WalletType.NONE) {
-        startLoading(true);
-        await loginWithWalletAddress(waddrs[0], currentWalletType);
-      }
-    };
+  // Listen for wallet account changes
+  const handleAccountsChange = async (waddrs: HexString[]) => {
+    logout();
+    if (waddrs[0] && currentWalletType !== wallet.WalletType.NONE) {
+      startLoading(true);
+      await loginWithWalletAddress(waddrs[0], currentWalletType);
+    }
+  };
 
-    ethereum
-      ?.removeAllListeners("accountsChanged")
-      .on("accountsChanged", handleAccountsChange);
-  }
+  ethereum
+    ?.removeAllListeners("accountsChanged")
+    .on("accountsChanged", handleAccountsChange);
 
-  ethereum?.removeAllListeners("chainChanged").on("chainChanged", logout);
+  ethereum?.removeAllListeners("chainChanged").on("chainChanged", () => {
+    logout();
+    dispatch(clearFeedItems());
+  });
 
   return (
     <div className="Login__block">
@@ -117,12 +114,10 @@ const Login = ({ isPrimary, loginWalletOptions }: LoginProps): JSX.Element => {
         <LoginModal
           popoverVisible={loginPopoverVisible}
           setPopoverVisible={setLoginPopoverVisible}
-          loginWalletOptions={loginWalletOptions}
-          loading={loading}
-          loginWithWalletType={login}
+          loginWithWalletType={connectWallet}
         >
           <Button className="Login__loginButton" aria-label="Login">
-            Log In
+            Connect Wallet
             {loading && <Spin className="Login__spinner" size="small" />}
           </Button>
         </LoginModal>
