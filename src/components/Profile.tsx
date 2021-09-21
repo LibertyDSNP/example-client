@@ -1,5 +1,4 @@
 import UserAvatar from "./UserAvatar";
-import { Button } from "antd";
 import ConnectionsList from "./ConnectionsList";
 import React, { useEffect, useState } from "react";
 import { useAppSelector } from "../redux/hooks";
@@ -7,6 +6,7 @@ import * as types from "../utilities/types";
 import { ProfileQuery, saveProfile } from "../services/content";
 import { core } from "@dsnp/sdk";
 import GraphChangeButton from "./GraphChangeButton";
+import ProfileEditButtons from "./ProfileEditButtons";
 
 const Profile = (): JSX.Element => {
   const userId: string | undefined = useAppSelector((state) => state.user.id);
@@ -31,21 +31,17 @@ const Profile = (): JSX.Element => {
 
   const handle = user?.handle;
   const [newName, setNewName] = useState<string | undefined>();
-  const [newHandle, setNewHandle] = useState<string | undefined>();
   const [didEditProfile, setDidEditProfile] = useState<boolean>(false);
 
   const profileName = profile?.name || "Anonymous";
 
   useEffect(() => {
-    if (
-      (newName && newName !== profileName) ||
-      (newHandle && newHandle !== handle)
-    ) {
+    if (newName && newName !== profileName) {
       setDidEditProfile(true);
       return;
     }
     setDidEditProfile(false);
-  }, [newName, newHandle, profileName, handle]);
+  }, [newName, profileName, handle]);
   const [isEditing, setIsEditing] = useState<boolean>(false);
 
   const getClassName = (sectionName: string) => {
@@ -67,7 +63,6 @@ const Profile = (): JSX.Element => {
   const cancelEditProfile = () => {
     setIsEditing(!isEditing);
     setNewName(undefined);
-    setNewHandle(undefined);
   };
 
   return (
@@ -75,31 +70,15 @@ const Profile = (): JSX.Element => {
       <div className="ProfileBlock__personalInfoBlock">
         <div className="ProfileBlock__avatarBlock">
           <UserAvatar user={user} avatarSize="large" />
-          {userId === displayId &&
-            (isEditing ? (
-              <>
-                <Button
-                  className="ProfileBlock__editButton"
-                  onClick={() => saveEditProfile()}
-                  disabled={!didEditProfile}
-                >
-                  save
-                </Button>
-                <Button
-                  className="ProfileBlock__editButton"
-                  onClick={() => cancelEditProfile()}
-                >
-                  cancel
-                </Button>
-              </>
-            ) : (
-              <Button
-                className="ProfileBlock__editButton"
-                onClick={() => setIsEditing(!isEditing)}
-              >
-                edit
-              </Button>
-            ))}
+          {userId === displayId && (
+            <ProfileEditButtons
+              isEditing={isEditing}
+              setIsEditing={setIsEditing}
+              saveEditProfile={saveEditProfile}
+              didEditProfile={didEditProfile}
+              cancelEditProfile={cancelEditProfile}
+            />
+          )}
           {userId && userId !== displayId && user && (
             <GraphChangeButton
               userId={userId}
