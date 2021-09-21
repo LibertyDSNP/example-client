@@ -22,7 +22,7 @@ export const FromTitle = ({
       <span className={isHoveringProfile ? "FromTitle__primary--active" : ""}>
         {primary}
       </span>
-      {secondary && <span className="FromLine__secondary">{secondary}</span>}
+      {secondary && <span className="FromTitle__secondary">{secondary}</span>}
     </span>
   );
 };
