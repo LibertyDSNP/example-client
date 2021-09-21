@@ -52,7 +52,7 @@ const Profile = (): JSX.Element => {
       return;
     }
     setDidEditProfile(false);
-  }, [newName, newIcon, profileName, handle]);
+  }, [newName, newIcon, profile?.icon, profileName, handle]);
   const [isEditing, setIsEditing] = useState<boolean>(false);
 
   const getClassName = (sectionName: string) => {
