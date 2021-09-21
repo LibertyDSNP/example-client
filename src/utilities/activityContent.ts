@@ -13,9 +13,7 @@ import {
   createNote,
 } from "@dsnp/sdk/core/activityContent";
 
-export const createMediaAttachment = (
-  item: string
-): ActivityContentAttachment => {
+const createMediaAttachment = (item: string): ActivityContentAttachment => {
   const extension = path.extname(item).replace(".", "");
 
   const host = new URL(item).host;
