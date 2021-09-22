@@ -1,5 +1,4 @@
 import { Tabs } from "antd";
-import { isInstalled } from "../services/wallets/metamask/metamask";
 import React from "react";
 
 const LoginSetupInstructions = (): JSX.Element => {
@@ -8,61 +7,89 @@ const LoginSetupInstructions = (): JSX.Element => {
       <div className="ProfileBlock__loginHeaderText"> Login Quick Start</div>
       <p>
         To use the Example Client, you must connect with either MetaMask or
-        Torus. Read the guides below to get started!
+        Torus.
       </p>
       <Tabs defaultActiveKey="1">
         <Tabs.TabPane tab="MetaMask" key="1">
           <div className="ProfileBlock__loginTitleText">
             MetaMask Connection Guide
           </div>
-          {isInstalled() ? (
+          <>
             <p>
-              You already have MetaMask installed! Just click the{" "}
-              <code>Log In &#8594; MetaMask</code> button.
+              Before we can access the browser we need to install the MetaMask
+              browser extension to give us a cryptowallet. Pin MetaMask to your
+              extension bar.
             </p>
-          ) : (
-            <>
-              <p>
-                Before we can access the browser we need to install MetaMask to
-                give us a cryptowallet. MetaMask is a browser extension Chrome
-                or Firefox are recommended. Download them from your chosen
-                browsers extension manager. Pin MetaMask to your extension bar.
-              </p>
-              <p>
-                Once{" "}
-                <a href="https://metamask.io/download.html" target="__blank">
-                  installed correctly
+            <ul>
+              <li>
+                <a
+                  target="_blank"
+                  href="https://chrome.google.com/webstore/detail/metamask/nkbihfbeogaeaoehlefnkodbefgpgknn?hl=en"
+                >
+                  Download For Chrome
                 </a>
-                , setup MetaMask by following these steps:
-              </p>
-              <ul>
-                <li>Use an existing account do not create a new one.</li>
-                <li>
-                  For account data use the following seed:{" "}
-                  <code>
-                    stove ankle number crucial clay heavy toilet entire bid
-                    betray cluster degree
-                  </code>
-                </li>
-                <li>
-                  Connect to a new Custom RPC.
-                  <ul>
-                    <li>Connect to a new Custom RPC.</li>
-                    <li>
-                      Name: <code>*determined by user</code>
-                    </li>
-                    <li>
-                      New RPC URL: <code>http://localhost:8545</code>
-                    </li>
-                    <li>
-                      ChainID: <code>1337</code>
-                    </li>
-                  </ul>
-                </li>
-                <li>Once setup, select/connect to that Custom RPC.</li>
-              </ul>
-            </>
-          )}
+              </li>
+              <li>
+                <a
+                  target="_blank"
+                  href="https://addons.mozilla.org/en-US/firefox/addon/ether-metamask/"
+                >
+                  Download For Firefox
+                </a>
+              </li>
+            </ul>
+            <p>Setup MetaMask by following these steps.</p>
+
+            <p>For local development:</p>
+            <ul>
+              <li>
+                Click <code>Import Wallet</code>
+              </li>
+              <li>
+                Enter Secret Recovery Phrase:{" "}
+                <code>
+                  typical imitate also mirror nuclear farm upgrade fashion
+                  digital theory acoustic afford
+                </code>
+              </li>
+              <li>Create your own password.</li>
+              <li>
+                Click on the Networks dropdown in the top right corner and
+                select <code>Localhost 8545</code>.
+              </li>
+              <li>
+                Go to Settings &#8594; Networks, then change the Chain ID of
+                Localhost 8545 to <code>31337</code>.
+              </li>
+            </ul>
+
+            <p>For Rinkeby:</p>
+            <ul>
+              <li>
+                Click <code>Create Account</code> and set an account name.
+              </li>
+              <li>
+                Click on the Networks dropdown in the top right corner and
+                select <code>Rinkeby Test Network</code>.
+              </li>
+              <li>
+                If it displays <code>Not Connected</code>, click on that and
+                select <code>Connect</code> on your desired account.
+              </li>
+              <li>
+                Use a faucet to transfer ETH to your account. We recommend{" "}
+                <a href="http://rinkeby-faucet.com/" target="_blank">
+                  this one
+                </a>
+                .
+              </li>
+            </ul>
+
+            <p>
+              You should now see ETH in your account and are ready to use the
+              Example Client!
+            </p>
+          </>
         </Tabs.TabPane>
         <Tabs.TabPane tab="Torus" key="2">
           <div className="ProfileBlock__loginTitleText">
