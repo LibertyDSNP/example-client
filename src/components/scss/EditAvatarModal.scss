@@ -1,0 +1,17 @@
+.EditAvatarModal__button {
+  position: relative;
+  cursor: pointer;
+}
+
+.EditAvatarModal__edit {
+  position: absolute;
+  bottom: 8px;
+  left: 35px;
+  color: $white;
+  text-transform: uppercase;
+  text-shadow: 3px 3px 5px $black;
+}
+
+.EditAvatarModal__avatarPreview {
+  text-align: center;
+}
