@@ -20,6 +20,14 @@ const store = createMockStore({
 });
 
 describe("Profile Block", () => {
+  beforeEach(async () => {
+    const metamaskWallet = await wallet.wallet(wallet.WalletType.METAMASK);
+    jest
+      .spyOn(metamaskWallet, "getAddress")
+      .mockImplementation(() => Promise.resolve("0x123"));
+    jest.spyOn(wallet, "wallet").mockImplementation(() => metamaskWallet);
+  });
+
   it("renders without crashing", async () => {
     await waitFor(() => {
       expect(() => {
@@ -28,7 +36,7 @@ describe("Profile Block", () => {
     });
   });
 
-  it("displays login prompt when not logged in", () => {
+  it("displays login prompt when not logged in", async () => {
     const store = createMockStore({
       user: { undefined },
       profiles: { profiles: {} },
@@ -36,8 +44,10 @@ describe("Profile Block", () => {
       displayId: undefined,
     });
     const component = mount(componentWithStore(ProfileBlock, store));
-    expect(component.find("ProfileBlock").text()).toContain(
-      "Login Quick Start"
+    await waitFor(() =>
+      expect(component.find("ProfileBlock").text()).toContain(
+        "Login Quick Start"
+      )
     );
   });
 

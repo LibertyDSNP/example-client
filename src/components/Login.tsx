@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "../redux/hooks";
 import {
   userLogout,
@@ -49,6 +49,17 @@ const Login = (): JSX.Element => {
     setRegistrationPopoverVisible(false);
   };
 
+  useEffect(() => {
+    if (currentWalletType && currentWalletType !== wallet.WalletType.NONE) {
+      // Ensure wallet address is set for all components this component owns.
+      const walletImpl = wallet.wallet(currentWalletType);
+      (async () => setWalletAddress(await walletImpl.getAddress()))();
+    } else {
+      // close modals if something clears the wallet type (e.g. an error connecting to the provider)
+      closeModals();
+    }
+  }, [currentWalletType]);
+
   const loginWithWalletAddress = async (
     waddr: HexString,
     selectedType: wallet.WalletType
@@ -72,15 +83,19 @@ const Login = (): JSX.Element => {
       const waddr = await wallet.wallet(selectedType).login();
       await loginWithWalletAddress(waddr, selectedType);
     } catch (error) {
+      console.warn("Login error", error);
       logout();
-      setLoginPopoverVisible(false);
-      startLoading(false);
     }
   };
 
-  const logout = () => {
+  const closeModals = () => {
     startLoading(false);
     setRegistrationPopoverVisible(false);
+    setLoginPopoverVisible(false);
+  };
+
+  const logout = () => {
+    closeModals();
     setWalletAddress("");
     if (!userId) return;
     session.clearSession();
@@ -127,6 +142,7 @@ const Login = (): JSX.Element => {
           setRegistrationVisible={setRegistrationPopoverVisible}
           onIdResolved={setUserID}
           logout={logout}
+          cancel={closeModals}
           walletAddress={walletAddress}
         >
           <div className="Login__userBlock">
