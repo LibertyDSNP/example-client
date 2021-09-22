@@ -24,7 +24,6 @@ const RegistrationModal = ({
   logout,
   cancel,
 }: RegistrationModalProps): JSX.Element => {
-  const userId = useAppSelector((state) => state.user.id);
   const registrations = useAppSelector((state) => state.user.registrations);
   const [hasRegistrations, setHasRegistrations] = React.useState<boolean>(
     false
