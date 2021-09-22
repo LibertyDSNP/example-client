@@ -5,11 +5,13 @@ import { User } from "../utilities/types";
 import { ProfileQuery } from "../services/content";
 import { userIdentification } from "../services/utilities";
 import { UserOutlined } from "@ant-design/icons";
+import { useAppSelector } from "../redux/hooks";
 
 const avatarSizeOptions = new Map([
   ["small", 28],
   ["medium", 50],
   ["large", 100],
+  ["xl", 150],
 ]);
 
 interface UserAvatarProps {
@@ -19,6 +21,10 @@ interface UserAvatarProps {
 
 const UserAvatar = ({ user, avatarSize }: UserAvatarProps): JSX.Element => {
   const { data: profile } = ProfileQuery(user);
+
+  const tempIconUri: string | undefined = useAppSelector(
+    (state) => state.user.tempIconUri
+  );
 
   const iconURL =
     user === undefined
@@ -33,7 +39,7 @@ const UserAvatar = ({ user, avatarSize }: UserAvatarProps): JSX.Element => {
       className="UserAvatar"
       alt={name}
       icon={<UserOutlined />}
-      src={iconURL}
+      src={tempIconUri ? tempIconUri : iconURL}
       size={avatarSizeOptions.get(avatarSize)}
       style={{ minWidth: avatarSizeOptions.get(avatarSize) }}
     />
