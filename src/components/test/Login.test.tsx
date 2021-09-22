@@ -11,6 +11,7 @@ import * as metamask from "../../services/wallets/metamask/metamask";
 import * as dsnp from "../../services/dsnp";
 import * as session from "../../services/session";
 import { getPrefabProfile } from "../../test/testProfiles";
+import { waitFor } from "@testing-library/react";
 
 let torusWallet: wallet.Wallet;
 let metamaskWallet: wallet.Wallet;
@@ -18,6 +19,9 @@ beforeAll(async () => {
   torusWallet = await wallet.wallet(wallet.WalletType.TORUS);
   jest.spyOn(torus, "logout").mockImplementation(jest.fn);
   jest.spyOn(torus, "isInitialized").mockReturnValue(true);
+  jest
+    .spyOn(torusWallet, "getAddress")
+    .mockImplementation(() => Promise.resolve("0x123"));
   jest
     .spyOn(torusWallet, "login")
     .mockImplementation(() => Promise.resolve("0x123"));
@@ -31,9 +35,20 @@ beforeAll(async () => {
 
   jest.spyOn(metamask, "isInstalled").mockReturnValue(true);
   jest
-    .spyOn(metamask, "getWalletAddress")
+    .spyOn(metamaskWallet, "getAddress")
     .mockImplementation(() => Promise.resolve("0x123"));
-  jest.spyOn(dsnp, "setupProvider").mockImplementation(jest.fn);
+  jest
+    .spyOn(wallet, "wallet")
+    .mockImplementation((walletType) =>
+      walletType === wallet.WalletType.METAMASK
+        ? metamaskWallet
+        : wallet.WalletType.TORUS
+        ? torusWallet
+        : wallet.noWallet
+    );
+  jest
+    .spyOn(dsnp, "setupProvider")
+    .mockImplementation(() => Promise.resolve(undefined));
   jest
     .spyOn(dsnp, "getSocialIdentities")
     .mockImplementation(() =>
@@ -93,9 +108,13 @@ describe("Login Component", () => {
         })
       );
       component.find(".Login__loginButton").first().simulate("click");
-      component.find(".LoginModal__loginMetamask").first().simulate("click");
-      await forcePromiseResolve();
-      expect(metamaskWallet.login).toHaveBeenCalled();
+      await waitFor(() => {
+        expect(
+          component.find(".LoginModal__loginMetamask").length
+        ).toBeGreaterThan(0);
+        component.find(".LoginModal__loginMetamask").first().simulate("click");
+      });
+      await waitFor(() => expect(metamaskWallet.login).toHaveBeenCalled());
     });
   });
 
@@ -114,51 +133,59 @@ describe("Login Component", () => {
     };
     const store = createMockStore(initialState);
 
-    it("renders without crashing", () => {
-      expect(() => {
-        mount(
-          componentWithStore(Login, store, {
-            loginWalletOptions: wallet.WalletType.NONE,
-          })
-        );
-      }).not.toThrow();
+    it("renders without crashing", async () => {
+      await waitFor(() =>
+        expect(() =>
+          mount(
+            componentWithStore(Login, store, {
+              loginWalletOptions: wallet.WalletType.NONE,
+            })
+          )
+        ).not.toThrow()
+      );
     });
 
     describe("when wallet type is passed to Login", () => {
-      const sessionSpy = jest.spyOn(session, "clearSession");
       describe("and it is set to Torus", () => {
-        initialState.user.walletType = wallet.WalletType.TORUS;
-        const component = mount(
-          componentWithStore(Login, store, {
-            loginWalletOptions: wallet.WalletType.TORUS,
-          })
-        );
-        it("renders logout and clicking on it calls torus logout", () => {
+        it("renders logout and clicking on it calls torus logout", async () => {
+          const sessionSpy = jest.spyOn(session, "clearSession");
+          initialState.user.walletType = wallet.WalletType.TORUS;
+          const component = mount(
+            componentWithStore(Login, store, {
+              loginWalletOptions: wallet.WalletType.TORUS,
+            })
+          );
           component.find(".Login__userBlock").first().simulate("click");
           component
             .find(".EditRegistration__logoutButton")
             .first()
             .simulate("click");
-          expect(sessionSpy).toHaveBeenCalled();
-          //torus login doesn't work
-          expect(torus.logout).not.toHaveBeenCalled();
+          await waitFor(() => {
+            expect(sessionSpy).toHaveBeenCalled();
+            expect(torus.logout).toHaveBeenCalled();
+          });
         });
       });
+
       describe("and it is set to Metamask", () => {
-        initialState.user.walletType = wallet.WalletType.METAMASK;
-        const component = mount(
-          componentWithStore(Login, store, {
-            loginWalletOptions: wallet.WalletType.METAMASK,
-          })
-        );
-        it("renders logout and clicking on it calls metamask logout", () => {
+        it("renders logout and clicking on it calls metamask logout", async () => {
+          const sessionSpy = jest.spyOn(session, "clearSession");
+          initialState.user.walletType = wallet.WalletType.METAMASK;
+          const component = mount(
+            componentWithStore(Login, store, {
+              loginWalletOptions: wallet.WalletType.METAMASK,
+            })
+          );
+
           component.find(".Login__userBlock").first().simulate("click");
           component
             .find(".EditRegistration__logoutButton")
             .first()
             .simulate("click");
-          expect(sessionSpy).toHaveBeenCalled();
-          expect(metamaskWallet.logout).toHaveBeenCalled();
+          await waitFor(() => {
+            expect(sessionSpy).toHaveBeenCalled();
+            expect(metamaskWallet.logout).toHaveBeenCalled();
+          });
         });
       });
     });

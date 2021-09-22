@@ -39,7 +39,7 @@ export interface Wallet {
   getWeb3: () => Web3;
 }
 
-const noWallet: Wallet = {
+export const noWallet: Wallet = {
   icon:
     "https://icons.veryicon.com/png/o/business/business-style-icon/wallet-62.png",
   login: async () => await "",
