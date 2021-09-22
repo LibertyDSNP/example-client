@@ -23,16 +23,18 @@ const LoginSetupInstructions = (): JSX.Element => {
             <ul>
               <li>
                 <a
-                  target="_blank"
                   href="https://chrome.google.com/webstore/detail/metamask/nkbihfbeogaeaoehlefnkodbefgpgknn?hl=en"
+                  target="_blank"
+                  rel="noreferrer"
                 >
                   Download For Chrome
                 </a>
               </li>
               <li>
                 <a
-                  target="_blank"
                   href="https://addons.mozilla.org/en-US/firefox/addon/ether-metamask/"
+                  target="_blank"
+                  rel="noreferrer"
                 >
                   Download For Firefox
                 </a>
@@ -78,7 +80,11 @@ const LoginSetupInstructions = (): JSX.Element => {
               </li>
               <li>
                 Use a faucet to transfer ETH to your account. We recommend{" "}
-                <a href="http://rinkeby-faucet.com/" target="_blank">
+                <a
+                  href="http://rinkeby-faucet.com/"
+                  target="_blank"
+                  rel="noreferrer"
+                >
                   this one
                 </a>
                 .
