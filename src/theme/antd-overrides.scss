@@ -200,3 +200,15 @@ a {
   font-size: 20px;
   font-weight: bold;
 }
+
+.anticon.RegistrationModal__errorIcon {
+  color: $red;
+}
+
+.anticon.RegistrationModal__successIcon {
+  color: $shadow-green;
+}
+
+.ant-alert {
+  margin-bottom: 1em;
+}

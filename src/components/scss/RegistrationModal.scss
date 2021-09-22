@@ -44,6 +44,22 @@
   cursor: pointer;
 }
 
-.ant-alert {
-  margin-bottom: 1em;
+.RegistrationModal__errorBlock {
+  text-align: center;
+  overflow: auto;
+}
+
+.RegistrationModal__errorIcon {
+  font-size: 35px;
+  margin: -8px 0 8px 0;
+}
+
+.RegistrationModal__successIcon {
+  font-size: 35px;
+  margin: -8px 0 8px 0;
+}
+
+.RegistrationModal__spinner {
+  width: 100%;
+  margin: 0 auto;
 }

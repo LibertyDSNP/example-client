@@ -68,6 +68,7 @@ const Login = (): JSX.Element => {
     await dsnp.setupProvider(selectedType);
     const registrations = await dsnp.getSocialIdentities(waddr);
     dispatch(setRegistrations(registrations));
+    session.upsertSessionRegistrations(registrations);
     if (registrations.length === 1) {
       setUserID(registrations[0].dsnpUserURI);
     } else {
