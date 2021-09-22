@@ -1,4 +1,4 @@
-import { Alert, Button, Form, Input } from "antd";
+import { Button, Form, Input, Spin } from "antd";
 import React from "react";
 import * as dsnp from "../services/dsnp";
 import { core } from "@dsnp/sdk";
@@ -7,6 +7,8 @@ import { DSNPUserURI } from "@dsnp/sdk/core/identifiers";
 import { setRegistrations } from "../redux/slices/userSlice";
 import { useAppDispatch } from "../redux/hooks";
 import { friendlyError } from "../services/errors";
+import { CloseCircleOutlined } from "@ant-design/icons";
+import * as session from "../services/session";
 
 interface CreateRegistrationProps {
   walletAddress: HexString;
@@ -21,10 +23,12 @@ const CreateRegistration = ({
   const [registrationError, setRegistrationError] = React.useState<
     string | undefined
   >(undefined);
+  const [isSaving, setIsSaving] = React.useState<boolean>(false);
 
   // create new DSNP registration
   const register = async (formValues: { handle: string }) => {
     try {
+      setIsSaving(true);
       const userURI = await dsnp.createNewDSNPRegistration(
         walletAddress,
         formValues.handle
@@ -32,9 +36,12 @@ const CreateRegistration = ({
       onIdResolved(core.identifiers.convertToDSNPUserId(userURI).toString());
       const registrations = await dsnp.getSocialIdentities(walletAddress);
       dispatch(setRegistrations(registrations));
+      session.upsertSessionRegistrations(registrations);
+      setIsSaving(false);
     } catch (error) {
       console.error(error);
-      setRegistrationError(friendlyError(error));
+      setRegistrationError(friendlyError(error, formValues.handle));
+      setIsSaving(false);
     }
   };
 
@@ -47,11 +54,6 @@ const CreateRegistration = ({
       }}
       onFinish={register}
     >
-      {registrationError && (
-        <>
-          <Alert message={registrationError} type="error" />
-        </>
-      )}
       <Form.Item
         name="handle"
         className="RegistrationModal__handleInput"
@@ -62,8 +64,19 @@ const CreateRegistration = ({
           },
         ]}
       >
-        <Input />
+        <Input
+          id="RegistrationModal__input"
+          prefix="@"
+          onChange={() => setRegistrationError(undefined)}
+        />
       </Form.Item>
+      {isSaving && <Spin className="RegistrationModal__spinner" />}
+      {registrationError && (
+        <div className="RegistrationModal__errorBlock">
+          <CloseCircleOutlined className="RegistrationModal__errorIcon" />
+          <p>{registrationError}</p>
+        </div>
+      )}
       <div className="RegistrationModal__footer">
         <Button
           type="primary"

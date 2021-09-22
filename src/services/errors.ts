@@ -5,7 +5,10 @@ import { EthereumProvider } from "./wallets/metamask/ethereum";
  * @param message text of received error.
  * @returns friendly error message if recognized, original message otherwise
  */
-export const friendlyError = (error: Error | string): string => {
+export const friendlyError = (
+  error: Error | string,
+  handle?: string
+): string => {
   const message =
     typeof error == "string"
       ? error
@@ -27,7 +30,8 @@ export const friendlyError = (error: Error | string): string => {
   }
 
   if (message.match(/Handle already exists/)) {
-    return "This handle is taken. Please choose another.";
+    const displayHandle = handle ? `@${handle}` : "That handle";
+    return `${displayHandle} is not available. Please choose another.`;
   }
 
   return message;
