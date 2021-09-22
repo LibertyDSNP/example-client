@@ -12,6 +12,7 @@ interface RegistrationModalProps {
   walletAddress: HexString;
   onIdResolved: (uri: DSNPUserURI) => void;
   logout: () => void;
+  cancel: () => void;
 }
 
 const RegistrationModal = ({
@@ -21,8 +22,8 @@ const RegistrationModal = ({
   walletAddress,
   onIdResolved,
   logout,
+  cancel,
 }: RegistrationModalProps): JSX.Element => {
-  const userId = useAppSelector((state) => state.user.id);
   const registrations = useAppSelector((state) => state.user.registrations);
   const [hasRegistrations, setHasRegistrations] = React.useState<boolean>(
     false
@@ -47,11 +48,11 @@ const RegistrationModal = ({
     }
   }
 
-  const handleVisibleChange = () => {
-    if (!userId) {
-      logout();
-    }
-    setRegistrationVisible(!visible);
+  const handleVisibleChange = (visible: boolean) => {
+    setRegistrationVisible(visible);
+
+    // Signal if user closes the modal.
+    if (!visible) cancel();
   };
 
   /**

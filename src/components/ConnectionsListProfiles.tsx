@@ -1,7 +1,6 @@
 import React from "react";
 import UserAvatar from "./UserAvatar";
 import { User } from "../utilities/types";
-import { HexString } from "@dsnp/sdk/types/Strings";
 import { useAppSelector } from "../redux/hooks";
 import { AnnouncementType } from "@dsnp/sdk/core/announcements";
 import {
@@ -30,7 +29,7 @@ const ConnectionsListProfiles = ({
   followedByDisplayUser,
   followingDisplayUser,
 }: ConnectionsListProfilesProps): JSX.Element => {
-  const users: Record<HexString, User> = useAppSelector(
+  const users: Record<string, User> = useAppSelector(
     (state) => state.profiles?.profiles || {}
   );
 

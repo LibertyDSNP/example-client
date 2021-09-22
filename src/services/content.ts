@@ -26,12 +26,12 @@ import { BatchPublicationLogData } from "@dsnp/sdk/core/contracts/subscription";
 import { upsertGraph } from "../redux/slices/graphSlice";
 import * as dsnp from "./dsnp";
 import { keccak256 } from "web3-utils";
-import { HexString } from "@dsnp/sdk/types/Strings";
 import { DSNPAnnouncementURI, DSNPUserId } from "@dsnp/sdk/core/identifiers";
 import { FeedItem, User } from "../utilities/types";
 import { useQuery, UseQueryResult } from "react-query";
 import { Permission } from "@dsnp/sdk/core/contracts/identity";
 import { buildBaseUploadHostUrl } from "../utilities/buildBaseUploadHostUrl";
+import { UnsubscribeFunction } from "@dsnp/sdk/core/contracts/utilities";
 
 //
 // Content Package
@@ -57,7 +57,7 @@ type Dispatch = ThunkDispatch<any, Record<string, any>, AnyAction>;
  */
 export const startSubscriptions = async (
   dispatch: Dispatch
-): Promise<dsnp.UnsubscribeFunction> => {
+): Promise<UnsubscribeFunction> => {
   dispatch(clearFeedItems());
 
   return dsnp.startSubscriptions(
@@ -73,7 +73,7 @@ export const startSubscriptions = async (
  * @returns a promise pending completion
  */
 export const sendPost = async (
-  fromId: HexString,
+  fromId: string,
   post: ActivityContentNote
 ): Promise<void> => {
   const hash = await storeActivityContent(post);

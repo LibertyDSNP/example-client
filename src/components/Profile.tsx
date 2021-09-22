@@ -10,6 +10,8 @@ import EditAvatarModal from "./EditAvatarModal";
 import { ActivityContentImageLink } from "@dsnp/sdk/core/activityContent";
 import { setTempIconUri } from "../redux/slices/userSlice";
 import ProfileEditButtons from "./ProfileEditButtons";
+import { friendlyError } from "../services/errors";
+import { Modal } from "antd";
 
 const Profile = (): JSX.Element => {
   const dispatch = useAppDispatch();
@@ -68,7 +70,15 @@ const Profile = (): JSX.Element => {
       name: newName,
       icon: newIcon,
     });
-    await saveProfile(BigInt(userId), newProfile);
+    try {
+      await saveProfile(BigInt(userId), newProfile);
+    } catch (error) {
+      Modal.error({
+        title: "Error saving profile",
+        content: friendlyError(error),
+      });
+      cancelEditProfile();
+    }
   };
 
   const cancelEditProfile = () => {
