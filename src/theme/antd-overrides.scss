@@ -81,6 +81,7 @@
 .ant-btn.NewPostImageUpload__urlInputBtn {
   @include button($white, $green, $dark-gray, $shadow-green);
   height: fit-content;
+  height: -moz-fit-content;
 }
 
 .ant-alert.NewPostImageUpload__alert {
