@@ -12,14 +12,14 @@ interface EditRegistrationAccordionProps {
   isCreatingRegistration: boolean;
   walletAddress: HexString;
   onIdResolved: (uri: DSNPUserURI) => void;
-  setUserPreview: (user: Registration | undefined) => void;
+  setRegistrationPreview: (user: Registration | undefined) => void;
 }
 
 const EditRegistrationAccordion = ({
   isCreatingRegistration,
   walletAddress,
   onIdResolved,
-  setUserPreview,
+  setRegistrationPreview,
 }: EditRegistrationAccordionProps): JSX.Element => {
   const userId = useAppSelector((state) => state.user.id);
   const registrations = useAppSelector((state) => state.user.registrations);
@@ -48,7 +48,7 @@ const EditRegistrationAccordion = ({
         <CreateRegistration
           walletAddress={walletAddress}
           onIdResolved={onIdResolved}
-          setUserPreview={setUserPreview}
+          setRegistrationPreview={setRegistrationPreview}
         />
       </Panel>
       {registrations && registrations.length > 1 && (
@@ -63,7 +63,7 @@ const EditRegistrationAccordion = ({
           <SelectHandle
             onIdResolved={onIdResolved}
             registrations={registrations}
-            setUserPreview={setUserPreview}
+            setRegistrationPreview={setRegistrationPreview}
           />
         </Panel>
       )}

@@ -11,13 +11,13 @@ import { DSNPUserURI } from "@dsnp/sdk/core/identifiers";
 interface SelectHandleProps {
   onIdResolved: (uri: DSNPUserURI) => void;
   registrations: registry.Registration[];
-  setUserPreview: (user: registry.Registration | undefined) => void;
+  setRegistrationPreview: (user: registry.Registration | undefined) => void;
 }
 
 const SelectHandle = ({
   onIdResolved,
   registrations,
-  setUserPreview,
+  setRegistrationPreview,
 }: SelectHandleProps): JSX.Element => {
   const [selectedRegistration, setRegistration] = React.useState<
     registry.Registration | undefined
@@ -30,7 +30,7 @@ const SelectHandle = ({
   const commitRegistration = () => {
     if (!selectedRegistration) return;
     onIdResolved(selectedRegistration.dsnpUserURI);
-    setUserPreview(undefined);
+    setRegistrationPreview(undefined);
   };
 
   return (
@@ -47,7 +47,7 @@ const SelectHandle = ({
             }`}
             onClick={() => {
               setRegistration(registration);
-              setUserPreview(registration);
+              setRegistrationPreview(registration);
             }}
             key={registration.dsnpUserURI}
           >

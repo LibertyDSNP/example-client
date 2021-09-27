@@ -21,7 +21,9 @@ const EditRegistration = ({
   onIdResolved,
 }: EditRegistrationProps): JSX.Element => {
   const userId = useAppSelector((state) => state.user.id);
-  const [currentUser, setUserPreview] = useState<Registration | undefined>();
+  const [registrationPreview, setRegistrationPreview] = useState<
+    Registration | undefined
+  >();
 
   return (
     <div className="EditRegistration">
@@ -41,12 +43,12 @@ const EditRegistration = ({
       ) : (
         <p className="EditRegistration__title">Edit</p>
       )}
-      <RegistrationPreview currentRegistration={currentUser} />
+      <RegistrationPreview registrationPreview={registrationPreview} />
       <EditRegistrationAccordion
         isCreatingRegistration={isCreatingRegistration}
         walletAddress={walletAddress}
         onIdResolved={onIdResolved}
-        setUserPreview={setUserPreview}
+        setRegistrationPreview={setRegistrationPreview}
       />
       <Button
         className="EditRegistration__logoutButton"

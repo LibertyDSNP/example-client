@@ -6,14 +6,14 @@ import { Registration } from "@dsnp/sdk/core/contracts/registry";
 import { convertToDSNPUserId } from "@dsnp/sdk/core/identifiers";
 
 interface RegistrationPreviewProps {
-  currentRegistration: Registration | undefined;
+  registrationPreview: Registration | undefined;
 }
 
 const RegistrationPreview = ({
-  currentRegistration,
+  registrationPreview,
 }: RegistrationPreviewProps): JSX.Element => {
-  const curId = currentRegistration
-    ? convertToDSNPUserId(currentRegistration.dsnpUserURI).toString()
+  const curId = registrationPreview
+    ? convertToDSNPUserId(registrationPreview.dsnpUserURI).toString()
     : undefined;
   const userId = useAppSelector((state) => state.user.id);
   const profiles: Record<types.HexString, types.User> = useAppSelector(

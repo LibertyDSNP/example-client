@@ -12,13 +12,13 @@ import { Registration } from "@dsnp/sdk/core/contracts/registry";
 interface CreateRegistrationProps {
   walletAddress: HexString;
   onIdResolved: (uri: DSNPUserURI) => void;
-  setUserPreview: (registration: Registration | undefined) => void;
+  setRegistrationPreview: (registration: Registration | undefined) => void;
 }
 
 const CreateRegistration = ({
   walletAddress,
   onIdResolved,
-  setUserPreview,
+  setRegistrationPreview,
 }: CreateRegistrationProps): JSX.Element => {
   const dispatch = useAppDispatch();
   const [registrationError, setRegistrationError] = React.useState<
@@ -29,7 +29,7 @@ const CreateRegistration = ({
 
   // create new DSNP registration
   const register = async (formValues: { handle: string }) => {
-    setUserPreview(undefined);
+    setRegistrationPreview(undefined);
     form.resetFields();
     try {
       const userURI = await dsnp.createNewDSNPRegistration(
