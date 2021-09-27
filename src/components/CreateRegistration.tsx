@@ -72,11 +72,13 @@ const CreateRegistration = ({
           },
         ]}
       >
-        <Input
-          id="RegistrationModal__input"
-          prefix="@"
-          onChange={() => setRegistrationError(undefined)}
-        />
+        <div className="RegistrationModal__inputWrapper">
+          <Input
+            className="RegistrationModal__input"
+            onChange={() => setRegistrationError(undefined)}
+          />
+          <div className="RegistrationModal__inputAt">@</div>
+        </div>
       </Form.Item>
       {isSaving && <Spin className="RegistrationModal__spinner" />}
       {registrationError && (
