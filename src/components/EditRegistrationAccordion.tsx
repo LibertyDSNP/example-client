@@ -5,18 +5,21 @@ import SelectHandle from "./SelectHandle";
 import { HexString } from "../utilities/types";
 import { DSNPUserURI } from "@dsnp/sdk/core/identifiers";
 import { useAppSelector } from "../redux/hooks";
+import { Registration } from "@dsnp/sdk/core/contracts/registry";
 const { Panel } = Collapse;
 
 interface EditRegistrationAccordionProps {
   isCreatingRegistration: boolean;
   walletAddress: HexString;
   onIdResolved: (uri: DSNPUserURI) => void;
+  setUserPreview: (user: Registration | undefined) => void;
 }
 
 const EditRegistrationAccordion = ({
   isCreatingRegistration,
   walletAddress,
   onIdResolved,
+  setUserPreview,
 }: EditRegistrationAccordionProps): JSX.Element => {
   const userId = useAppSelector((state) => state.user.id);
   const registrations = useAppSelector((state) => state.user.registrations);
@@ -45,6 +48,7 @@ const EditRegistrationAccordion = ({
         <CreateRegistration
           walletAddress={walletAddress}
           onIdResolved={onIdResolved}
+          setUserPreview={setUserPreview}
         />
       </Panel>
       {registrations && registrations.length > 1 && (
@@ -59,6 +63,7 @@ const EditRegistrationAccordion = ({
           <SelectHandle
             onIdResolved={onIdResolved}
             registrations={registrations}
+            setUserPreview={setUserPreview}
           />
         </Panel>
       )}
