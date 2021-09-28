@@ -45,16 +45,23 @@ const LoginSetupInstructions = (): JSX.Element => {
             <p>For local development:</p>
             <ul>
               <li>
-                Click <code>Import Wallet</code>
+                Clone{" "}
+                <a
+                  href="https://github.com/LibertyDSNP/contracts"
+                  target="_blank"
+                >
+                  the contracts repository
+                </a>{" "}
+                and follow the instructions to build and launch the local
+                Hardhat node and deploy the contracts.
               </li>
               <li>
-                Enter Secret Recovery Phrase:{" "}
+                In Metamask, import Secret Recovery Phrase:{" "}
                 <code>
-                  typical imitate also mirror nuclear farm upgrade fashion
-                  digital theory acoustic afford
-                </code>
+                  test test test test test test test test test test test junk
+                </code>{" "}
+                and click <code>Restore</code>.
               </li>
-              <li>Create your own password.</li>
               <li>
                 Click on the Networks dropdown in the top right corner and
                 select <code>Localhost 8545</code>.
@@ -92,9 +99,21 @@ const LoginSetupInstructions = (): JSX.Element => {
             </ul>
 
             <p>
-              You should now see ETH in your account and are ready to use the
-              Example Client!
+              <b>
+                You should now see ETH in your account and are ready to use the
+                Example Client!
+              </b>
             </p>
+            <aside>
+              Note: look to{" "}
+              <a
+                href="https://github.com/LibertyDSNP/example-client"
+                target="_blank"
+              >
+                the README
+              </a>{" "}
+              for more details.
+            </aside>
           </>
         </Tabs.TabPane>
         <Tabs.TabPane tab="Torus" key="2">
