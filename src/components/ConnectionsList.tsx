@@ -37,6 +37,11 @@ const ConnectionsList = (): JSX.Element => {
       : "ConnectionsList__button";
   };
 
+  console.log("following user", Object.keys(followingDisplayUser).length);
+  console.log("followed by user", Object.keys(followedByDisplayUser).length);
+  console.log("following user", followingDisplayUser);
+  console.log("followed by user", followedByDisplayUser);
+
   return (
     <div className="ConnectionsList__block">
       <div className="ConnectionsList__buttonBlock">

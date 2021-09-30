@@ -68,11 +68,13 @@ const ConnectionsListProfiles = ({
           <div className="ConnectionsListProfiles__name">
             <UserName user={user} />
           </div>
-          <GraphChangeButton
-            userId={userId}
-            user={user}
-            following={followedByCurrentUser}
-          />
+          {userId !== user.fromId && (
+            <GraphChangeButton
+              userId={userId}
+              user={user}
+              following={followedByCurrentUser}
+            />
+          )}
         </div>
       ))}
     </>
