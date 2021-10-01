@@ -1,0 +1,24 @@
+.RegistrationPreview__block {
+  display: flex;
+  padding: 4px 16px;
+}
+
+.RegistrationPreview__infoBlock {
+  display: flex;
+  flex-direction: column;
+  margin-left: 16px;
+}
+
+.RegistrationPreview__infoBlock--unselected {
+  color: $gray;
+}
+
+.RegistrationPreview__handle {
+  @include medium-text;
+
+  font-weight: bold;
+}
+
+.RegistrationPreview__id {
+  @include small-text;
+}

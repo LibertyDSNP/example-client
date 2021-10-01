@@ -1,9 +1,11 @@
 import { Button } from "antd";
 import EditRegistrationAccordion from "./EditRegistrationAccordion";
-import React from "react";
+import React, { useState } from "react";
 import { HexString } from "../utilities/types";
 import { DSNPUserURI } from "@dsnp/sdk/core/identifiers";
 import { useAppSelector } from "../redux/hooks";
+import RegistrationPreview from "./RegistrationPreview";
+import { Registration } from "@dsnp/sdk/core/contracts/registry";
 
 interface EditRegistrationProps {
   logout: () => void;
@@ -19,6 +21,9 @@ const EditRegistration = ({
   onIdResolved,
 }: EditRegistrationProps): JSX.Element => {
   const userId = useAppSelector((state) => state.user.id);
+  const [registrationPreview, setRegistrationPreview] = useState<
+    Registration | undefined
+  >();
 
   return (
     <div className="EditRegistration">
@@ -38,10 +43,12 @@ const EditRegistration = ({
       ) : (
         <p className="EditRegistration__title">Edit</p>
       )}
+      <RegistrationPreview registrationPreview={registrationPreview} />
       <EditRegistrationAccordion
         isCreatingRegistration={isCreatingRegistration}
         walletAddress={walletAddress}
         onIdResolved={onIdResolved}
+        setRegistrationPreview={setRegistrationPreview}
       />
       <Button
         className="EditRegistration__logoutButton"
