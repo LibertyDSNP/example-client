@@ -82,7 +82,7 @@ const Login = (): JSX.Element => {
     try {
       const waddr = await wallet.wallet(selectedType).login();
       await loginWithWalletAddress(waddr, selectedType);
-    } catch (error) {
+    } catch (error: any) {
       console.warn("Login error", error);
       logout();
     }
