@@ -1,7 +1,6 @@
 .Reply__block {
   position: relative;
   margin-bottom: 14px;
-  max-height: 400px;
   flex-grow: 1;
   background-color: $light-gray;
   padding: 4px;
@@ -23,4 +22,9 @@
 
 .Reply__message {
   margin-left: 38px;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  -webkit-hyphens: auto;
+  -moz-hyphens: auto;
+  hyphens: auto;
 }
