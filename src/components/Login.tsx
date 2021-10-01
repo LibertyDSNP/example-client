@@ -1,23 +1,20 @@
 import React, { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "../redux/hooks";
-import {
-  userLogout,
-  userUpdateId,
-  setRegistrations,
-} from "../redux/slices/userSlice";
+import { userLogout, userUpdateId } from "../redux/slices/userSlice";
 import * as dsnp from "../services/dsnp";
 import * as wallet from "../services/wallets/wallet";
 import * as session from "../services/session";
 import LoginModal from "./LoginModal";
-import RegistrationModal from "./RegistrationModal";
+import UserAvatar from "./UserAvatar";
+import EditRegistration from "./EditRegistration";
 import { core } from "@dsnp/sdk";
 import ethereum from "../services/wallets/metamask/ethereum";
 import { HexString } from "../utilities/types";
-import UserAvatar from "./UserAvatar";
 import * as types from "../utilities/types";
 import { ProfileQuery } from "../services/content";
-import { Button, Spin } from "antd";
+import { Button, Popover, Spin } from "antd";
 import { clearFeedItems } from "../redux/slices/feedSlice";
+import { Registration } from "@dsnp/sdk/core/contracts/registry";
 
 const Login = (): JSX.Element => {
   const [loading, startLoading] = React.useState<boolean>(false);
@@ -30,6 +27,7 @@ const Login = (): JSX.Element => {
   ] = React.useState<boolean>(false);
 
   const [walletAddress, setWalletAddress] = React.useState<string>("");
+  const [registrations, setRegistrations] = React.useState<Registration[]>([]);
 
   const dispatch = useAppDispatch();
   const userId = useAppSelector((state) => state.user.id);
@@ -67,8 +65,7 @@ const Login = (): JSX.Element => {
     setWalletAddress(waddr);
     await dsnp.setupProvider(selectedType);
     const registrations = await dsnp.getSocialIdentities(waddr);
-    dispatch(setRegistrations(registrations));
-    session.upsertSessionRegistrations(registrations);
+    setRegistrations(registrations);
     if (registrations.length === 1) {
       setUserID(registrations[0].dsnpUserURI);
     } else {
@@ -89,10 +86,8 @@ const Login = (): JSX.Element => {
     }
   };
 
-  const closeModals = () => {
-    startLoading(false);
-    setRegistrationPopoverVisible(false);
-    setLoginPopoverVisible(false);
+  const registrationCreated = (registration: Registration) => {
+    setRegistrations([...registrations, registration]);
   };
 
   const logout = () => {
@@ -124,6 +119,18 @@ const Login = (): JSX.Element => {
     dispatch(clearFeedItems());
   });
 
+  const handleVisibleChange = (visible: boolean) => {
+    setRegistrationPopoverVisible(visible);
+    // Signal if user closes the modal.
+    if (!userId && !visible) logout();
+  };
+
+  const closeModals = () => {
+    startLoading(false);
+    setRegistrationPopoverVisible(false);
+    setLoginPopoverVisible(false);
+  };
+
   return (
     <div className="Login__block">
       {!userId && !registrationPopoverVisible ? (
@@ -138,13 +145,20 @@ const Login = (): JSX.Element => {
           </Button>
         </LoginModal>
       ) : (
-        <RegistrationModal
+        <Popover
+          placement="bottomRight"
           visible={registrationPopoverVisible}
-          setRegistrationVisible={setRegistrationPopoverVisible}
-          onIdResolved={setUserID}
-          logout={logout}
-          cancel={closeModals}
-          walletAddress={walletAddress}
+          trigger="click"
+          onVisibleChange={handleVisibleChange}
+          content={
+            <EditRegistration
+              logout={logout}
+              walletAddress={walletAddress}
+              onIdResolved={setUserID}
+              registrations={registrations}
+              registrationCreated={registrationCreated}
+            />
+          }
         >
           <div className="Login__userBlock">
             <UserAvatar user={user} avatarSize="small" />
@@ -152,7 +166,7 @@ const Login = (): JSX.Element => {
               {user?.handle ? "@" + user.handle : profile?.name || user?.fromId}
             </div>
           </div>
-        </RegistrationModal>
+        </Popover>
       )}
     </div>
   );

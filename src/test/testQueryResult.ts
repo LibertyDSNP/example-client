@@ -16,7 +16,6 @@ export const mockQueryResult = <T>(data: T): QueryObserverResult<T, Error> => ({
   isFetched: true,
   isFetchedAfterMount: false,
   isFetching: false,
-  isRefetching: false,
   isPlaceholderData: false,
   isPreviousData: false,
   isStale: false,

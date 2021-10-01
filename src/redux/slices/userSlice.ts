@@ -1,13 +1,11 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import * as wallet from "../../services/wallets/wallet";
 import * as session from "../../services/session";
-import { Registration } from "@dsnp/sdk/core/contracts/registry";
 
 interface UserState {
   id?: string;
   walletType: wallet.WalletType;
   displayId?: string;
-  registrations?: Registration[];
   tempIconUri?: string;
 }
 
@@ -15,9 +13,6 @@ const initialState: UserState = {
   id: session.hasSession() ? session.loadSession()?.id : undefined,
   displayId: session.hasSession() ? session.loadSession()?.id : undefined,
   walletType: session.loadSession()?.walletType ?? wallet.WalletType.NONE,
-  registrations: session.hasSession()
-    ? session.loadSession()?.registrations
-    : undefined,
 };
 
 export const userSlice = createSlice({
@@ -47,10 +42,6 @@ export const userSlice = createSlice({
       ...state,
       displayId: action.payload,
     }),
-    setRegistrations: (state, action: PayloadAction<Registration[]>) => ({
-      ...state,
-      registrations: action.payload,
-    }),
     setTempIconUri: (state, action: PayloadAction<string | undefined>) => ({
       ...state,
       tempIconUri: action.payload,
@@ -63,7 +54,6 @@ export const {
   userUpdateId,
   userUpdateWalletType,
   setDisplayId,
-  setRegistrations,
   setTempIconUri,
 } = userSlice.actions;
 export default userSlice.reducer;

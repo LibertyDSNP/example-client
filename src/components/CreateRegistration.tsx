@@ -4,25 +4,23 @@ import * as dsnp from "../services/dsnp";
 import { core } from "@dsnp/sdk";
 import { HexString } from "../utilities/types";
 import { DSNPUserURI } from "@dsnp/sdk/core/identifiers";
-import { setRegistrations } from "../redux/slices/userSlice";
-import { useAppDispatch } from "../redux/hooks";
 import { friendlyError } from "../services/errors";
 import { Registration } from "@dsnp/sdk/core/contracts/registry";
 import { CloseCircleOutlined } from "@ant-design/icons";
-import * as session from "../services/session";
 
 interface CreateRegistrationProps {
   walletAddress: HexString;
   onIdResolved: (uri: DSNPUserURI) => void;
   setRegistrationPreview: (registration: Registration | undefined) => void;
+  registrationCreated: (registration: Registration) => void;
 }
 
 const CreateRegistration = ({
   walletAddress,
   onIdResolved,
   setRegistrationPreview,
+  registrationCreated,
 }: CreateRegistrationProps): JSX.Element => {
-  const dispatch = useAppDispatch();
   const [registrationError, setRegistrationError] = React.useState<
     string | undefined
   >(undefined);
@@ -41,9 +39,11 @@ const CreateRegistration = ({
         formValues.handle
       );
       onIdResolved(core.identifiers.convertToDSNPUserId(userURI).toString());
-      const registrations = await dsnp.getSocialIdentities(walletAddress);
-      dispatch(setRegistrations(registrations));
-      session.upsertSessionRegistrations(registrations);
+      registrationCreated({
+        contractAddr: "",
+        dsnpUserURI: userURI,
+        handle: formValues.handle,
+      });
       setIsSaving(false);
     } catch (error: any) {
       console.error(error);

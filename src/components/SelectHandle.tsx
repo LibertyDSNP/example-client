@@ -36,7 +36,6 @@ const SelectHandle = ({
   return (
     <div>
       <p>You have multiple handles associated with your account.</p>
-      <h3>Select an account:</h3>
       <div className="RegistrationModal__registrations">
         {registrations.map((registration: Registration) => (
           <button
