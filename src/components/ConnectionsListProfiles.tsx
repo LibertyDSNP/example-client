@@ -72,7 +72,7 @@ const ConnectionsListProfiles = ({
             userId={userId}
             user={user}
             following={followedByCurrentUser}
-          ></GraphChangeButton>
+          />
         </div>
       ))}
     </>

@@ -26,7 +26,7 @@
     "postcss": "^8.2.8",
     "postcss-flexbugs-fixes": "5.0.2",
     "postcss-loader": "4.2.0",
-    "postcss-normalize": "9.0.0",
+    "postcss-normalize": "10.0.1",
     "postcss-preset-env": "6.7.0",
     "postcss-safe-parser": "5.0.2",
     "react": "17.0.1",
@@ -37,7 +37,7 @@
     "react-query": "^3.23.2",
     "react-redux": "^7.2.3",
     "react-router-dom": "^5.2.0",
-    "redux": "^4.0.5",
+    "redux": "^4.1.1",
     "redux-mock-store": "^1.5.4",
     "resolve": "1.20.0",
     "resolve-url-loader": "3.1.2",
@@ -222,7 +222,7 @@
     "typechain": "^5.1.2",
     "webpack-dev-server": "^3.11.2",
     "webpack-manifest-plugin": "3.0.0",
-    "workbox-webpack-plugin": "6.1.1"
+    "workbox-webpack-plugin": "6.3.0"
   },
   "babel": {
     "presets": [

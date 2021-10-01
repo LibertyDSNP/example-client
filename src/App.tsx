@@ -37,7 +37,7 @@ const App = (): JSX.Element => {
         await wallet.wallet(walletType).reload();
         await setupProvider(walletType);
         unsubscribeFunction = await dispatch(startSubscriptions);
-      } catch (e) {
+      } catch (e: any) {
         if (!e.message.match(/login cancelled/i)) {
           console.error("Error in initial provider setup", e);
           showSetupError(e.toString());

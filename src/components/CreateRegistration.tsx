@@ -39,7 +39,7 @@ const CreateRegistration = ({
       onIdResolved(core.identifiers.convertToDSNPUserId(userURI).toString());
       const registrations = await dsnp.getSocialIdentities(walletAddress);
       dispatch(setRegistrations(registrations));
-    } catch (error) {
+    } catch (error: any) {
       console.error(error);
       setRegistrationError(friendlyError(error));
     }
