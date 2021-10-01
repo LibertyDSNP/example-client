@@ -72,7 +72,7 @@ const Profile = (): JSX.Element => {
     });
     try {
       await saveProfile(BigInt(userId), newProfile);
-    } catch (error) {
+    } catch (error: any) {
       Modal.error({
         title: "Error saving profile",
         content: friendlyError(error),
