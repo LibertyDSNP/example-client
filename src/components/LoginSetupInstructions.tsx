@@ -49,6 +49,7 @@ const LoginSetupInstructions = (): JSX.Element => {
                 <a
                   href="https://github.com/LibertyDSNP/contracts"
                   target="_blank"
+                  rel="noreferrer"
                 >
                   the contracts repository
                 </a>{" "}
@@ -109,6 +110,7 @@ const LoginSetupInstructions = (): JSX.Element => {
               <a
                 href="https://github.com/LibertyDSNP/example-client"
                 target="_blank"
+                rel="noreferrer"
               >
                 the README
               </a>{" "}
