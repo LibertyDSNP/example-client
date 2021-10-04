@@ -1,6 +1,8 @@
 import { QueryObserverResult } from "react-query";
 
-export const mockQueryResult = <T>(data: T): QueryObserverResult<T, Error> => ({
+export const mockQueryResult = <T>(
+  data: T
+): Partial<QueryObserverResult<T, Error>> => ({
   data,
   error: null,
   isError: false,
