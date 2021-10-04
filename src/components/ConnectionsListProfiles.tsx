@@ -2,19 +2,8 @@ import React from "react";
 import UserAvatar from "./UserAvatar";
 import { User } from "../utilities/types";
 import { useAppSelector } from "../redux/hooks";
-import { AnnouncementType } from "@dsnp/sdk/core/announcements";
-import {
-  RelationshipState,
-  RelationshipStatus,
-} from "../redux/slices/graphSlice";
 import GraphChangeButton from "./GraphChangeButton";
 import { UserName } from "./UserName";
-
-enum ListStatus {
-  CLOSED,
-  FOLLOWERS,
-  FOLLOWING,
-}
 
 interface ConnectionsListProfilesProps {
   userId: string;
