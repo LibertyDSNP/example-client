@@ -34,5 +34,5 @@ export const friendlyError = (
     return `${displayHandle} is not available. Please choose another.`;
   }
 
-  return "Try resetting your Metamask account.\n" + message;
+  return "Try resetting your MetaMask account.\n" + message;
 };
