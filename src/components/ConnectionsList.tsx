@@ -2,6 +2,12 @@ import React, { useState } from "react";
 import { Button } from "antd";
 import ConnectionsListProfiles from "./ConnectionsListProfiles";
 import { useAppSelector } from "../redux/hooks";
+import {
+  RelationshipState,
+  RelationshipStatus,
+} from "../redux/slices/graphSlice";
+import { User } from "../utilities/types";
+import { AnnouncementType } from "@dsnp/sdk/core/announcements";
 
 enum ListStatus {
   CLOSED,
@@ -23,6 +29,36 @@ const ConnectionsList = (): JSX.Element => {
     ListStatus.CLOSED
   );
 
+  const users: Record<string, User> = useAppSelector(
+    (state) => state.profiles?.profiles || {}
+  );
+
+  const profileForId = (userId: string): User =>
+    users[userId] || {
+      contentHash: "",
+      url: "",
+      announcementType: AnnouncementType.Profile,
+      fromId: userId,
+      handle: "unknown",
+    };
+
+  const connectionsList = (
+    relations: Record<string, RelationshipState>
+  ): User[] =>
+    Object.keys(relations)
+      .map(profileForId)
+      .filter(
+        (profile: User) =>
+          relations[profile.fromId]?.status !== RelationshipStatus.UNFOLLOWING
+      );
+
+  const relations =
+    selectedListTitle === ListStatus.FOLLOWERS
+      ? followingDisplayUser
+      : selectedListTitle === ListStatus.FOLLOWING
+      ? followedByDisplayUser
+      : {};
+
   const handleClick = (listTitle: ListStatus) => {
     if (selectedListTitle === listTitle)
       setSelectedListTitle(ListStatus.CLOSED);
@@ -37,11 +73,6 @@ const ConnectionsList = (): JSX.Element => {
       : "ConnectionsList__button";
   };
 
-  console.log("following user", Object.keys(followingDisplayUser).length);
-  console.log("followed by user", Object.keys(followedByDisplayUser).length);
-  console.log("following user", followingDisplayUser);
-  console.log("followed by user", followedByDisplayUser);
-
   return (
     <div className="ConnectionsList__block">
       <div className="ConnectionsList__buttonBlock">
@@ -50,7 +81,7 @@ const ConnectionsList = (): JSX.Element => {
           onClick={() => handleClick(ListStatus.FOLLOWERS)}
         >
           <div className="ConnectionsList__buttonCount">
-            {Object.keys(followingDisplayUser).length}
+            {connectionsList(followingDisplayUser).length}
           </div>
           Followers
         </Button>
@@ -59,7 +90,7 @@ const ConnectionsList = (): JSX.Element => {
           onClick={() => handleClick(ListStatus.FOLLOWING)}
         >
           <div className="ConnectionsList__buttonCount">
-            {Object.keys(followedByDisplayUser).length}
+            {connectionsList(followedByDisplayUser).length}
           </div>
           Following
         </Button>
@@ -67,9 +98,7 @@ const ConnectionsList = (): JSX.Element => {
       {userId && (
         <ConnectionsListProfiles
           userId={userId}
-          listStatus={selectedListTitle}
-          followedByDisplayUser={followedByDisplayUser}
-          followingDisplayUser={followingDisplayUser}
+          connectionsList={connectionsList(relations)}
         />
       )}
     </div>
