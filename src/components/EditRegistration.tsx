@@ -9,16 +9,18 @@ import { Registration } from "@dsnp/sdk/core/contracts/registry";
 
 interface EditRegistrationProps {
   logout: () => void;
-  isCreatingRegistration: boolean;
   walletAddress: HexString;
   onIdResolved: (uri: DSNPUserURI) => void;
+  registrations: Registration[];
+  registrationCreated: (registration: Registration) => void;
 }
 
 const EditRegistration = ({
   logout,
-  isCreatingRegistration,
   walletAddress,
   onIdResolved,
+  registrations,
+  registrationCreated,
 }: EditRegistrationProps): JSX.Element => {
   const userId = useAppSelector((state) => state.user.id);
   const [registrationPreview, setRegistrationPreview] = useState<
@@ -45,10 +47,11 @@ const EditRegistration = ({
       )}
       <RegistrationPreview registrationPreview={registrationPreview} />
       <EditRegistrationAccordion
-        isCreatingRegistration={isCreatingRegistration}
         walletAddress={walletAddress}
         onIdResolved={onIdResolved}
         setRegistrationPreview={setRegistrationPreview}
+        registrations={registrations}
+        registrationCreated={registrationCreated}
       />
       <Button
         className="EditRegistration__logoutButton"

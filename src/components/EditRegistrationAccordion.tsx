@@ -9,26 +9,29 @@ import { Registration } from "@dsnp/sdk/core/contracts/registry";
 const { Panel } = Collapse;
 
 interface EditRegistrationAccordionProps {
-  isCreatingRegistration: boolean;
   walletAddress: HexString;
   onIdResolved: (uri: DSNPUserURI) => void;
   setRegistrationPreview: (user: Registration | undefined) => void;
+  registrations: Registration[];
+  registrationCreated: (registration: Registration) => void;
 }
 
 const EditRegistrationAccordion = ({
-  isCreatingRegistration,
   walletAddress,
   onIdResolved,
   setRegistrationPreview,
+  registrations,
+  registrationCreated,
 }: EditRegistrationAccordionProps): JSX.Element => {
   const userId = useAppSelector((state) => state.user.id);
-  const registrations = useAppSelector((state) => state.user.registrations);
 
   const getDefaultActiveKey = () => {
     if (userId) return undefined;
-    if (isCreatingRegistration) {
+    if (registrations.length === 0) {
+      console.log("registrations 1", registrations);
       return "0";
     }
+    console.log("registrations 2", registrations);
     return "1";
   };
   return (
@@ -49,6 +52,7 @@ const EditRegistrationAccordion = ({
           walletAddress={walletAddress}
           onIdResolved={onIdResolved}
           setRegistrationPreview={setRegistrationPreview}
+          registrationCreated={registrationCreated}
         />
       </Panel>
       {registrations && registrations.length > 1 && (

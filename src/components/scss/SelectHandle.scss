@@ -1,13 +1,19 @@
-.RegistrationModal__registrations {
-  max-height: 50vh;
+.SelectHandle__registrations {
+  max-height: 30vh;
   overflow: auto;
 }
 
-.RegistrationModal__footer {
+.SelectHandle__footer {
   text-align: center;
 }
 
-.RegistrationModal__registration {
+.SelectHandle__footerBtn {
+  text-align: center;
+  overflow: auto;
+  padding-top: 10px;
+}
+
+.SelectHandle__registration {
   border: none;
   width: 100%;
   text-align: left;
@@ -26,7 +32,7 @@
     right: 0;
     transform: scale(0.8, 0.8);
   }
-  &.RegistrationModal__registration--selected {
+  &.SelectHandle__registration--selected {
     &::after {
       content: url("img/check_selected.svg");
     }
@@ -44,6 +50,8 @@
   cursor: pointer;
 }
 
-.ant-alert {
-  margin-bottom: 1em;
+.RegistrationModal__successIcon {
+  font-size: 35px;
+  margin: -8px 0 8px 0;
 }
+
