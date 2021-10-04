@@ -1,28 +1,19 @@
-.RegistrationModal__registrations {
+.SelectHandle__registrations {
   max-height: 30vh;
   overflow: auto;
 }
 
-.RegistrationModal__inputWrapper {
-  position: relative;
-}
-
-.RegistrationModal__input {
-  padding-left: 26px !important;
-}
-
-.RegistrationModal__inputAt {
-  position: absolute;
-  left: 8px;
-  top: 4px;
-  color: $dark-gray;
-}
-
-.RegistrationModal__footer {
+.SelectHandle__footer {
   text-align: center;
 }
 
-.RegistrationModal__registration {
+.SelectHandle__footerBtn {
+  text-align: center;
+  overflow: auto;
+  padding-top: 10px;
+}
+
+.SelectHandle__registration {
   border: none;
   width: 100%;
   text-align: left;
@@ -41,7 +32,7 @@
     right: 0;
     transform: scale(0.8, 0.8);
   }
-  &.RegistrationModal__registration--selected {
+  &.SelectHandle__registration--selected {
     &::after {
       content: url("img/check_selected.svg");
     }
@@ -59,23 +50,8 @@
   cursor: pointer;
 }
 
-.RegistrationModal__errorBlock {
-  text-align: center;
-  overflow: auto;
-  padding-top: 10px;
-}
-
-.RegistrationModal__errorIcon {
-  font-size: 35px;
-  margin: -8px 0 8px 0;
-}
-
 .RegistrationModal__successIcon {
   font-size: 35px;
   margin: -8px 0 8px 0;
 }
 
-.RegistrationModal__spinner {
-  width: 100%;
-  margin: 0 auto;
-}

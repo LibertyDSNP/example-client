@@ -1,0 +1,30 @@
+.CreateRegistration__inputWrapper {
+  position: relative;
+}
+
+.CreateRegistration__input {
+  padding-left: 26px !important;
+}
+
+.CreateRegistration__inputAt {
+  position: absolute;
+  left: 8px;
+  top: 4px;
+  color: $dark-gray;
+}
+
+.CreateRegistration__footerBtn {
+  text-align: center;
+  overflow: auto;
+  padding-top: 10px;
+}
+
+.CreateRegistration__errorIcon {
+  font-size: 35px;
+  margin: -8px 0 8px 0;
+}
+
+.CreateRegistration__spinner {
+  width: 100%;
+  margin: 0 auto;
+}

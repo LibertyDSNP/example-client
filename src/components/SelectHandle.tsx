@@ -36,12 +36,12 @@ const SelectHandle = ({
   return (
     <div>
       <p>You have multiple handles associated with your account.</p>
-      <div className="RegistrationModal__registrations">
+      <div className="SelectHandle__registrations">
         {registrations.map((registration: Registration) => (
           <button
-            className={`RegistrationModal__registration${
+            className={`SelectHandle__registration${
               registration === selectedRegistration
-                ? " RegistrationModal__registration--selected"
+                ? " SelectHandle__registration--selected"
                 : ""
             }`}
             onClick={() => {
@@ -64,9 +64,9 @@ const SelectHandle = ({
           </button>
         ))}
       </div>
-      <div className="RegistrationModal__footer">
+      <div className="SelectHandle__footer">
         <Button
-          className="RegistrationModal__footerBtn"
+          className="SelectHandle__footerBtn"
           key="post"
           type="primary"
           disabled={!selectedRegistration}

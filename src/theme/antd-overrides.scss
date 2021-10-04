@@ -174,13 +174,16 @@ a {
   border-radius: 10px;
 }
 
-.ant-btn.RegistrationModal__footerBtn {
+.ant-btn.SelectHandle__footerBtn,
+.ant-btn.CreateRegistration__footerBtn {
   @include button($shadow-green, $black, $white, $shadow-green);
 
   margin: 1em auto;
+  overflow: hidden;
 }
 
-.ant-btn.RegistrationModal__footerBtn[disabled] {
+.ant-btn.SelectHandle__footerBtn[disabled],
+.ant-btn.CreateRegistration__footerBtn[disabled] {
   @include button($light-gray, $light-gray, $dark-gray, $dark-gray);
 
   span {
@@ -201,7 +204,7 @@ a {
   font-weight: bold;
 }
 
-.anticon.RegistrationModal__errorIcon {
+.anticon.CreateRegistration__errorIcon {
   color: $red;
 }
 

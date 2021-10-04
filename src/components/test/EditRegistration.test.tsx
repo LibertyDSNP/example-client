@@ -64,7 +64,7 @@ describe("EditRegistration", () => {
         .find(".EditRegistrationAccordion__panelTitle")
         .first()
         .simulate("click");
-      expect(component.exists(".RegistrationModal__handleInput")).toBe(true);
+      expect(component.exists(".CreateRegistration__handleInput")).toBe(true);
     });
 
     it("prevents registration with empty handle", async () => {
@@ -73,13 +73,13 @@ describe("EditRegistration", () => {
         .first()
         .simulate("click");
       component
-        .find(".RegistrationModal__createHandle")
+        .find(".CreateRegistration__createHandle")
         .first()
         .simulate("submit");
 
       await waitFor(() => {
         expect(
-          component.find(".RegistrationModal__handleInput").first().text()
+          component.find(".CreateRegistration__handleInput").first().text()
         ).toContain("Handle cannot be blank");
         // this indicates form has not been sumitted
         expect(registrationSelection).toBe(undefined);
@@ -95,7 +95,7 @@ describe("EditRegistration", () => {
         target: { value: "Joanne" },
       });
       component
-        .find(".RegistrationModal__createHandle")
+        .find(".CreateRegistration__createHandle")
         .first()
         .simulate("submit");
 
@@ -130,7 +130,7 @@ describe("EditRegistration", () => {
     it("displays all registrations", async () => {
       mockRegistrations.forEach((registration, i) => {
         expect(
-          component.find(".RegistrationModal__registration").at(i).text()
+          component.find(".SelectHandle__registration").at(i).text()
         ).toContain(registration.handle);
       });
     });
@@ -139,7 +139,7 @@ describe("EditRegistration", () => {
       mockRegistrations.forEach((registration, i) => {
         expect(
           component
-            .find(".RegistrationModal__registration")
+            .find(".SelectHandle__registration")
             .at(i)
             ?.find("img")
             .prop("alt")
@@ -154,16 +154,13 @@ describe("EditRegistration", () => {
         .simulate("click");
       console.log(component.debug());
       expect(
-        component.find(".RegistrationModal__footerBtn").last().prop("disabled")
+        component.find(".SelectHandle__footerBtn").last().prop("disabled")
       ).toBe(true);
     });
 
     describe("when registration selected", () => {
       beforeEach(async () => {
-        component
-          .find(".RegistrationModal__registration")
-          .at(1)
-          .simulate("click");
+        component.find(".SelectHandle__registration").at(1).simulate("click");
       });
 
       it("associates registrations with profiles", async () => {
@@ -171,9 +168,9 @@ describe("EditRegistration", () => {
           [false, true, false].forEach((selectionStatus, i) =>
             expect(
               component
-                .find(".RegistrationModal__registration")
+                .find(".SelectHandle__registration")
                 .at(i)
-                .hasClass("RegistrationModal__registration--selected")
+                .hasClass("SelectHandle__registration--selected")
             ).toBe(selectionStatus)
           );
         });
@@ -181,12 +178,12 @@ describe("EditRegistration", () => {
 
       it("select button is enabled", async () => {
         expect(
-          component.find("Button.RegistrationModal__footerBtn").prop("disabled")
+          component.find("Button.SelectHandle__footerBtn").prop("disabled")
         ).toBe(false);
       });
 
       it("calls callback with selected registation when button clicked", async () => {
-        component.find("Button.RegistrationModal__footerBtn").simulate("click");
+        component.find("Button.SelectHandle__footerBtn").simulate("click");
 
         await waitFor(() => {
           expect(registrationSelection).toBe(mockRegistrations[1].dsnpUserURI);
@@ -218,7 +215,7 @@ describe("EditRegistration", () => {
           target: { value: "Joanne" },
         });
         component
-          .find(".RegistrationModal__createHandle")
+          .find(".CreateRegistration__createHandle")
           .first()
           .simulate("submit");
         await waitFor(() => expect(registerSpy.mock.calls.length).toBe(1));

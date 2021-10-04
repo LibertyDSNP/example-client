@@ -56,7 +56,7 @@ const CreateRegistration = ({
     <Form
       form={form}
       name="createHandle"
-      className="RegistrationModal__createHandle"
+      className="CreateRegistration__createHandle"
       initialValues={{
         remember: true,
       }}
@@ -64,7 +64,7 @@ const CreateRegistration = ({
     >
       <Form.Item
         name="handle"
-        className="RegistrationModal__handleInput"
+        className="CreateRegistration__handleInput"
         rules={[
           {
             required: true,
@@ -72,26 +72,26 @@ const CreateRegistration = ({
           },
         ]}
       >
-        <div className="RegistrationModal__inputWrapper">
+        <div className="CreateRegistration__inputWrapper">
           <Input
-            className="RegistrationModal__input"
+            className="CreateRegistration__input"
             onChange={() => setRegistrationError(undefined)}
           />
-          <div className="RegistrationModal__inputAt">@</div>
+          <div className="CreateRegistration__inputAt">@</div>
         </div>
       </Form.Item>
-      {isSaving && <Spin className="RegistrationModal__spinner" />}
+      {isSaving && <Spin className="CreateRegistration__spinner" />}
       {registrationError && (
-        <div className="RegistrationModal__errorBlock">
-          <CloseCircleOutlined className="RegistrationModal__errorIcon" />
+        <div className="CreateRegistration__footerBtn">
+          <CloseCircleOutlined className="CreateRegistration__errorIcon" />
           <p>{registrationError}</p>
         </div>
       )}
-      <div className="RegistrationModal__footer">
+      <div className="SelectHandle__footer">
         <Button
           type="primary"
           htmlType="submit"
-          className="RegistrationModal__footerBtn"
+          className="CreateRegistration__footerBtn"
         >
           Create Handle
         </Button>
