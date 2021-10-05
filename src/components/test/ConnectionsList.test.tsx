@@ -7,6 +7,7 @@ import {
 } from "../../test/testhelpers";
 import { getPreFabSocialGraph } from "../../test/testGraphs";
 import { getPrefabProfile } from "../../test/testProfiles";
+import { waitFor } from "@testing-library/react";
 
 const profile = getPrefabProfile(0);
 const graphs = getPreFabSocialGraph();
@@ -27,10 +28,17 @@ describe("ConnectionsList", () => {
     it("displays correct list title on followers click", async () => {
       const component = mount(componentWithStore(ConnectionsList, store));
       await forcePromiseResolve();
-      component.find(".ConnectionsList__button").first().simulate("click");
-      expect(component.find("ConnectionsListProfiles").prop("listStatus")).toBe(
-        1
-      );
+      const followersButton = component
+        .find(".ConnectionsList__button")
+        .first();
+      followersButton.simulate("click");
+      await waitFor(() => {
+        console.log(followersButton.debug());
+
+        expect(
+          followersButton.hasClass("ConnectionsList__button--active")
+        ).toBeTruthy();
+      });
     });
 
     it("displays correct list title on following click", async () => {

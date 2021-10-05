@@ -152,7 +152,6 @@ describe("EditRegistration", () => {
         .find(".EditRegistrationAccordion__panelTitle")
         .last()
         .simulate("click");
-      console.log(component.debug());
       expect(
         component.find(".SelectHandle__footerBtn").last().prop("disabled")
       ).toBe(true);
@@ -197,7 +196,6 @@ describe("EditRegistration", () => {
       });
 
       it("displays create handle form", async () => {
-        console.log(component.debug());
         await waitFor(() => {
           expect(component.find("form").props().id).toEqual("createHandle");
         });
