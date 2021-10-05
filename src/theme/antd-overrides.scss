@@ -1,4 +1,4 @@
-.ant-btn.Login__loginButton,
+.ant-btn.ConnectWallet__loginButton,
 .ant-btn.LoginModal__loginButton {
   @include button($black, $black, $white, $black);
 
@@ -18,12 +18,12 @@
   background-color: $green !important;
 }
 
-.ant-spin.Login__spinner,
+.ant-spin.ConnectWallet__spinner,
 .ant-spin.LoginModal__spinner {
   padding-left: 8px;
 }
 
-.ant-alert.Login__alert {
+.ant-alert.ConnectWallet__alert {
   margin-right: 8px;
 }
 
