@@ -10,9 +10,9 @@ import { User } from "../utilities/types";
 import { AnnouncementType } from "@dsnp/sdk/core/announcements";
 
 enum ListStatus {
-  CLOSED,
-  FOLLOWERS,
-  FOLLOWING,
+  CLOSED = "CLOSED",
+  FOLLOWERS = "FOLLOWERS",
+  FOLLOWING = "FOLLOWING",
 }
 
 const ConnectionsList = (): JSX.Element => {
