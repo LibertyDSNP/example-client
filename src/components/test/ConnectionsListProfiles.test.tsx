@@ -6,14 +6,9 @@ import {
   RelationshipState,
   RelationshipStatus,
 } from "../../redux/slices/graphSlice";
+import { User } from "../../utilities/types";
 
-enum ListStatus {
-  CLOSED,
-  FOLLOWERS,
-  FOLLOWING,
-}
-
-const mockUserList = [
+const mockUserList: User[] = [
   preFabProfiles[0],
   preFabProfiles[1],
   preFabProfiles[2],
@@ -23,12 +18,17 @@ const mockUserList = [
 
 const profiles = mockUserList.reduce((m, p) => ({ ...m, [p.fromId]: p }), {});
 
+const followingUserList: User[] = mockUserList.slice(0, 3);
+
+const followersUserList: User[] = mockUserList.slice(2);
+
 const followState = {
   status: RelationshipStatus.FOLLOWING,
   blockNumber: 0,
   blockIndex: 0,
   batchIndex: 0,
 };
+
 const following: Record<
   string,
   Record<string, RelationshipState>
@@ -52,39 +52,19 @@ describe("ConnectionsListProfiles", () => {
     expect(() => {
       shallow(
         componentWithStore(ConnectionsListProfiles, createMockStore(store), {
-          listStatus: ListStatus.FOLLOWING,
-          followedByDisplayUser: following,
-          followingDisplayUser: followers,
           userId: userId,
+          connectionsList: mockUserList,
         })
       );
     }).not.toThrow();
-  });
-
-  describe("when in closed mode", () => {
-    it("hides all connections", () => {
-      const component = mount(
-        componentWithStore(ConnectionsListProfiles, createMockStore(store), {
-          listStatus: ListStatus.CLOSED,
-          followedByDisplayUser: following,
-          followingDisplayUser: followers,
-          userId: userId,
-        })
-      );
-      expect(component.find(".ConnectionsListProfiles__profile").length).toBe(
-        0
-      );
-    });
   });
 
   describe("when in following mode", () => {
     it("shows all connections user is following", () => {
       const component = mount(
         componentWithStore(ConnectionsListProfiles, createMockStore(store), {
-          listStatus: ListStatus.FOLLOWING,
-          followedByDisplayUser: following,
-          followingDisplayUser: followers,
           userId: userId,
+          connectionsList: followingUserList,
         })
       );
       expect(component.find(".ConnectionsListProfiles__profile").length).toBe(
@@ -104,10 +84,8 @@ describe("ConnectionsListProfiles", () => {
     it("all connections can be unfollowed", () => {
       const component = mount(
         componentWithStore(ConnectionsListProfiles, createMockStore(store), {
-          listStatus: ListStatus.FOLLOWING,
-          followedByDisplayUser: following,
-          followingDisplayUser: followers,
           userId: userId,
+          connectionsList: followingUserList,
         })
       );
       expect(component.find(".GraphChangeButton").at(0).text()).toContain(
@@ -126,9 +104,8 @@ describe("ConnectionsListProfiles", () => {
     it("shows all followers", () => {
       const component = mount(
         componentWithStore(ConnectionsListProfiles, createMockStore(store), {
-          listStatus: ListStatus.FOLLOWERS,
-          followedByDisplayUser: following,
-          followingDisplayUser: followers,
+          userId: userId,
+          connectionsList: followersUserList,
         })
       );
       expect(component.find(".ConnectionsListProfiles__profile").length).toBe(
@@ -148,10 +125,8 @@ describe("ConnectionsListProfiles", () => {
     it("all followers can be followed or unfollowed depending on status", () => {
       const component = mount(
         componentWithStore(ConnectionsListProfiles, createMockStore(store), {
-          listStatus: ListStatus.FOLLOWERS,
-          followedByDisplayUser: following,
-          followingDisplayUser: followers,
           userId: userId,
+          connectionsList: followersUserList,
         })
       );
       expect(
