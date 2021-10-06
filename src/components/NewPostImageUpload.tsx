@@ -43,6 +43,16 @@ const NewPostImageUpload = ({
       <div className="NewPostImageUpload__cover">
         {uriList &&
           uriList.map((image, index) => {
+            const isYoutubeVideo = image.match(
+              /^https?\:\/\/(?:www\.youtube(?:\-nocookie)?\.com\/|m\.youtube\.com\/|youtube\.com\/)?(?:ytscreeningroom\?vi?=|youtu\.be\/|vi?\/|user\/.+\/u\/\w{1,2}\/|embed\/|watch\?(?:.*\&)?vi?=|\&vi?=|\?(?:.*\&)?vi?=)([^#\&\?\n\/<>"']*)/i
+            );
+            if (isYoutubeVideo) {
+              image =
+                "https://img.youtube.com/vi/" +
+                isYoutubeVideo[1] +
+                "/mqdefault.jpg";
+            }
+
             return (
               <div className="NewPostImageUpload__imageBlock" key={index}>
                 <img alt="" className="NewPostImageUpload__image" src={image} />

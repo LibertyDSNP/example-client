@@ -28,10 +28,8 @@ const EditRegistrationAccordion = ({
   const getDefaultActiveKey = () => {
     if (userId) return undefined;
     if (registrations.length === 0) {
-      console.log("registrations 1", registrations);
       return "0";
     }
-    console.log("registrations 2", registrations);
     return "1";
   };
   return (
