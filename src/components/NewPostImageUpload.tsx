@@ -1,5 +1,9 @@
 import { Alert, Input } from "antd";
-import { CloseCircleTwoTone, CameraOutlined } from "@ant-design/icons";
+import {
+  CloseCircleTwoTone,
+  CameraOutlined,
+  PictureOutlined,
+} from "@ant-design/icons";
 import React from "react";
 import { HexString } from "../utilities/types";
 import { Button } from "antd";
@@ -38,14 +42,43 @@ const NewPostImageUpload = ({
     setUriList(deletedImageArray);
     onNewPostImageUpload(deletedImageArray);
   };
+
+  const getThumbnail = (uri: string): string | undefined => {
+    const isYoutubeVideo = uri.match(
+      /^https?\/\/(?:www\.youtube(?:nocookie)?\.com\/|m\.youtube\.com\/|youtube\.com\/)?(?:ytscreeningroom\?vi?=|youtu\.be\/|vi?\/|user\/.+\/u\/\w{1,2}\/|embed\/|watch\?(?:.*)?vi?=|vi?=|\?(?:.*)?vi?=)([^#\n/<>"']*)/i
+    );
+    if (isYoutubeVideo)
+      return (
+        "https://img.youtube.com/vi/" + isYoutubeVideo[1] + "/mqdefault.jpg"
+      );
+    const isVimeo = uri.match(/\/\/(?:www\.)?vimeo.com\/([0-9a-z\-_]+)/i);
+    if (isVimeo) return "https://vumbnail.com/" + isVimeo[1] + ".jpg";
+
+    const isImage = uri.match(/\.(jpeg|jpg|gif|png|svg)$/);
+    if (isImage) return uri;
+
+    return;
+  };
+
   return (
     <>
       <div className="NewPostImageUpload__cover">
         {uriList &&
-          uriList.map((image, index) => {
+          uriList.map((uri, index) => {
+            const thumbnail = getThumbnail(uri);
             return (
               <div className="NewPostImageUpload__imageBlock" key={index}>
-                <img alt="" className="NewPostImageUpload__image" src={image} />
+                {thumbnail ? (
+                  <img
+                    alt=""
+                    className="NewPostImageUpload__image"
+                    src={thumbnail}
+                  />
+                ) : (
+                  <div className="NewPostImageUpload__imageAlt">
+                    <PictureOutlined />
+                  </div>
+                )}
                 <CloseCircleTwoTone
                   className="NewPostImageUpload__imageDelete"
                   onClick={() => deleteImage(index)}
