@@ -66,11 +66,14 @@ const Profile = (): JSX.Element => {
   const saveEditProfile = async () => {
     setIsEditing(!isEditing);
     if (userId === undefined) return;
-    const newProfile = core.activityContent.createProfile({
-      name: newName,
-      icon: newIcon,
-    });
     try {
+      if (typeof newName === 'string') {
+        checkInvalidName(newName)
+      }
+      const newProfile = core.activityContent.createProfile({
+        name: newName?.trim(),
+        icon: newIcon,
+      });
       await saveProfile(BigInt(userId), newProfile);
     } catch (error: any) {
       Modal.error({
@@ -86,6 +89,13 @@ const Profile = (): JSX.Element => {
     setNewName(undefined);
     dispatch(setTempIconUri(undefined));
   };
+
+  const checkInvalidName = (name: string) => {
+    if (name.trim() === "") {
+      throw "Display name can not be whitespace"
+    }
+    setNewName(name.trim())
+  }
 
   return (
     <>
