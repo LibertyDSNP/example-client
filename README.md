@@ -101,6 +101,11 @@ A new Docker image will be pushed from our [GitHub repository](https://github.co
 
 ## Development Troubleshooting and FAQ
 
+* **How to reset Metamask after restarting the chain** - Perform the following:
+    1. You should first sign out of your account through the account icon on the top right.
+    2. Then in the Metamask extension, click on the **Account** icon and go through **Settings --> Advanced**. Reset your transaction history through the **Reset Account** button.
+    3. Afterwards, reconnect with the **Connect** button using Metamask. The client should be fully reset and ready to go.
+
 * **Transactions rejected due to invalid nonce** - If you've restarted the chain, you probably need to reset your test accounts.
 In Metamask, click on the **Account** icon from the extension.
 Then go to **Settings --> Advanced**, scroll down a little and click **Reset Account**. Do this for each connected account.
