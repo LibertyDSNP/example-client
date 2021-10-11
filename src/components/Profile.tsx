@@ -67,8 +67,8 @@ const Profile = (): JSX.Element => {
     setIsEditing(!isEditing);
     if (userId === undefined) return;
     try {
-      if (typeof newName === 'string') {
-        checkInvalidName(newName)
+      if (typeof newName === "string") {
+        checkInvalidName(newName);
       }
       const newProfile = core.activityContent.createProfile({
         name: newName?.trim(),
@@ -92,10 +92,10 @@ const Profile = (): JSX.Element => {
 
   const checkInvalidName = (name: string) => {
     if (name.trim() === "") {
-      throw "Display name can not be whitespace"
+      throw "Display name can not be whitespace";
     }
-    setNewName(name.trim())
-  }
+    setNewName(name.trim());
+  };
 
   return (
     <>
