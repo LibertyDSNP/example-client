@@ -45,12 +45,14 @@ const NewPostImageUpload = ({
 
   const getThumbnail = (uri: string): string | undefined => {
     const isYoutubeVideo = uri.match(
-      /^https?\/\/(?:www\.youtube(?:nocookie)?\.com\/|m\.youtube\.com\/|youtube\.com\/)?(?:ytscreeningroom\?vi?=|youtu\.be\/|vi?\/|user\/.+\/u\/\w{1,2}\/|embed\/|watch\?(?:.*)?vi?=|vi?=|\?(?:.*)?vi?=)([^#\n/<>"']*)/i
+      /\/\/((?:www|m)\.)?((?:youtube\.com|youtu.be))(\/(?:[\w\-]+\?v=|embed\/|v\/)?)([\w\-]+)(\S+)?$/i
     );
+
     if (isYoutubeVideo)
       return (
-        "https://img.youtube.com/vi/" + isYoutubeVideo[1] + "/mqdefault.jpg"
+        "https://img.youtube.com/vi/" + isYoutubeVideo[4] + "/mqdefault.jpg"
       );
+
     const isVimeo = uri.match(/\/\/(?:www\.)?vimeo.com\/([0-9a-z\-_]+)/i);
     if (isVimeo) return "https://vumbnail.com/" + isVimeo[1] + ".jpg";
 
