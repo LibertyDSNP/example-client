@@ -83,6 +83,20 @@ describe("Profile Block", () => {
         ).toEqual(false);
       });
     });
+    it("save button with changes made display accurate name", async () => {
+      const component = mount(componentWithStore(ProfileBlock, store));
+      component.find(".ProfileBlock__editButton").first().simulate("click");
+      component
+        .find(".ProfileBlock__name")
+        .simulate("change", { target: { value: "Monday NewLastName" } });
+      component.find(".ProfileBlock__editButton").first().simulate("click");
+      await waitFor(() => {
+        expect(
+          component.find(".ProfileBlock__name").props().value).toEqual(
+            "Monday NewLastName"
+          );
+      });
+    });
   });
 
   it("cancels on cancel button click", async () => {
