@@ -91,10 +91,9 @@ describe("Profile Block", () => {
         .simulate("change", { target: { value: "Monday NewLastName" } });
       component.find(".ProfileBlock__editButton").first().simulate("click");
       await waitFor(() => {
-        expect(
-          component.find(".ProfileBlock__name").props().value).toEqual(
-            "Monday NewLastName"
-          );
+        expect(component.find(".ProfileBlock__name").props().value).toEqual(
+          "Monday NewLastName"
+        );
       });
     });
   });
