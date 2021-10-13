@@ -2,7 +2,7 @@
 
 [![Latest release](https://img.shields.io/github/release/LibertyDSNP/example-client)](https://github.com/LibertyDSNP/example-client/releases)
 
-[![example workflow](https://github.com/LibertyDSNP/example-client/actions/workflows/main.yml/badge.svg)](https://github.com/LibertyDSNP/example-client/actions/workflows/main.yml/badge.svg)
+[![example workflow](https://github.com/LibertyDSNP/example-client/actions/workflows/main.yml/badge.svg)](https://github.com/LibertyDSNP/example-client/actions)
 
 This is an example client to help developers learn how to work with the [Distributed Social Networking Protocol(DSNP)](https://spec.dsnp.org/) and its [SDK](https://www.dsnp.org/sdk).
 This client's purpose is to be  simple and comprehensible for developers, not to have all the functionality and user-interface polish of an application intended for widespread general usage.
