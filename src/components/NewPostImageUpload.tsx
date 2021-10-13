@@ -45,7 +45,7 @@ const NewPostImageUpload = ({
 
   const getThumbnail = (uri: string): string | undefined => {
     const isYoutubeVideo = uri.match(
-      /\/\/((?:www|m)\.)?((?:youtube\.com|youtu.be))(\/(?:[\w\-]+\?v=|embed\/|v\/)?)([\w\-]+)(\S+)?$/i
+      /\/\/((?:www|m)\.)?((?:youtube\.com|youtu.be))(\/(?:[\w-]+\?v=|embed\/|v\/)?)([\w]+)(\S+)?$/i
     );
 
     if (isYoutubeVideo)
