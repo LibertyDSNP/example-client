@@ -185,12 +185,16 @@ export const readBatchFile = async (
   rowHandler: AnnouncementRowHandler
 ): Promise<void> => {
   let batchIndex = 0;
-  const reader = await core.batch.openURL(
-    (batchAnnouncement.fileUrl.toString() as any) as URL
-  );
-  await core.batch.readFile(reader, (announcementRow: SignedAnnouncement) =>
-    rowHandler(announcementRow, batchIndex++)
-  );
+  try {
+    const reader = await core.batch.openURL(
+      batchAnnouncement.fileUrl.toString()
+    );
+    await core.batch.readFile(reader, (announcementRow: SignedAnnouncement) =>
+      rowHandler(announcementRow, batchIndex++)
+    );
+  } catch (e) {
+    console.error("Failed to read batch: ", e);
+  }
 };
 
 /**
