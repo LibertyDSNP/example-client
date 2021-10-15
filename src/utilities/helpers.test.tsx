@@ -1,4 +1,3 @@
-import React from "react";
 import * as helpers from "../utilities/helpers";
 
 describe("helpers", () => {
