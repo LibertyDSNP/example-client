@@ -1,5 +1,9 @@
 # DSNP Example Client
 
+[![Latest release](https://img.shields.io/github/release/LibertyDSNP/example-client)](https://github.com/LibertyDSNP/example-client/releases)
+
+[![example workflow](https://github.com/LibertyDSNP/example-client/actions/workflows/main.yml/badge.svg)](https://github.com/LibertyDSNP/example-client/actions)
+
 This is an example client to help developers learn how to work with the [Distributed Social Networking Protocol(DSNP)](https://spec.dsnp.org/) and its [SDK](https://www.dsnp.org/sdk).
 This client's purpose is to be  simple and comprehensible for developers, not to have all the functionality and user-interface polish of an application intended for widespread general usage.
 
@@ -70,30 +74,56 @@ We will change to an official version of Enzyme when a compatible released versi
 
 The following steps should get you up and running quickly (assuming a working knowledge of NPM and Git):
 
-* Clone the example-client repository: `git clone git@github.com:LibertyDSNP/example-client.git`
+* Clone the example-client repository: `git clone git@github.com:LibertyDSNP/example-client.git`.
 
-* Install the correct npm and node version.  We recommend using asdf: `asdf install`
+* Install the correct npm and node version, which can be found in the `.tool-versions` file.  The maintainers use `asdf` for managing node and npm versions.
 
-* Install the modules: `npm install`
-  * Install Static Server modules `cd ./static-server && npm install`
+* Install the modules: `npm install`.
+  * Install Static Server modules `cd ./static-server && npm install`.
 
 * Copy `.env.example` to `.env` and edit as needed.
 
-* Start the Static Server: `cd ./static-server && npm run start`
+* Switch to a separate terminal and start the Static Server: `cd ./static-server && npm run start`.
 
-* Start up site locally: `npm run start`
+* Start up site locally: `npm run start`.
 
-* Visit http://localhost:3000 (or whatever your configured port is)
+* Visit http://localhost:3000 (or whatever your configured port is).
+
+* Follow Example Client's MetaMask Setup Instructions shown at the above URL.
 
 You can run the test suite with 'npm run test'.
 
+### Local deployment
+
+**Use local deployment for development of the Example Client and testing the code.**
+
+For local deployment, you will be running the Example Client, Static Server, and Contracts.
+
+To launch it, follow the instructions below:
+
+  * Clone the Contracts repository: `git clone git@github.com:LibertyDSNP/contracts.git`.
+  * Follow contracts/README.md to Deploy Hardhat Network Locally.
+  * Follow the Example Client Deployment instructions above.
+  * Connect to the `http://localhost:8545` RPC URL through MetaMask.
+
+
 ### Docker-based deployment
 
-The Docker container is set up in such a way that the Static Server will serve the Example Client.  To launch it, run the following commands:
+**Use Docker-based deployment for development of the Example Client and testing the code.**
+
+To launch it, run the following commands:
 
 * `docker build --build-arg REACT_APP_UPLOAD_HOST="" --build-arg REACT_APP_CHAIN_ID={REACT_APP_CHAIN_ID_VALUE} --build-arg  REACT_APP_CHAIN_NAME={REACT_APP_CHAIN_NAME_VALUE}  --build-arg REACT_APP_CHAIN_HOST={REACT_APP_CHAIN_HOST} --build-arg REACT_APP_TORUS_BUILD_ENV={REACT_APP_TORUS_BUILD_ENV_VALUE} . -t example-client`
 
 * `docker run  --init --rm  -p 8080:8080 -v {name_for_volume}:/app/static-server/public example-client`
+
+#### Environment Variable Definitions
+
+* `REACT_APP_CHAIN_ID_VALUE` : 31337 or 0x7a69
+* `REACT_APP_CHAIN_NAME_VALUE` : (user's choice)
+* `REACT_APP_CHAIN_HOST` : http://localhost:8545
+* `REACT_APP_TORUS_BUILD_ENV_VALUE` : ???
+* `name_for_volume` : ??
 
 #### Docker Builds
 
@@ -111,20 +141,20 @@ In Metamask, click on the **Account** icon from the extension.
 Then go to **Settings --> Advanced**, scroll down a little and click **Reset Account**. Do this for each connected account.
 
 * **Still seeing old events after resetting chain** - If you're running static-server, it needs to be stopped.
-Then delete all the batch files it stored with `rm static-server/public/0x*`
+Then delete all the batch files it stored with `rm static-server/public/0x*`.
 
 * **How do I restart example-app with an empty chain and no events?** - For best results, in this order, do the following:
     1. Logout of the app from your browser.
-    1. Kill the example-app with ^C (If you haven't changed the code and just want to delete and recreate all posts, you can skip this step.)
-    1. Kill static-server same way
-    1. Delete static-server batch files with `rm static-server/public/0x*`
-    1. Go to the contracts repo and kill hardhat node (^C)
-    1. Restart hardhat node: `npx hardhat node`
-    1. Redeploy the contracts: `npm run deploy:localhost`
-    1. Reset your test accounts in Metamask
-    1. Restart example-app/static server: `npm run start` from within static-server
-    1. Optionally, rerun populate script from example-app, if you want to quickly populate some accounts and events: `node script/populate`
-    1. If you stopped the example-app, restart it: `npm run start`
+    1. Kill the example-app with ^C (If you haven't changed the code and just want to delete and recreate all posts, you can skip this step.).
+    1. Kill the static-server same way.
+    1. Delete the static-server batch files with `rm static-server/public/0x*`.
+    1. Go to the contracts repo and kill the hardhat node (^C).
+    1. Restart the hardhat node: `npx hardhat node`.
+    1. Redeploy the contracts: `npm run deploy:localhost`.
+    1. Reset your test accounts in Metamask.
+    1. Restart example-app/static server: `npm run start` from within static-server.
+    1. Optionally, rerun populate script from example-app, if you want to quickly populate some accounts and events: `node script/populate`.
+    1. If you stopped the example-app, restart it: `npm run start`.
 
     You should now be able to login to the app, and view and create posts.
 
