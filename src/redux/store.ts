@@ -4,13 +4,15 @@ import profileSlice from "./slices/profileSlice";
 import graphSlice from "./slices/graphSlice";
 import feedSlice from "./slices/feedSlice";
 
+export const reducer = {
+  user: userSlice,
+  profiles: profileSlice,
+  graphs: graphSlice,
+  feed: feedSlice,
+};
+
 const store = configureStore({
-  reducer: {
-    user: userSlice,
-    profiles: profileSlice,
-    graphs: graphSlice,
-    feed: feedSlice,
-  },
+  reducer: reducer,
 });
 
 export type RootState = ReturnType<typeof store.getState>;
