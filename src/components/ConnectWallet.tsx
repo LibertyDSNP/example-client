@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "../redux/hooks";
-import { userLogout, userUpdateId } from "../redux/slices/userSlice";
+import { userUpdateId } from "../redux/slices/userSlice";
 import * as dsnp from "../services/dsnp";
 import * as wallet from "../services/wallets/wallet";
 import * as session from "../services/session";
@@ -13,10 +13,10 @@ import { HexString } from "../utilities/types";
 import * as types from "../utilities/types";
 import { ProfileQuery } from "../services/content";
 import { Button, Popover, Spin } from "antd";
-import { clearFeedItems } from "../redux/slices/feedSlice";
 import { Registration } from "@dsnp/sdk/core/contracts/registry";
+import { reduxLogout } from "../redux/helpers";
 
-const Login = (): JSX.Element => {
+const ConnectWallet = (): JSX.Element => {
   const [loading, startLoading] = React.useState<boolean>(false);
   const [loginPopoverVisible, setLoginPopoverVisible] = React.useState<boolean>(
     false
@@ -86,38 +86,31 @@ const Login = (): JSX.Element => {
     }
   };
 
-  const registrationCreated = (registration: Registration) => {
-    setRegistrations([...registrations, registration]);
-  };
-
   const logout = () => {
     closeModals();
     setWalletAddress("");
-    if (!userId) return;
     session.clearSession();
     if (currentWalletType !== wallet.WalletType.NONE) {
       wallet.wallet(currentWalletType)?.logout();
     }
-    dispatch(userLogout());
-  };
-
-  // Listen for wallet account changes
-  const handleAccountsChange = async (waddrs: HexString[]) => {
-    logout();
-    if (waddrs[0] && currentWalletType !== wallet.WalletType.NONE) {
-      startLoading(true);
-      await loginWithWalletAddress(waddrs[0], currentWalletType);
-    }
+    reduxLogout(dispatch);
   };
 
   ethereum
     ?.removeAllListeners("accountsChanged")
-    .on("accountsChanged", handleAccountsChange);
+    .on("accountsChanged", async (waddrs: HexString[]) => {
+      logout();
+      if (waddrs[0] && currentWalletType !== wallet.WalletType.NONE) {
+        startLoading(true);
+        await loginWithWalletAddress(waddrs[0], currentWalletType);
+      }
+    });
 
-  ethereum?.removeAllListeners("chainChanged").on("chainChanged", () => {
-    logout();
-    dispatch(clearFeedItems());
-  });
+  ethereum?.removeAllListeners("chainChanged").on("chainChanged", logout);
+
+  const registrationCreated = (registration: Registration) => {
+    setRegistrations([...registrations, registration]);
+  };
 
   const handleVisibleChange = (visible: boolean) => {
     setRegistrationPopoverVisible(visible);
@@ -132,16 +125,18 @@ const Login = (): JSX.Element => {
   };
 
   return (
-    <div className="Login__block">
+    <div className="ConnectWallet__block">
       {!userId && !registrationPopoverVisible ? (
         <LoginModal
           popoverVisible={loginPopoverVisible}
           setPopoverVisible={setLoginPopoverVisible}
           loginWithWalletType={connectWallet}
         >
-          <Button className="Login__loginButton" aria-label="Login">
+          <Button className="ConnectWallet__loginButton" aria-label="Login">
             Connect Wallet
-            {loading && <Spin className="Login__spinner" size="small" />}
+            {loading && (
+              <Spin className="ConnectWallet__spinner" size="small" />
+            )}
           </Button>
         </LoginModal>
       ) : (
@@ -160,9 +155,9 @@ const Login = (): JSX.Element => {
             />
           }
         >
-          <div className="Login__userBlock">
+          <div className="ConnectWallet__userBlock">
             <UserAvatar user={user} avatarSize="small" />
-            <div className="Login__userTitle">
+            <div className="ConnectWallet__userTitle">
               {user?.handle ? "@" + user.handle : profile?.name || user?.fromId}
             </div>
           </div>
@@ -172,4 +167,4 @@ const Login = (): JSX.Element => {
   );
 };
 
-export default Login;
+export default ConnectWallet;

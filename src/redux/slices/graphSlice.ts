@@ -101,7 +101,15 @@ export const graphSlice = createSlice({
         },
       };
     },
+    clearGraph: (_state) => {
+      return initialState;
+    },
   },
 });
-export const { upsertGraph, updateRelationshipStatus } = graphSlice.actions;
+
+export const {
+  upsertGraph,
+  updateRelationshipStatus,
+  clearGraph,
+} = graphSlice.actions;
 export default graphSlice.reducer;

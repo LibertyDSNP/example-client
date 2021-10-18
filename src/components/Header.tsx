@@ -1,11 +1,11 @@
 import React from "react";
-import Login from "./Login";
+import ConnectWallet from "./ConnectWallet";
 
 const Header = (): JSX.Element => {
   return (
     <div className="Header__block">
       <h1 className="Header__title">Example Client</h1>
-      <Login />
+      <ConnectWallet />
     </div>
   );
 };
