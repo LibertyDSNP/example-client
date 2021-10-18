@@ -1,29 +1,29 @@
-.Login__loginButton {
+.ConnectWallet__loginButton {
   position: relative;
 }
 
-.Login__spinner {
+.ConnectWallet__spinner {
   position: absolute;
   right: 0.5em;
   top: 0.4em;
 }
 
-.Login__block {
+.ConnectWallet__block {
   display: flex;
 }
 
-.Login__walletIcon {
+.ConnectWallet__walletIcon {
   height: 32px;
   padding-right: 8px;
 }
 
-.Login__userBlock {
+.ConnectWallet__userBlock {
   display: flex;
   align-items: center;
   cursor: pointer;
 }
 
-.Login__userTitle {
+.ConnectWallet__userTitle {
   font-size: 16px;
   padding-left: 8px;
   font-weight: bold;
