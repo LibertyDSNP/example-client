@@ -82,7 +82,6 @@ export const sendPost = async (
     buildBaseUploadHostUrl(`${hash}.json`).toString(),
     hash
   );
-
   await dsnp.batchAnnouncement(`${hash}.parquet`, announcement);
 };
 
@@ -301,7 +300,7 @@ const handleBatchAnnouncement = (dispatch: Dispatch) => (
         );
       } else if (isBroadcastAnnouncement(announcement)) {
         let publishedDate;
-        if (announcement.createdAt > Number.MAX_SAFE_INTEGER) {
+        if (announcement.createdAt < Number.MAX_SAFE_INTEGER) {
           publishedDate = new Date(
             Number(announcement.createdAt)
           ).toISOString();
