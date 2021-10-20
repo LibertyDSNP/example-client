@@ -31,7 +31,14 @@ export const profileSlice = createSlice({
       const { [action.payload]: _, ...newProfiles } = state.profiles;
       return { profiles: newProfiles };
     },
+    clearProfiles: (_state) => {
+      return initialState;
+    },
   },
 });
-export const { upsertProfile, removeProfile } = profileSlice.actions;
+export const {
+  upsertProfile,
+  removeProfile,
+  clearProfiles,
+} = profileSlice.actions;
 export default profileSlice.reducer;
