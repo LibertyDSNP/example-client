@@ -1,6 +1,6 @@
-import { getThumbnail } from "../utilities/helpers";
+import { getThumbnailUrl } from "../utilities/helpers";
 import { CloseCircleTwoTone, PictureOutlined } from "@ant-design/icons";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 
 interface NewPostThumbnailsProps {
   uri: string;
@@ -13,12 +13,16 @@ const NewPostThumbnails = ({
   index,
   deleteImage,
 }: NewPostThumbnailsProps): JSX.Element => {
-  const [thumbnail, setThumbnail] = useState<string>();
-  getThumbnail(uri, setThumbnail);
+  const [thumbnail, setThumbnail] = useState<string>(getThumbnailUrl(uri));
   return (
     <div className="NewPostThumbnails__imageBlock">
       {thumbnail ? (
-        <img alt="" className="NewPostThumbnails__image" src={thumbnail} />
+        <img
+          alt=""
+          className="NewPostThumbnails__image"
+          src={thumbnail}
+          onError={() => setThumbnail("")}
+        />
       ) : (
         <div className="NewPostThumbnails__imageAlt">
           <PictureOutlined />
