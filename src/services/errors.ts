@@ -19,10 +19,9 @@ export const friendlyError = (
     | null
     | undefined;
 
-  const wallet = ethereum?.isMetaMask ? "MetaMask" : "Torus";
   if (message.match(/MissingContractAddressError/)) {
     return `You are trying to connect to a network that is not yet supported by DSNP.
-            Change your network settings in ${wallet} to connect to a supported network.`;
+            Change your network settings in your wallet to connect to a supported network.`;
   }
 
   if (message.match(/User denied transaction signature/)) {

@@ -1,6 +1,5 @@
 import { HexString } from "../../utilities/types";
 import metamaskWallet from "./metamask";
-import torusWallet from "./torus";
 import Web3 from "web3";
 
 // HOW TO ADD A WALLET
@@ -13,7 +12,6 @@ import Web3 from "web3";
 
 export enum WalletType {
   NONE = "NONE",
-  TORUS = "TORUS",
   METAMASK = "METAMASK",
   // Add new WalletTypes Here
 }
@@ -22,8 +20,6 @@ export const wallet = (walletType: WalletType): Wallet => {
   switch (walletType) {
     case WalletType.NONE:
       return noWallet;
-    case WalletType.TORUS:
-      return torusWallet;
     case WalletType.METAMASK:
       return metamaskWallet;
     // Add new WalletTypes Here

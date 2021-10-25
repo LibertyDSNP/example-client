@@ -46,13 +46,6 @@ const LoginModal = ({
           >
             MetaMask
           </button>
-          <div>OR</div>
-          <button
-            className="LoginModal__loginTorus"
-            onClick={() => setWalletType(wallet.WalletType.TORUS)}
-          >
-            Torus
-          </button>
         </div>
       }
     >

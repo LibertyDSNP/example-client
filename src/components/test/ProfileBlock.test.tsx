@@ -12,7 +12,7 @@ const otherId = "0x1234";
 const profile = getPrefabProfile(0);
 const otherProfile = getPrefabProfile(1);
 const graphs = getPreFabSocialGraph();
-const walletType = wallet.WalletType.TORUS;
+const walletType = wallet.WalletType.METAMASK;
 const store = createMockStore({
   user: { id, walletType, displayId },
   profiles: { profiles: { [id]: profile, [otherId]: otherProfile } },

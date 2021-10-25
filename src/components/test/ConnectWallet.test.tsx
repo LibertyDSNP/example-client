@@ -1,6 +1,5 @@
 import ConnectWallet from "../ConnectWallet";
 import { mount } from "enzyme";
-import * as torus from "../../services/wallets/torus/torus";
 import * as wallet from "../../services/wallets/wallet";
 import {
   forcePromiseResolve,
@@ -19,18 +18,8 @@ import { configureStore } from "@reduxjs/toolkit";
 import { reducer } from "../../redux/store";
 import { reduxLogout } from "../../redux/helpers";
 
-let torusWallet: wallet.Wallet;
 let metamaskWallet: wallet.Wallet;
 beforeAll(async () => {
-  torusWallet = await wallet.wallet(wallet.WalletType.TORUS);
-  jest.spyOn(torus, "logout").mockImplementation(jest.fn);
-  jest.spyOn(torus, "isInitialized").mockReturnValue(true);
-  jest
-    .spyOn(torusWallet, "getAddress")
-    .mockImplementation(() => Promise.resolve("0x123"));
-  jest
-    .spyOn(torusWallet, "login")
-    .mockImplementation(() => Promise.resolve("0x123"));
 
   metamaskWallet = await wallet.wallet(wallet.WalletType.METAMASK);
 
@@ -48,8 +37,6 @@ beforeAll(async () => {
     .mockImplementation((walletType) =>
       walletType === wallet.WalletType.METAMASK
         ? metamaskWallet
-        : wallet.WalletType.TORUS
-        ? torusWallet
         : wallet.noWallet
     );
   jest
@@ -126,21 +113,6 @@ describe("ConnectWallet Component", () => {
       });
     });
   });
-
-  describe("connects to wallet", () => {
-    it("header button -> torus connect", async () => {
-      reduxLogout(store.dispatch);
-      const component = mount(componentWithStore(ConnectWallet, store));
-      component.find(".ConnectWallet__loginButton").first().simulate("click");
-      component.find(".LoginModal__loginTorus").first().simulate("click");
-      await forcePromiseResolve();
-      expect(torusWallet.login).toHaveBeenCalled();
-      expect(store.getState().user).toEqual({
-        walletType: "TORUS",
-        id: "4242",
-        displayId: "4242",
-      });
-    });
 
     describe("with metamask", () => {
       it("header button -> metamask connect", async () => {
@@ -242,5 +214,4 @@ describe("ConnectWallet Component", () => {
         expect(createNewDSNPRegistration).toHaveBeenCalledWith("0x123", "John");
       });
     });
-  });
 });

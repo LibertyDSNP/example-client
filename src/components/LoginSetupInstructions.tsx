@@ -6,8 +6,7 @@ const LoginSetupInstructions = (): JSX.Element => {
     <>
       <div className="ProfileBlock__loginHeaderText"> Login Quick Start</div>
       <p>
-        To use the Example Client, you must connect with either MetaMask or
-        Torus.
+        To use the Example Client, you must connect with MetaMask
       </p>
       <Tabs defaultActiveKey="1">
         <Tabs.TabPane tab="MetaMask" key="1">
@@ -117,15 +116,6 @@ const LoginSetupInstructions = (): JSX.Element => {
               for more details.
             </aside>
           </>
-        </Tabs.TabPane>
-        <Tabs.TabPane tab="Torus" key="2">
-          <div className="ProfileBlock__loginTitleText">
-            Torus Connection Guide
-          </div>
-          <p>
-            There is no setup required for Torus. Just click the{" "}
-            <code>Connect &#8594; Torus</code> button.
-          </p>
         </Tabs.TabPane>
       </Tabs>
     </>
