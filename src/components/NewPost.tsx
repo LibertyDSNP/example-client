@@ -7,6 +7,7 @@ import { HexString, User } from "../utilities/types";
 import { sendPost } from "../services/content";
 import { postLoading } from "../redux/slices/feedSlice";
 import { createActivityContentNote } from "../utilities/activityContent";
+import { logInfo } from "../services/logInfo";
 
 interface NewPostProps {
   onSuccess: () => void;
@@ -42,6 +43,7 @@ const NewPost = ({ onSuccess, onCancel }: NewPostProps): JSX.Element => {
   const createPost = async () => {
     if (!userId) return;
     const note = createActivityContentNote(postMessage, uriList);
+    logInfo("postActivityContentSaved", { note: note });
     await sendPost(userId, note);
     dispatch(postLoading({ loading: true, currentUserId: userId }));
     success();

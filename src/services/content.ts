@@ -32,6 +32,7 @@ import { useQuery, UseQueryResult } from "react-query";
 import { Permission } from "@dsnp/sdk/core/contracts/identity";
 import { buildBaseUploadHostUrl } from "../utilities/buildBaseUploadHostUrl";
 import { UnsubscribeFunction } from "@dsnp/sdk/core/contracts/utilities";
+import { logInfo } from "./logInfo";
 
 //
 // Content Package
@@ -82,7 +83,9 @@ export const sendPost = async (
     buildBaseUploadHostUrl(`${hash}.json`).toString(),
     hash
   );
-  await dsnp.batchAnnouncement(`${hash}.parquet`, announcement);
+  logInfo("postAnnouncementCreated", { announcement: announcement });
+  const batch = await dsnp.batchAnnouncement(`${hash}.parquet`, announcement);
+  logInfo("postBatchCreatedAndSaved", { batch: batch });
 };
 
 /**

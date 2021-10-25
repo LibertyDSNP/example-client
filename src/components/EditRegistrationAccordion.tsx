@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Collapse } from "antd";
 import CreateRegistration from "./CreateRegistration";
 import SelectHandle from "./SelectHandle";
@@ -6,6 +6,7 @@ import { HexString } from "../utilities/types";
 import { DSNPUserURI } from "@dsnp/sdk/core/identifiers";
 import { useAppSelector } from "../redux/hooks";
 import { Registration } from "@dsnp/sdk/core/contracts/registry";
+import { logInfo } from "../services/logInfo";
 const { Panel } = Collapse;
 
 interface EditRegistrationAccordionProps {
@@ -24,6 +25,13 @@ const EditRegistrationAccordion = ({
   registrationCreated,
 }: EditRegistrationAccordionProps): JSX.Element => {
   const userId = useAppSelector((state) => state.user.id);
+
+  const hasMultipleRegistrations: boolean =
+    registrations && registrations.length > 1;
+
+  useEffect(() => {
+    if (hasMultipleRegistrations) logInfo("selectedHandle");
+  }, [registrations]);
 
   const getDefaultActiveKey = () => {
     if (userId) return undefined;
@@ -53,7 +61,7 @@ const EditRegistrationAccordion = ({
           registrationCreated={registrationCreated}
         />
       </Panel>
-      {registrations && registrations.length > 1 && (
+      {hasMultipleRegistrations && (
         <Panel
           header={
             <p className="EditRegistrationAccordion__panelTitle">
