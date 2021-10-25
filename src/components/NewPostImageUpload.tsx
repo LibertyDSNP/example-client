@@ -42,7 +42,18 @@ const NewPostImageUpload = ({
 
   return (
     <>
-      <NewPostThumbnails uriList={uriList} deleteImage={deleteImage} />
+      <div className="NewPostThumbnails__cover">
+        {uriList &&
+          uriList.map((uri, index) => (
+            <div key={index}>
+              <NewPostThumbnails
+                uri={uri}
+                index={index}
+                deleteImage={deleteImage}
+              />
+            </div>
+          ))}
+      </div>
       <div className="NewPostImageUpload__urlInputBlock">
         <CameraOutlined style={{ fontSize: "28px" }} />
         <Input

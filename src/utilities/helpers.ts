@@ -1,4 +1,4 @@
-export const getThumbnail = (url: string): string | undefined => {
+export const getThumbnailUrl = (url: string): string => {
   const isYoutubeVideo = url.match(
     /\/\/((?:www|m)\.)?((?:youtube\.com|youtu.be))(\/(?:[\w-]+\?v=|embed\/|v\/)?)([\w]+)(\S+)?$/i
   );
@@ -8,8 +8,5 @@ export const getThumbnail = (url: string): string | undefined => {
   const isVimeoVideo = url.match(/\/\/(?:www\.)?vimeo.com\/([0-9a-z\-_]+)/i);
   if (isVimeoVideo) return "https://vumbnail.com/" + isVimeoVideo[1] + ".jpg";
 
-  const isImage = url.match(/\.(jpeg|jpg|gif|png|svg)$/);
-  if (isImage) return url;
-
-  return;
+  return url;
 };

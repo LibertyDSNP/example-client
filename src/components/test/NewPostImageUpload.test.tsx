@@ -83,6 +83,18 @@ describe("NewPostImageUpload", () => {
     );
   });
 
+  it("displays img thumbnail when image url has no extension", () => {
+    const component = mount(
+      componentWithStore(NewPostImageUpload, store, {
+        onNewPostImageUpload: jest.fn(),
+      })
+    );
+    changeUrlInput(component, "https://placekitten.com/300/300");
+    expect(
+      component.find(".NewPostThumbnails__image").first().props().src
+    ).toEqual("https://placekitten.com/300/300");
+  });
+
   it("displays placeholder when there is not a valid thumbnail", () => {
     const component = mount(
       componentWithStore(NewPostImageUpload, store, {

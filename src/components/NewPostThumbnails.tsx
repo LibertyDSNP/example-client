@@ -1,42 +1,38 @@
-import { getThumbnail } from "../utilities/helpers";
+import { getThumbnailUrl } from "../utilities/helpers";
 import { CloseCircleTwoTone, PictureOutlined } from "@ant-design/icons";
-import React from "react";
+import React, { useState } from "react";
 
 interface NewPostThumbnailsProps {
-  uriList: string[];
+  uri: string;
+  index: number;
   deleteImage: (index: number) => void;
 }
 
 const NewPostThumbnails = ({
-  uriList,
+  uri,
+  index,
   deleteImage,
 }: NewPostThumbnailsProps): JSX.Element => {
+  const [thumbnail, setThumbnail] = useState<string>(getThumbnailUrl(uri));
   return (
-    <div className="NewPostThumbnails__cover">
-      {uriList &&
-        uriList.map((uri, index) => {
-          const thumbnail = getThumbnail(uri);
-          return (
-            <div className="NewPostThumbnails__imageBlock" key={index}>
-              {thumbnail ? (
-                <img
-                  alt=""
-                  className="NewPostThumbnails__image"
-                  src={thumbnail}
-                />
-              ) : (
-                <div className="NewPostThumbnails__imageAlt">
-                  <PictureOutlined />
-                </div>
-              )}
-              <CloseCircleTwoTone
-                className="NewPostThumbnails__imageDelete"
-                onClick={() => deleteImage(index)}
-                twoToneColor="#1dcf76"
-              />
-            </div>
-          );
-        })}
+    <div className="NewPostThumbnails__imageBlock">
+      {thumbnail ? (
+        <img
+          alt=""
+          className="NewPostThumbnails__image"
+          src={thumbnail}
+          onError={() => setThumbnail("")}
+        />
+      ) : (
+        <div className="NewPostThumbnails__imageAlt">
+          <PictureOutlined />
+        </div>
+      )}
+      <CloseCircleTwoTone
+        className="NewPostThumbnails__imageDelete"
+        onClick={() => deleteImage(index)}
+        twoToneColor="#1dcf76"
+      />
     </div>
   );
 };
