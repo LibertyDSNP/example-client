@@ -5,9 +5,7 @@ const LoginSetupInstructions = (): JSX.Element => {
   return (
     <>
       <div className="ProfileBlock__loginHeaderText"> Login Quick Start</div>
-      <p>
-        To use the Example Client, you must connect with MetaMask
-      </p>
+      <p>To use the Example Client, you must connect with MetaMask</p>
       <Tabs defaultActiveKey="1">
         <Tabs.TabPane tab="MetaMask" key="1">
           <div className="ProfileBlock__loginTitleText">

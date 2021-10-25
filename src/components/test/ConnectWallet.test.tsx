@@ -20,7 +20,6 @@ import { reduxLogout } from "../../redux/helpers";
 
 let metamaskWallet: wallet.Wallet;
 beforeAll(async () => {
-
   metamaskWallet = await wallet.wallet(wallet.WalletType.METAMASK);
 
   jest
@@ -114,104 +113,104 @@ describe("ConnectWallet Component", () => {
     });
   });
 
-    describe("with metamask", () => {
-      it("header button -> metamask connect", async () => {
-        reduxLogout(store.dispatch);
-        const component = mount(componentWithStore(ConnectWallet, store));
-        component.find(".ConnectWallet__loginButton").first().simulate("click");
-        component.find(".LoginModal__loginMetamask").first().simulate("click");
-        await forcePromiseResolve();
-        expect(metamaskWallet.login).toHaveBeenCalled();
-        expect(store.getState().user).toEqual({
-          walletType: "METAMASK",
-          id: "4242",
-          displayId: "4242",
-        });
-      });
-
-      it("connects to wallet, then cancels login", async () => {
-        jest.spyOn(dsnp, "getSocialIdentities").mockImplementationOnce(() =>
-          Promise.resolve([
-            {
-              dsnpUserURI: "dsnp://4242",
-              contractAddr: "0xabc",
-              handle: "test",
-            },
-            {
-              dsnpUserURI: "dsnp://5353",
-              contractAddr: "0xdef",
-              handle: "test2",
-            },
-          ])
-        );
-        reduxLogout(store.dispatch);
-        const component = mount(componentWithStore(ConnectWallet, store));
-        component.find(".ConnectWallet__loginButton").first().simulate("click");
-        component.find(".LoginModal__loginMetamask").first().simulate("click");
-        await forcePromiseResolve();
-        component.update();
-        component.find(".EditRegistration__cancel").first().simulate("click");
-        expect(
-          component.find(".ConnectWallet__loginButton").length
-        ).toBeGreaterThan(0);
-      });
-
-      it("connects to wallet with more than one handle", async () => {
-        jest.spyOn(dsnp, "getSocialIdentities").mockImplementationOnce(() =>
-          Promise.resolve([
-            {
-              dsnpUserURI: "dsnp://4242",
-              contractAddr: "0xabc",
-              handle: "test",
-            },
-            {
-              dsnpUserURI: "dsnp://5353",
-              contractAddr: "0xdef",
-              handle: "test2",
-            },
-          ])
-        );
-        reduxLogout(store.dispatch);
-        const component = mount(componentWithStore(ConnectWallet, store));
-        component.find(".ConnectWallet__loginButton").first().simulate("click");
-        component.find(".LoginModal__loginMetamask").first().simulate("click");
-        await forcePromiseResolve();
-        component.update();
-        expect(
-          component.find(".SelectHandle__registrations").length
-        ).toBeGreaterThan(0);
-        component.find(".SelectHandle__registration").first().simulate("click");
-        component.find(".SelectHandle__footerBtn").first().simulate("click");
-        expect(store.getState().user.id).toEqual("4242");
-      });
-
-      it("first time login and registration", async () => {
-        const createNewDSNPRegistration = jest.spyOn(
-          dsnp,
-          "createNewDSNPRegistration"
-        );
-        jest
-          .spyOn(dsnp, "getSocialIdentities")
-          .mockImplementationOnce(() => Promise.resolve([]));
-        reduxLogout(store.dispatch);
-        const component = mount(componentWithStore(ConnectWallet, store));
-        component.find(".ConnectWallet__loginButton").first().simulate("click");
-        component.find(".LoginModal__loginMetamask").first().simulate("click");
-        await forcePromiseResolve();
-        component.update();
-        component
-          .find(".CreateRegistration__input")
-          .first()
-          .simulate("change", {
-            target: { value: "John" },
-          });
-        component
-          .find(".CreateRegistration__createHandle")
-          .first()
-          .simulate("submit");
-        await forcePromiseResolve();
-        component.update();
-        expect(createNewDSNPRegistration).toHaveBeenCalledWith("0x123", "John");
+  describe("with metamask", () => {
+    it("header button -> metamask connect", async () => {
+      reduxLogout(store.dispatch);
+      const component = mount(componentWithStore(ConnectWallet, store));
+      component.find(".ConnectWallet__loginButton").first().simulate("click");
+      component.find(".LoginModal__loginMetamask").first().simulate("click");
+      await forcePromiseResolve();
+      expect(metamaskWallet.login).toHaveBeenCalled();
+      expect(store.getState().user).toEqual({
+        walletType: "METAMASK",
+        id: "4242",
+        displayId: "4242",
       });
     });
+
+    it("connects to wallet, then cancels login", async () => {
+      jest.spyOn(dsnp, "getSocialIdentities").mockImplementationOnce(() =>
+        Promise.resolve([
+          {
+            dsnpUserURI: "dsnp://4242",
+            contractAddr: "0xabc",
+            handle: "test",
+          },
+          {
+            dsnpUserURI: "dsnp://5353",
+            contractAddr: "0xdef",
+            handle: "test2",
+          },
+        ])
+      );
+      reduxLogout(store.dispatch);
+      const component = mount(componentWithStore(ConnectWallet, store));
+      component.find(".ConnectWallet__loginButton").first().simulate("click");
+      component.find(".LoginModal__loginMetamask").first().simulate("click");
+      await forcePromiseResolve();
+      component.update();
+      component.find(".EditRegistration__cancel").first().simulate("click");
+      expect(
+        component.find(".ConnectWallet__loginButton").length
+      ).toBeGreaterThan(0);
+    });
+
+    it("connects to wallet with more than one handle", async () => {
+      jest.spyOn(dsnp, "getSocialIdentities").mockImplementationOnce(() =>
+        Promise.resolve([
+          {
+            dsnpUserURI: "dsnp://4242",
+            contractAddr: "0xabc",
+            handle: "test",
+          },
+          {
+            dsnpUserURI: "dsnp://5353",
+            contractAddr: "0xdef",
+            handle: "test2",
+          },
+        ])
+      );
+      reduxLogout(store.dispatch);
+      const component = mount(componentWithStore(ConnectWallet, store));
+      component.find(".ConnectWallet__loginButton").first().simulate("click");
+      component.find(".LoginModal__loginMetamask").first().simulate("click");
+      await forcePromiseResolve();
+      component.update();
+      expect(
+        component.find(".SelectHandle__registrations").length
+      ).toBeGreaterThan(0);
+      component.find(".SelectHandle__registration").first().simulate("click");
+      component.find(".SelectHandle__footerBtn").first().simulate("click");
+      expect(store.getState().user.id).toEqual("4242");
+    });
+
+    it("first time login and registration", async () => {
+      const createNewDSNPRegistration = jest.spyOn(
+        dsnp,
+        "createNewDSNPRegistration"
+      );
+      jest
+        .spyOn(dsnp, "getSocialIdentities")
+        .mockImplementationOnce(() => Promise.resolve([]));
+      reduxLogout(store.dispatch);
+      const component = mount(componentWithStore(ConnectWallet, store));
+      component.find(".ConnectWallet__loginButton").first().simulate("click");
+      component.find(".LoginModal__loginMetamask").first().simulate("click");
+      await forcePromiseResolve();
+      component.update();
+      component
+        .find(".CreateRegistration__input")
+        .first()
+        .simulate("change", {
+          target: { value: "John" },
+        });
+      component
+        .find(".CreateRegistration__createHandle")
+        .first()
+        .simulate("submit");
+      await forcePromiseResolve();
+      component.update();
+      expect(createNewDSNPRegistration).toHaveBeenCalledWith("0x123", "John");
+    });
+  });
 });

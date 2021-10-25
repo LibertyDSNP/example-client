@@ -1,5 +1,3 @@
-import { EthereumProvider } from "./wallets/metamask/ethereum";
-
 /**
  * Replace known errors with friendlier messages.
  * @param message text of received error.
@@ -13,11 +11,6 @@ export const friendlyError = (
     typeof error == "string"
       ? error
       : (error as any).data?.message || error.message || error.toString();
-
-  const ethereum = (window as any).ethereum as
-    | EthereumProvider
-    | null
-    | undefined;
 
   if (message.match(/MissingContractAddressError/)) {
     return `You are trying to connect to a network that is not yet supported by DSNP.
