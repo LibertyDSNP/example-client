@@ -43,7 +43,7 @@ const NewPost = ({ onSuccess, onCancel }: NewPostProps): JSX.Element => {
   const createPost = async () => {
     if (!userId) return;
     const note = createActivityContentNote(postMessage, uriList);
-    logInfo("postActivityContentSaved", { note: note });
+    logInfo("postActivityContentCreated", { note: note });
     await sendPost(userId, note);
     dispatch(postLoading({ loading: true, currentUserId: userId }));
     success();

@@ -30,8 +30,9 @@ const EditRegistrationAccordion = ({
     registrations && registrations.length > 1;
 
   useEffect(() => {
-    if (hasMultipleRegistrations) logInfo("selectedHandle");
-  }, [registrations]);
+    if (hasMultipleRegistrations)
+      logInfo("selectedHandle", { registrations: registrations });
+  }, [hasMultipleRegistrations]);
 
   const getDefaultActiveKey = () => {
     if (userId) return undefined;

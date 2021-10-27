@@ -78,14 +78,14 @@ export const sendPost = async (
   post: ActivityContentNote
 ): Promise<void> => {
   const hash = await storeActivityContent(post);
+  logInfo("postActivityContentStored", { hash: hash });
   const announcement = await dsnp.buildAndSignPostAnnouncement(
     fromId,
     buildBaseUploadHostUrl(`${hash}.json`).toString(),
     hash
   );
   logInfo("postAnnouncementCreated", { announcement: announcement });
-  const batch = await dsnp.batchAnnouncement(`${hash}.parquet`, announcement);
-  logInfo("postBatchCreatedAndSaved", { batch: batch });
+  await dsnp.batchAnnouncement(`${hash}.parquet`, announcement);
 };
 
 /**
@@ -101,13 +101,14 @@ export const sendReply = async (
   parentURI: DSNPAnnouncementURI
 ): Promise<void> => {
   const hash = await storeActivityContent(reply);
+  logInfo("replyActivityContentStored", { hash: hash });
   const announcement = await dsnp.buildAndSignReplyAnnouncement(
     fromId,
     parentURI,
     buildBaseUploadHostUrl(`${hash}.json`).toString(),
     hash
   );
-
+  logInfo("replyAnnouncementCreated", { announcement: announcement });
   await dsnp.batchAnnouncement(`${hash}.parquet`, announcement);
 };
 
@@ -122,12 +123,13 @@ export const saveProfile = async (
   profile: ActivityContentProfile
 ): Promise<void> => {
   const hash = await storeActivityContent(profile);
+  logInfo("profileActivityContentStored", { hash: hash });
   const announcement = await dsnp.buildAndSignProfile(
     fromId,
     buildBaseUploadHostUrl(`${hash}.json`).toString(),
     hash
   );
-
+  logInfo("profileAnnouncementCreated", { announcement: announcement });
   await dsnp.batchAnnouncement(`${hash}.parquet`, announcement);
 };
 
@@ -144,6 +146,7 @@ export const followUser = async (
     fromId,
     followee
   );
+  logInfo("graphChangeAnnouncementCreated", { announcement: announcement });
   const hash = core.announcements.serialize(announcement);
   await dsnp.batchAnnouncement(hash, announcement);
 };
@@ -161,6 +164,7 @@ export const unfollowUser = async (
     fromId,
     followee
   );
+  logInfo("graphChangeAnnouncementCreated", { announcement: announcement });
   const hash = core.announcements.serialize(announcement);
   await dsnp.batchAnnouncement(hash, announcement);
 };
