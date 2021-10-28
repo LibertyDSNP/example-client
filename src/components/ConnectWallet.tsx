@@ -1,10 +1,9 @@
 import React, { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "../redux/hooks";
-import { userUpdateId } from "../redux/slices/userSlice";
+import { userUpdateId, userUpdateWalletType } from "../redux/slices/userSlice";
 import * as dsnp from "../services/dsnp";
 import * as wallet from "../services/wallets/wallet";
 import * as session from "../services/session";
-import LoginModal from "./LoginModal";
 import UserAvatar from "./UserAvatar";
 import EditRegistration from "./EditRegistration";
 import { core } from "@dsnp/sdk";
@@ -15,6 +14,7 @@ import { ProfileQuery } from "../services/content";
 import { Button, Popover, Spin } from "antd";
 import { Registration } from "@dsnp/sdk/core/contracts/registry";
 import { reduxLogout } from "../redux/helpers";
+
 
 const ConnectWallet = (): JSX.Element => {
   const [loading, startLoading] = React.useState<boolean>(false);
@@ -124,21 +124,22 @@ const ConnectWallet = (): JSX.Element => {
     setLoginPopoverVisible(false);
   };
 
+  const setWalletType = (wtype: wallet.WalletType) => {
+    dispatch(userUpdateWalletType(wtype));
+    session.upsertSessionWalletType(wtype);
+    connectWallet(wtype);
+  };
+
   return (
     <div className="ConnectWallet__block">
       {!userId && !registrationPopoverVisible ? (
-        <LoginModal
-          popoverVisible={loginPopoverVisible}
-          setPopoverVisible={setLoginPopoverVisible}
-          loginWithWalletType={connectWallet}
-        >
-          <Button className="ConnectWallet__loginButton" aria-label="Login">
+        
+          <Button className="ConnectWallet__loginButton" aria-label="Login" onClick={() => setWalletType(wallet.WalletType.METAMASK)}>
             Connect Wallet
             {loading && (
               <Spin className="ConnectWallet__spinner" size="small" />
             )}
           </Button>
-        </LoginModal>
       ) : (
         <Popover
           placement="bottomRight"

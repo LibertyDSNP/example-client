@@ -118,7 +118,6 @@ describe("ConnectWallet Component", () => {
       reduxLogout(store.dispatch);
       const component = mount(componentWithStore(ConnectWallet, store));
       component.find(".ConnectWallet__loginButton").first().simulate("click");
-      component.find(".LoginModal__loginMetamask").first().simulate("click");
       await forcePromiseResolve();
       expect(metamaskWallet.login).toHaveBeenCalled();
       expect(store.getState().user).toEqual({
@@ -146,7 +145,6 @@ describe("ConnectWallet Component", () => {
       reduxLogout(store.dispatch);
       const component = mount(componentWithStore(ConnectWallet, store));
       component.find(".ConnectWallet__loginButton").first().simulate("click");
-      component.find(".LoginModal__loginMetamask").first().simulate("click");
       await forcePromiseResolve();
       component.update();
       component.find(".EditRegistration__cancel").first().simulate("click");
@@ -173,7 +171,6 @@ describe("ConnectWallet Component", () => {
       reduxLogout(store.dispatch);
       const component = mount(componentWithStore(ConnectWallet, store));
       component.find(".ConnectWallet__loginButton").first().simulate("click");
-      component.find(".LoginModal__loginMetamask").first().simulate("click");
       await forcePromiseResolve();
       component.update();
       expect(
@@ -195,7 +192,6 @@ describe("ConnectWallet Component", () => {
       reduxLogout(store.dispatch);
       const component = mount(componentWithStore(ConnectWallet, store));
       component.find(".ConnectWallet__loginButton").first().simulate("click");
-      component.find(".LoginModal__loginMetamask").first().simulate("click");
       await forcePromiseResolve();
       component.update();
       component
