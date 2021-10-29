@@ -15,7 +15,6 @@ import { Button, Popover, Spin } from "antd";
 import { Registration } from "@dsnp/sdk/core/contracts/registry";
 import { reduxLogout } from "../redux/helpers";
 
-
 const ConnectWallet = (): JSX.Element => {
   const [loading, startLoading] = React.useState<boolean>(false);
   const [loginPopoverVisible, setLoginPopoverVisible] = React.useState<boolean>(
@@ -133,13 +132,14 @@ const ConnectWallet = (): JSX.Element => {
   return (
     <div className="ConnectWallet__block">
       {!userId && !registrationPopoverVisible ? (
-        
-          <Button className="ConnectWallet__loginButton" aria-label="Login" onClick={() => setWalletType(wallet.WalletType.METAMASK)}>
-            Connect Wallet
-            {loading && (
-              <Spin className="ConnectWallet__spinner" size="small" />
-            )}
-          </Button>
+        <Button
+          className="ConnectWallet__loginButton"
+          aria-label="Login"
+          onClick={() => setWalletType(wallet.WalletType.METAMASK)}
+        >
+          Connect Wallet
+          {loading && <Spin className="ConnectWallet__spinner" size="small" />}
+        </Button>
       ) : (
         <Popover
           placement="bottomRight"
