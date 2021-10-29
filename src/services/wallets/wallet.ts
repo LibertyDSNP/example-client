@@ -17,13 +17,8 @@ export enum WalletType {
 }
 
 export const wallet = (walletType: WalletType): Wallet => {
-  switch (walletType) {
-    case WalletType.NONE:
-      return noWallet;
-    case WalletType.METAMASK:
-      return metamaskWallet;
-    // Add new WalletTypes Here
-  }
+  if (walletType === WalletType.METAMASK) return metamaskWallet;
+  else return noWallet;
 };
 
 export interface Wallet {
