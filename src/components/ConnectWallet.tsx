@@ -17,9 +17,6 @@ import { reduxLogout } from "../redux/helpers";
 
 const ConnectWallet = (): JSX.Element => {
   const [loading, startLoading] = React.useState<boolean>(false);
-  const [loginPopoverVisible, setLoginPopoverVisible] = React.useState<boolean>(
-    false
-  );
   const [
     registrationPopoverVisible,
     setRegistrationPopoverVisible,
@@ -68,7 +65,6 @@ const ConnectWallet = (): JSX.Element => {
     if (registrations.length === 1) {
       setUserID(registrations[0].dsnpUserURI);
     } else {
-      setLoginPopoverVisible(false);
       setRegistrationPopoverVisible(true);
     }
   };
@@ -120,7 +116,6 @@ const ConnectWallet = (): JSX.Element => {
   const closeModals = () => {
     startLoading(false);
     setRegistrationPopoverVisible(false);
-    setLoginPopoverVisible(false);
   };
 
   const setWalletType = (wtype: wallet.WalletType) => {
