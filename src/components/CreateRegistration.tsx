@@ -40,7 +40,6 @@ const CreateRegistration = ({
         walletAddress,
         formValues.handle
       );
-      //change to registration when sdk is updated to return registration instead of URI.
       logInfo("createHandle", { uri: userURI });
       onIdResolved(core.identifiers.convertToDSNPUserId(userURI).toString());
       registrationCreated({
