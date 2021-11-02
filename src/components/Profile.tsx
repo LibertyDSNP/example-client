@@ -92,7 +92,7 @@ const Profile = (): JSX.Element => {
 
   const checkInvalidName = (name: string) => {
     if (name.trim() === "") {
-      throw "Display name can not be whitespace";
+      throw new Error("Display name can not be whitespace");
     }
     setNewName(name.trim());
   };

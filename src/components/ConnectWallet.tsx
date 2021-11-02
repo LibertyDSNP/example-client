@@ -14,6 +14,7 @@ import { ProfileQuery } from "../services/content";
 import { Button, Popover, Spin } from "antd";
 import { Registration } from "@dsnp/sdk/core/contracts/registry";
 import { reduxLogout } from "../redux/helpers";
+import { logInfo } from "../services/logInfo";
 
 const ConnectWallet = (): JSX.Element => {
   const [loading, startLoading] = React.useState<boolean>(false);
@@ -75,6 +76,10 @@ const ConnectWallet = (): JSX.Element => {
     try {
       const waddr = await wallet.wallet(selectedType).login();
       await loginWithWalletAddress(waddr, selectedType);
+      logInfo("walletConnection", {
+        walletAddress: waddr,
+        registrations: registrations,
+      });
     } catch (error: any) {
       console.warn("Login error", error);
       logout();
@@ -89,6 +94,7 @@ const ConnectWallet = (): JSX.Element => {
       wallet.wallet(currentWalletType)?.logout();
     }
     reduxLogout(dispatch);
+    logInfo("logout");
   };
 
   ethereum

@@ -15,6 +15,8 @@ import { HexString } from "@dsnp/sdk/types/Strings";
 import { Store } from "./Storage";
 import { WalletType } from "./wallets/wallet";
 import { UnsubscribeFunction } from "@dsnp/sdk/core/contracts/utilities";
+import { logInfo } from "./logInfo";
+import { Publication } from "@dsnp/sdk/core/contracts/publisher";
 
 //
 // DSNP Package
@@ -186,6 +188,7 @@ export const readBatchFile = async (
     const reader = await core.batch.openURL(
       batchAnnouncement.fileUrl.toString()
     );
+    logInfo("readBatchAnnouncement", { batchAnnouncement: batchAnnouncement });
     await core.batch.readFile(reader, (announcementRow: SignedAnnouncement) =>
       rowHandler(announcementRow, batchIndex++)
     );
@@ -205,14 +208,14 @@ export const batchAnnouncement = async (
   announcement: SignedAnnouncement
 ): Promise<void> => {
   const batchData = await core.batch.createFile(filename, [announcement]);
-
-  await core.contracts.publisher.publish([
-    {
-      announcementType: announcement.announcementType,
-      fileUrl: batchData.url.toString(),
-      fileHash: batchData.hash,
-    },
-  ]);
+  logInfo("batchCreated", { batch: batchData });
+  const publication: Publication = {
+    announcementType: announcement.announcementType,
+    fileUrl: batchData.url.toString(),
+    fileHash: batchData.hash,
+  };
+  await core.contracts.publisher.publish([publication]);
+  logInfo("batchPublished", { publication: publication });
 };
 
 /**
