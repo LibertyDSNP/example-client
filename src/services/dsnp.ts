@@ -14,7 +14,6 @@ import { ConfigOpts } from "@dsnp/sdk/core/config";
 import { HexString } from "@dsnp/sdk/types/Strings";
 import { Store } from "./Storage";
 import { WalletType } from "./wallets/wallet";
-import torusWallet from "./wallets/torus";
 import { UnsubscribeFunction } from "@dsnp/sdk/core/contracts/utilities";
 import { logInfo } from "./logInfo";
 import { Publication } from "@dsnp/sdk/core/contracts/publisher";
@@ -92,9 +91,7 @@ const getChainSpecificConfig = (chainId: number): Partial<ConfigOpts> => {
 export const setupProvider = async (walletType: WalletType): Promise<void> => {
   let eth;
 
-  if (walletType === WalletType.TORUS) {
-    eth = torusWallet.getWeb3().currentProvider;
-  } else if (walletType === WalletType.METAMASK) {
+  if (walletType === WalletType.METAMASK) {
     const global: any = window;
     eth = global.ethereum;
 
