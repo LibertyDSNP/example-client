@@ -7,6 +7,7 @@ import { DSNPUserURI } from "@dsnp/sdk/core/identifiers";
 import { friendlyError } from "../services/errors";
 import { Registration } from "@dsnp/sdk/core/contracts/registry";
 import { CloseCircleOutlined } from "@ant-design/icons";
+import { logInfo } from "../services/logInfo";
 
 interface CreateRegistrationProps {
   walletAddress: HexString;
@@ -34,10 +35,12 @@ const CreateRegistration = ({
     form.resetFields();
     try {
       setIsSaving(true);
+      logInfo("registrationSearch", { handle: formValues.handle });
       const userURI = await dsnp.createNewDSNPRegistration(
         walletAddress,
         formValues.handle
       );
+      logInfo("createHandle", { uri: userURI });
       onIdResolved(core.identifiers.convertToDSNPUserId(userURI).toString());
       registrationCreated({
         contractAddr: "",

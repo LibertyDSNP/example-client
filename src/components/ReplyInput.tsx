@@ -5,6 +5,7 @@ import { useAppDispatch, useAppSelector } from "../redux/hooks";
 import { replyLoading } from "../redux/slices/feedSlice";
 import { createActivityContentNote } from "../utilities/activityContent";
 import { DSNPAnnouncementURI } from "@dsnp/sdk/core/identifiers";
+import { logInfo } from "../services/logInfo";
 
 interface ReplyInputProps {
   parentURI: DSNPAnnouncementURI;
@@ -23,6 +24,7 @@ const ReplyInput = ({ parentURI: parent }: ReplyInputProps): JSX.Element => {
     if (!userId) return;
     setSaving(true);
     const newReply = createActivityContentNote(replyValue, []);
+    logInfo("replyActivityContentCreated", { reply: newReply });
     await sendReply(userId, newReply, parent);
     dispatch(replyLoading({ loading: true, parent: parent }));
     setReplyValue("");
