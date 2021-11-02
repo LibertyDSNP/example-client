@@ -40,7 +40,7 @@ describe("Feed", () => {
     jest
       .spyOn(content, "PostQuery")
       .mockImplementation((_feedItem) =>
-        mockQueryResult(createNote("test post"))
+        mockQueryResult(createNote("test post https://www.unfinishedlabs.io/"))
       );
   });
 
@@ -138,5 +138,16 @@ describe("Feed", () => {
         );
       });
     });
+  });
+
+  it("displays link correctly in post", () => {
+    const component = mount(componentWithStore(Feed, store));
+    expect(
+      component.find(".Post__caption").first().prop("dangerouslySetInnerHTML")
+        ?.__html
+    ).toEqual(
+      'test post <a class="messageLink" href=https://www.unfinishedlabs.io/ target="_blank">https://www.unfinishedlabs.io/</a>'
+    );
+    console.log(component.debug());
   });
 });

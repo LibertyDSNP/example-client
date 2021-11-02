@@ -6,10 +6,20 @@ import { getPrefabFeed } from "../../test/testFeeds";
 import { waitFor } from "@testing-library/react";
 import * as content from "../../services/content";
 
-import { ReplyItem } from "../../utilities/types";
+import { ReplyItem, User } from "../../utilities/types";
 import { mockQueryResult } from "../../test/testQueryResult";
 import { createNote } from "@dsnp/sdk/core/activityContent";
+import { preFabProfiles } from "../../test/testProfiles";
 
+const mockUserList: User[] = [
+  preFabProfiles[0],
+  preFabProfiles[1],
+  preFabProfiles[2],
+  preFabProfiles[3],
+  preFabProfiles[4],
+];
+
+const profiles = mockUserList.reduce((m, p) => ({ ...m, [p.fromId]: p }), {});
 const feedItems = getPrefabFeed();
 const parentUri = keccak_256("this is a hash of the feed item");
 const mockReply: Record<string, ReplyItem[]> = {
@@ -27,7 +37,8 @@ const mockReply: Record<string, ReplyItem[]> = {
 };
 const initialState = {
   user: { id: "0x0345" },
-  feed: { feedItems, replies: mockReply },
+  feed: { feedItems, replies: mockReply, isReplyLoading: false },
+  profiles: { profiles: profiles },
 };
 const store = createMockStore(initialState);
 
@@ -88,7 +99,7 @@ describe("ReplyBlock", () => {
       });
     });
 
-    it("display new message with a link", async () => {
+    it("display new reply with a link", async () => {
       jest
         .spyOn(content, "PostQuery")
         .mockImplementation((_feedItem) =>
@@ -96,14 +107,17 @@ describe("ReplyBlock", () => {
             createNote("test reply https://www.unfinishedlabs.io/")
           )
         );
-      console.log("store", store);
       const component = mount(
         componentWithStore(ReplyBlock, store, {
           parentURI: parentUri,
         })
       );
-      console.log("reply bock test replies: ", initialState.feed.replies);
-      console.log(component.debug());
+      expect(
+        component.find(".Reply__message").prop("dangerouslySetInnerHTML")
+          ?.__html
+      ).toEqual(
+        'test reply <a class="messageLink" href=https://www.unfinishedlabs.io/ target="_blank">https://www.unfinishedlabs.io/</a>'
+      );
     });
   });
 
@@ -112,7 +126,7 @@ describe("ReplyBlock", () => {
       await writeReply(component);
       component.update();
       expect(component.find("textarea").first().text()).toEqual(
-        "This is our new reply! https://www.unfinishedlabs.io/"
+        "This is our new reply!"
       );
     });
 

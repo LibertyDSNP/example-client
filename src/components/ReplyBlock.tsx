@@ -20,9 +20,6 @@ const ReplyBlock = ({ parentURI }: ReplyBlockProps): JSX.Element => {
     (state) => state.feed.replies[parentURI]
   );
 
-  console.log("replyFeed", replyFeed);
-  console.log("parentURI", parentURI);
-
   const loading: isReplyLoadingType = useAppSelector(
     (state) => state.feed.isReplyLoading
   );

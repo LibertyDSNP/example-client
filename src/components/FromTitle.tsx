@@ -15,9 +15,9 @@ export const FromTitle = ({
   isHoveringProfile,
   isReply,
 }: FromTitleProps): JSX.Element => {
-  const atHandle = userInfo.handle && "@" + userInfo.handle;
+  const atHandle = userInfo?.handle && "@" + userInfo?.handle;
   const primary = atHandle;
-  const secondary = profile?.name || userInfo.fromId;
+  const secondary = profile?.name || userInfo?.fromId;
 
   const primaryClassName = () => {
     let className = "FromTitle__primary";
