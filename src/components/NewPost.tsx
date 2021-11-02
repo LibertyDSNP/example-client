@@ -7,6 +7,7 @@ import { HexString, User } from "../utilities/types";
 import { sendPost } from "../services/content";
 import { postLoading } from "../redux/slices/feedSlice";
 import { createActivityContentNote } from "../utilities/activityContent";
+import { formatMessage } from "../utilities/helpers";
 
 interface NewPostProps {
   onSuccess: () => void;

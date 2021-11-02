@@ -6,6 +6,7 @@ import PostHashDropdown from "./PostHashDropdown";
 import { PostQuery, ProfileQuery } from "../services/content";
 import { FromTitle } from "./FromTitle";
 import { setDisplayId } from "../redux/slices/userSlice";
+import { formatMessage } from "../utilities/helpers";
 
 interface ReplyProps {
   reply: types.ReplyItem;
@@ -49,7 +50,16 @@ const Reply = ({ reply }: ReplyProps): JSX.Element => {
         </div>
       </div>
       {replySuccess ? (
-        <div className="Reply__message">{replyContent?.content}</div>
+        replyContent?.content && (
+          <>
+            <div
+              className="Reply__message"
+              dangerouslySetInnerHTML={{
+                __html: formatMessage(replyContent?.content),
+              }}
+            />
+          </>
+        )
       ) : (
         <div className="BlankReply__messageBlock">
           <div className="BlankReply__name"> </div>
