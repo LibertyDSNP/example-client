@@ -14,7 +14,7 @@
   "rules": {
     "no-var": "error",
     "no-console": "off",
-    "quotes": ["error", "double"],
+    "quotes": ["error", "double", { "avoidEscape": true, "allowTemplateLiterals": true }],
     "prettier/prettier": "error",
     "react-hooks/rules-of-hooks": "error",
     "react-hooks/exhaustive-deps": "warn",

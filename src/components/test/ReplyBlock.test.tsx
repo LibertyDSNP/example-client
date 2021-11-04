@@ -25,7 +25,7 @@ const parentUri = keccak_256("this is a hash of the feed item");
 const mockReply: Record<string, ReplyItem[]> = {
   [parentUri]: [
     {
-      fromId: "0x123",
+      fromId: "12340000",
       contentHash: "123",
       url: "http://example.com/123.json",
       inReplyTo: feedItems[0].url,

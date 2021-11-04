@@ -108,7 +108,7 @@ describe("Feed", () => {
       button.simulate("click");
       expect(component.find(Post).length).toEqual(2);
       component.find(".ant-card-meta-title").forEach((address) => {
-        expect(address.text()).toBe(userProfile.fromId);
+        expect(address.text()).toContain(userProfile.handle);
       });
     });
 
@@ -127,7 +127,7 @@ describe("Feed", () => {
       it("Displays nav name in feed nav", async () => {
         const component = mount(componentWithStore(Feed, store));
         expect(component.find(".Feed__navigationItem--active").text()).toEqual(
-          displayProfile.fromId + "'s Posts"
+          `@${displayProfile.handle}'s Posts`
         );
       });
 
