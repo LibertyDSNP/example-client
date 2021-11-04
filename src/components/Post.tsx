@@ -70,13 +70,11 @@ const Post = ({ feedItem }: PostProps): JSX.Element => {
       {postSuccess ? (
         <>
           {post?.content && (
-            <Anchorme
-              className="Post__caption"
-              target="_blank"
-              rel="noreferrer noopener"
-            >
-              {post?.content}
-            </Anchorme>
+            <div className="Post__caption">
+              <Anchorme target="_blank" rel="noreferrer noopener">
+                {post?.content}
+              </Anchorme>
+            </div>
           )}
           {post?.attachment && <PostMedia attachments={attachments} />}
         </>

@@ -94,7 +94,6 @@ describe("ReplyBlock", () => {
       await writeReply(component);
       await waitFor(async () => {
         await pressEnter(component);
-        console.debug(component.find(".ReplyBlock__repliesList"));
         expect(component.find(".ReplyBlock__repliesList")).toBeDefined();
       });
     });
@@ -112,8 +111,8 @@ describe("ReplyBlock", () => {
           parentURI: parentUri,
         })
       );
-      expect(component.find(".Reply__message").last().text()).toEqual(
-        'test reply <a href=https://www.unfinishedlabs.io/ target="_blank">https://www.unfinishedlabs.io/</a>'
+      expect(component.find(".Reply__message").first().html()).toEqual(
+        '<div class="Reply__message">test reply <a target="_blank" rel="noreferrer noopener" href="https://www.unfinishedlabs.io/">https://www.unfinishedlabs.io/</a></div>'
       );
     });
   });

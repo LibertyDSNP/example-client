@@ -10,4 +10,3 @@ export const getThumbnailUrl = (url: string): string => {
 
   return url;
 };
-9;

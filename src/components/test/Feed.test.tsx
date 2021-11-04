@@ -142,12 +142,8 @@ describe("Feed", () => {
 
   it("displays link correctly in post", () => {
     const component = mount(componentWithStore(Feed, store));
-    expect(
-      component.find(".Post__caption").first().prop("dangerouslySetInnerHTML")
-        ?.__html
-    ).toEqual(
-      'test post <a class="messageLink" href=https://www.unfinishedlabs.io/ target="_blank">https://www.unfinishedlabs.io/</a>'
+    expect(component.find(".Post__caption").first().html()).toEqual(
+      '<div class="Post__caption">test post <a target="_blank" rel="noreferrer noopener" href="https://www.unfinishedlabs.io/">https://www.unfinishedlabs.io/</a></div>'
     );
-    console.log(component.debug());
   });
 });

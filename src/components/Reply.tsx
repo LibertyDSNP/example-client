@@ -51,15 +51,11 @@ const Reply = ({ reply }: ReplyProps): JSX.Element => {
       </div>
       {replySuccess ? (
         replyContent?.content && (
-          <p>
-            <Anchorme
-              className="Reply__message"
-              target="_blank"
-              rel="noreferrer noopener"
-            >
+          <div className="Reply__message">
+            <Anchorme target="_blank" rel="noreferrer noopener">
               {replyContent?.content}
             </Anchorme>
-          </p>
+          </div>
         )
       ) : (
         <div className="BlankReply__messageBlock">
