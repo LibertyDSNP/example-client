@@ -10,10 +10,4 @@ export const getThumbnailUrl = (url: string): string => {
 
   return url;
 };
-
-export const formatMessage = (message: string): string => {
-  const urlRegex = /(\b(https?|ftp|file):\/\/[-A-Z0-9+&@#/%?=~_|!:,.;]*[-A-Z0-9+&@#/%=~_|])/gi;
-  return message.replace(urlRegex, function (url) {
-    return `<a class="messageLink" href=${url} target="_blank">${url}</a>`;
-  });
-};
+9;

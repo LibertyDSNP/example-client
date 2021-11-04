@@ -30,6 +30,7 @@
     "postcss-preset-env": "6.7.0",
     "postcss-safe-parser": "5.0.2",
     "react": "17.0.1",
+    "react-anchorme": "^2.2.1",
     "react-app-polyfill": "^2.0.0",
     "react-dom": "17.0.1",
     "react-infinite-scroll-component": "^6.1.0",

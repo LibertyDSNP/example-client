@@ -12,7 +12,7 @@ import { useAppDispatch, useAppSelector } from "../redux/hooks";
 import { ActivityContentAttachment } from "@dsnp/sdk/core/activityContent";
 import { PostQuery, ProfileQuery } from "../services/content";
 import { buildDSNPAnnouncementURI } from "@dsnp/sdk/core/identifiers";
-import { formatMessage } from "../utilities/helpers";
+import { Anchorme } from "react-anchorme";
 
 interface PostProps {
   feedItem: FeedItem;
@@ -70,10 +70,13 @@ const Post = ({ feedItem }: PostProps): JSX.Element => {
       {postSuccess ? (
         <>
           {post?.content && (
-            <div
+            <Anchorme
               className="Post__caption"
-              dangerouslySetInnerHTML={{ __html: formatMessage(post?.content) }}
-            />
+              target="_blank"
+              rel="noreferrer noopener"
+            >
+              {post?.content}
+            </Anchorme>
           )}
           {post?.attachment && <PostMedia attachments={attachments} />}
         </>

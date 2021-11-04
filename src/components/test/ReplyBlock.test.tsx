@@ -112,11 +112,8 @@ describe("ReplyBlock", () => {
           parentURI: parentUri,
         })
       );
-      expect(
-        component.find(".Reply__message").prop("dangerouslySetInnerHTML")
-          ?.__html
-      ).toEqual(
-        'test reply <a class="messageLink" href=https://www.unfinishedlabs.io/ target="_blank">https://www.unfinishedlabs.io/</a>'
+      expect(component.find(".Reply__message").last().text()).toEqual(
+        'test reply <a href=https://www.unfinishedlabs.io/ target="_blank">https://www.unfinishedlabs.io/</a>'
       );
     });
   });

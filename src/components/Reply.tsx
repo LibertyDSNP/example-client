@@ -6,7 +6,7 @@ import PostHashDropdown from "./PostHashDropdown";
 import { PostQuery, ProfileQuery } from "../services/content";
 import { FromTitle } from "./FromTitle";
 import { setDisplayId } from "../redux/slices/userSlice";
-import { formatMessage } from "../utilities/helpers";
+import { Anchorme } from "react-anchorme";
 
 interface ReplyProps {
   reply: types.ReplyItem;
@@ -51,14 +51,15 @@ const Reply = ({ reply }: ReplyProps): JSX.Element => {
       </div>
       {replySuccess ? (
         replyContent?.content && (
-          <>
-            <div
+          <p>
+            <Anchorme
               className="Reply__message"
-              dangerouslySetInnerHTML={{
-                __html: formatMessage(replyContent?.content),
-              }}
-            />
-          </>
+              target="_blank"
+              rel="noreferrer noopener"
+            >
+              {replyContent?.content}
+            </Anchorme>
+          </p>
         )
       ) : (
         <div className="BlankReply__messageBlock">
