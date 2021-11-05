@@ -45,32 +45,38 @@ const blockAttributes = () => ({
 export const preFabProfiles: Array<User> = [
   {
     fromId: getPrefabDsnpUserId(0),
+    handle: "MondayJanuary",
     ...blockAttributes(),
     ...generateProfile("Monday January"),
   },
   {
     fromId: getPrefabDsnpUserId(1),
+    handle: "TuesdayFebruary",
     ...blockAttributes(),
     ...generateProfile("Tuesday February"),
   },
   {
     fromId: getPrefabDsnpUserId(2),
+    handle: "WednesdayMarch",
     ...blockAttributes(),
     ...generateProfile("Wednesday March"),
   },
   {
     fromId: getPrefabDsnpUserId(3),
+    handle: "ThursdayApril",
     ...generateProfile("Thursday April"),
     ...blockAttributes(),
   },
   {
     fromId: getPrefabDsnpUserId(4),
+    handle: "FridayMay",
     ...blockAttributes(),
     ...generateProfile("Friday May"),
   },
   {
     fromId: getPrefabDsnpUserId(5),
     ...blockAttributes(),
+    handle: "SaturdayJune",
     ...generateProfile("Saturday June"),
   },
   {

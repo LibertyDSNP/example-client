@@ -12,6 +12,7 @@ import { useAppDispatch, useAppSelector } from "../redux/hooks";
 import { ActivityContentAttachment } from "@dsnp/sdk/core/activityContent";
 import { PostQuery, ProfileQuery } from "../services/content";
 import { buildDSNPAnnouncementURI } from "@dsnp/sdk/core/identifiers";
+import { Anchorme } from "react-anchorme";
 
 interface PostProps {
   feedItem: FeedItem;
@@ -68,7 +69,13 @@ const Post = ({ feedItem }: PostProps): JSX.Element => {
       </div>
       {postSuccess ? (
         <>
-          <div className="Post__caption">{post?.content}</div>
+          {post?.content && (
+            <div className="Post__caption">
+              <Anchorme target="_blank" rel="noreferrer noopener">
+                {post?.content}
+              </Anchorme>
+            </div>
+          )}
           {post?.attachment && <PostMedia attachments={attachments} />}
         </>
       ) : (

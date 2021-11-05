@@ -14,7 +14,7 @@ const profiles = Array(3)
 const mockRegistrations: Registration[] = profiles.map((p, i) => ({
   dsnpUserURI: p.fromId,
   contractAddr: "0x" + Array(5).fill(i).join(""),
-  handle: `test_${i}`,
+  handle: p.handle || "",
 }));
 
 const store = createMockStore({
@@ -143,7 +143,7 @@ describe("EditRegistration", () => {
             .at(i)
             ?.find("img")
             .prop("alt")
-        ).toBe(registration.dsnpUserURI);
+        ).toBe(`@${registration.handle}`);
       });
     });
 

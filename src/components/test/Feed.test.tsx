@@ -40,7 +40,7 @@ describe("Feed", () => {
     jest
       .spyOn(content, "PostQuery")
       .mockImplementation((_feedItem) =>
-        mockQueryResult(createNote("test post"))
+        mockQueryResult(createNote("test post https://www.unfinishedlabs.io/"))
       );
   });
 
@@ -108,7 +108,7 @@ describe("Feed", () => {
       button.simulate("click");
       expect(component.find(Post).length).toEqual(2);
       component.find(".ant-card-meta-title").forEach((address) => {
-        expect(address.text()).toBe(userProfile.fromId);
+        expect(address.text()).toContain(userProfile.handle);
       });
     });
 
@@ -127,7 +127,7 @@ describe("Feed", () => {
       it("Displays nav name in feed nav", async () => {
         const component = mount(componentWithStore(Feed, store));
         expect(component.find(".Feed__navigationItem--active").text()).toEqual(
-          displayProfile.fromId + "'s Posts"
+          `@${displayProfile.handle}'s Posts`
         );
       });
 
@@ -138,5 +138,12 @@ describe("Feed", () => {
         );
       });
     });
+  });
+
+  it("displays link correctly in post", () => {
+    const component = mount(componentWithStore(Feed, store));
+    expect(component.find(".Post__caption").first().html()).toEqual(
+      '<div class="Post__caption">test post <a target="_blank" rel="noreferrer noopener" href="https://www.unfinishedlabs.io/">https://www.unfinishedlabs.io/</a></div>'
+    );
   });
 });
