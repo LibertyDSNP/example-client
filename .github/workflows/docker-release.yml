@@ -8,7 +8,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-
+        with:
+          fetch-depth: '0'
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v1
 
@@ -20,19 +21,53 @@ jobs:
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
-      - name: Get the tag name
+
+      - name: Get the new tag version
         run: |
           echo ${GITHUB_REF##*/}
-          echo "TAG=${GITHUB_REF##*/}" >> $GITHUB_ENV
+          echo "NEW_TAG_VERSION=${GITHUB_REF##*/}" >> $GITHUB_ENV
+
+      - name: Find commit for latest tag
+        run:  |
+          COMMIT=$(git rev-list -n 1 docker/latest)
+          echo "COMMIT_FOR_LATEST_TAG=${COMMIT}" >> $GITHUB_ENV
+
+      - name: Find tag version associated with latest tag
+        run: |
+          LATEST_TAG_VERSION=$(git tag --list "docker/v*" --points-at ${{env.COMMIT_FOR_LATEST_TAG}})
+          echo "LATEST_TAG_VERSION=${LATEST_TAG_VERSION}" >> $GITHUB_ENV
+
+      - name: Check Tag Versions
+        uses: actions/github-script@v5
+        id: set-result
+        env:
+          LATEST_TAG_VERSION: ${{env.LATEST_TAG_VERSION}}
+          NEW_TAG_VERSION: ${{env.NEW_TAG_VERSION}}
+        with:
+          script: |
+            const returnTagComparison = require('./.github/workflows/tagComparison.js')
+            return returnTagComparison()
+
+          result-encoding: string
 
       - name: Build and push dsnp/example-client
+        if: steps.set-result.outputs.result == 'false'
         id: docker_build_example-client
         uses: docker/build-push-action@v2
         with:
           push: true
           file: Dockerfile
           tags: |
-            dsnp/example-client:${{ env.TAG }}
+            dsnp/example-client:${{ env.NEW_TAG_VERSION }}
+
+      - name: Build and push dsnp/example-client:latest
+        if: steps.set-result.outputs.result == 'true'
+        id: docker_build_example-client-latest
+        uses: docker/build-push-action@v2
+        with:
+          push: true
+          file: Dockerfile
+          tags: dsnp/example-client:${{ env.NEW_TAG_VERSION }}, dsnp/example-client:latest
 
       - name: Image digests
         run: |

@@ -1,12 +1,16 @@
 Purpose
 ---------------
-A description of the purpose for this pull request and whether it is to provide new functionality or fix a bug
+tl;dr context for this pull request
 
+Related GitHub Issues
+---------------
+Mention the issues this is related to or addresses
 
 Solution
 ---------------
 A short description of what you have done to implement/fix the above mentioned feature or bug
-with @&lt;any other developers who who worked on the PR with you&gt;
+
+@ any other developers who who worked on the PR with you
 
 
 Change summary

@@ -2,13 +2,13 @@
     name: Bug Report
     about: Report an issue found in the DSNP example client
     title: ""
-    labels: ""
+    labels: "bug"
     assignees: ""
 ---
 Issue description
 ---------------
-A description of bug and what you believe the intended outcome should have been
-Thanks for reportiung an issue! 
+A short description of bug and what you believe the intended outcome should have been.
+Thanks for reporting an issue!
 
 
 Reproduce Issue
@@ -17,6 +17,11 @@ Reproduce Issue
 2. to recreate the
 3. bug or issue
 
+Tech Versions
+---------------
+- Browser:
+- OS:
+- Wallet:
 
 Expected result
 ---------------
@@ -25,10 +30,10 @@ Expected result
 
 Actual result
 ---------------
-- A detailed descrtiption of what actually happened
+- A detailed description of what actually happened
 
 
 Additional details / screenshot
 ---------------
-- Any suplmenental pictures or material
+- Any supplemental pictures or material
 - ![Screenshot]()
