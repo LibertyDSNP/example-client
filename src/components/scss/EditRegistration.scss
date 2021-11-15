@@ -1,4 +1,6 @@
 .EditRegistration {
+  display: flex;
+  flex-direction: column;
   width: 300px;
   margin: 0;
 }
@@ -11,10 +13,10 @@
 
 .EditRegistration__cancel {
   color: $shadow-green !important;
-  position: absolute;
-  margin-left: 232px;
+  align-self: end;
 }
 
 .EditRegistration__logoutButton {
   margin-top: 16px;
+  width: fit-content;
 }
