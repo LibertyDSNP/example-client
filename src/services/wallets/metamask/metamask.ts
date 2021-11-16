@@ -10,7 +10,7 @@ export const getWeb3 = (): Web3 => {
 };
 
 export const isInstalled = (): boolean => {
-  return Boolean(ethereum?.isConnected);
+  return Boolean(ethereum);
 };
 
 export const getWalletAddress = async (): Promise<HexString> => {

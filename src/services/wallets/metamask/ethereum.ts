@@ -27,7 +27,6 @@ interface Callback<ResultType> {
 }
 
 export interface EthereumProvider {
-  isMetaMask?: boolean;
   autoRefreshOnNetworkChange: boolean;
   chainId: number;
 
