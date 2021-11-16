@@ -16,11 +16,17 @@ The DSNP Example Client is [open source software](LICENSE), like the rest of the
 
 ## Table of Contents
 
-* [Features](#features)
-* [Dependencies and Design](#dependencies-and-design)
-* [Deployment](#deployment)
-* [Development Troubleshooting and FAQ](#development-troubleshooting-and-faq)
-* [Participating](#participating)
+- [DSNP Example Client](#dsnp-example-client)
+  - [Table of Contents](#table-of-contents)
+  - [Features](#features)
+  - [Dependencies and Design](#dependencies-and-design)
+  - [Deployment](#deployment)
+    - [Local deployment](#local-deployment)
+    - [Docker-based deployment](#docker-based-deployment)
+      - [Environment Variable Definitions](#environment-variable-definitions)
+      - [Docker Builds](#docker-builds)
+  - [Development Troubleshooting and FAQ](#development-troubleshooting-and-faq)
+  - [Participating](#participating)
 
 ## Features
 
@@ -113,7 +119,7 @@ To launch it, follow the instructions below:
 
 To launch it, run the following commands:
 
-* `docker build --build-arg REACT_APP_UPLOAD_HOST="" --build-arg REACT_APP_CHAIN_ID={REACT_APP_CHAIN_ID_VALUE} --build-arg  REACT_APP_CHAIN_NAME={REACT_APP_CHAIN_NAME_VALUE}  --build-arg REACT_APP_CHAIN_HOST={REACT_APP_CHAIN_HOST} --build-arg REACT_APP_TORUS_BUILD_ENV={REACT_APP_TORUS_BUILD_ENV_VALUE} . -t example-client`
+* `docker build --build-arg REACT_APP_UPLOAD_HOST="" --build-arg REACT_APP_CHAIN_ID={REACT_APP_CHAIN_ID_VALUE} --build-arg  REACT_APP_CHAIN_NAME={REACT_APP_CHAIN_NAME_VALUE}  --build-arg REACT_APP_CHAIN_HOST={REACT_APP_CHAIN_HOST} . -t example-client`
 
 * `docker run  --init --rm  -p 8080:8080 -v {name_for_volume}:/app/static-server/public example-client`
 
@@ -122,7 +128,6 @@ To launch it, run the following commands:
 * `REACT_APP_CHAIN_ID_VALUE` : 31337 or 0x7a69
 * `REACT_APP_CHAIN_NAME_VALUE` : (user's choice)
 * `REACT_APP_CHAIN_HOST` : http://localhost:8545
-* `REACT_APP_TORUS_BUILD_ENV_VALUE` : ???
 * `name_for_volume` : ??
 
 #### Docker Builds
