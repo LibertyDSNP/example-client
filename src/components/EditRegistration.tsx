@@ -13,6 +13,7 @@ interface EditRegistrationProps {
   onIdResolved: (uri: DSNPUserURI) => void;
   registrations: Registration[];
   registrationCreated: (registration: Registration) => void;
+  setRegistrationPopoverVisible: (visible: boolean) => void;
 }
 
 const EditRegistration = ({
@@ -21,6 +22,7 @@ const EditRegistration = ({
   onIdResolved,
   registrations,
   registrationCreated,
+  setRegistrationPopoverVisible,
 }: EditRegistrationProps): JSX.Element => {
   const userId = useAppSelector((state) => state.user.id);
   const [registrationPreview, setRegistrationPreview] = useState<
@@ -43,7 +45,16 @@ const EditRegistration = ({
           </p>
         </>
       ) : (
-        <p className="EditRegistration__title">Edit</p>
+        <div className="EditRegistration__header">
+          <p className="EditRegistration__title">Edit</p>
+          <Button
+            type="link"
+            className="EditRegistration__closeModalButton"
+            onClick={() => setRegistrationPopoverVisible(false)}
+          >
+            Cancel
+          </Button>
+        </div>
       )}
       <RegistrationPreview registrationPreview={registrationPreview} />
       <EditRegistrationAccordion

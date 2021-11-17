@@ -20,3 +20,12 @@
   margin-top: 16px;
   width: fit-content;
 }
+
+.EditRegistration__closeModalButton {
+  color: $shadow-green !important;
+}
+
+.EditRegistration__header {
+  display: flex;
+  justify-content: space-between;
+}
