@@ -9,7 +9,6 @@
     "@dsnp/parquetjs": "^1.1.0",
     "@dsnp/sdk": "^3.0.3",
     "@reduxjs/toolkit": "^1.5.1",
-    "@toruslabs/torus-embed": "1.9.2",
     "antd": "^4.16.13",
     "blockies-ts": "^1.0.0",
     "camelcase": "^6.2.0",

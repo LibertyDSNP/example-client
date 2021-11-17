@@ -83,7 +83,7 @@ const getChainSpecificConfig = (chainId: number): Partial<ConfigOpts> => {
 
 /**
  * setupProvider initializes the DSNP sdk with an ethereum provider.
- * This function must be called with a Metamask or Torus WalletType before
+ * This function must be called with a EIP-1193 WalletType before
  * any other DSNP functionality is used (including subscriptions).
  * @param walletType which wallet plugin we should use to retrieve the chain provider.
  * @throws if walletType is unrecognized or wallet plugin cannot supply a provider.

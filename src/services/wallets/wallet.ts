@@ -7,7 +7,7 @@ import Web3 from "web3";
 // Both places are marked with a comment
 // Then, create a Folder for the new wallet with it's implementation
 // code. create an index.ts file in the folder that implements
-// the Wallet interface below. Look at torus or metamask for
+// the Wallet interface below. Look at metamask for
 // an example.
 
 export enum WalletType {
