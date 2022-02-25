@@ -33,13 +33,6 @@ const EditRegistration = ({
     <div className="EditRegistration">
       {!userId ? (
         <>
-          <Button
-            type="link"
-            className="EditRegistration__cancel"
-            onClick={logout}
-          >
-            Cancel
-          </Button>
           <p className="EditRegistration__title">
             Successfully connected to your wallet.
           </p>
@@ -47,13 +40,6 @@ const EditRegistration = ({
       ) : (
         <div className="EditRegistration__header">
           <p className="EditRegistration__title">Edit</p>
-          <Button
-            type="link"
-            className="EditRegistration__closeModalButton"
-            onClick={() => setRegistrationPopoverVisible(false)}
-          >
-            Cancel
-          </Button>
         </div>
       )}
       <RegistrationPreview registrationPreview={registrationPreview} />
@@ -64,13 +50,32 @@ const EditRegistration = ({
         registrations={registrations}
         registrationCreated={registrationCreated}
       />
-      <Button
-        className="EditRegistration__logoutButton"
-        aria-label="Logout"
-        onClick={logout}
-      >
-        Sign Out
-      </Button>
+      <div className="EditRegistration__buttonRow">
+        <Button
+          className="EditRegistration__logoutButton"
+          aria-label="Logout"
+          onClick={logout}
+        >
+          Sign Out
+        </Button>
+        {!userId ? (
+          <Button
+            type="link"
+            className="EditRegistration__cancel"
+            onClick={logout}
+          >
+            Cancel
+          </Button>
+        ) : (
+          <Button
+            type="link"
+            className="EditRegistration__closeModalButton"
+            onClick={() => setRegistrationPopoverVisible(false)}
+          >
+            Cancel
+          </Button>
+        )}
+      </div>
     </div>
   );
 };
