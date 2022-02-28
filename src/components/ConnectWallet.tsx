@@ -44,6 +44,12 @@ const ConnectWallet = (): JSX.Element => {
     setRegistrationPopoverVisible(false);
   };
 
+  const toggleRegistrationPopoverVisible = () => {
+    const currentState = registrationPopoverVisible;
+    startLoading(!currentState);
+    setRegistrationPopoverVisible(!currentState);
+  };
+
   useEffect(() => {
     if (currentWalletType && currentWalletType !== wallet.WalletType.NONE) {
       // Ensure wallet address is set for all components this component owns.
@@ -153,7 +159,7 @@ const ConnectWallet = (): JSX.Element => {
         >
           <div
             className="ConnectWallet__userBlock"
-            onClick={() => setRegistrationPopoverVisible(true)}
+            onClick={() => toggleRegistrationPopoverVisible()}
           >
             <UserAvatar user={user} avatarSize="small" />
             <div className="ConnectWallet__userTitle">
