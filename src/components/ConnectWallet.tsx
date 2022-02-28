@@ -44,6 +44,12 @@ const ConnectWallet = (): JSX.Element => {
     setRegistrationPopoverVisible(false);
   };
 
+  const toggleRegistrationPopoverVisible = () => {
+    const currentState = registrationPopoverVisible;
+    startLoading(!currentState);
+    setRegistrationPopoverVisible(!currentState);
+  };
+
   useEffect(() => {
     if (currentWalletType && currentWalletType !== wallet.WalletType.NONE) {
       // Ensure wallet address is set for all components this component owns.
@@ -113,12 +119,6 @@ const ConnectWallet = (): JSX.Element => {
     setRegistrations([...registrations, registration]);
   };
 
-  const handleVisibleChange = (visible: boolean) => {
-    setRegistrationPopoverVisible(visible);
-    // Signal if user closes the modal.
-    if (!userId && !visible) logout();
-  };
-
   const closeModals = () => {
     startLoading(false);
     setRegistrationPopoverVisible(false);
@@ -146,7 +146,6 @@ const ConnectWallet = (): JSX.Element => {
           placement="bottomRight"
           visible={registrationPopoverVisible}
           trigger="click"
-          onVisibleChange={handleVisibleChange}
           content={
             <EditRegistration
               logout={logout}
@@ -154,10 +153,14 @@ const ConnectWallet = (): JSX.Element => {
               onIdResolved={setUserID}
               registrations={registrations}
               registrationCreated={registrationCreated}
+              setRegistrationPopoverVisible={setRegistrationPopoverVisible}
             />
           }
         >
-          <div className="ConnectWallet__userBlock">
+          <div
+            className="ConnectWallet__userBlock"
+            onClick={() => toggleRegistrationPopoverVisible()}
+          >
             <UserAvatar user={user} avatarSize="small" />
             <div className="ConnectWallet__userTitle">
               {user?.handle ? "@" + user.handle : profile?.name || user?.fromId}

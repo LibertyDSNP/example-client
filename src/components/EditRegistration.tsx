@@ -13,6 +13,7 @@ interface EditRegistrationProps {
   onIdResolved: (uri: DSNPUserURI) => void;
   registrations: Registration[];
   registrationCreated: (registration: Registration) => void;
+  setRegistrationPopoverVisible: (visible: boolean) => void;
 }
 
 const EditRegistration = ({
@@ -21,6 +22,7 @@ const EditRegistration = ({
   onIdResolved,
   registrations,
   registrationCreated,
+  setRegistrationPopoverVisible,
 }: EditRegistrationProps): JSX.Element => {
   const userId = useAppSelector((state) => state.user.id);
   const [registrationPreview, setRegistrationPreview] = useState<
@@ -31,19 +33,14 @@ const EditRegistration = ({
     <div className="EditRegistration">
       {!userId ? (
         <>
-          <Button
-            type="link"
-            className="EditRegistration__cancel"
-            onClick={logout}
-          >
-            Cancel
-          </Button>
           <p className="EditRegistration__title">
             Successfully connected to your wallet.
           </p>
         </>
       ) : (
-        <p className="EditRegistration__title">Edit</p>
+        <div className="EditRegistration__header">
+          <p className="EditRegistration__title">Edit</p>
+        </div>
       )}
       <RegistrationPreview registrationPreview={registrationPreview} />
       <EditRegistrationAccordion
@@ -53,13 +50,32 @@ const EditRegistration = ({
         registrations={registrations}
         registrationCreated={registrationCreated}
       />
-      <Button
-        className="EditRegistration__logoutButton"
-        aria-label="Logout"
-        onClick={logout}
-      >
-        Sign Out
-      </Button>
+      <div className="EditRegistration__buttonRow">
+        <Button
+          className="EditRegistration__logoutButton"
+          aria-label="Logout"
+          onClick={logout}
+        >
+          Sign Out
+        </Button>
+        {!userId ? (
+          <Button
+            type="link"
+            className="EditRegistration__cancel"
+            onClick={logout}
+          >
+            Cancel
+          </Button>
+        ) : (
+          <Button
+            type="link"
+            className="EditRegistration__closeModalButton"
+            onClick={() => setRegistrationPopoverVisible(false)}
+          >
+            Cancel
+          </Button>
+        )}
+      </div>
     </div>
   );
 };

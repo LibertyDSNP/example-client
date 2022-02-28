@@ -11,12 +11,26 @@
   line-height: 1.2;
 }
 
+.EditRegistration__buttonRow {
+  margin-top: 16px;
+  display: flex;
+  justify-content: space-between;
+}
+
 .EditRegistration__cancel {
   color: $shadow-green !important;
-  align-self: end;
+  justify-content: flex-end;
 }
 
 .EditRegistration__logoutButton {
-  margin-top: 16px;
   width: fit-content;
+}
+
+.EditRegistration__closeModalButton {
+  color: $shadow-green !important;
+}
+
+.EditRegistration__header {
+  display: flex;
+  justify-content: space-between;
 }
