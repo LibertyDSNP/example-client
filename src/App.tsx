@@ -36,7 +36,7 @@ const App = (): JSX.Element => {
       try {
         await wallet.wallet(walletType).reload();
         await setupProvider(walletType);
-        // TODO: correct generic type for startSubscriptions overload (and remove Any) 
+        // TODO: correct generic type for startSubscriptions overload - and remove Any
         unsubscribeFunction = await dispatch(startSubscriptions as any);
       } catch (e: any) {
         if (!e.message.match(/login cancelled/i)) {
