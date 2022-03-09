@@ -382,6 +382,8 @@ module.exports = function (webpackEnv) {
                       },
                     },
                   ],
+                  "@babel/plugin-proposal-private-property-in-object",
+                  "@babel/plugin-proposal-private-methods",
                 ],
                 // This is a feature of `babel-loader` for webpack (not Babel itself).
                 // It enables caching results in ./node_modules/.cache/babel-loader/
