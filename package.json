@@ -75,7 +75,7 @@
     "kss": "kss --config config/kss-config.json"
   },
   "engines": {
-    "node": ">=14.16.1"
+    "node": ">=16.14.0"
   },
   "jest": {
     "roots": [
