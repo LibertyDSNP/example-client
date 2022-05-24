@@ -4,7 +4,7 @@
 
 [![example workflow](https://github.com/LibertyDSNP/example-client/actions/workflows/main.yml/badge.svg)](https://github.com/LibertyDSNP/example-client/actions)
 
-This is an example client to help developers learn how to work with the [Distributed Social Networking Protocol(DSNP)](https://spec.dsnp.org/) and its [SDK](https://www.dsnp.org/sdk).
+This is an example client to help developers learn how to work with the [Distributed Social Networking Protocol(DSNP)](https://spec.dsnp.org/) and its [SDK](https://github.com/LibertyDSNP/sdk-ts).
 This client's purpose is to be  simple and comprehensible for developers, not to have all the functionality and user-interface polish of an application intended for widespread general usage.
 
 This repo also provides a server ('static-server') that is run concurrently with example-client.
@@ -14,9 +14,15 @@ Later in this document there is information about how to connect to an external 
 
 The DSNP Example Client is [open source software](LICENSE), like the rest of the DSNP development ecosystem.
 
+## Versions
+
+- DSNP Core: v1.0.0
+- DSNP on Ethereum: v1.0.0
+
 ## Table of Contents
 
 - [DSNP Example Client](#dsnp-example-client)
+  - [Versions](#versions)
   - [Table of Contents](#table-of-contents)
   - [Features](#features)
   - [Dependencies and Design](#dependencies-and-design)
@@ -50,7 +56,7 @@ The Example Client's current features include:
     + Another user's posts
     + Main Feed
 
-This list of features may change as [DSNP](https://spec.dsnp.org/) and its [SDK](https://www.dsnp.org/sdk) evolve, of course.
+This list of features may change as [DSNP](https://spec.dsnp.org/) evolves, of course.
 
 ## Dependencies and Design
 
